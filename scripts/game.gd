@@ -2,8 +2,11 @@ extends Node
 
 signal level_complete
 
+onready var music_player = get_node("Music")
+
 func _ready():
 	print("Root game node ready!")
+	music_player.change_music()
 
 func setup_level(difficulty: int):
 	# This function tears down and sets up a level each time it is called.
