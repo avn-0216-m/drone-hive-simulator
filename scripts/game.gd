@@ -1,16 +1,15 @@
 extends Node
 
+signal level_complete
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("Root game node ready!")
 
+func setup_level(difficulty: int):
+	# This function tears down and sets up a level each time it is called.
+		# Spawn floor tiles.
+		# Remove a random floor tiles.
+		# Adds tasks to complete.
+		# Add wall tiles.
+	print("Beginning level setup.")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
