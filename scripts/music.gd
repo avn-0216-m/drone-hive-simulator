@@ -28,6 +28,7 @@ func _ready():
 	connect("finished", self, "restart_music")
 	
 func restart_music():
+	print("Restarting music.")
 	self.play()
 
 func change_music(given_index: int = -1):
