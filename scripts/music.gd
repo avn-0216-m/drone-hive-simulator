@@ -24,6 +24,11 @@ func _ready():
 	else:
 		print("Failed to open music directory.")
 		
+	# Connect "finished" signal with music restart function
+	connect("finished", self, "restart_music")
+	
+func restart_music():
+	self.play()
 
 func change_music(given_index: int = -1):
 	if given_index != -1:
