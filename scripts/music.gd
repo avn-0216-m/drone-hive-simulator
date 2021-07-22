@@ -18,7 +18,7 @@ func _ready():
 		while file_name != "":
 			if file_name.get_extension() == "ogg" and not file_name.ends_with("intro.ogg"):
 				var audio_stream: AudioStream = load(music_path + file_name)
-				var audio_stream_intro: AudioStream = load(music_path + file_name.get_basename() + " intro." + file_name.get_extension())
+				var audio_stream_intro: AudioStream = load(music_path + file_name.get_basename() + " intro." + file_name.get_extension()) # Attempt to find an intro track if there is one
 				if audio_stream_intro != null:
 					print("Loaded " + file_name + " intro.")
 				songs.append([audio_stream_intro, audio_stream])
