@@ -1,12 +1,14 @@
 extends AudioStreamPlayer
 
 var game_node: Node = get_parent()
-var songs: Array = []
-var song_index: int = 0
-var music_path: String = "res://mus/"
+var songs: Array = [] # Contains arrays of intro-loop pairs. [0] = intro, [1] = loop.
+var song_index: int = -1
+var playing_intro: bool = false
+var music_path: String = "res://mus/level/"
+onready var game_over_music = load("res://mus/bawk.ogg")
 
 func _ready():
-	# Load all available songs in the mus directory to the songs array.
+	# Load all available songs in the level mus directory to the songs array.
 	print("Loading music.")
 	var dir: Directory = Directory.new()
 	if dir.open(music_path) == OK:
@@ -14,9 +16,12 @@ func _ready():
 		dir.list_dir_begin() # Inits the file reader stream.
 		var file_name: String = dir.get_next()
 		while file_name != "":
-			if file_name.get_extension() == "wav":
+			if file_name.get_extension() == "ogg" and not file_name.ends_with("intro.ogg"):
 				var audio_stream: AudioStream = load(music_path + file_name)
-				songs.append(audio_stream)
+				var audio_stream_intro: AudioStream = load(music_path + file_name.get_basename() + " intro." + file_name.get_extension())
+				if audio_stream_intro != null:
+					print("Loaded " + file_name + " intro.")
+				songs.append([audio_stream_intro, audio_stream])
 				print("Loaded " + file_name)
 			file_name = dir.get_next()
 		print("Finished loading songs.")
@@ -25,18 +30,29 @@ func _ready():
 		print("Failed to open music directory.")
 		
 	# Connect "finished" signal with music restart function
-	connect("finished", self, "restart_music")
+	connect("finished", self, "stream_finished")
+	print("In-game music node ready.")
 	
-func restart_music():
-	print("Restarting music.")
-	self.play()
+func stream_finished():
+	print("Audio stream finished.")
+	if playing_intro:
+		print("Intro complete, starting loop.")
+		stream = songs[song_index][1]
+		playing_intro = false
+	play()
 
-func change_music(given_index: int = -1):
-	if given_index != -1:
-		song_index = given_index
+func change_music():
+	song_index += 1
+	if songs == []:
+		print("Couldn't change music. No songs loaded.")
+		return
 	print("Changing music.")
 	if song_index >= len(songs):
 		song_index = 0
-	self.stream = songs[song_index]
-	self.play()
-	song_index += 1
+	if songs[song_index][0] != null:
+		playing_intro = true
+		stream = songs[song_index][0]
+		print("Playing song intro.")
+	else:
+		stream = songs[song_index][1]
+	play()

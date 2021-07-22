@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/03 descend deeper intro.ogg-661c535dda1106e63a20b4d485a25e38.oggstr"
+
+[deps]
+
+source_file="res://mus/level/03 descend deeper intro.ogg"
+dest_files=[ "res://.import/03 descend deeper intro.ogg-661c535dda1106e63a20b4d485a25e38.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
