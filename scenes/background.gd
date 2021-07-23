@@ -1,4 +1,4 @@
-extends TextureRect
+extends ColorRect
 
 func _ready():
 	print(material.get_shader_param("screen_size"))
