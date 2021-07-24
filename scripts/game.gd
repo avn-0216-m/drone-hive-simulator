@@ -8,6 +8,9 @@ onready var music_player = get_node("Music")
 onready var grid_map = get_node("GridMap")
 
 func _ready():
+	print("Assigning camera.")
+	get_node("Camera").follow_target = get_node("Drone")
+	
 	print("Root game node ready!")
 	music_player.change_music()
 	music_player.change_music()
