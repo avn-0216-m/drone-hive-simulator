@@ -6,6 +6,7 @@ uniform float tile_count = 3;
 uniform sampler2D texture_src;
 uniform sampler2D mask_src;
 uniform float mask_intensity;
+uniform float tile_darkness;
 
 void fragment(){
 	ivec2 texture_size = textureSize(texture_src, 0);
@@ -17,9 +18,7 @@ void fragment(){
 	tile_uv.y = UV.y*((screen_size.y/float(texture_size.y) * tile_count)) - TIME * scroll.y;
 	
 	vec4 texture = texture(texture_src, tile_uv);
+	texture -= tile_darkness;
 	
 	COLOR.rgb = texture.rgb - mask.rgb * mask_intensity;
-	
-
-	//COLOR = texture(TEXTURE, UV*tile_size-TIME * scroll);
 }

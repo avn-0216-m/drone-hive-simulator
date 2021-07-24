@@ -11,7 +11,6 @@ func _ready():
 	print("Root game node ready!")
 	music_player.change_music()
 	music_player.change_music()
-	music_player.change_music()
 
 func setup_level(difficulty: int):
 	# This function tears down and sets up a level each time it is called.
