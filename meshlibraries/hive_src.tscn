@@ -6,6 +6,8 @@
 [ext_resource path="res://textures/wall.png" type="Texture" id=4]
 [ext_resource path="res://blender/obj/corner.obj" type="ArrayMesh" id=5]
 
+
+
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( 4, 4, 2 )

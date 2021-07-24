@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://sprites/drone/front/3.png" type="Texture" id=1]
+[ext_resource path="res://sprites/drone/front/1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/drone/front/2.png" type="Texture" id=3]
+[ext_resource path="res://sprites/drone/back/2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/drone/back/3.png" type="Texture" id=5]
+[ext_resource path="res://sprites/drone/back/1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/face/numergrid.png" type="Texture" id=7]
+[ext_resource path="res://sprites/face/icongrid.png" type="Texture" id=8]
+[ext_resource path="res://scripts/Drone.gd" type="Script" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "backward",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "forward",
+"speed": 5.0
+} ]
+
+[node name="Drone" type="Spatial"]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+script = ExtResource( 9 )
+
+[node name="Body" type="AnimatedSprite3D" parent="."]
+frames = SubResource( 1 )
+animation = "forward"
+frame = 3
+playing = true
+
+[node name="Display" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0 )
+
+[node name="Icon" type="Sprite3D" parent="Display"]
+transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.193613, 0.0888731, 0 )
+texture = ExtResource( 8 )
+hframes = 6
+
+[node name="ID" type="Spatial" parent="Display"]
+transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, -0.322687, 0.0794165, 0 )
+visible = false
+
+[node name="ID1" type="Sprite3D" parent="Display/ID"]
+texture = ExtResource( 7 )
+hframes = 10
+frame = 5
+
+[node name="ID2" type="Sprite3D" parent="Display/ID"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0 )
+texture = ExtResource( 7 )
+hframes = 10
+frame = 8
+
+[node name="ID3" type="Sprite3D" parent="Display/ID"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0 )
+texture = ExtResource( 7 )
+hframes = 10
+frame = 9
+
+[node name="ID4" type="Sprite3D" parent="Display/ID"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0 )
+texture = ExtResource( 7 )
+hframes = 10
