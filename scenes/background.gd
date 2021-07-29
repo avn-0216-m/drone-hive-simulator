@@ -9,11 +9,11 @@ func _ready():
 	
 func _process(delta):
 	if wipe_direction == "IN":
-		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), -0.15, 0.02))
+#		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), -0.15, 0.02))
+		material.set_shader_param("cutoff", material.get_shader_param("cutoff") - 0.01)
 	else:
-		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), 1.15, 0.02))
-		if material.get_shader_param("cutoff") < 0.95:
-			material.set_shader_param("cutoff", 1)
+#		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), 1.15, 0.02))
+		material.set_shader_param("cutoff", material.get_shader_param("cutoff") + 0.01)
 
 func wipe_in():
 	wipe_direction = "IN"

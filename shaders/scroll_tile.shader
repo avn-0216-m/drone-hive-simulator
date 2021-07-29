@@ -26,21 +26,22 @@ void fragment(){
 	
 	COLOR.rgb = texture.rgb - mask.rgb * mask_intensity;
 	
+	float cutoff_bottom_difference = (1.0 - cutoff) * cutoff_bottom_diff_mulitplier;
+	
 	// render cutoff slices
 	float slice_distance = 1.0 - cutoff;
-	float cutoff_bottom_difference = 0.0;
 	
-	// bottom difference = 1 - cutoff
-	
-	cutoff_bottom_difference = (1.0 - cutoff) * cutoff_bottom_diff_mulitplier;
-	
-	for(int slice = 0; slice <= max_slices; slice++){
-		if(UV.x < cutoff - cutoff_bottom_difference * UV.y - float(slice) * slice_distance * float(slice) * slice_distance){
-			if(slice==0 && max_slices == 0 || slice==max_slices){
-				COLOR.rgb = vec3(0,0,0)
-			} else {
-				COLOR.rgb = slice_start_color.rgb - vec3(0.1,0.1,0.1) * float(slice);
+	if(cutoff < 1.0){ // Don't render colour slices if cutoff is greater than one
+		for(int slice = 0; slice <= max_slices; slice++){
+			if(UV.x < cutoff - cutoff_bottom_difference * UV.y - float(slice) * slice_distance * float(slice) * slice_distance * slice_distance_multiplier){
+				if(slice==0 && max_slices == 0 || slice==max_slices){
+					COLOR.rgb = vec3(0,0,0);
+				} else {
+					COLOR.rgb = slice_start_color.rgb - vec3(0.1,0.1,0.1) * float(slice);
+				}
 			}
 		}
+	} else {
+		COLOR.rbg = vec3(0,0,0);
 	}
 }
