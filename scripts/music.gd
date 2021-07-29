@@ -5,8 +5,8 @@ var songs: Array = [] # Contains arrays of intro-loop pairs. [0] = intro, [1] = 
 var song_index: int = -1
 var playing_intro: bool = false
 var music_path: String = "res://mus/level/"
-var loop: bool = false
-onready var game_over_intro: AudioStream = load("res://mus/bawk.ogg")
+var keep_playing: bool = true
+onready var game_over_intro: AudioStream = load("res://mus/bawk_intro.ogg")
 onready var game_over_loop: AudioStream = load("res://mus/bawk_loop.ogg")
 
 func _ready():
@@ -37,23 +37,23 @@ func _ready():
 	
 func stream_finished():
 	print("Audio stream finished.")
-	if stream == game_over_intro:
+	if get_stream() == game_over_intro:
 		stream = game_over_loop
-		playing_intro = false
 	elif playing_intro:
 		print("Intro complete, starting loop.")
 		stream = songs[song_index][1]
 		playing_intro = false
-	if loop:
+	if keep_playing:
 		play()
 
 func game_over_1():
-	loop = false
+	keep_playing = false
+	print("music game over 1")
 	stop()
 	
 func game_over_2():
 	stream = game_over_intro
-	loop = true
+	keep_playing = true
 	play()
 
 func change_music():
