@@ -17,6 +17,14 @@ func _ready():
 	music_player.change_music()
 	print("Starting intro wipe")
 	background.wipe_in()
+	
+func _process(delta):
+	if Input.is_action_just_pressed("debug_bg_in"):
+		background.wipe_in()
+	elif Input.is_action_just_pressed("debug_bg_out"):
+		background.wipe_out()
+	elif Input.is_action_just_pressed("debug_mus_cycle"):
+		music_player.change_music()
 
 func setup_level(difficulty: int):
 	# This function tears down and sets up a level each time it is called.
