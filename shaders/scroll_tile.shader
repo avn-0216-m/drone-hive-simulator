@@ -1,12 +1,16 @@
 shader_type canvas_item;
 uniform vec2 scroll = vec2(1,1);
-uniform float scroll_speed = 1;
 uniform vec2 screen_size;
 uniform float tile_count = 3;
 uniform sampler2D texture_src;
 uniform sampler2D mask_src;
 uniform float mask_intensity;
 uniform float tile_darkness;
+uniform float cutoff : hint_range(0,2);
+uniform float cutoff_bottom_diff_mulitplier : hint_range(0,1);
+uniform int max_slices : hint_range(0,10);
+uniform vec4 slice_start_color : hint_color;
+uniform float slice_distance_multiplier = 0;
 
 void fragment(){
 	ivec2 texture_size = textureSize(texture_src, 0);
@@ -21,4 +25,22 @@ void fragment(){
 	texture -= tile_darkness;
 	
 	COLOR.rgb = texture.rgb - mask.rgb * mask_intensity;
+	
+	// render cutoff slices
+	float slice_distance = 1.0 - cutoff;
+	float cutoff_bottom_difference = 0.0;
+	
+	// bottom difference = 1 - cutoff
+	
+	cutoff_bottom_difference = (1.0 - cutoff) * cutoff_bottom_diff_mulitplier;
+	
+	for(int slice = 0; slice <= max_slices; slice++){
+		if(UV.x < cutoff - cutoff_bottom_difference * UV.y - float(slice) * slice_distance * float(slice) * slice_distance){
+			if(slice==0 && max_slices == 0 || slice==max_slices){
+				COLOR.rgb = vec3(0,0,0)
+			} else {
+				COLOR.rgb = slice_start_color.rgb - vec3(0.1,0.1,0.1) * float(slice);
+			}
+		}
+	}
 }

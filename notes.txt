@@ -1,0 +1,5 @@
+-z is towards the camera.
+-x is left
+x is right
+
+pretty sure blood's sprites are 1px = 0.1 godot units.

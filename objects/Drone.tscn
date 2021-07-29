@@ -12,14 +12,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "forward",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "backward",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "forward",
 "speed": 5.0
 } ]
 
@@ -30,7 +30,7 @@ script = ExtResource( 1 )
 [node name="Body" type="AnimatedSprite3D" parent="."]
 frames = SubResource( 1 )
 animation = "forward"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Display" type="Spatial" parent="."]

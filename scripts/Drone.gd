@@ -9,7 +9,6 @@ var headbob_offset: Vector2 = Vector2(2.0, 1.9) #y if head is dipped, else x.
 
 func _ready():
 	set_id(5890)
-	toggle_display()
 	
 func set_id(new_id: int):
 	if id > 9999 or id < 0:
