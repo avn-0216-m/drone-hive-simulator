@@ -19,6 +19,10 @@ func _process(delta):
 		if material.get_shader_param("cutoff") > 1:
 			wipe_direction = "NONE"
 
+func game_over_1():
+	material.set_shader_param("cutoff", 1)
+	wipe_direction = "NONE"
+
 func wipe_in():
 	wipe_direction = "IN"
 	material.set_shader_param("slices", 5)
