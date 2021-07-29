@@ -9,6 +9,7 @@ var headbob_offset: Vector2 = Vector2(2.0, 1.9) #y if head is dipped, else x.
 
 func _ready():
 	set_id(5890)
+	toggle_display()
 	
 func set_id(new_id: int):
 	if id > 9999 or id < 0:
@@ -20,13 +21,16 @@ func set_id(new_id: int):
 	id_display.get_node("ID3").frame = int(id_string.left(3))
 	id_display.get_node("ID4").frame = int(id_string.left(4))
 	
-func toggle_face():
+func toggle_id():
 	if icon_display.visible:
 		icon_display.visible = false
 		id_display.visible = true
 	else:
 		icon_display.visible = true
 		id_display.visible = false
+
+func toggle_display():
+	display_container.visible = !display_container.visible
 		
 func _process(delta):
 	if sprite.frame % 2 != 0:
