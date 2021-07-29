@@ -68,8 +68,8 @@ current = true
 script = ExtResource( 8 )
 offset = Vector3( 0, 6, 6 )
 raycast_offset = Vector3( 0, 0, 100 )
-game_over_offset = Vector3( 4, 0, 5 )
-game_over_rotation_y = 20.0
+game_over_offset = Vector3( 4, 0.1, 5 )
+game_over_rotation_y = 10.0
 
 [node name="GridMap" type="GridMap" parent="Viewport/Game"]
 mesh_library = ExtResource( 9 )

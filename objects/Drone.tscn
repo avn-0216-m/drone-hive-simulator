@@ -39,7 +39,7 @@ frame = 3
 playing = true
 
 [node name="Display" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0.1 )
 
 [node name="Icon" type="Sprite3D" parent="Display"]
 transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.193613, 0.0888731, 0 )

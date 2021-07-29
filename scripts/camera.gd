@@ -15,8 +15,9 @@ func _ready():
 func _process(delta):
 	
 	if game_over:
-		translation = lerp(translation, follow_target.get_global_transform().origin + game_over_offset, 0.1)
-		rotation_degrees = lerp(rotation_degrees, Vector3(0,0,0), 0.1)
+		translation = lerp(translation, follow_target.get_global_transform().origin + game_over_offset, 0.05)
+		rotation_degrees = lerp(rotation_degrees, Vector3(0,0,0), 0.05)
+		follow_target.rotation_degrees.y = lerp(follow_target.rotation_degrees.y, game_over_rotation_y, 0.05)
 	
 	if not active:
 		return
