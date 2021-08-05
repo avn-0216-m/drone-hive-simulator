@@ -8,7 +8,7 @@ onready var display_container: Spatial = get_node("Display")
 onready var sprite: AnimatedSprite3D = get_node("Body")
 
 onready var sfx: AudioStreamPlayer = get_node("SFX")
-onready var shutdown: AudioStream = load("res://sfx//shutdown.wav")
+onready var shutdown: AudioStream = load("res://sfx//shutdown3.ogg")
 
 var point_of_death: Vector3 = Vector3(0,0,0)
 

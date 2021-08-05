@@ -4,7 +4,7 @@
 [ext_resource path="res://blender/obj/wall.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://blender/obj/floor.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://textures/wall.png" type="Texture" id=4]
-[ext_resource path="res://blender/obj/corner.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://blender/obj/cornerpiece.obj" type="ArrayMesh" id=5]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )
