@@ -123,6 +123,10 @@ debug_game_over={
  ]
 }
 
+[physics]
+
+3d/physics_engine="GodotPhysics"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

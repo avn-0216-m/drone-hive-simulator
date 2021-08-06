@@ -1,0 +1,9 @@
+Guide for how wall tiles should be placed based on how empty spaces are surrounded by tiles.
+
+T = tile
+E = empty
+
+E E E
+T E E
+E E E
+Normal wall, 

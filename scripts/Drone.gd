@@ -10,26 +10,30 @@ onready var sprite: AnimatedSprite3D = get_node("Body")
 onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res://sfx//shutdown3.ogg")
 
-var point_of_death: Vector3 = Vector3(0,0,0)
-
-var id: int = 0000
+var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.0, 1.9) #y if head is dipped, else x.
 var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
+const GRAVITY: Vector3 = Vector3(0,-7,0)
+
+var move_up = 1
+var move_down = 2
+var move_left = 4
+var move_right = 8
+var interact = 16
 
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
-	set_id(5890)
+	set_id("9993")
 	
-func set_id(new_id: int):
-	if id > 9999 or id < 0:
+func set_id(new_id: String):
+	if int(id) > 9999 or int(id) < 0:
 		return
 	id = new_id
-	var id_string: String = str(id)
-	id_display.get_node("ID1").frame = int(id_string.left(1))
-	id_display.get_node("ID2").frame = int(id_string.left(2))
-	id_display.get_node("ID3").frame = int(id_string.left(3))
-	id_display.get_node("ID4").frame = int(id_string.left(4))
+	id_display.get_node("ID1").frame = int(id.substr(0,1))
+	id_display.get_node("ID2").frame = int(id.substr(1,1))
+	id_display.get_node("ID3").frame = int(id.substr(2,1))
+	id_display.get_node("ID4").frame = int(id.substr(3,1))
 	
 func toggle_face():
 	if icon_display.visible == true:
@@ -48,30 +52,66 @@ func show_icon():
 func toggle_display():
 	display_container.visible = !display_container.visible
 
+func is_moving() -> bool:
+	return true
+	
+func get_inputs() -> int:
+	var inputs = 0
+	if Input.is_action_pressed("move_left"):
+		inputs += move_left
+	if Input.is_action_pressed("move_right"):
+		inputs += move_right
+	if Input.is_action_pressed("move_up"):
+		inputs += move_up
+	if Input.is_action_pressed("move_down"):
+		inputs += move_down
+	return inputs
+
 func _process(delta):
 	
-	velocity = Vector3(0,0,0)
+	velocity = Vector3(0,0,0) + GRAVITY
 	
 	# Get inputs, set velocity
-	if Input.is_action_pressed("move_left"):
-		velocity.x = -1 * speed
-	if Input.is_action_pressed("move_right"):
-		velocity.x = 1 * speed
-	if Input.is_action_pressed("move_up"):
-		velocity.z = -1 * speed
-	if Input.is_action_pressed("move_down"):
-		velocity.z = 1 * speed
-		
-	move_and_slide(velocity)
+	var inputs = get_inputs()
 	
+	if inputs & move_right:
+		velocity.x = 1 * speed
+		sprite.rotation_degrees.y = 0
+		display_container.translation = Vector3(0,1.9,0.1)
+	if inputs & move_left:
+		velocity.x = -1 * speed
+		sprite.rotation_degrees.y = 180
+		display_container.translation = Vector3(-0.5,1.9,0.1)
+	if inputs & move_down:
+		velocity.z = 1 * speed
+	if inputs & move_up:
+		velocity.z = -1 * speed
+
+	# Check if drone should keep walking.
+	sprite.playing = !(not inputs and sprite.frame == (0 | 2))
+
 	# Calculate headbob
 	if sprite.frame % 2 != 0:
 		display_container.translation.y = headbob_offset.y
 	else:
 		display_container.translation.y = headbob_offset.x
 		
+	if velocity.z < 0:
+		sprite.animation = "backward"
+	elif velocity.z > 0:
+		sprite.animation = "forward"
+		
+	if sprite.animation == "backward":
+		display_container.visible = false
+	else:
+		display_container.visible = true
+		
+func _physics_process(delta):
+
+		
+	move_and_slide(velocity)
+		
 func game_over_1():
-	point_of_death = get_global_transform().origin
 	print("Drone game over")
 	show_icon()
 	icon_display.frame = 1

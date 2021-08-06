@@ -13,14 +13,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "backward",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "forward",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "backward",
 "speed": 5.0
 } ]
 
@@ -35,7 +35,7 @@ script = ExtResource( 1 )
 layers = 3
 frames = SubResource( 1 )
 animation = "forward"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Display" type="Spatial" parent="."]
@@ -43,6 +43,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0.1 )
 
 [node name="Icon" type="Sprite3D" parent="Display"]
 transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.193613, 0.0888731, 0 )
+visible = false
 layers = 3
 texture = ExtResource( 8 )
 hframes = 7
@@ -50,7 +51,6 @@ frame = 3
 
 [node name="ID" type="Spatial" parent="Display"]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, -0.322687, 0.0794165, 0 )
-visible = false
 
 [node name="ID1" type="Sprite3D" parent="Display/ID"]
 layers = 3

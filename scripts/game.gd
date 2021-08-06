@@ -15,10 +15,9 @@ func _ready():
 	camera.follow_target = drone
 	
 	drone.connect("shutdown_complete",self,"drone_shutdown_complete")
+	drone.show_id()
 	
 	print("Root game node ready!")
-	music.change_music()
-	music.change_music()
 	print("Starting intro wipe")
 	background.wipe_in()
 	
