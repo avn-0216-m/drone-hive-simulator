@@ -20,6 +20,7 @@ func _ready():
 	print("Root game node ready!")
 	print("Starting intro wipe")
 	background.wipe_in()
+	grid_map.add_walls()
 	
 func _process(delta):
 	if Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_bg_in"):

@@ -3,3 +3,18 @@
 x is right
 
 pretty sure blood's sprites are 1px = 0.1 godot units.
+
+				if adjacent[0].x != 0:
+					if Vector3(cell.x, cell.y, cell.z + 1) in original_used_cells:
+						print("Tile above.")
+						set_cell_item(cell.x, cell.y, cell.z, 1, 0)
+					elif Vector3(cell.x, cell.y, cell.z - 1) in original_used_cells:
+						print("Tile below.")
+						set_cell_item(cell.x, cell.y, cell.z, 1, 10)
+				elif adjacent[0].z != 0:
+					if Vector3(cell.x + 1, cell.y, cell.z - 1) in original_used_cells:
+						print("Tile right.")
+						set_cell_item(cell.x, cell.y, cell.z, 1, 16)
+					elif Vector3(cell.x - 1, cell.y, cell.z - 1) in original_used_cells:
+						print("Tile left.")
+						set_cell_item(cell.x, cell.y, cell.z, 1, 22)
