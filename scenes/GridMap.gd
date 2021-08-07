@@ -51,40 +51,30 @@ func add_walls():
 				# 8     16
 				# 32 64 128
 				
-				# 1 0 0
-				# 1   0
-				# 1 1 1
-				
 				match found_tiles:
-					# mid, mid-left, mid-right, all
-					2, 3, 6, 7: # North facing (bottom) wall.
+					7: # North facing (bottom) wall.
 						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_NORTH)
-					64, 96, 192, 224: # South facing (top) wall.
+					224: # South facing (top) wall.
 						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_SOUTH)
-					16, 20, 144, 148: # East facing (right) wall.
+					148: # East facing (right) wall.
 						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_EAST)
-					8, 9, 40, 41: # West facing (left) wall.
+					41: # West facing (left) wall.
 						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_WEST)
 					# External corners
 					4:
-						set_cell_item(cell.x, cell.y, cell.z, 2, 16)
+						set_cell_item(cell.x, cell.y, cell.z, 3, 16)
 					32:
-						set_cell_item(cell.x, cell.y, cell.z, 2, 22)
-						set_cell_item(cell.x-1, cell.y, cell.z, -1)
-						set_cell_item(cell.x, cell.y, cell.z+1, -1)
+						set_cell_item(cell.x, cell.y, cell.z, 3, 22)
 						#TODO: wall tiles get re-added after removal. add corner tiles last?
 					128:
-						set_cell_item(cell.x, cell.y, cell.z, 2, 0)
+						set_cell_item(cell.x, cell.y, cell.z, 3, 0)
 					1:
-						set_cell_item(cell.x, cell.y, cell.z, 2, 10)
-					# Internal corners
-					22:
-						print("fhdsjkfh")
-					11:
-						print("Top left internal corner")
-					104:
-						print("Bottom left internal corner")
-					208:
-						print("Bottom right internal corner")
-					_:
-						print("Nothing found for " + str(found_tiles))
+						set_cell_item(cell.x, cell.y, cell.z, 3, 10)
+					22, 150, 151: # internal corners
+						set_cell_item(cell.x, cell.y, cell.z, 4, 22)
+					11, 14, 43, 47: 
+						set_cell_item(cell.x, cell.y, cell.z, 4, 0)
+					104, 105, 232, 233:
+						set_cell_item(cell.x, cell.y, cell.z, 4, 16)
+					208, 212, 240, 244:
+						set_cell_item(cell.x, cell.y, cell.z, 4, 10)
