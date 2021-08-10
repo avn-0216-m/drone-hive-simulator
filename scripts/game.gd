@@ -7,8 +7,9 @@ var tiles: Array = []
 onready var music = get_node("Music")
 onready var grid_map = get_node("GridMap")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
-onready var camera = get_node("Camera")
+onready var camera = get_node("CameraContainer/Camera")
 onready var drone: KinematicBody = get_node("Drone")
+var difficulty: int = 10
 
 func _ready():
 	print("Assigning camera.")
@@ -20,9 +21,7 @@ func _ready():
 	print("Root game node ready!")
 	print("Starting intro wipe")
 	background.wipe_in()
-	grid_map.new_level()
-	
-	drone.translation = grid_map.map_to_world(grid_map.start_tile.x, grid_map.start_tile.y, grid_map.start_tile.z) + Vector3(0,5,0) + grid_map.get_global_transform().origin
+	new_level()
 	
 func _process(delta):
 	if Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_bg_in"):
@@ -46,11 +45,8 @@ func drone_shutdown_complete():
 	music.game_over_2()
 	get_tree().get_root().get_child(0).get_node("GameOverText").visible = true
 		
-func setup_level(difficulty: int):
-	# This function tears down and sets up a level each time it is called.
-		# Spawn floor tiles.
-		# Remove a random floor tiles.
-		# Adds tasks to complete.
-		# Add wall tiles.
+func new_level():
 	print("Beginning level setup.")
-
+	grid_map.new_level(difficulty)
+	drone.translation = grid_map.map_to_world(grid_map.start_tile.x, grid_map.start_tile.y, grid_map.start_tile.z) + Vector3(0,5,0) + grid_map.get_global_transform().origin
+	camera.translation = drone.translation

@@ -84,12 +84,9 @@ func add_walls():
 					208, 212, 240, 244:
 						set_cell_item(cell.x, cell.y, cell.z, 4, 10)
 
-func generate_floor(difficulty: int = 0):
+func generate_floor(difficulty: int):
 	room_size_x = rng.randi_range(5, 5 + difficulty)
 	room_size_z = rng.randi_range(5, 5 + difficulty)
-	
-	print(room_size_x)
-	print(room_size_z)
 	
 	for tile_x in range(0, room_size_x):
 		for tile_z in range(0,room_size_z):
@@ -109,7 +106,7 @@ func set_start_end_tiles():
 	set_cell_item(start_tile.x, 0, start_tile.z, 5)
 	set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
 
-func new_level(difficulty: int = 0):
+func new_level(difficulty: int):
 	randomize()
 	clear()
 	generate_floor(difficulty)
