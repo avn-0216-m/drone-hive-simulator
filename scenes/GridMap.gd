@@ -24,6 +24,12 @@ const EXTERN_CORNER_TOP_LEFT = 16
 const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
+var start_tile = Vector3(0,0,0)
+var room_size_x = 0
+var room_size_z = 0
+
+var rng = RandomNumberGenerator.new()
+
 func get_adjacent_floor_tiles(origin: Vector3) -> int:
 	var tiles = 0
 	var addition = 1
@@ -65,7 +71,6 @@ func add_walls():
 						set_cell_item(cell.x, cell.y, cell.z, 3, 16)
 					32:
 						set_cell_item(cell.x, cell.y, cell.z, 3, 22)
-						#TODO: wall tiles get re-added after removal. add corner tiles last?
 					128:
 						set_cell_item(cell.x, cell.y, cell.z, 3, 0)
 					1:
@@ -78,3 +83,39 @@ func add_walls():
 						set_cell_item(cell.x, cell.y, cell.z, 4, 16)
 					208, 212, 240, 244:
 						set_cell_item(cell.x, cell.y, cell.z, 4, 10)
+
+func generate_floor(difficulty: int = 0):
+	room_size_x = rng.randi_range(5, 5 + difficulty)
+	room_size_z = rng.randi_range(5, 5 + difficulty)
+	
+	print(room_size_x)
+	print(room_size_z)
+	
+	for tile_x in range(0, room_size_x):
+		for tile_z in range(0,room_size_z):
+			set_cell_item(tile_x, 0, tile_z, 0)
+	
+func cut_holes():
+	return
+	
+func add_additional_rooms():
+	return
+	
+func set_start_end_tiles():
+	var floor_tiles = get_used_cells()
+	floor_tiles.shuffle()
+	start_tile = floor_tiles[0]
+	var exit_tile = floor_tiles[1]
+	set_cell_item(start_tile.x, 0, start_tile.z, 5)
+	set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+
+func new_level(difficulty: int = 0):
+	randomize()
+	clear()
+	generate_floor(difficulty)
+	if difficulty > 3:
+		cut_holes()
+	if difficulty > 6:
+		add_additional_rooms()
+	set_start_end_tiles()
+	add_walls()
