@@ -7,7 +7,7 @@ var tiles: Array = []
 onready var music = get_node("Music")
 onready var grid_map = get_node("GridMap")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
-onready var camera = get_node("CameraContainer/Camera")
+onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
 var difficulty: int = 10
 
@@ -21,7 +21,7 @@ func _ready():
 	print("Root game node ready!")
 	print("Starting intro wipe")
 	background.wipe_in()
-	new_level()
+	#new_level()
 	
 func _process(delta):
 	if Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_bg_in"):

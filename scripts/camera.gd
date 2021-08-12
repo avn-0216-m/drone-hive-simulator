@@ -7,11 +7,14 @@ export var game_over_offset: Vector3 = Vector3(0,0,0)
 export var game_over_rotation_y: float = 45
 var active: bool = true
 export var game_over: bool = false
-onready var raycast: RayCast = get_node("../RayCast")
-onready var drone: KinematicBody = get_parent().get_parent().drone
+onready var raycast: RayCast = get_node("../LatchRaycast")
+onready var drone: KinematicBody = get_parent().get_parent().get_node("Drone")
+var wall_mat: Material
+var peephole_radius: int = 400
+
 
 func _ready():
-	raycast.add_exception(drone)
+	wall_mat = get_node("../../GridMap").get_mesh_library().get_item_mesh(1).surface_get_material(0)
 	
 func _process(delta):
 	
@@ -39,11 +42,19 @@ func _process(delta):
 				# SO YOU DON'T HAVE TO WORRY ABOUT SCALING
 				
 				
-				new_translation += lerp(Vector3(0,0,0), wallhug_offset, (drone_pos.z - norm_min) / (coll_pos.z - norm_min))
+				#new_translation += lerp(Vector3(0,0,0), wallhug_offset, (drone_pos.z - norm_min) / (coll_pos.z - norm_min))
+				new_translation += wallhug_offset
+				
+				wall_mat.set_shader_param("circle_center", unproject_position(drone.get_global_transform().origin))
+				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), peephole_radius, 0.2))
+				print(wall_mat.get_shader_param("radius"))
+				
 			else:
-				look_at(follow_target.get_global_transform().origin, Vector3(0,1,0))
-	
-			translation = lerp(translation, new_translation, 0.1)
+				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), 0, 0.2))
+				
+
+			look_at(follow_target.get_global_transform().origin, Vector3(0,1,0))
+			translation = lerp(translation, new_translation, 0.05)
 			
 	
 
