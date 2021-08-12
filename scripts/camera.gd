@@ -46,9 +46,7 @@ func _process(delta):
 				new_translation += wallhug_offset
 				
 				wall_mat.set_shader_param("circle_center", unproject_position(drone.get_global_transform().origin))
-				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), peephole_radius, 0.2))
-				print(wall_mat.get_shader_param("radius"))
-				
+				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), peephole_radius, 0.05))
 			else:
 				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), 0, 0.2))
 				

@@ -10,9 +10,9 @@ uniform vec2 circle_center;
 uniform float radius;
 
 uniform float swirl_factor = 4;
-uniform float swirl_speed = 0.5;
+uniform float swirl_speed = 0.0;
 
-uniform float alias_factor = 6;
+uniform float alias_factor = 4;
 
 const mat4 thresholds = mat4(vec4(1, 9, 3, 11), vec4(13,5,15,7), vec4(4, 12, 2, 10), vec4(16,8,14,6));
 
