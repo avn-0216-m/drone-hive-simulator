@@ -15,7 +15,7 @@ onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
 
 
 func _ready():
-	wall_mat = get_node("../../GridMaps/WallMap").get_mesh_library().get_item_mesh(1).surface_get_material(0)
+	wall_mat = get_node("../../Level/GridMap").get_mesh_library().get_item_mesh(1).surface_get_material(0)
 	
 func _process(delta):
 	

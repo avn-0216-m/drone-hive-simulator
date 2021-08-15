@@ -5,7 +5,7 @@ signal level_complete
 var tiles: Array = []
 
 onready var music = get_node("Music")
-onready var grid_map = get_node("GridMaps")
+onready var level = get_node("Level")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
@@ -21,7 +21,7 @@ func _ready():
 	print("Root game node ready!")
 	print("Starting intro wipe")
 	background.wipe_in()
-	#new_level()
+	new_level()
 	
 func _process(delta):
 	if Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_bg_in"):
@@ -47,6 +47,6 @@ func drone_shutdown_complete():
 		
 func new_level():
 	print("Beginning level setup.")
-	grid_map.new_level(difficulty)
-	drone.translation = grid_map.floormap.map_to_world(grid_map.start_tile.x, grid_map.start_tile.y, grid_map.start_tile.z) + Vector3(0,5,0) + grid_map.get_global_transform().origin
+	level.new_level(difficulty)
+	drone.translation = level.gridmap.map_to_world(level.start_tile.x, level.start_tile.y, level.start_tile.z) + Vector3(0,5,0)
 	camera.translation = drone.translation
