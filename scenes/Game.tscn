@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://textures/beep.png" type="Texture" id=12]
 [ext_resource path="res://scripts/Multimeshes.gd" type="Script" id=13]
 [ext_resource path="res://textures/floor.png" type="Texture" id=14]
+[ext_resource path="res://textures/wall.png" type="Texture" id=15]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -30,12 +31,12 @@ shader_param/slice_distance_multiplier = 1.0
 shader_param/texture_src = ExtResource( 3 )
 shader_param/mask_src = ExtResource( 2 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 14 )
 uv1_scale = Vector3( 4, 4, 1 )
 uv1_offset = Vector3( 0.5, 0, 0 )
 
-[sub_resource type="ArrayMesh" id=8]
+[sub_resource type="ArrayMesh" id=3]
 resource_local_to_scene = true
 surfaces/0 = {
 "aabb": AABB( -1, -0.2, -1, 2, 0.40001, 2 ),
@@ -44,21 +45,45 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 36,
-"material": SubResource( 9 ),
+"material": SubResource( 2 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 24
 }
 
-[sub_resource type="MultiMesh" id=7]
+[sub_resource type="MultiMesh" id=4]
 transform_format = 1
-mesh = SubResource( 8 )
+mesh = SubResource( 3 )
 
-[sub_resource type="BoxShape" id=2]
+[sub_resource type="SpatialMaterial" id=10]
+albedo_texture = ExtResource( 15 )
+uv1_scale = Vector3( 4, 4, 1 )
+uv1_offset = Vector3( 0.5, 0, 0 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="ArrayMesh" id=9]
+resource_local_to_scene = true
+surfaces/0 = {
+"aabb": AABB( 0.6, 0.2, -1, 0.4, 4.00001, 2.00001 ),
+"array_data": PoolByteArray( 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 63, 129, 0, 0, 0, 0, 127, 0, 127, 0, 57, 0, 60, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 63, 129, 0, 0, 0, 0, 127, 0, 127, 0, 54, 0, 60, 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 191, 129, 0, 0, 0, 0, 127, 0, 127, 0, 57, 0, 58, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 191, 129, 0, 0, 0, 0, 127, 0, 127, 0, 54, 0, 58, 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 191, 0, 0, 129, 0, 0, 127, 0, 127, 0, 57, 0, 58, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 191, 0, 0, 129, 0, 0, 127, 0, 127, 0, 54, 0, 58, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 191, 0, 0, 129, 0, 0, 127, 0, 127, 0, 57, 0, 56, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 0, 0, 129, 0, 0, 127, 0, 127, 0, 54, 0, 56, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 191, 127, 0, 0, 0, 0, 127, 0, 127, 0, 57, 0, 56, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 127, 0, 0, 0, 0, 127, 0, 127, 0, 54, 0, 56, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 63, 127, 0, 0, 0, 0, 127, 0, 127, 0, 57, 0, 52, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 127, 0, 0, 0, 0, 127, 0, 127, 0, 54, 0, 52, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 63, 0, 0, 127, 0, 0, 127, 0, 127, 0, 57, 0, 52, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 0, 127, 0, 0, 127, 0, 127, 0, 54, 0, 52, 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 63, 0, 0, 127, 0, 0, 127, 0, 127, 0, 57, 0, 0, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 0, 127, 0, 0, 127, 0, 127, 0, 54, 0, 0, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 127, 0, 54, 0, 56, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 127, 0, 48, 0, 56, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 127, 0, 54, 0, 52, 154, 153, 25, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 127, 0, 48, 0, 52, 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 127, 0, 59, 0, 56, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 127, 0, 57, 0, 56, 154, 153, 25, 63, 102, 102, 134, 64, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 127, 0, 59, 0, 52, 0, 0, 128, 63, 102, 102, 134, 64, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 127, 0, 57, 0, 52 ),
+"array_index_data": PoolByteArray( 0, 0, 1, 0, 2, 0, 2, 0, 1, 0, 3, 0, 4, 0, 5, 0, 6, 0, 6, 0, 5, 0, 7, 0, 8, 0, 9, 0, 10, 0, 10, 0, 9, 0, 11, 0, 12, 0, 13, 0, 14, 0, 14, 0, 13, 0, 15, 0, 16, 0, 17, 0, 18, 0, 18, 0, 17, 0, 19, 0, 20, 0, 21, 0, 22, 0, 22, 0, 21, 0, 23, 0 ),
+"blend_shape_data": [  ],
+"format": 97559,
+"index_count": 36,
+"material": SubResource( 10 ),
+"primitive": 4,
+"skeleton_aabb": [  ],
+"vertex_count": 24
+}
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="MultiMesh" id=8]
+transform_format = 1
+mesh = SubResource( 9 )
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="CubeMesh" id=6]
+
+[sub_resource type="SpatialMaterial" id=7]
 albedo_texture = ExtResource( 12 )
 uv1_scale = Vector3( 3.032, 2.5, 3.322 )
 uv1_offset = Vector3( 0, 0.63, 0 )
@@ -146,9 +171,10 @@ __meta__ = {
 script = ExtResource( 13 )
 
 [node name="Floor" type="MultiMeshInstance" parent="Viewport/Game/Level/Multimeshes"]
-multimesh = SubResource( 7 )
+multimesh = SubResource( 4 )
 
 [node name="Walls" type="MultiMeshInstance" parent="Viewport/Game/Level/Multimeshes"]
+multimesh = SubResource( 8 )
 
 [node name="InternalCorners" type="MultiMeshInstance" parent="Viewport/Game/Level/Multimeshes"]
 
@@ -161,11 +187,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.935162, 5.14053, 8.86036 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Viewport/Game/RigidBody"]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
-shape = SubResource( 2 )
+shape = SubResource( 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Viewport/Game/RigidBody/CollisionShape"]
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
 
 [node name="GameOverText" type="RichTextLabel" parent="."]
 visible = false

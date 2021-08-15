@@ -5,23 +5,22 @@ onready var walls = get_node("Walls")
 onready var intern_corners = get_node("InternalCorners")
 onready var extern_corners = get_node("ExternalCorners")
 
-var floor_positions: Array = []
+var floor_translations: Array = []
+var wall_translations: Array = []
 
-func add_floor(pos: Vector3):
-	# changing the instance count resets all instance positions,
-	# so append them here and init them in the init func.
-	floor_positions.append(pos)
-	
-func add_wall(pos):
-	return
-	
-func add_intern_corner(pos):
-	return
-	
-func add_extern_corner(pos):
-	return
+# changing the instance count resets all instance positions,
+# so append them to arrays and init them in the init func.
 
 func init_multimeshes():
-	floors.multimesh.instance_count = len(floor_positions)
-	for i in range(len(floor_positions)):
-		floors.multimesh.set_instance_transform(i, Transform(Basis(), floor_positions[i]))
+	
+	# get the positions of all relevant bodies and give their transform to a mesh.
+	
+	var floor_bodies = get_tree().get_nodes_in_group("Floor")
+	floors.multimesh.instance_count = len(floor_bodies)
+	for i in range(len(floor_bodies)):
+		floors.multimesh.set_instance_transform(i, floor_bodies[i].get_global_transform())
+
+	var wall_bodies = get_tree().get_nodes_in_group("Straight Wall")
+	walls.multimesh.instance_count = len(wall_bodies)
+	for i in range(len(wall_bodies)):
+		walls.multimesh.set_instance_transform(i, wall_bodies[i].get_global_transform())

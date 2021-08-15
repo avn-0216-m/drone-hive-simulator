@@ -34,6 +34,7 @@ onready var gridmap = get_node("GridMap")
 
 onready var body_container = get_node("Bodies")
 onready var floor_src = load("res://objects/tiles/Floor.tscn")
+onready var wall_src = load("res://objects/tiles/Wall.tscn")
 
 onready var object_container = get_node("Objects")
 onready var entry_src = load("res://objects/Entry.tscn")
@@ -142,9 +143,8 @@ func new_level(difficulty: int):
 		match(gridmap.get_cell_item(cell.x, cell.y, cell.z)):
 			0: # floor tile
 				instance_gridmap_object(floor_src, cell, body_container)
-				multimeshes.add_floor(gridmap.map_to_world(cell.x, cell.y, cell.z))
 			1: # straight wall
-				tile_inst = null
+				instance_gridmap_object(wall_src, cell, body_container)
 			5: # entry tile
 				instance_gridmap_object(entry_src, cell, object_container)
 			6: # exit tile
