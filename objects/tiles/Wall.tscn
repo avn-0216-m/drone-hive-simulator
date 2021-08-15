@@ -7,6 +7,7 @@ extents = Vector3( 0.2, 2, 1 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 2.2, 0 )
+collision_layer = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody" groups=[
 "Straight Wall",

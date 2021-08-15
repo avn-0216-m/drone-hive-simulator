@@ -32,6 +32,9 @@ func _process(delta):
 		music.change_music()
 	elif Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_game_over"):
 		game_over_1()
+	elif Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_drone_hearts"):
+		drone.show_icon()
+		drone.icon_display.frame = 3
 		
 func game_over_1():
 	background.game_over_1()

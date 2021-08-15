@@ -24,7 +24,7 @@ var interact = 16
 
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
-	set_id("6051")
+	set_id("5890")
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -51,9 +51,6 @@ func show_icon():
 
 func toggle_display():
 	display_container.visible = !display_container.visible
-
-func is_moving() -> bool:
-	return true
 	
 func get_inputs() -> int:
 	var inputs = 0

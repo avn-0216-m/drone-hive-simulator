@@ -9,10 +9,10 @@ uniform vec2 circle_center;
 uniform float radius = 0.0;
 uniform float max_radius = 400;
 
-uniform float swirl_factor = 4;
-uniform float swirl_speed = 0.0;
+uniform float swirl_factor = 8;
+uniform float swirl_speed = 8;
 
-uniform float alias_factor = 4;
+uniform float alias_factor = 6;
 
 uniform sampler2D alt_camera;
 
@@ -90,10 +90,7 @@ void fragment(){
 	//float center_distance_to_x = pow(FRAGCOORD.x - circle_center.x + sin(TIME * swirl_speed) * swirl_factor, 2.0);
 	//float center_distance_to_y = pow(FRAGCOORD.y - circle_center.y + sin(TIME * swirl_speed) * swirl_factor, 2.0);
 	
-	//if(center_distance_to_x + center_distance_to_y < pow(radius, 2)){
-			// ALPHA = 0.0;
-			// float depth = texture(DEPTH_TEXTURE, SCREEN_UV).r;
-			
-			
-	//}
+	if(center_distance_to_x + center_distance_to_y < pow(radius, 2)){
+			ALPHA = 0.0;
+	}
 }
