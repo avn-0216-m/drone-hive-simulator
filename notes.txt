@@ -28,7 +28,8 @@ what are the ways i can handle this peephole scenario?
 - same as above but with a sprite3d that follows the player (need to account for camera perspective looking into the portal) (probably the best option)
 
 
-Camera culls:
-0: Floor tiles
-1: Drone
-2: Wall tiles
+LAYERS:
+For clarity, collision and visual layers will aim to match.
+1: Floor.
+2: Walls.
+3: Drone.

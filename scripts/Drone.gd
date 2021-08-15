@@ -88,7 +88,7 @@ func _process(delta):
 		velocity.z = -1 * speed
 
 	# Check if drone should keep walking.
-	sprite.playing = !(not inputs and sprite.frame == (0 | 2))
+	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
 
 	# Calculate headbob
 	if sprite.frame % 2 != 0:
@@ -98,7 +98,7 @@ func _process(delta):
 		
 	if velocity.z < 0:
 		sprite.animation = "backward"
-	elif velocity.z > 0:
+	else:
 		sprite.animation = "forward"
 		
 	if sprite.animation == "backward":
@@ -107,8 +107,6 @@ func _process(delta):
 		display_container.visible = true
 		
 func _physics_process(delta):
-
-		
 	move_and_slide(velocity)
 		
 func game_over_1():

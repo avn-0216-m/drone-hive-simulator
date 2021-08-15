@@ -24,3 +24,8 @@ func init_multimeshes():
 	walls.multimesh.instance_count = len(wall_bodies)
 	for i in range(len(wall_bodies)):
 		walls.multimesh.set_instance_transform(i, wall_bodies[i].get_global_transform())
+
+	var external_bodies = get_tree().get_nodes_in_group("External Corner")
+	extern_corners.multimesh.instance_count = len(external_bodies)
+	for i in range(len(external_bodies)):
+		extern_corners.multimesh.set_instance_transform(i, external_bodies[i].get_global_transform())

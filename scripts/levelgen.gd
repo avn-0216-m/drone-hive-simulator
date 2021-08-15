@@ -35,10 +35,13 @@ onready var gridmap = get_node("GridMap")
 onready var body_container = get_node("Bodies")
 onready var floor_src = load("res://objects/tiles/Floor.tscn")
 onready var wall_src = load("res://objects/tiles/Wall.tscn")
+onready var extern_src = load("res://Objects/tiles/ExternalCorner.tscn")
 
+# Objects are mobile complexities with programming and meshes that cannot be
+# represented in the body + multimesh combo.
 onready var object_container = get_node("Objects")
 onready var entry_src = load("res://objects/Entry.tscn")
-onready var exit_src = load("res://objects//Exit.tscn")
+onready var exit_src = load("res://objects/Exit.tscn")
 
 onready var multimeshes = get_node("Multimeshes")
 
@@ -123,6 +126,13 @@ func instance_gridmap_object(object, cell, parent):
 	tile_inst.translation = gridmap.map_to_world(cell.x, cell.y, cell.z)
 	tile_inst.name = "x" + str(cell.x) + ", z" + str(cell.z)
 	parent.add_child(tile_inst)
+	match(gridmap.get_cell_item_orientation(cell.x, cell.y, cell.z)):
+		10:
+			tile_inst.rotation_degrees.y = 180
+		16:
+			tile_inst.rotation_degrees.y = 90
+		22:
+			tile_inst.rotation_degrees.y = 270
 
 func new_level(difficulty: int):
 	
@@ -145,6 +155,8 @@ func new_level(difficulty: int):
 				instance_gridmap_object(floor_src, cell, body_container)
 			1: # straight wall
 				instance_gridmap_object(wall_src, cell, body_container)
+			3: # external corner
+				instance_gridmap_object(extern_src, cell, body_container)
 			5: # entry tile
 				instance_gridmap_object(entry_src, cell, object_container)
 			6: # exit tile
