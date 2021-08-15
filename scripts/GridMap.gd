@@ -1,4 +1,4 @@
-extends GridMap
+extends Spatial
 
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -30,6 +30,9 @@ var room_size_z = 0
 
 var rng = RandomNumberGenerator.new()
 
+onready var floormap = get_node("FloorMap")
+onready var wallmap = get_node("WallMap")
+
 func get_adjacent_floor_tiles(origin: Vector3) -> int:
 	var tiles = 0
 	var addition = 1
@@ -44,12 +47,12 @@ func add_walls():
 	# Iterate over every floor tile on floor 0, and check each adjacent space
 	# for an empty tile. Add a wall as necessary.
 	
-	original_used_cells = get_used_cells()
+	original_used_cells = floormap.get_used_cells()
 	
 	for tile in original_used_cells:
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
-			if get_cell_item(cell.x, cell.y, cell.z) == -1:
+			if floormap.get_cell_item(cell.x, cell.y, cell.z) == -1:
 				# print("Empty space: " + str(cell.x) + ", "+ str(cell.y) + ", "+ str(cell.z) + ", ")
 				var found_tiles = get_adjacent_floor_tiles(Vector3(cell.x, cell.y, cell.z))
 				
@@ -59,30 +62,30 @@ func add_walls():
 				
 				match found_tiles:
 					7: # North facing (bottom) wall.
-						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_NORTH)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_NORTH)
 					224: # South facing (top) wall.
-						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_SOUTH)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_SOUTH)
 					148: # East facing (right) wall.
-						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_EAST)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_EAST)
 					41: # West facing (left) wall.
-						set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_WEST)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_WEST)
 					# External corners
 					4:
-						set_cell_item(cell.x, cell.y, cell.z, 3, 16)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 3, 16)
 					32:
-						set_cell_item(cell.x, cell.y, cell.z, 3, 22)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 3, 22)
 					128:
-						set_cell_item(cell.x, cell.y, cell.z, 3, 0)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 3, 0)
 					1:
-						set_cell_item(cell.x, cell.y, cell.z, 3, 10)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 3, 10)
 					22, 150, 151: # internal corners
-						set_cell_item(cell.x, cell.y, cell.z, 4, 22)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 4, 22)
 					11, 14, 43, 47: 
-						set_cell_item(cell.x, cell.y, cell.z, 4, 0)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 4, 0)
 					104, 105, 232, 233:
-						set_cell_item(cell.x, cell.y, cell.z, 4, 16)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 4, 16)
 					208, 212, 240, 244:
-						set_cell_item(cell.x, cell.y, cell.z, 4, 10)
+						wallmap.set_cell_item(cell.x, cell.y, cell.z, 4, 10)
 
 func generate_floor(difficulty: int):
 	room_size_x = rng.randi_range(5, 5 + difficulty)
@@ -90,7 +93,7 @@ func generate_floor(difficulty: int):
 	
 	for tile_x in range(0, room_size_x):
 		for tile_z in range(0,room_size_z):
-			set_cell_item(tile_x, 0, tile_z, 0)
+			floormap.set_cell_item(tile_x, 0, tile_z, 0)
 	
 func cut_holes():
 	return
@@ -99,16 +102,17 @@ func add_additional_rooms():
 	return
 	
 func set_start_end_tiles():
-	var floor_tiles = get_used_cells()
+	var floor_tiles = floormap.get_used_cells()
 	floor_tiles.shuffle()
 	start_tile = floor_tiles[0]
 	var exit_tile = floor_tiles[1]
-	set_cell_item(start_tile.x, 0, start_tile.z, 5)
-	set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+	floormap.set_cell_item(start_tile.x, 0, start_tile.z, 5)
+	floormap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
 
 func new_level(difficulty: int):
 	randomize()
-	clear()
+	floormap.clear()
+	wallmap.clear()
 	generate_floor(difficulty)
 	if difficulty > 3:
 		cut_holes()

@@ -18,3 +18,17 @@ pretty sure blood's sprites are 1px = 0.1 godot units.
 					elif Vector3(cell.x - 1, cell.y, cell.z - 1) in original_used_cells:
 						print("Tile left.")
 						set_cell_item(cell.x, cell.y, cell.z, 1, 22)
+
+what are the ways i can handle this peephole scenario?
+
+- use alpha directly on the meshes
+	- will fuck up the render order for everything in my game and i'll need to give everything a material to ensure everything layers properly
+- vertex cutout? dunno if thats even possible. need to look into vertex shaders
+- color rect that overlays the screen and draws the output of a seperate camera to a circle cutout
+- same as above but with a sprite3d that follows the player (need to account for camera perspective looking into the portal) (probably the best option)
+
+
+Camera culls:
+0: Floor tiles
+1: Drone
+2: Wall tiles

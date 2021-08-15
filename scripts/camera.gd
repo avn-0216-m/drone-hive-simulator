@@ -7,14 +7,15 @@ export var game_over_offset: Vector3 = Vector3(0,0,0)
 export var game_over_rotation_y: float = 45
 var active: bool = true
 export var game_over: bool = false
-onready var raycast: RayCast = get_node("../LatchRaycast")
+onready var raycast: RayCast = get_node("../WallhugRaycast")
 onready var drone: KinematicBody = get_parent().get_parent().get_node("Drone")
 var wall_mat: Material
-var peephole_radius: int = 400
+var peephole_max_radius: int = 400
+onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
 
 
 func _ready():
-	wall_mat = get_node("../../GridMap").get_mesh_library().get_item_mesh(1).surface_get_material(0)
+	wall_mat = get_node("../../GridMaps/WallMap").get_mesh_library().get_item_mesh(1).surface_get_material(0)
 	
 func _process(delta):
 	
@@ -29,6 +30,11 @@ func _process(delta):
 	if follow_target:
 			var new_translation = follow_target.get_global_transform().origin + offset
 			raycast.translation = follow_target.get_global_transform().origin + Vector3(0,0,-0.1)
+			
+			var peephole_radius = wall_mat.get_shader_param("radius")
+			if peephole_radius == null:
+				peephole_radius = 0
+				
 			if raycast.is_colliding():
 				var drone_pos = follow_target.get_global_transform().origin
 				var ray_length = raycast.get_cast_to().z
@@ -46,13 +52,15 @@ func _process(delta):
 				new_translation += wallhug_offset
 				
 				wall_mat.set_shader_param("circle_center", unproject_position(drone.get_global_transform().origin))
-				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), peephole_radius, 0.05))
+				wall_mat.set_shader_param("radius", lerp(peephole_radius, peephole_max_radius, 0.05))
 			else:
-				wall_mat.set_shader_param("radius", lerp(wall_mat.get_shader_param("radius"), 0, 0.2))
-				
+				wall_mat.set_shader_param("radius", lerp(peephole_radius, 0, 0.2))
+				pass
 
 			look_at(follow_target.get_global_transform().origin, Vector3(0,1,0))
 			translation = lerp(translation, new_translation, 0.05)
+			no_walls_camera.transform = get_global_transform()
+			
 			
 	
 

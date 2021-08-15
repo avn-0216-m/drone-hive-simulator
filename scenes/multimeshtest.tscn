@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/multimeshtest.gd" type="Script" id=1]
+[ext_resource path="res://blender/obj/floor.obj" type="ArrayMesh" id=2]
+
+[sub_resource type="MultiMesh" id=1]
+transform_format = 1
+instance_count = 4
+mesh = ExtResource( 2 )
+transform_array = PoolVector3Array( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.943373, 0.331733, 0, -0.331733, 0.943373, 0, 2.11815, 5.91884 )
+
+[node name="Multimesh" type="MultiMeshInstance" parent="."]
+multimesh = SubResource( 1 )
+script = ExtResource( 1 )

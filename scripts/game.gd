@@ -5,7 +5,7 @@ signal level_complete
 var tiles: Array = []
 
 onready var music = get_node("Music")
-onready var grid_map = get_node("GridMap")
+onready var grid_map = get_node("GridMaps")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
@@ -48,5 +48,5 @@ func drone_shutdown_complete():
 func new_level():
 	print("Beginning level setup.")
 	grid_map.new_level(difficulty)
-	drone.translation = grid_map.map_to_world(grid_map.start_tile.x, grid_map.start_tile.y, grid_map.start_tile.z) + Vector3(0,5,0) + grid_map.get_global_transform().origin
+	drone.translation = grid_map.floormap.map_to_world(grid_map.start_tile.x, grid_map.start_tile.y, grid_map.start_tile.z) + Vector3(0,5,0) + grid_map.get_global_transform().origin
 	camera.translation = drone.translation
