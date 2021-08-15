@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cornerpiece.obj-0e05ef536e5e1ff7ae64d60e783fdf58.mesh"
+
+[deps]
+
+files=[ "res://.import/cornerpiece.obj-0e05ef536e5e1ff7ae64d60e783fdf58.mesh" ]
+
+source_file="res://blender/obj/cell aligned/cornerpiece.obj"
+dest_files=[ "res://.import/cornerpiece.obj-0e05ef536e5e1ff7ae64d60e783fdf58.mesh", "res://.import/cornerpiece.obj-0e05ef536e5e1ff7ae64d60e783fdf58.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

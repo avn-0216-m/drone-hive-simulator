@@ -1,12 +1,16 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://textures/floor.png" type="Texture" id=1]
-[ext_resource path="res://blender/obj/culledwall.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://blender/obj/floor.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://blender/obj/cornerpiece.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://blender/obj/internal corner.obj" type="ArrayMesh" id=6]
+[ext_resource path="res://blender/obj/cell aligned/culledwall.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://blender/obj/origin aligned/floor.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://blender/obj/cell aligned/cornerpiece.obj" type="ArrayMesh" id=5]
+[ext_resource path="res://blender/obj/cell aligned/internal corner.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://textures/transitionfloor2.png" type="Texture" id=7]
 [ext_resource path="res://textures/transitionfloor.png" type="Texture" id=8]
+
+
+
+
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 1 )

@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/culledwall.obj-899797a861516b0cb0a3a6f9a537e536.mesh"
+
+[deps]
+
+files=[ "res://.import/culledwall.obj-899797a861516b0cb0a3a6f9a537e536.mesh" ]
+
+source_file="res://blender/obj/cell aligned/culledwall.obj"
+dest_files=[ "res://.import/culledwall.obj-899797a861516b0cb0a3a6f9a537e536.mesh", "res://.import/culledwall.obj-899797a861516b0cb0a3a6f9a537e536.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

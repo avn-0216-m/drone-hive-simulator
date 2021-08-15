@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/internal corner.obj-08877234176f7f55c7c1bad8bf4689f8.mesh"
+
+[deps]
+
+files=[ "res://.import/internal corner.obj-08877234176f7f55c7c1bad8bf4689f8.mesh" ]
+
+source_file="res://blender/obj/cell aligned/internal corner.obj"
+dest_files=[ "res://.import/internal corner.obj-08877234176f7f55c7c1bad8bf4689f8.mesh", "res://.import/internal corner.obj-08877234176f7f55c7c1bad8bf4689f8.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true
