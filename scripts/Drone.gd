@@ -24,7 +24,7 @@ var interact = 16
 
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
-	set_id("5890")
+	set_id("0216")
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
