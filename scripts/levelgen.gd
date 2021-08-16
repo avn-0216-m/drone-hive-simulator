@@ -35,7 +35,7 @@ onready var gridmap = get_node("GridMap")
 onready var body_container = get_node("Bodies")
 onready var floor_src = load("res://objects/tiles/Floor.tscn")
 onready var wall_src = load("res://objects/tiles/Wall.tscn")
-onready var extern_src = load("res://Objects/tiles/ExternalCorner.tscn")
+onready var extern_src = load("res://objects/tiles/ExternalCorner.tscn")
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
