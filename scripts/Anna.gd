@@ -20,32 +20,30 @@ export var jump_height_curve: Curve
 export var jump_length_curve: Curve
 onready var timer = get_node("Timer")
 onready var sprite = get_node("AnnamatedSprite3D")
+onready var battery = load("res://objects/battery.tscn")
 
 func _ready():
 	timer.connect("timeout",self,"new_action")
 	
 func _process(delta):
+	
+	# TODO, use actual kinemannatic body stuff so she collides properly.
+	
 	if jump != Vector3(0,0,0):
 		var offset = jump
 		offset.x *= jump_length_curve.interpolate(timer.wait_time - timer.time_left)
 		offset.z *= jump_length_curve.interpolate(timer.wait_time - timer.time_left)
 		offset.y *= jump_height_curve.interpolate(timer.wait_time - timer.time_left)
-		print(offset)
 		translation = base + offset
 	if translation.y > 20:
 		queue_free()
-
-func _physics_process(delta):
-	move_and_collide(Vector3(0,0,0))
 	
 func new_action():
-	
 	if sprite.animation == "sit":
 		sprite.animation = "stand"
 		sprite.frame = 0
 		timer.wait_time = 1
 		timer.start()
-	
 	base = translation
 	jump = Vector3(0,0,0)
 	randomize()

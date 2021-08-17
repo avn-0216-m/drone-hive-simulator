@@ -61,7 +61,7 @@ animations = [ {
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.351719, 0.426976, 0.231127 )
 
-[node name="Anna" type="KinematicBody"]
+[node name="KinemannaticBody" type="KinematicBody"]
 script = ExtResource( 1 )
 jump_height = 1.0
 jump_length = 2.0

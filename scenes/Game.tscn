@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://textures/floor.png" type="Texture" id=14]
 [ext_resource path="res://shaders/peephole.shader" type="Shader" id=15]
 [ext_resource path="res://textures/wall2.png" type="Texture" id=16]
+[ext_resource path="res://objects/Battery.tscn" type="PackedScene" id=17]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -149,6 +150,9 @@ render_target_v_flip = true
 
 [node name="Game" type="Spatial" parent="Viewport"]
 script = ExtResource( 6 )
+
+[node name="Battery" parent="Viewport/Game" instance=ExtResource( 17 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 4.20984, 2.02833, 2.37595 )
 
 [node name="Anna" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82975, 1.07342, 6.61443 )
