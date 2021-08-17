@@ -33,3 +33,5 @@ For clarity, collision and visual layers will aim to match.
 1: Floor.
 2: Walls.
 3: Drone.
+
+To a drone, there is nothing more special and important than birds. They are wonderful creatures that fill you with joy and the energy to carry on. Should you find one on your travels, make the most of the time you share together, and cherish what it leaves behind.

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idle.png-3e1aa767d6b7d388bab0519ea5f6a3f1.stex"
+path="res://.import/crouch.png-2e7d7663f94e3b42c89ba79f9fcf0de6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/anna/idle.png"
-dest_files=[ "res://.import/idle.png-3e1aa767d6b7d388bab0519ea5f6a3f1.stex" ]
+source_file="res://sprites/anna/crouch.png"
+dest_files=[ "res://.import/crouch.png-2e7d7663f94e3b42c89ba79f9fcf0de6.stex" ]
 
 [params]
 
