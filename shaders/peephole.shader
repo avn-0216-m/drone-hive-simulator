@@ -28,6 +28,6 @@ void fragment(){
 	//float center_distance_to_y = pow(FRAGCOORD.y - circle_center.y + sin(TIME * swirl_speed) * swirl_factor, 2.0);
 	
 	if(center_distance_to_x + center_distance_to_y < pow(radius, 2)){
-			ALPHA = 0.0;
+			//ALPHA = 0.0;
 	}
 }

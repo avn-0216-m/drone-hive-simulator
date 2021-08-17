@@ -150,14 +150,13 @@ render_target_v_flip = true
 [node name="Game" type="Spatial" parent="Viewport"]
 script = ExtResource( 6 )
 
-[node name="Bird" parent="Viewport/Game" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.61649, 1.07342, 1.59892 )
+[node name="Anna" parent="Viewport/Game" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82975, 1.07342, 6.61443 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
 script = ExtResource( 8 )
 
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
-editor/display_folded = true
 
 [node name="MainCamera" type="Camera" parent="Viewport/Game/CameraContainer"]
 cull_mask = 7
@@ -186,7 +185,6 @@ current = true
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.166551, 2.009, -8.912 )
 
 [node name="Level" type="Spatial" parent="Viewport/Game"]
-editor/display_folded = true
 script = ExtResource( 11 )
 
 [node name="GridMap" type="GridMap" parent="Viewport/Game/Level"]
