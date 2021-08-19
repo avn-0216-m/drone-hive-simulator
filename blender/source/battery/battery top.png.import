@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icongrid.png-9d41541b53626b4fa947992423557d7f.stex"
+path="res://.import/battery top.png-040593b687272c39f90ab850b31eea66.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/face/icongrid.png"
-dest_files=[ "res://.import/icongrid.png-9d41541b53626b4fa947992423557d7f.stex" ]
+source_file="res://blender/source/battery/battery top.png"
+dest_files=[ "res://.import/battery top.png-040593b687272c39f90ab850b31eea66.stex" ]
 
 [params]
 

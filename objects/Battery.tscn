@@ -1,24 +1,25 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://blender/obj/battery.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://scripts/Battery.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Battery.gd" type="Script" id=1]
+[ext_resource path="res://blender/obj/battery2/batteryexp.tres" type="ArrayMesh" id=2]
 
 [sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.5, 0.5, 0.5 )
+extents = Vector3( 0.1, 2, 0.1 )
 
 [node name="Battery" type="KinematicBody"]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="CollisionPolygon" type="CollisionShape" parent="."]
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.878642, 0.477481, 0, -0.477481, 0.878642, 0, 0, 0 )
-mesh = ExtResource( 1 )
+transform = Transform( 0.4, 0, 0, 0, 0.939693, 0.273616, 0, -0.34202, 0.751754, 0, 0, 0 )
+mesh = ExtResource( 2 )
 material/0 = null
 material/1 = null
 material/2 = null
+material/3 = null
 
 [node name="OmniLight" type="OmniLight" parent="."]
 light_energy = 0.5

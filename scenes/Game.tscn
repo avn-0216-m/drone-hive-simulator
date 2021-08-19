@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -6,17 +6,16 @@
 [ext_resource path="res://scripts/background.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
-[ext_resource path="res://objects/Anna.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scripts/music.gd" type="Script" id=8]
-[ext_resource path="res://scripts/camera.gd" type="Script" id=9]
-[ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scripts/levelgen.gd" type="Script" id=11]
-[ext_resource path="res://meshlibraries/hive.meshlib" type="MeshLibrary" id=12]
-[ext_resource path="res://scripts/Multimeshes.gd" type="Script" id=13]
-[ext_resource path="res://textures/floor.png" type="Texture" id=14]
-[ext_resource path="res://shaders/peephole.shader" type="Shader" id=15]
-[ext_resource path="res://textures/wall2.png" type="Texture" id=16]
-[ext_resource path="res://objects/Battery.tscn" type="PackedScene" id=17]
+[ext_resource path="res://objects/Anna.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/music.gd" type="Script" id=9]
+[ext_resource path="res://scripts/camera.gd" type="Script" id=10]
+[ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/levelgen.gd" type="Script" id=12]
+[ext_resource path="res://meshlibraries/hive.meshlib" type="MeshLibrary" id=13]
+[ext_resource path="res://scripts/Multimeshes.gd" type="Script" id=14]
+[ext_resource path="res://textures/floor.png" type="Texture" id=15]
+[ext_resource path="res://shaders/peephole.shader" type="Shader" id=16]
+[ext_resource path="res://textures/wall2.png" type="Texture" id=17]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -36,7 +35,7 @@ shader_param/mask_src = ExtResource( 2 )
 [sub_resource type="ShaderMaterial" id=2]
 
 [sub_resource type="SpatialMaterial" id=3]
-albedo_texture = ExtResource( 14 )
+albedo_texture = ExtResource( 15 )
 uv1_scale = Vector3( 4, 4, 1 )
 uv1_offset = Vector3( 0.5, 0, 0 )
 
@@ -60,7 +59,7 @@ transform_format = 1
 mesh = SubResource( 4 )
 
 [sub_resource type="ShaderMaterial" id=6]
-shader = ExtResource( 15 )
+shader = ExtResource( 16 )
 shader_param/wall_uv = Vector2( 2, 2 )
 shader_param/wall_offset = null
 shader_param/circle_center = null
@@ -69,7 +68,7 @@ shader_param/max_radius = 400.0
 shader_param/swirl_factor = 8.0
 shader_param/swirl_speed = 8.0
 shader_param/alias_factor = 6.0
-shader_param/wall_src = ExtResource( 16 )
+shader_param/wall_src = ExtResource( 17 )
 
 [sub_resource type="ArrayMesh" id=7]
 surfaces/0 = {
@@ -90,7 +89,7 @@ transform_format = 1
 mesh = SubResource( 7 )
 
 [sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 15 )
+shader = ExtResource( 16 )
 shader_param/wall_uv = null
 shader_param/wall_offset = null
 shader_param/circle_center = null
@@ -151,21 +150,18 @@ render_target_v_flip = true
 [node name="Game" type="Spatial" parent="Viewport"]
 script = ExtResource( 6 )
 
-[node name="Battery" parent="Viewport/Game" instance=ExtResource( 17 )]
-transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 4.20984, 2.02833, 2.37595 )
-
-[node name="Anna" parent="Viewport/Game" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.82975, 1.07342, 6.61443 )
+[node name="Anna" parent="Viewport/Game" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9084, 1.07342, -6.87809 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
 [node name="MainCamera" type="Camera" parent="Viewport/Game/CameraContainer"]
 cull_mask = 7
 current = true
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 offset = Vector3( 0, 4, 6 )
 wallhug_offset = Vector3( 0, -3, 1 )
 game_over_offset = Vector3( 4, 0.1, 5 )
@@ -185,18 +181,18 @@ render_target_v_flip = true
 cull_mask = 2147483650
 current = true
 
-[node name="Drone" parent="Viewport/Game" instance=ExtResource( 10 )]
+[node name="Drone" parent="Viewport/Game" instance=ExtResource( 11 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.166551, 2.009, -8.912 )
 
 [node name="Level" type="Spatial" parent="Viewport/Game"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="GridMap" type="GridMap" parent="Viewport/Game/Level"]
-mesh_library = ExtResource( 12 )
+mesh_library = ExtResource( 13 )
 cell_size = Vector3( 2, 0.5, 2 )
 collision_layer = 3
 data = {
-"cells": PoolIntArray(  )
+"cells": PoolIntArray( 0, 65530, 538312705, 1, 65530, 1441793, 2, 65530, -1609170943, 3, 65530, 538312705, 4, 65530, 1441793, 5, 65530, 1441793, 6, 65530, 1441793, 7, 65530, -1609170943, 8, 65530, -1609170943, 9, 65530, 1441793, 10, 65530, -1609170943, 11, 65530, 1441793, 12, 65530, 1441793, 13, 65530, 1441793, 14, 65530, 1441793, 15, 65530, -1609170943, 16, 65530, -1609170943, 65534, 65530, -1609170943, 65535, 65530, -1609170943, 0, 65531, -1610612736, 1, 65531, 536870912, 2, 65531, 536870912, 3, 65531, 0, 4, 65531, 0, 5, 65531, -1610612736, 6, 65531, 0, 7, 65531, 0, 8, 65531, 0, 9, 65531, 0, 10, 65531, -1610612736, 11, 65531, 536870912, 12, 65531, -1610612736, 13, 65531, -1610612736, 14, 65531, 0, 15, 65531, 0, 16, 65531, -1610612736, 65534, 65531, 0, 65535, 65531, 0, 0, 65532, 0, 1, 65532, 0, 2, 65532, 536870912, 3, 65532, 0, 4, 65532, 536870912, 5, 65532, 0, 6, 65532, 0, 7, 65532, -1610612736, 8, 65532, 0, 9, 65532, 0, 10, 65532, 0, 11, 65532, 0, 12, 65532, 0, 13, 65532, 0, 14, 65532, 536870912, 15, 65532, 536870912, 16, 65532, 0, 65534, 65532, 0, 65535, 65532, 536870912, 0, 65533, -1610612736, 1, 65533, 0, 2, 65533, 536870912, 3, 65533, 0, 4, 65533, 0, 5, 65533, 0, 6, 65533, 536870912, 7, 65533, -1610612736, 8, 65533, -1610612736, 9, 65533, 0, 10, 65533, 0, 11, 65533, -1610612736, 12, 65533, -1073741824, 13, 65533, 0, 14, 65533, -1610612736, 15, 65533, 0, 16, 65533, 0, 65534, 65533, 0, 65535, 65533, 0 )
 }
 __meta__ = {
 "_editor_clip_": 0,
@@ -206,7 +202,7 @@ __meta__ = {
 [node name="Bodies" type="Spatial" parent="Viewport/Game/Level"]
 
 [node name="Multimeshes" type="Spatial" parent="Viewport/Game/Level"]
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 
 [node name="Floor" type="MultiMeshInstance" parent="Viewport/Game/Level/Multimeshes"]
 multimesh = SubResource( 5 )

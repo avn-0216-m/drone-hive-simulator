@@ -8,7 +8,11 @@ onready var display_container: Spatial = get_node("Display")
 onready var sprite: AnimatedSprite3D = get_node("Body")
 
 onready var sfx: AudioStreamPlayer = get_node("SFX")
-onready var shutdown: AudioStream = load("res://sfx//shutdown3.ogg")
+onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
+onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
+
+onready var pickup_area = get_node("PickupArea")
+onready var battery = load("res://objects/Battery.tscn")
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.0, 1.9) #y if head is dipped, else x.
@@ -24,6 +28,8 @@ var interact = 16
 
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
+	$FaceTimer.connect("timeout", self, "show_id")
+	pickup_area.connect("body_entered", self, "pickup_in_range")
 	set_id("0216")
 	
 func set_id(new_id: String):
@@ -123,3 +129,15 @@ func sfx_complete():
 	if sfx.stream == shutdown:
 		print("Drone shutdown complete, emitting signal.")
 		emit_signal("shutdown_complete")
+		
+func pickup_in_range(body):
+	if body.get_filename() == battery.get_path():
+		body.queue_free()
+		sfx.stream = sfx_battery
+		sfx.play()
+		$BatteryParticles.one_shot = false
+		$BatteryParticles.emitting = true
+		$BatteryParticles.one_shot = true
+		icon_display.frame = 3
+		show_icon()
+		$FaceTimer.start()

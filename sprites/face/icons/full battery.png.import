@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/battery side.png-ce072c1145e6e6e840f9b4e96ff9e8b7.stex"
+path="res://.import/full battery.png-a3b3a05ea3e3a1638a35709196ce1592.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://blender/source/battery side.png"
-dest_files=[ "res://.import/battery side.png-ce072c1145e6e6e840f9b4e96ff9e8b7.stex" ]
+source_file="res://sprites/face/icons/full battery.png"
+dest_files=[ "res://.import/full battery.png-a3b3a05ea3e3a1638a35709196ce1592.stex" ]
 
 [params]
 

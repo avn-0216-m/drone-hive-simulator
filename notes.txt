@@ -34,4 +34,4 @@ For clarity, collision and visual layers will aim to match.
 2: Walls.
 3: Drone.
 
-To a drone, there is nothing more special and important than birds. They are wonderful creatures that fill you with joy and the energy to carry on. Should you find one on your travels, make the most of the time you share together, and cherish what it leaves behind.
+Nothing is more special to a drone than birds. They are wonderful and gentle little creatures that bring a great deal of happiness to everyone around them. Should you find one on your travels, make the most of the time you share together, and cherish what it leaves behind.

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/battery.ogg-9ed83aadf0e3e1cf35475a4153eae302.oggstr"
+
+[deps]
+
+source_file="res://sfx/battery.ogg"
+dest_files=[ "res://.import/battery.ogg-9ed83aadf0e3e1cf35475a4153eae302.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

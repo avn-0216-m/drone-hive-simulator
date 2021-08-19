@@ -1,4 +1,4 @@
-extends KinematicBody
+extends KinematicGravity
 
 # She used to program my brain, now it's the other way around.
 # haha.
@@ -6,36 +6,63 @@ extends KinematicBody
 var base: Vector3
 var jump: Vector3
 
-export var jump_height: float = 2
-export var jump_length: float = 4
+export var jump_force: float = 7
+export var jump_length: float = 10
+
+var flying = false
+var fly_away_velocity = Vector3(0,3,0)
+var floor_test = Vector3(0,-0.1,0)
 
 export(float, 0, 5) var jump_time = 1
 export(float, 0, 5) var peck_time = 4
 export(float, 0, 5) var bob_time = 2
 export(float, 0, 5) var idle_time = 1
 export(float, 0, 5) var flap_time = 4
-export(float, 0, 10) var sit_time = 10
-
-export var jump_height_curve: Curve
-export var jump_length_curve: Curve
+export(float, 0, 10) var sit_time = 8
+export var jump_interpolate_weight: float = 0.05
+export var jump_length_linear_falloff: float = 0.05
 onready var timer = get_node("Timer")
+onready var area = get_node("Area")
 onready var sprite = get_node("AnnamatedSprite3D")
-onready var battery = load("res://objects/battery.tscn")
+onready var battery_src = load("res://objects/Battery.tscn")
 
 func _ready():
+	gravity = 0.5
 	timer.connect("timeout",self,"new_action")
+	area.connect("body_entered", self, "something_near")
+	
+func something_near(body):
+	if body.name == "Drone":
+		flying == true
+		timer.set_paused(true)
+		sprite.animation = "fly"
+		gravity = -0.2
 	
 func _process(delta):
 	
-	# TODO, use actual kinemannatic body stuff so she collides properly.
+	move_and_slide(Vector3(0,-0.1,0), Vector3(0,1,0))
+	var grounded = is_on_floor()
 	
-	if jump != Vector3(0,0,0):
-		var offset = jump
-		offset.x *= jump_length_curve.interpolate(timer.wait_time - timer.time_left)
-		offset.z *= jump_length_curve.interpolate(timer.wait_time - timer.time_left)
-		offset.y *= jump_height_curve.interpolate(timer.wait_time - timer.time_left)
-		translation = base + offset
-	if translation.y > 20:
+	if flying:
+		fly_away_velocity.y = apply_gravity(fly_away_velocity, grounded).y
+		move_and_slide(fly_away_velocity, Vector3(0,1,0))
+	else:
+		jump.y = apply_gravity(jump, grounded).y
+		move_and_slide(jump)
+		if jump.x < 0:
+			jump.x += jump_length_linear_falloff
+		elif jump.x > 0:
+			jump.x -= jump_length_linear_falloff
+			
+		if jump.z < 0:
+			jump.z += jump_length_linear_falloff
+		elif jump.z > 0:
+			jump.z -= jump_length_linear_falloff
+	
+	if translation.y > 10.8:
+		var gift = battery_src.instance()
+		gift.translation = get_global_transform().origin
+		get_tree().get_root().get_node("Main/Viewport/Game").add_child(gift)
 		queue_free()
 	
 func new_action():
@@ -44,29 +71,30 @@ func new_action():
 		sprite.frame = 0
 		timer.wait_time = 1
 		timer.start()
+		return
 	base = translation
 	jump = Vector3(0,0,0)
 	randomize()
 	match(randi() % 10):
 		0: # Jump right.
-			jump = Vector3(jump_length, jump_height, 0)
+			jump = Vector3(jump_length, jump_force, 0)
 			timer.wait_time = jump_time
 			sprite.flip_h = true
 			sprite.animation = "jump"
 			sprite.frame = 0
 		1: # Jump left.
-			jump = Vector3(-jump_length, jump_height, 0)
+			jump = Vector3(-jump_length, jump_force, 0)
 			timer.wait_time = jump_time
 			sprite.flip_h = false
 			sprite.animation = "jump"
 			sprite.frame = 0
 		2: # Jump down.
-			jump = Vector3(0, jump_height, -jump_length)
+			jump = Vector3(0, jump_force, -jump_length)
 			timer.wait_time = jump_time
 			sprite.animation = "jump"
 			sprite.frame = 0
 		3: # Jump up.
-			jump = Vector3(0, jump_height, jump_length)
+			jump = Vector3(0, jump_force, jump_length)
 			timer.wait_time = jump_time
 			sprite.animation = "jump"
 			sprite.frame = 0
