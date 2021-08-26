@@ -20,6 +20,8 @@ var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
 const GRAVITY: Vector3 = Vector3(0,-7,0)
 
+var active: bool = true
+
 var move_up = 1
 var move_down = 2
 var move_left = 4
@@ -59,7 +61,12 @@ func toggle_display():
 	display_container.visible = !display_container.visible
 	
 func get_inputs() -> int:
+	
+	if !active:
+		return 0
+	
 	var inputs = 0
+	
 	if Input.is_action_pressed("move_left"):
 		inputs += move_left
 	if Input.is_action_pressed("move_right"):

@@ -5,11 +5,14 @@ signal level_complete
 var tiles: Array = []
 
 onready var music = get_node("Music")
-onready var level = get_node("Level")
+onready var level_src = load("res://objects/Level.tscn")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
-var difficulty: int = 10
+var difficulty: int = 0
+
+var previous_level = null
+var current_level = null
 
 func _ready():
 	print("Assigning camera.")
@@ -20,7 +23,8 @@ func _ready():
 	
 	print("Root game node ready!")
 	print("Starting intro wipe")
-	#new_level()
+	new_level()
+	#music.change_music()
 	
 func _process(delta):
 	if Input.is_action_pressed("debug_hotkey") and Input.is_action_just_pressed("debug_bg_in"):
@@ -48,7 +52,25 @@ func drone_shutdown_complete():
 	get_tree().get_root().get_child(0).get_node("GameOverText").visible = true
 		
 func new_level():
-	print("Beginning level setup.")
-	level.new_level(difficulty)
-	drone.translation = level.gridmap.map_to_world(level.start_tile.x, level.start_tile.y, level.start_tile.z) + Vector3(0,5,0)
-	camera.translation = drone.translation
+	
+	var level = level_src.instance()
+	level.difficulty = difficulty
+	
+	level.name = "Level"
+	previous_level = current_level
+	current_level = level
+	if previous_level != null:
+		previous_level.name = "oldLevel"
+	add_child(level)
+	
+	if previous_level == null:
+		# initial level creation. spawn at 0,0,0
+		level.translation = Vector3(0,0,0)
+		print("Generating first floor.")
+	else:
+		# otherwise, spawn below current level
+		level.translation = Vector3(0,-10,0)
+		print("Generating next floor.")
+	
+	#drone.translation = level.gridmap.map_to_world(level.start_tile.x, level.start_tile.y, level.start_tile.z) + Vector3(0,3,0)
+	#camera.translation = drone.translation

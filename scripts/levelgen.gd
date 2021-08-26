@@ -31,8 +31,13 @@ var room_size_z = 0
 var rng = RandomNumberGenerator.new()
 
 onready var gridmap = get_node("GridMap")
+onready var multimeshes = get_node("Multimeshes")
 
 onready var body_container = get_node("Bodies")
+onready var floor_body_container = get_node("Bodies/Floor")
+onready var wall_body_container = get_node("Bodies/Walls")
+onready var extern_body_container = get_node("Bodies/ExternalCorners")
+onready var intern_body_container = get_node("Bodies/InternalCorners")
 onready var floor_src = load("res://objects/tiles/Floor.tscn")
 onready var wall_src = load("res://objects/tiles/Wall.tscn")
 onready var extern_src = load("res://objects/tiles/ExternalCorner.tscn")
@@ -43,7 +48,17 @@ onready var object_container = get_node("Objects")
 onready var entry_src = load("res://objects/Entry.tscn")
 onready var exit_src = load("res://objects/Exit.tscn")
 
-onready var multimeshes = get_node("Multimeshes")
+var difficulty: int = 10
+
+func _ready():
+	new_level(difficulty)
+	# when instanced, grab the camera and point it to your wall materials
+	# that way, every new level will replace the old levels material references
+	# in the camera. very beautiful, very powerful.
+
+	var camera = get_node("../CameraContainer/MainCamera")
+	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
+	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
 
 func get_adjacent_floor_tiles(origin: Vector3) -> int:
 	var tiles = 0
@@ -148,22 +163,24 @@ func new_level(difficulty: int):
 	add_walls_to_gridmap()
 	
 	# instance tiles into bodies
+	print("INITIALIZING MESHES FOR")
+	print(name)
 	for cell in gridmap.get_used_cells():
 		var tile_inst = null
 		match(gridmap.get_cell_item(cell.x, cell.y, cell.z)):
 			0: # floor tile
-				instance_gridmap_object(floor_src, cell, body_container)
+				instance_gridmap_object(floor_src, cell, floor_body_container)
 			1: # straight wall
-				instance_gridmap_object(wall_src, cell, body_container)
+				instance_gridmap_object(wall_src, cell, wall_body_container)
+				#pass
 			3: # external corner
-				instance_gridmap_object(extern_src, cell, body_container)
+				instance_gridmap_object(extern_src, cell, extern_body_container)
 			5: # entry tile
 				instance_gridmap_object(entry_src, cell, object_container)
 			6: # exit tile
 				instance_gridmap_object(exit_src, cell, object_container)
 		
 	gridmap.clear()
-	
 	multimeshes.init_multimeshes()
 	
 	# setup multi mesh renderer

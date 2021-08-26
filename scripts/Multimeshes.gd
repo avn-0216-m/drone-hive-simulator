@@ -12,20 +12,20 @@ var wall_translations: Array = []
 # so append them to arrays and init them in the init func.
 
 func init_multimeshes():
+	# what i'm about to do has not been approved by the vatican.
 	
-	# get the positions of all relevant bodies and give their transform to a mesh.
 	
-	var floor_bodies = get_tree().get_nodes_in_group("Floor")
+	var floor_bodies = get_tree().get_root().get_node("Main/Viewport/Game/Level/Bodies/Floor").get_children()
 	floors.multimesh.instance_count = len(floor_bodies)
 	for i in range(len(floor_bodies)):
-		floors.multimesh.set_instance_transform(i, floor_bodies[i].get_global_transform())
+		floors.multimesh.set_instance_transform(i, floor_bodies[i].get_child(0).get_global_transform())
 
-	var wall_bodies = get_tree().get_nodes_in_group("Straight Wall")
+	var wall_bodies = get_tree().get_root().get_node("Main/Viewport/Game/Level/Bodies/Walls").get_children()
 	walls.multimesh.instance_count = len(wall_bodies)
 	for i in range(len(wall_bodies)):
-		walls.multimesh.set_instance_transform(i, wall_bodies[i].get_global_transform())
+		walls.multimesh.set_instance_transform(i, wall_bodies[i].get_child(0).get_global_transform())
 
-	var external_bodies = get_tree().get_nodes_in_group("External Corner")
+	var external_bodies = get_tree().get_root().get_node("Main/Viewport/Game/Level/Bodies/ExternalCorners").get_children()
 	extern_corners.multimesh.instance_count = len(external_bodies)
 	for i in range(len(external_bodies)):
-		extern_corners.multimesh.set_instance_transform(i, external_bodies[i].get_global_transform())
+		extern_corners.multimesh.set_instance_transform(i, external_bodies[i].get_child(0).get_global_transform())

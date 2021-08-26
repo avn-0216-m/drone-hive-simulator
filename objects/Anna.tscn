@@ -16,35 +16,35 @@ animations = [ {
 "name": "still",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "bob",
-"speed": 5.0
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "flap",
+"speed": 6.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "fly",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
-"loop": false,
-"name": "sit",
-"speed": 10.0
+"frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "bob",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "peck",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "flap",
-"speed": 6.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "stand",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "sit",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
@@ -77,7 +77,7 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0696413, 0.0386445, 0 )
 shape = SubResource( 2 )
 
-[node name="Area" type="Area" parent="."]
+[node name="Annarea" type="Area" parent="."]
 
-[node name="CollisionPolygon" type="CollisionShape" parent="Area"]
+[node name="CollisionPolygon" type="CollisionShape" parent="Annarea"]
 shape = SubResource( 3 )

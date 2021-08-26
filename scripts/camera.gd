@@ -13,11 +13,6 @@ var wall_mat: Material
 var extern_mat: Material # Material for external corner.
 var peephole_max_radius: int = 400
 onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
-
-
-func _ready():
-	wall_mat = get_node("../../Level/Multimeshes/Walls").multimesh.mesh.surface_get_material(0)
-	extern_mat = get_node("../../Level/Multimeshes/ExternalCorners").multimesh.mesh.surface_get_material(0)
 	
 func _process(delta):
 	
