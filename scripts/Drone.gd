@@ -20,7 +20,7 @@ var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
 const GRAVITY: Vector3 = Vector3(0,-7,0)
 
-var active: bool = true
+var immobile: bool = false
 
 var move_up = 1
 var move_down = 2
@@ -32,7 +32,7 @@ func _ready():
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
 	pickup_area.connect("body_entered", self, "pickup_in_range")
-	set_id("0216")
+	set_id("3366")
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -62,7 +62,7 @@ func toggle_display():
 	
 func get_inputs() -> int:
 	
-	if !active:
+	if immobile:
 		return 0
 	
 	var inputs = 0
@@ -78,6 +78,13 @@ func get_inputs() -> int:
 	return inputs
 
 func _process(delta):
+	
+	if immobile:
+		sprite.animation = "forward"
+		sprite.playing = false
+		display_container.translation.y = headbob_offset.y
+		display_container.visible = true
+		return
 	
 	velocity = Vector3(0,0,0) + GRAVITY
 	
@@ -117,6 +124,10 @@ func _process(delta):
 		display_container.visible = true
 		
 func _physics_process(delta):
+	
+	if immobile:
+		return
+	
 	move_and_slide(velocity)
 		
 func game_over_1():

@@ -25,6 +25,7 @@ const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
 var start_tile = Vector3(0,0,0)
+var exit_tile = Vector3(0,0,0)
 var room_size_x = 0
 var room_size_z = 0
 
@@ -128,12 +129,12 @@ func cut_holes():
 func add_additional_rooms():
 	return
 	
-func set_start_end_tiles():
+func set_end_tile():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
 	start_tile = floor_tiles[0]
 	var exit_tile = floor_tiles[1]
-	gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 5)
+	#gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 5)
 	gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
 
 func instance_gridmap_object(object, cell, parent):
@@ -159,7 +160,7 @@ func new_level(difficulty: int):
 		cut_holes()
 	if difficulty > 6:
 		add_additional_rooms()
-	set_start_end_tiles()
+	set_end_tile()
 	add_walls_to_gridmap()
 	
 	# instance tiles into bodies
