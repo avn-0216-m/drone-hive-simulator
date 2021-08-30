@@ -8,6 +8,7 @@ var active: bool = true
 export var game_over: bool = false
 onready var raycast: RayCast = get_node("../WallhugRaycast")
 onready var drone: KinematicBody = get_parent().get_parent().get_node("Drone")
+onready var transition_timer: Timer = get_node("../../TransitionTimers/TransitionMid")
 var wall_mat: Material
 var extern_mat: Material # Material for external corner.
 var peephole_max_radius: int = 400
@@ -58,7 +59,8 @@ func _process(delta):
 			rotation_degrees = lerp(rotation_degrees, Vector3(0,0,0), 0.05)
 			drone.rotation_degrees.y = lerp(drone.rotation_degrees.y, game_over_rotation_y, 0.05)
 		State.TRANSITION:
-			pass
+			print(transition_timer)
+			
 
 func game_over_1():
 	# switch to layer so only drone is visible.

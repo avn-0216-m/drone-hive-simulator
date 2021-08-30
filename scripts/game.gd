@@ -121,10 +121,12 @@ func transition_out_complete():
 	print("Transition out complete.")
 	current_state = State.TRANSITION_MID
 	trans_mid_timer.start()
+	camera.current_state = camera.State.TRANSITION
 
 func transition_mid_complete():
 	print("Transition mid complete.")
 	current_state = State.TRANSITION_IN
+	camera.current_state = camera.State.MAIN
 	
 	var elevator = get_node("TransitionPod")
 	elevator.translation = current_level.gridmap.map_to_world(current_level.start_tile.x, current_level.start_tile.y, current_level.start_tile.z)
