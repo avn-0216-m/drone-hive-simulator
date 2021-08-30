@@ -12,5 +12,5 @@ func body_entered(body):
 		var entry = entry_src.instance()
 		entry.transform = transform
 		get_tree().get_root().get_node("Main/Viewport/Game").add_child(entry)
-		entry.name = "EntryToNextFloor"
+		entry.name = "TransitionPod"
 		queue_free()

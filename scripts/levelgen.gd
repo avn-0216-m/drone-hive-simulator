@@ -134,7 +134,7 @@ func set_end_tile():
 	floor_tiles.shuffle()
 	start_tile = floor_tiles[0]
 	var exit_tile = floor_tiles[1]
-	#gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 5)
+	gridmap.set_cell_item(start_tile.x, 0, start_tile.z, -1)
 	gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
 
 func instance_gridmap_object(object, cell, parent):
