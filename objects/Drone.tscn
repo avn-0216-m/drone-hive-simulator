@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Drone.gd" type="Script" id=1]
 [ext_resource path="res://sprites/drone/front/1.png" type="Texture" id=2]
@@ -47,6 +47,10 @@ size = Vector2( 0.5, 1 )
 [sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.57899, 0.0, 0, 0 ]
 
+[sub_resource type="SphereMesh" id=7]
+radius = 0.3
+height = 0.6
+
 [node name="Drone" type="KinematicBody"]
 script = ExtResource( 1 )
 
@@ -55,7 +59,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1 )
 layers = 4
 frames = SubResource( 1 )
 animation = "forward"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Display" type="Spatial" parent="."]
@@ -138,3 +142,7 @@ visible = false
 
 [node name="OrbitalCamera" type="Camera" parent="CameraContainer"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6 )
+
+[node name="Orbiter" type="MeshInstance" parent="."]
+mesh = SubResource( 7 )
+material/0 = null

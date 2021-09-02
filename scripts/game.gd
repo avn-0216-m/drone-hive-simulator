@@ -114,6 +114,7 @@ func new_level():
 	level.translation = new_level_max_height_down
 	
 	trans_out_timer.start()
+	camera.current_state = camera.State.TRANSITION
 	current_state = State.TRANSITION_OUT
 	
 	
@@ -125,7 +126,7 @@ func transition_out_complete():
 	print("Transition out complete.")
 	current_state = State.TRANSITION_MID
 	trans_mid_timer.start()
-	camera.current_state = camera.State.TRANSITION
+	camera.current_state = camera.State.ORBIT
 
 func transition_mid_complete():
 	print("Transition mid complete.")

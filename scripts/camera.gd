@@ -14,7 +14,7 @@ var extern_mat: Material # Material for external corner.
 var peephole_max_radius: int = 400
 onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
 
-enum State {LOCKED, MAIN, WALL_HUG, GAME_OVER, TRANSITION}
+enum State {LOCKED, MAIN, WALL_HUG, GAME_OVER, TRANSITION, ORBIT}
 var current_state = State.MAIN
 	
 func _process(delta):
@@ -56,8 +56,16 @@ func _process(delta):
 			rotation_degrees = lerp(rotation_degrees, Vector3(0,0,0), 0.05)
 			drone.rotation_degrees.y = lerp(drone.rotation_degrees.y, game_over_rotation_y, 0.05)
 		State.TRANSITION:
-			print(transition_timer)
-			
+			translation = lerp(translation, drone.get_global_transform().origin + wallhug_offset, 0.05)
+			look_at(drone.get_global_transform().origin, Vector3(0,1,0))
+		State.ORBIT:
+			#var magnitude = lerp(0.2, 0.2, (transition_timer.wait_time - transition_timer.time_left) / transition_timer.wait_time)
+			#translation = drone.get_global_transform().origin
+			#range_lerp(abs(transition_timer.time_left - transition_timer.wait_time / 2), 5, 0, -1, 1) * 3
+			#translation.z += rad2deg(sin(deg2rad((transition_timer.wait_time - transition_timer.time_left) / transition_timer.wait_time * 360))) * magnitude
+			#translation.x += rad2deg(cos(deg2rad((transition_timer.wait_time - transition_timer.time_left) / transition_timer.wait_time * 360))) * magnitude
+			#look_at(drone.get_global_transform().origin, Vector3(0,1,0))
+			pass
 
 func game_over_1():
 	# switch to layer so only drone is visible.

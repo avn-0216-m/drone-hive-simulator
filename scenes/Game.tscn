@@ -100,7 +100,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="TransitionMid" type="Timer" parent="Viewport/Game/TransitionTimers"]
-wait_time = 0.1
+wait_time = 5.0
 one_shot = true
 
 [node name="TransitionIn" type="Timer" parent="Viewport/Game/TransitionTimers"]
