@@ -131,12 +131,11 @@ func transition_out_complete():
 func transition_mid_complete():
 	print("Transition mid complete.")
 	current_state = State.TRANSITION_IN
-	camera.current_state = camera.State.MAIN
 	
 	var elevator = get_node("Elevator")
 	elevator.translation = current_level.gridmap.map_to_world(current_level.start_tile.x, current_level.start_tile.y, current_level.start_tile.z)
 	drone.translation = elevator.get_node("DroneGoesHere").get_global_transform().origin
-	
+	camera.current_state = camera.State.TRANSITION
 	trans_in_timer.start()
 	
 func transition_in_complete():
@@ -144,9 +143,10 @@ func transition_in_complete():
 	if previous_level != null:
 		previous_level.queue_free()
 		pass
-	drone.immobile = false
 	current_state = State.PLAYING
 	current_level.translation = Vector3(0,0,0)
+	
+	camera.current_state = camera.State.MAIN
 	
 	# Reparent the storagepod from Game node to the new level node.
 	var transition_pod = transition_pod_src.instance()
