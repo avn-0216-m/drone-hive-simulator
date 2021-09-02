@@ -38,4 +38,4 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="DroneGoesHere" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0 )

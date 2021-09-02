@@ -82,6 +82,7 @@ func _process(delta):
 	if immobile:
 		sprite.animation = "forward"
 		sprite.playing = false
+		sprite.frame = 0
 		display_container.translation.y = headbob_offset.y
 		display_container.visible = true
 		return

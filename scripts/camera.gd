@@ -42,9 +42,6 @@ func _process(delta):
 			
 			look_at(drone.get_global_transform().origin, Vector3(0,1,0))
 		State.WALL_HUG:
-			print("HUGGING WALL")
-			print(wallhug_offset)
-			print(drone.get_global_transform().origin)
 			translation = lerp(translation, drone.get_global_transform().origin + wallhug_offset, 0.1)
 			raycast.translation = drone.get_global_transform().origin
 			var new_circle_center = unproject_position(drone.get_global_transform().origin)

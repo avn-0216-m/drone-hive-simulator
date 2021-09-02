@@ -24,7 +24,7 @@ const EXTERN_CORNER_TOP_LEFT = 16
 const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
-var start_tile = Vector3(0,0,0)
+var start_tile = null
 var exit_tile = Vector3(0,0,0)
 var room_size_x = 0
 var room_size_z = 0
@@ -46,12 +46,20 @@ onready var extern_src = load("res://objects/tiles/ExternalCorner.tscn")
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
 onready var object_container = get_node("Objects")
-onready var entry_src = load("res://objects/Entry.tscn")
+onready var entry_src = load("res://objects/Elevator.tscn")
 onready var exit_src = load("res://objects/Exit.tscn")
 
-var difficulty: int = 10
+var difficulty: int = 0
+var tasks: int = 1
+
+enum LevelType {FIRST, NORMAL}
+var type
 
 func _ready():
+	
+	if type == null:
+		type = LevelType.NORMAL
+	
 	new_level(difficulty)
 	# when instanced, grab the camera and point it to your wall materials
 	# that way, every new level will replace the old levels material references
@@ -76,11 +84,16 @@ func add_walls_to_gridmap():
 	# for an empty tile. Add a wall as necessary.
 	
 	original_used_cells = gridmap.get_used_cells()
+	if start_tile != null:
+		original_used_cells += [start_tile]
+	# start tile is empty for the elevator to come down into
+	# so it needs to be added to the used cells so walls still generate
+	# correctly around it.
 	
 	for tile in original_used_cells:
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
-			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1:
+			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1 or cell == start_tile:
 				# print("Empty space: " + str(cell.x) + ", "+ str(cell.y) + ", "+ str(cell.z) + ", ")
 				var found_tiles = get_adjacent_floor_tiles(Vector3(cell.x, cell.y, cell.z))
 				
@@ -129,13 +142,22 @@ func cut_holes():
 func add_additional_rooms():
 	return
 	
-func set_end_tile():
+func set_start_end_tile():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
-	start_tile = floor_tiles[0]
-	var exit_tile = floor_tiles[1]
-	gridmap.set_cell_item(start_tile.x, 0, start_tile.z, -1)
-	gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+	
+	print(type)
+	
+	match(type):
+		LevelType.FIRST:
+			var exit_tile = floor_tiles[1]
+			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+		LevelType.NORMAL:
+			var exit_tile = floor_tiles[1]
+			start_tile = floor_tiles[0]
+			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+			gridmap.set_cell_item(start_tile.x, 0, start_tile.z, -1)
+
 
 func instance_gridmap_object(object, cell, parent):
 	var tile_inst = object.instance()
@@ -150,6 +172,9 @@ func instance_gridmap_object(object, cell, parent):
 		22:
 			tile_inst.rotation_degrees.y = 270
 
+func add_tasks():
+	print("Adding tasks.")
+
 func new_level(difficulty: int):
 	
 	# gridmap setup
@@ -160,8 +185,9 @@ func new_level(difficulty: int):
 		cut_holes()
 	if difficulty > 6:
 		add_additional_rooms()
-	set_end_tile()
+	set_start_end_tile()
 	add_walls_to_gridmap()
+	add_tasks()
 	
 	# instance tiles into bodies
 	print("INITIALIZING MESHES FOR")

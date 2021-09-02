@@ -32,7 +32,7 @@ func _ready():
 	area.connect("body_entered", self, "something_near")
 	
 func something_near(body):
-	if body.name == "bingus":
+	if body.name == "Drone":
 		flying == true
 		timer.set_paused(true)
 		sprite.animation = "fly"

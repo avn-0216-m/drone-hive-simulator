@@ -96,10 +96,11 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 9.65644, 5.17492, 4.6277
 [node name="TransitionTimers" type="Node" parent="Viewport/Game"]
 
 [node name="TransitionOut" type="Timer" parent="Viewport/Game/TransitionTimers"]
-wait_time = 5.0
+wait_time = 3.0
 one_shot = true
 
 [node name="TransitionMid" type="Timer" parent="Viewport/Game/TransitionTimers"]
+wait_time = 0.1
 one_shot = true
 
 [node name="TransitionIn" type="Timer" parent="Viewport/Game/TransitionTimers"]

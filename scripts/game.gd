@@ -16,14 +16,15 @@ onready var trans_in_timer = get_node("TransitionTimers/TransitionIn")
 
 onready var music = get_node("Music")
 onready var level_src = load("res://objects/Level.tscn")
+onready var transition_pod_src = load("res://objects/Elevator.tscn")
 onready var background = get_tree().get_root().get_child(0).get_node("Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
 var difficulty: int = 0
 
 # Level transition variables
-var new_level_max_height_down = Vector3(0,-10,0)
-var previous_level_max_height_up = Vector3(0,10,0)
+var new_level_max_height_down = Vector3(0,-20,0)
+var previous_level_max_height_up = Vector3(0,20,0)
 
 var previous_level = null
 var current_level = null
@@ -92,10 +93,13 @@ func first_level():
 	var level = level_src.instance()
 	level.difficulty = 0
 	level.name = "Level"
+	level.type = level.LevelType.FIRST
 	add_child(level)
 	current_level = level
 		
 func new_level():
+	
+	difficulty += 1
 	
 	var level = level_src.instance()
 	level.difficulty = difficulty
@@ -128,7 +132,7 @@ func transition_mid_complete():
 	current_state = State.TRANSITION_IN
 	camera.current_state = camera.State.MAIN
 	
-	var elevator = get_node("TransitionPod")
+	var elevator = get_node("Elevator")
 	elevator.translation = current_level.gridmap.map_to_world(current_level.start_tile.x, current_level.start_tile.y, current_level.start_tile.z)
 	drone.translation = elevator.get_node("DroneGoesHere").get_global_transform().origin
 	
@@ -143,4 +147,10 @@ func transition_in_complete():
 	current_state = State.PLAYING
 	current_level.translation = Vector3(0,0,0)
 	
-	#get_node("TransitionPod").queue_free()
+	# Reparent the storagepod from Game node to the new level node.
+	var transition_pod = transition_pod_src.instance()
+	transition_pod.transform = get_node("Elevator").get_global_transform()
+	transition_pod.drone = drone
+	drone.immobile = false
+	get_node("Level/Bodies").add_child(transition_pod)
+	get_node("Elevator").queue_free()
