@@ -17,7 +17,7 @@ onready var battery = load("res://objects/Battery.tscn")
 onready var timer = get_node("../TransitionTimers/TransitionMid")
 
 var id: String = "0000"
-var headbob_offset: Vector2 = Vector2(2.0, 1.9) #y if head is dipped, else x.
+var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
 var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
 const GRAVITY: Vector3 = Vector3(0,-7,0)
@@ -34,7 +34,7 @@ func _ready():
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
 	pickup_area.connect("body_entered", self, "pickup_in_range")
-	set_id("3366")
+	set_id("0216")
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -81,18 +81,11 @@ func get_inputs() -> int:
 
 func _process(delta):
 	
-	# Debug
-	$Orbiter.translation = Vector3(0,0,0)
-	if timer.time_left != 0:
-		$Orbiter.translation.z += rad2deg(cos(deg2rad((timer.wait_time - timer.time_left) / timer.wait_time * 360))) * 0.1
-		$Orbiter.translation.x += rad2deg(sin(deg2rad((timer.wait_time - timer.time_left) / timer.wait_time * 360))) * 0.1
-
-	
 	if immobile:
 		sprite.animation = "forward"
 		sprite.playing = false
 		sprite.frame = 0
-		display_container.translation.y = headbob_offset.y
+		#display_container.translation.y = headbob_offset.y
 		display_container.visible = true
 		return
 	
@@ -103,12 +96,12 @@ func _process(delta):
 	
 	if inputs & move_right:
 		velocity.x = 1 * speed
-		sprite.rotation_degrees.y = 0
-		display_container.translation = Vector3(0,1.9,0.1)
+		sprite.flip_h = false
+		display_container.translation = Vector3(0.05,2.4,0.1)
 	if inputs & move_left:
 		velocity.x = -1 * speed
-		sprite.rotation_degrees.y = 180
-		display_container.translation = Vector3(-0.5,1.9,0.1)
+		sprite.flip_h = true
+		display_container.translation = Vector3(-0.5,2.4,0.1)
 	if inputs & move_down:
 		velocity.z = 1 * speed
 	if inputs & move_up:
@@ -128,10 +121,10 @@ func _process(delta):
 	else:
 		sprite.animation = "forward"
 		
-	if sprite.animation == "backward":
-		display_container.visible = false
-	else:
-		display_container.visible = true
+	#if sprite.animation == "backward":
+	#	display_container.visible = false
+	#else:
+	#	display_container.visible = true
 		
 func _physics_process(delta):
 	

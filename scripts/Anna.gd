@@ -22,7 +22,7 @@ export(float, 0, 10) var sit_time = 8
 export var jump_interpolate_weight: float = 0.05
 export var jump_length_linear_falloff: float = 0.05
 onready var timer = get_node("Timer")
-onready var area = get_node("Area")
+onready var area = get_node("Annarea")
 onready var sprite = get_node("AnnamatedSprite3D")
 onready var battery_src = load("res://objects/Battery.tscn")
 

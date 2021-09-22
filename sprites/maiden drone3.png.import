@@ -2,29 +2,29 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/beep.png-053256fb31c45ccc985de08a945cb860.stex"
+path="res://.import/maiden drone3.png-428cf800c94342f2fff45cf158f7dbcc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/beep.png"
-dest_files=[ "res://.import/beep.png-053256fb31c45ccc985de08a945cb860.stex" ]
+source_file="res://sprites/maiden drone3.png"
+dest_files=[ "res://.import/maiden drone3.png-428cf800c94342f2fff45cf158f7dbcc.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=1
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

@@ -2,24 +2,24 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/beep.png-053256fb31c45ccc985de08a945cb860.stex"
+path="res://.import/AVN.png-df16949f510138ad8e45f6516d5da0a3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/beep.png"
-dest_files=[ "res://.import/beep.png-053256fb31c45ccc985de08a945cb860.stex" ]
+source_file="res://textures/AVN.png"
+dest_files=[ "res://.import/AVN.png-df16949f510138ad8e45f6516d5da0a3.stex" ]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
