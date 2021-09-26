@@ -116,10 +116,10 @@ func _process(delta):
 	else:
 		display_container.translation.y = headbob_offset.x
 		
-	if velocity.z < 0:
-		sprite.animation = "backward"
-	else:
-		sprite.animation = "forward"
+	#if velocity.z < 0:
+	#	sprite.animation = "backward"
+	#else:
+	#	sprite.animation = "forward"
 		
 	#if sprite.animation == "backward":
 	#	display_container.visible = false
