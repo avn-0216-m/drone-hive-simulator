@@ -23,7 +23,6 @@ var wall_mat: Material
 var extern_mat: Material # Material for external corner.
 
 onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
-var orbit_max = rad2deg(cos(deg2rad((360)))) * 0.1
 
 enum State {LOCKED, MAIN, WALL_HUG, GAME_OVER, TRANSITION, ORBIT}
 var current_state = State.MAIN
@@ -49,8 +48,6 @@ func _process(delta):
 			offset = wallhug_offset
 		State.ORBIT, State.GAME_OVER:
 			offset = game_over_offset
-			
-	print(drone.get_global_transform().origin + offset)
 	
 	# handle peephole radius
 	match(current_state):
