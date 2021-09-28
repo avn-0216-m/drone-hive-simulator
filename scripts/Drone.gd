@@ -11,6 +11,8 @@ onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
 onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
+onready var inventory = get_node("Inventory")
+
 onready var pickup_area = get_node("PickupArea")
 onready var battery = load("res://objects/Battery.tscn")
 
@@ -28,7 +30,9 @@ var move_up = 1
 var move_down = 2
 var move_left = 4
 var move_right = 8
-var interact = 16
+var inventory_left = 16
+var inventory_right = 32
+var interact = 64
 
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
@@ -77,6 +81,12 @@ func get_inputs() -> int:
 		inputs += move_up
 	if Input.is_action_pressed("move_down"):
 		inputs += move_down
+	
+	if Input.is_action_just_pressed("inventory_left"):
+		inventory.change_selected_slot(inventory.inventory_index - 1)
+	elif Input.is_action_just_pressed("inventory_right"):
+		inventory.change_selected_slot(inventory.inventory_index + 1)
+	
 	return inputs
 
 func _process(delta):
