@@ -2,7 +2,7 @@
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
-[ext_resource path="res://textures/all beep and no boop.png" type="Texture" id=3]
+[ext_resource path="res://textures/swirlcollection.png" type="Texture" id=3]
 [ext_resource path="res://scripts/background.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
@@ -11,7 +11,7 @@
 [ext_resource path="res://scripts/camera.gd" type="Script" id=9]
 [ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=10]
 [ext_resource path="res://curves/new_level_transition.tres" type="Curve" id=11]
-[ext_resource path="res://objects/Anna.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/TestInteractable.tscn" type="PackedScene" id=12]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -63,8 +63,8 @@ script = ExtResource( 6 )
 previous_level_transition_curve = ExtResource( 7 )
 new_level_transition_curve = ExtResource( 11 )
 
-[node name="KinemannaticBody" parent="Viewport/Game" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.77883, 5.35228, 7.14754 )
+[node name="TestInteractable" parent="Viewport/Game" instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57383, 14.813, 8.28654 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
 script = ExtResource( 8 )

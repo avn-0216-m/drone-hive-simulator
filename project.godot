@@ -9,13 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicGravity",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://scripts/classes/Interactable.gd"
+}, {
 "base": "KinematicBody",
 "class": "KinematicGravity",
 "language": "GDScript",
-"path": "res://scripts/KinematicGravity.gd"
+"path": "res://scripts/classes/KinematicGravity.gd"
+}, {
+"base": "Interactable",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://scripts/classes/Pickup.gd"
 } ]
 _global_script_class_icons={
-"KinematicGravity": ""
+"Interactable": "",
+"KinematicGravity": "",
+"Pickup": ""
 }
 
 [application]

@@ -14,6 +14,7 @@ onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 onready var inventory = get_node("Inventory")
 
 onready var pickup_area = get_node("PickupArea")
+onready var interact_area = get_node("InteractArea")
 onready var battery = load("res://objects/Battery.tscn")
 
 onready var timer = get_node("../TransitionTimers/TransitionMid")
@@ -86,7 +87,8 @@ func get_inputs() -> int:
 		inventory.change_selected_slot(inventory.inventory_index - 1)
 	elif Input.is_action_just_pressed("inventory_right"):
 		inventory.change_selected_slot(inventory.inventory_index + 1)
-	
+	if Input.is_action_just_pressed("interact"):
+		interact_with_object()
 	return inputs
 
 func _process(delta):
@@ -108,14 +110,18 @@ func _process(delta):
 		velocity.x = 1 * speed
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.1)
+		interact_area.rotation_degrees.y = 0
 	if inputs & move_left:
 		velocity.x = -1 * speed
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.1)
+		interact_area.rotation_degrees.y = 180
 	if inputs & move_down:
 		velocity.z = 1 * speed
+		interact_area.rotation_degrees.y = 270
 	if inputs & move_up:
 		velocity.z = -1 * speed
+		interact_area.rotation_degrees.y = 90
 
 	# Check if drone should keep walking.
 	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
@@ -135,6 +141,16 @@ func _process(delta):
 	#	display_container.visible = false
 	#else:
 	#	display_container.visible = true
+		
+func interact_with_object():
+	print("Drone is finding something to interact with!")
+	for body in interact_area.get_overlapping_bodies():
+		if body is Interactable:
+			print("This item is interactable!")
+			break
+		if body is Pickup:
+			print("This item can be picked up!")
+			break
 		
 func _physics_process(delta):
 	

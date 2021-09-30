@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scripts/Drone.gd" type="Script" id=1]
 [ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=2]
@@ -15,13 +15,13 @@
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "backward",
-"speed": 4.0
+"name": "forward",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "forward",
-"speed": 5.0
+"name": "backward",
+"speed": 4.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
@@ -30,7 +30,10 @@ extents = Vector3( 1.251, 3.55471, 0.239222 )
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 2, 3, 2 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 1.83606, 3.18513, 1.67867 )
+
+[sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
 flags_unshaded = true
 params_billboard_mode = 3
@@ -41,33 +44,33 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 albedo_texture = ExtResource( 11 )
 
-[sub_resource type="QuadMesh" id=5]
+[sub_resource type="QuadMesh" id=6]
 size = Vector2( 0.5, 1 )
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=7]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.57899, 0.0, 0, 0 ]
 
-[sub_resource type="SpatialMaterial" id=10]
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_texture = ExtResource( 7 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=9]
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
 albedo_texture = ExtResource( 5 )
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=10]
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_color = Color( 0.45098, 0.309804, 0.588235, 1 )
 albedo_texture = ExtResource( 5 )
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=11]
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
@@ -143,20 +146,27 @@ volume_db = 2.0
 [node name="CollisionShape" type="CollisionShape" parent="PickupArea"]
 shape = SubResource( 3 )
 
+[node name="InteractArea" type="Area" parent="."]
+transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="InteractArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.72499, 0, 2.54724e-07 )
+shape = SubResource( 4 )
+
 [node name="BatteryParticles" type="CPUParticles" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21892 )
-material_override = SubResource( 4 )
+material_override = SubResource( 5 )
 emitting = false
 amount = 4
 one_shot = true
 explosiveness = 1.0
-mesh = SubResource( 5 )
+mesh = SubResource( 6 )
 emission_shape = 2
 emission_box_extents = Vector3( 1, 1, 1 )
 gravity = Vector3( 0, 4, 0 )
 linear_accel = 6.19
 linear_accel_random = 0.32
-scale_amount_curve = SubResource( 6 )
+scale_amount_curve = SubResource( 7 )
 hue_variation = 0.07
 hue_variation_random = 0.85
 
@@ -170,14 +180,14 @@ script = ExtResource( 6 )
 
 [node name="Cursor" type="Sprite3D" parent="Inventory"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.09017, 0 )
-material_override = SubResource( 10 )
+material_override = SubResource( 8 )
 texture = ExtResource( 7 )
 
 [node name="Slots" type="Spatial" parent="Inventory"]
 
 [node name="Slot1" type="Sprite3D" parent="Inventory/Slots"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 1.79114, 0, 0 )
-material_override = SubResource( 7 )
+material_override = SubResource( 9 )
 modulate = Color( 0.843137, 0.00784314, 0.439216, 1 )
 billboard = 2
 double_sided = false
@@ -185,14 +195,14 @@ texture = ExtResource( 5 )
 
 [node name="Slot2" type="Sprite3D" parent="Inventory/Slots"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
-material_override = SubResource( 8 )
+material_override = SubResource( 10 )
 modulate = Color( 0.45098, 0.309804, 0.588235, 1 )
 double_sided = false
 texture = ExtResource( 5 )
 
 [node name="Slot3" type="Sprite3D" parent="Inventory/Slots"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, -1.81877, 0, 0 )
-material_override = SubResource( 9 )
+material_override = SubResource( 11 )
 modulate = Color( 0, 0.219608, 0.658824, 1 )
 double_sided = false
 texture = ExtResource( 5 )
