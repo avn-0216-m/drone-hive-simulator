@@ -11,7 +11,7 @@ onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
 onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
-onready var inventory = get_node("Inventory")
+onready var inventory = get_node("../Inventory")
 
 onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
@@ -39,6 +39,8 @@ func _ready():
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
 	pickup_area.connect("body_entered", self, "pickup_in_range")
+	interact_area.connect("body_entered", self, "object_entered_interaction_range")
+	interact_area.connect("body_exited", self, "object_left_interaction_range")
 	set_id("0216")
 	
 func set_id(new_id: String):
@@ -147,9 +149,8 @@ func interact_with_object():
 	for body in interact_area.get_overlapping_bodies():
 		if body is Interactable:
 			print("This item is interactable!")
-			break
-		if body is Pickup:
-			print("This item can be picked up!")
+			body.interact()
+			inventory.cursor.translation += Vector3(0,0.5,0)
 			break
 		
 func _physics_process(delta):
@@ -188,3 +189,14 @@ func pickup_in_range(body):
 		icon_display.frame = 3
 		show_icon()
 		$FaceTimer.start()
+
+func object_entered_interaction_range(body):
+	if body is Interactable:
+		print("Body is interactable!")
+		inventory.highlighted_object = body
+		if !inventory.slots.visible:
+			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset
+		
+func object_left_interaction_range(body):
+	if body == inventory.highlighted_object:
+		inventory.highlighted_object = null

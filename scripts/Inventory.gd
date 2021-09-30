@@ -1,19 +1,23 @@
 extends Spatial
 
-onready var drone = get_node("../Viewport/Game/Drone")
-onready var camera = get_node("../Viewport/Game/CameraContainer/MainCamera")
+onready var drone = get_node("../Drone")
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
-var distance_between_slots: float = 1.8
+var distance_between_slots: float = 1
 onready var total_slots: int = 0
 var inventory_index: int = 0
+var cursor_target: Vector3 = Vector3(0,0,0)
+var highlighted_object = null
 
 # Variables for inventory slot oscilation
 var wiggle: bool = true # If true, slots will oscilate.
-var time: float = 0
-var magnitude: float = 0.10
+var time: float = 0 # Increases every frame for use in sin()
+var magnitude: float = 0.10 # How much up and down the slots wiggle
 
 func _process(delta):
+	
+	slots.translation = drone.translation + Vector3(0,2.4,0)
+	
 	if wiggle:
 		for i in range(0, total_slots):
 			slots.get_child(i).translation.y = sin(time + (i*2)) * magnitude
@@ -21,7 +25,21 @@ func _process(delta):
 		if time > 360:
 			time = 0
 			
-	cursor.translation = slots.get_child(inventory_index).transform.origin + Vector3(0,1.3,0)
+	if slots.visible or highlighted_object:
+		cursor.visible = true
+	else:
+		cursor.visible = false
+		
+	# Set cursor target
+	if highlighted_object:
+		cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
+	else:
+		cursor_target = slots.get_child(inventory_index).translation + slots.translation + Vector3(0,1,0)
+	
+	#if slots.visible:
+	cursor.translation = lerp(cursor.translation, cursor_target, 0.2 if highlighted_object else 0.5)
+	#else:
+	#	cursor.translation = cursor_target
 
 func _ready():
 	
@@ -42,7 +60,7 @@ func _ready():
 	update_cursor()
 	
 func change_selected_slot(desired_index):
-	visible = true
+	slots.visible = true
 	if desired_index < 0 or desired_index > total_slots - 1:
 		return
 	inventory_index = desired_index
@@ -58,4 +76,4 @@ func add_slot():
 	return
 
 func inventory_timeout():
-	visible = false
+	slots.visible = false

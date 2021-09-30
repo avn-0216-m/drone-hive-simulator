@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -11,7 +11,10 @@
 [ext_resource path="res://scripts/camera.gd" type="Script" id=9]
 [ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=10]
 [ext_resource path="res://curves/new_level_transition.tres" type="Curve" id=11]
-[ext_resource path="res://objects/TestInteractable.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/test/TestInteractable.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/Inventory.gd" type="Script" id=13]
+[ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=14]
+[ext_resource path="res://sprites/cursor.png" type="Texture" id=15]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -29,6 +32,33 @@ shader_param/texture_src = ExtResource( 3 )
 shader_param/mask_src = ExtResource( 2 )
 
 [sub_resource type="ShaderMaterial" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_texture = ExtResource( 15 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
+albedo_texture = ExtResource( 14 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0.45098, 0.309804, 0.588235, 1 )
+albedo_texture = ExtResource( 14 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0, 0.219608, 0.658824, 1 )
+albedo_texture = ExtResource( 14 )
 
 [node name="Main" type="Control"]
 __meta__ = {
@@ -63,11 +93,51 @@ script = ExtResource( 6 )
 previous_level_transition_curve = ExtResource( 7 )
 new_level_transition_curve = ExtResource( 11 )
 
+[node name="Drone" parent="Viewport/Game" instance=ExtResource( 10 )]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
+
 [node name="TestInteractable" parent="Viewport/Game" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57383, 14.813, 8.28654 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57383, 14.813, 2.98026 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
 script = ExtResource( 8 )
+
+[node name="Inventory" type="Spatial" parent="Viewport/Game"]
+script = ExtResource( 13 )
+
+[node name="Cursor" type="Sprite3D" parent="Viewport/Game/Inventory"]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
+material_override = SubResource( 3 )
+texture = ExtResource( 15 )
+
+[node name="Slots" type="Spatial" parent="Viewport/Game/Inventory"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
+
+[node name="Slot1" type="Sprite3D" parent="Viewport/Game/Inventory/Slots"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 1.79114, 0, 0 )
+material_override = SubResource( 4 )
+modulate = Color( 0.843137, 0.00784314, 0.439216, 1 )
+billboard = 2
+double_sided = false
+texture = ExtResource( 14 )
+
+[node name="Slot2" type="Sprite3D" parent="Viewport/Game/Inventory/Slots"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+material_override = SubResource( 5 )
+modulate = Color( 0.45098, 0.309804, 0.588235, 1 )
+double_sided = false
+texture = ExtResource( 14 )
+
+[node name="Slot3" type="Sprite3D" parent="Viewport/Game/Inventory/Slots"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -1.81877, 0, 0 )
+material_override = SubResource( 6 )
+modulate = Color( 0, 0.219608, 0.658824, 1 )
+double_sided = false
+texture = ExtResource( 14 )
+
+[node name="Timer" type="Timer" parent="Viewport/Game/Inventory"]
+wait_time = 3.0
+one_shot = true
 
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
@@ -82,9 +152,6 @@ game_over_rotation_y = 10.0
 enabled = true
 cast_to = Vector3( 0, 0, 5 )
 collision_mask = 2
-
-[node name="Drone" parent="Viewport/Game" instance=ExtResource( 10 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 9.65644, 5.17492, 4.62775 )
 
 [node name="TransitionTimers" type="Node" parent="Viewport/Game"]
 
