@@ -3,11 +3,17 @@ extends Spatial
 onready var drone = get_node("../Drone")
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
-var distance_between_slots: float = 1
+var distance_between_slots: float = 1.1
 onready var total_slots: int = 0
 var inventory_index: int = 0
 var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
+
+var selected_item = null # The item selected from the inventory to be dropped/used
+
+# Inventory states
+enum State {MAIN, PRIMED}
+var current_state = State.MAIN
 
 # Variables for inventory slot oscilation
 var wiggle: bool = true # If true, slots will oscilate.
@@ -77,3 +83,15 @@ func add_slot():
 
 func inventory_timeout():
 	slots.visible = false
+
+func add_item(object) -> bool:
+	# Adds an item to the inventory.
+	# Returns true if successfully added.
+	# False is not.
+	
+	if slots.get_child(inventory_index).item != null:
+		print("Can't pick up. Item already in place.")
+		return false
+	else:
+		print("Item picked up.")
+		return true

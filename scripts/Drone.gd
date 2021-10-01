@@ -149,9 +149,13 @@ func interact_with_object():
 	for body in interact_area.get_overlapping_bodies():
 		if body is Interactable:
 			print("This item is interactable!")
-			body.interact()
-			inventory.cursor.translation += Vector3(0,0.5,0)
+			body.interact(self)
+			if !(body is Pickup):
+				inventory.cursor.translation += Vector3(0,0.5,0)
 			break
+	# No bodies found
+	if inventory.selected_item != null:
+		print("Dropping item")
 		
 func _physics_process(delta):
 	
@@ -198,5 +202,5 @@ func object_entered_interaction_range(body):
 			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset
 		
 func object_left_interaction_range(body):
-	if body == inventory.highlighted_object:
+	if inventory.highlighted_object != null and body.name == inventory.highlighted_object.name:
 		inventory.highlighted_object = null
