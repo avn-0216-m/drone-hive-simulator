@@ -153,9 +153,12 @@ func interact_with_object():
 			if !(body is Pickup):
 				inventory.cursor.translation += Vector3(0,0.5,0)
 			break
-	# No bodies found
+	# No bodies found, attempt to prime inventory or drop item.
 	if inventory.selected_item != null:
-		print("Dropping item")
+		if inventory.current_state == inventory.State.PRIMED:
+			print("Dropping selected item.")
+		else:
+			print("Selecting item to drop.")
 		
 func _physics_process(delta):
 	
