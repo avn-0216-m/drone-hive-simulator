@@ -163,6 +163,12 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="Levels" type="Spatial" parent="Viewport/Game"]
+
+[node name="Previous" type="Spatial" parent="Viewport/Game/Levels"]
+
+[node name="Current" type="Spatial" parent="Viewport/Game/Levels"]
+
 [node name="GameOverText" type="RichTextLabel" parent="."]
 visible = false
 margin_left = 513.913

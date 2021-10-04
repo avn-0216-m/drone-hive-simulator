@@ -7,9 +7,12 @@ func _ready():
 	
 func interact(interactor):
 	print("beep! you are interacting with a cube")
-	var particles = particles_src.instance()
-	add_child(particles)
+	$AnimationPlayer.play("Interact")
 
 func _process(delta):
 	velocity.y = apply_gravity(velocity)
 	move_and_slide(velocity)
+
+func poof():
+	var particles = particles_src.instance()
+	add_child(particles)
