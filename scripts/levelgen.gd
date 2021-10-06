@@ -40,15 +40,14 @@ onready var floor_body_container = get_node("Bodies/Floor")
 onready var wall_body_container = get_node("Bodies/Walls")
 onready var extern_body_container = get_node("Bodies/ExternalCorners")
 onready var intern_body_container = get_node("Bodies/InternalCorners")
-onready var floor_src = load("res://objects/tiles/Floor.tscn")
-onready var wall_src = load("res://objects/tiles/Wall.tscn")
-onready var extern_src = load("res://objects/tiles/ExternalCorner.tscn")
+onready var floor_src = preload("res://objects/tiles/Floor.tscn")
+onready var wall_src = preload("res://objects/tiles/Wall.tscn")
+onready var extern_src = preload("res://objects/tiles/ExternalCorner.tscn")
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
 onready var object_container = get_node("Objects")
-onready var entry_src = load("res://objects/Elevator.tscn")
-onready var exit_src = load("res://objects/Exit.tscn")
+onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 
 var difficulty: int = 0
 var tasks: int = 1
@@ -200,10 +199,8 @@ func new_level():
 				#pass
 			3: # external corner
 				instance_gridmap_object(extern_src, cell, extern_body_container)
-			5: # entry tile
-				instance_gridmap_object(entry_src, cell, object_container)
-			6: # exit tile
-				instance_gridmap_object(exit_src, cell, object_container)
+			6: # exit storagebox
+				instance_gridmap_object(storage_box_src, cell, object_container)
 		
 	gridmap.clear()
 	

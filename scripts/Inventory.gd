@@ -9,6 +9,8 @@ var inventory_index: int = 0
 var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
 
+var question_texture: Texture # placeholder texture for pickups that do not have one
+
 var selected_item = null # The item selected from the inventory to be dropped/used
 
 # Inventory states
@@ -18,7 +20,7 @@ var current_state = State.MAIN
 # Variables for inventory slot oscilation
 var wiggle: bool = true # If true, slots will oscilate.
 var time: float = 0 # Increases every frame for use in sin()
-var magnitude: float = 0.10 # How much up and down the slots wiggle
+var magnitude: float = 0.07 # How much up and down the slots wiggle
 
 func _process(delta):
 	
@@ -27,7 +29,7 @@ func _process(delta):
 	if wiggle:
 		for i in range(0, total_slots):
 			slots.get_child(i).translation.y = sin(time + (i*2)) * magnitude
-			time += 0.03
+			time += 0.02
 		if time > 360:
 			time = 0
 			
@@ -89,9 +91,24 @@ func add_item(object) -> bool:
 	# Returns true if successfully added.
 	# False is not.
 	
-	if slots.get_child(inventory_index).item != null:
+	var destination_slot = slots.get_child(inventory_index)
+	
+	if destination_slot.item != null:
 		print("Can't pick up. Item already in place.")
 		return false
 	else:
 		print("Item picked up.")
+		
+		if object.icon_scale != null and object.icon_translation != null and object.icon != null:
+			destination_slot.icon.scale = object.icon_scale
+			destination_slot.icon.translation = object.icon_translation
+			destination_slot.icon.texture = object.icon
+			destination_slot.icon.material_override.albedo_texture = object.icon
+			print(object.icon)
+		else:
+			destination_slot.icon.scale = Vector3(1,1,0)
+			destination_slot.icon.translation = Vector3(0,0,0)
+			destination_slot.icon.texture = question_texture
+		$Timer.start(3)
+		slots.visible = true
 		return true

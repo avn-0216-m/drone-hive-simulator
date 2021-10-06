@@ -6,8 +6,8 @@ var song_index: int = -1
 var playing_intro: bool = false
 var music_path: String = "res://mus/level/"
 var keep_playing: bool = true
-onready var game_over_intro: AudioStream = load("res://mus/bawk_intro.ogg")
-onready var game_over_loop: AudioStream = load("res://mus/bawk_loop.ogg")
+onready var game_over_intro: AudioStream = preload("res://mus/bawk_intro.ogg")
+onready var game_over_loop: AudioStream = preload("res://mus/bawk_loop.ogg")
 
 func _ready():
 	# Load all available songs in the level mus directory to the songs array.

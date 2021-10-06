@@ -3,8 +3,9 @@ extends KinematicBody
 class_name KinematicGravity
 
 var velocity = Vector3(0,0,0)
-export var gravity = 1 # How fast the max fall speed is reached.
-export var max_fall_speed = 30
+var gravity = 1 # How fast the max fall speed is reached.
+var max_fall_speed = 30
+var skip_process = false
 
 func apply_gravity(velocity) -> float:
 	
@@ -16,3 +17,9 @@ func apply_gravity(velocity) -> float:
 	if grounded and velocity.y  <= 0:
 		velocity.y  = -0.1
 	return max(velocity.y, -max_fall_speed)
+
+func _process(delta):
+	if skip_process:
+		return
+	velocity.y = apply_gravity(velocity)
+	move_and_slide(velocity)

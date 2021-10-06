@@ -8,8 +8,8 @@ enum State {PLAYING, TRANSITION_OUT, TRANSITION_MID, TRANSITION_IN}
 var current_state = State.PLAYING
 
 onready var music = get_node("Music")
-onready var level_src = load("res://objects/Level.tscn")
-onready var storage_box_src = load("res://objects/StorageBox.tscn")
+onready var level_src = preload("res://objects/Level.tscn")
+onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 onready var background = get_tree().get_root().get_node("Main/Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")

@@ -1,6 +1,6 @@
 extends Interactable
 
-onready var particles_src = load("res://objects/test/TestParticles.tscn")
+onready var particles_src = preload("res://objects/test/TestParticles.tscn")
 
 func _ready():
 	cursor_offset = Vector3(0,1,0)

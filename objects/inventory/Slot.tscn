@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=1]
 [ext_resource path="res://scripts/inventory/Slot.gd" type="Script" id=2]
@@ -11,11 +11,19 @@ flags_no_depth_test = true
 albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
 albedo_texture = ExtResource( 1 )
 
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+
 [node name="Slot1" type="Sprite3D"]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 1.79114, 0, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 material_override = SubResource( 1 )
-modulate = Color( 0.843137, 0.00784314, 0.439216, 1 )
 billboard = 2
 double_sided = false
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
+material_override = SubResource( 2 )
