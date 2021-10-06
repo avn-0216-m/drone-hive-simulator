@@ -25,6 +25,7 @@ const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
 var start_tile = null
+var start_tile_pos: Vector3
 var exit_tile = Vector3(0,0,0)
 var room_size_x = 0
 var room_size_z = 0
@@ -52,15 +53,9 @@ onready var exit_src = load("res://objects/Exit.tscn")
 var difficulty: int = 0
 var tasks: int = 1
 
-enum LevelType {FIRST, NORMAL}
-var type
-
 func _ready():
 	
-	if type == null:
-		type = LevelType.NORMAL
-	
-	new_level(difficulty)
+	new_level()
 	# when instanced, grab the camera and point it to your wall materials
 	# that way, every new level will replace the old levels material references
 	# in the camera. very beautiful, very powerful.
@@ -94,7 +89,6 @@ func add_walls_to_gridmap():
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
 			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1 or cell == start_tile:
-				# print("Empty space: " + str(cell.x) + ", "+ str(cell.y) + ", "+ str(cell.z) + ", ")
 				var found_tiles = get_adjacent_floor_tiles(Vector3(cell.x, cell.y, cell.z))
 				
 				# 1  2  4
@@ -145,18 +139,16 @@ func add_additional_rooms():
 func set_start_end_tile():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
-	
-	print(type)
-	
-	match(type):
-		LevelType.FIRST:
+	match(difficulty):
+		0: # Don't spawn entry tile on first level.
 			var exit_tile = floor_tiles[1]
 			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
-		LevelType.NORMAL:
+		_:
 			var exit_tile = floor_tiles[1]
 			start_tile = floor_tiles[0]
 			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
 			gridmap.set_cell_item(start_tile.x, 0, start_tile.z, -1)
+			start_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
 
 func instance_gridmap_object(object, cell, parent):
@@ -175,7 +167,15 @@ func instance_gridmap_object(object, cell, parent):
 func add_tasks():
 	print("Adding tasks.")
 
-func new_level(difficulty: int):
+func new_level():
+	
+	difficulty = get_parent().difficulty
+	
+	# clear all existing nodes and variables
+	body_container.reset()
+	
+	# clear multimeshes
+	multimeshes.reset()
 	
 	# gridmap setup
 	randomize()
@@ -190,8 +190,6 @@ func new_level(difficulty: int):
 	add_tasks()
 	
 	# instance tiles into bodies
-	print("INITIALIZING MESHES FOR")
-	print(name)
 	for cell in gridmap.get_used_cells():
 		var tile_inst = null
 		match(gridmap.get_cell_item(cell.x, cell.y, cell.z)):
@@ -208,6 +206,10 @@ func new_level(difficulty: int):
 				instance_gridmap_object(exit_src, cell, object_container)
 		
 	gridmap.clear()
-	multimeshes.init_multimeshes()
 	
-	# setup multi mesh renderer
+	# multi mesh renderers get fucky if you set them up at any
+	# translation besides 0,0,0. so set that first, then reset position.
+	var previous_translation = translation
+	translation = Vector3(0,0,0)
+	multimeshes.init_multimeshes()
+	translation = previous_translation

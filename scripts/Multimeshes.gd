@@ -5,15 +5,14 @@ onready var walls = get_node("Walls")
 onready var intern_corners = get_node("InternalCorners")
 onready var extern_corners = get_node("ExternalCorners")
 
-var floor_translations: Array = []
-var wall_translations: Array = []
-
 # changing the instance count resets all instance positions,
 # so append them to arrays and init them in the init func.
+
 
 func init_multimeshes():
 	# what i'm about to do has not been approved by the vatican.
 	
+	translation = Vector3(0,0,0)
 	
 	var floor_bodies = get_tree().get_root().get_node("Main/Viewport/Game/Level/Bodies/Floor").get_children()
 	floors.multimesh.instance_count = len(floor_bodies)
@@ -29,3 +28,8 @@ func init_multimeshes():
 	extern_corners.multimesh.instance_count = len(external_bodies)
 	for i in range(len(external_bodies)):
 		extern_corners.multimesh.set_instance_transform(i, external_bodies[i].get_child(0).get_global_transform())
+
+func reset():
+	floors.multimesh.instance_count = 0
+	walls.multimesh.instance_count = 0
+	extern_corners.multimesh.instance_count = 0

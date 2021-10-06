@@ -12,13 +12,13 @@
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "backward",
-"speed": 4.0
+"name": "forward",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "forward",
-"speed": 5.0
+"name": "backward",
+"speed": 4.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
