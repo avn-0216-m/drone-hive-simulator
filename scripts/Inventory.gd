@@ -9,7 +9,7 @@ var inventory_index: int = 0
 var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
 
-var question_texture: Texture # placeholder texture for pickups that do not have one
+var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
 var selected_item = null # The item selected from the inventory to be dropped/used
 
@@ -50,6 +50,11 @@ func _process(delta):
 	#	cursor.translation = cursor_target
 
 func _ready():
+	
+	placeholder = ImageTexture.new()
+	var placeholder_image = Image.new()
+	placeholder_image.load("res://sprites/nosprite.png")
+	placeholder.create_from_image(placeholder_image, 0)
 	
 	$Timer.connect("timeout",self,"inventory_timeout")
 	$Timer.start()
@@ -104,11 +109,11 @@ func add_item(object) -> bool:
 			destination_slot.icon.translation = object.icon_translation
 			destination_slot.icon.texture = object.icon
 			destination_slot.icon.material_override.albedo_texture = object.icon
-			print(object.icon)
 		else:
-			destination_slot.icon.scale = Vector3(1,1,0)
-			destination_slot.icon.translation = Vector3(0,0,0)
-			destination_slot.icon.texture = question_texture
+			destination_slot.icon.scale = Vector3(0.5,0.5,0)
+			destination_slot.icon.translation = Vector3(0,0,0.01)
+			destination_slot.icon.texture = placeholder
+			destination_slot.icon.material_override.albedo_texture = placeholder
 		$Timer.start(3)
 		slots.visible = true
 		return true

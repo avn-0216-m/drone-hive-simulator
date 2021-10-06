@@ -12,6 +12,7 @@ albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
 albedo_texture = ExtResource( 1 )
 
 [sub_resource type="SpatialMaterial" id=2]
+resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
@@ -25,5 +26,5 @@ texture = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Icon" type="Sprite3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.01 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 0, 0.01 )
 material_override = SubResource( 2 )

@@ -1,4 +1,5 @@
 extends KinematicBody
+class_name Drone
 
 signal shutdown_complete
 

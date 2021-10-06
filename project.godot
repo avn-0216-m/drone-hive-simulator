@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "KinematicBody",
+"class": "Drone",
+"language": "GDScript",
+"path": "res://scripts/Drone.gd"
+}, {
+"base": "Pickup",
+"class": "Flower",
+"language": "GDScript",
+"path": "res://scripts/Flower.gd"
+}, {
+"base": "Interactable",
+"class": "Friend",
+"language": "GDScript",
+"path": "res://scripts/Friend.gd"
+}, {
 "base": "KinematicGravity",
 "class": "Interactable",
 "language": "GDScript",
@@ -25,6 +40,9 @@ _global_script_classes=[ {
 "path": "res://scripts/classes/Pickup.gd"
 } ]
 _global_script_class_icons={
+"Drone": "",
+"Flower": "",
+"Friend": "",
 "Interactable": "",
 "KinematicGravity": "",
 "Pickup": ""

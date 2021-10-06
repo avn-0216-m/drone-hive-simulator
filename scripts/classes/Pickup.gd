@@ -8,7 +8,7 @@ var animation: String # Name of animation to use in inventory slot.
 # Either an icon or an animation must be provided.
 var icon_translation: Vector3 = Vector3(0,0,0) # How image should be positioned in inventory slot 
 var icon_scale: Vector3 = Vector3(0,0,0) # How image should be scaled in inventory slot 
-var interactions: Dictionary = {} # A string/func dict of other items this item can be used on.
+var interactions: Dictionary = {} # A class/func dict of other items this item can be used on.
 var infinite: bool = false # Determines if an object is deleted on pickup.
 
 # A pickup is an interactable object whose interact function
