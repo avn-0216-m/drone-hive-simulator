@@ -11,18 +11,19 @@ var highlighted_object = null
 
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
-var selected_item = null # The item selected from the inventory to be dropped/used
-
-# Inventory states
-enum State {MAIN, PRIMED}
-var current_state = State.MAIN
+var primed_item = null # The item selected from the inventory to be dropped/used
 
 # Variables for inventory slot oscilation
 var wiggle: bool = true # If true, slots will oscilate.
 var time: float = 0 # Increases every frame for use in sin()
 var magnitude: float = 0.07 # How much up and down the slots wiggle
 
+var primed: bool = false # If the inventory has an item prepared to drop or not.
+
 func _process(delta):
+	
+	if slots.get_child(inventory_index).item != null:
+		slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
 	
 	slots.translation = drone.translation + Vector3(0,2.4,0)
 	
@@ -32,23 +33,25 @@ func _process(delta):
 			time += 0.02
 		if time > 360:
 			time = 0
-			
-	if slots.visible or highlighted_object:
-		cursor.visible = true
-	else:
-		cursor.visible = false
-		
-	# Set cursor target
-	if highlighted_object:
-		cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
-	else:
-		cursor_target = slots.get_child(inventory_index).translation + slots.translation + Vector3(0,1,0)
 	
-	#if slots.visible:
-	cursor.translation = lerp(cursor.translation, cursor_target, 0.2 if highlighted_object else 0.5)
-	#else:
-	#	cursor.translation = cursor_target
+	match(primed):
+		false:
+			if slots.visible or highlighted_object:
+				cursor.visible = true
+			else:
+				cursor.visible = false
 
+			# Set cursor target
+			if highlighted_object:
+				cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
+			else:
+				cursor_target = slots.get_child(inventory_index).translation + slots.translation + Vector3(0,1,0)
+
+			cursor.translation = lerp(cursor.translation, cursor_target, 0.2 if highlighted_object else 0.5)
+		true:
+			cursor.visible = true
+			slots.visible = true
+		
 func _ready():
 	
 	placeholder = ImageTexture.new()
@@ -58,6 +61,8 @@ func _ready():
 	
 	$Timer.connect("timeout",self,"inventory_timeout")
 	$Timer.start()
+	
+	$PrimedFlash.connect("timeout",self,"primed_flash")
 	
 	total_slots = len(slots.get_children())
 	# Calculate how far back slots should start being placed so the drone is the midpoint.
@@ -73,6 +78,7 @@ func _ready():
 	update_cursor()
 	
 func change_selected_slot(desired_index):
+	primed_item = null
 	slots.visible = true
 	if desired_index < 0 or desired_index > total_slots - 1:
 		return
@@ -87,6 +93,21 @@ func update_cursor():
 func add_slot():
 	print("Unimplemented")
 	return
+	
+func use_item_on(body):
+	print("using item on a body from inventory")
+	
+func drop_item():
+	print("dropping item from inventory")
+	
+func prime_item():
+	print("priming item from inventory!")
+	if slots.get_child(inventory_index).item != null:
+		print("item primed!")
+		primed = true
+	else:
+		print("no item selected!")
+		primed = false
 
 func inventory_timeout():
 	slots.visible = false
@@ -114,6 +135,10 @@ func add_item(object) -> bool:
 			destination_slot.icon.translation = Vector3(0,0,0.01)
 			destination_slot.icon.texture = placeholder
 			destination_slot.icon.material_override.albedo_texture = placeholder
+		destination_slot.item = object
 		$Timer.start(3)
 		slots.visible = true
 		return true
+
+func primed_flash():
+	cursor.visible = !cursor.visible

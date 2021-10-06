@@ -18,7 +18,9 @@ onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
 onready var battery = load("res://objects/Battery.tscn")
 
-onready var timer = get_node("../TransitionTimers/TransitionMid")
+onready var item_spawn_point = get_node("ItemSpawnPoint")
+
+var held_item
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
@@ -114,11 +116,13 @@ func _process(delta):
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.1)
 		interact_area.rotation_degrees.y = 0
+		item_spawn_point.translation.x = 2
 	if inputs & move_left:
 		velocity.x = -1 * speed
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.1)
 		interact_area.rotation_degrees.y = 180
+		item_spawn_point.translation.x = -2
 	if inputs & move_down:
 		velocity.z = 1 * speed
 		interact_area.rotation_degrees.y = 270
@@ -150,16 +154,29 @@ func interact_with_object():
 	for body in interact_area.get_overlapping_bodies():
 		if body is Interactable:
 			print("This item is interactable!")
-			body.interact(self)
-			if !(body is Pickup):
-				inventory.cursor.translation += Vector3(0,0.5,0)
-			break
-	# No bodies found, attempt to prime inventory or drop item.
-	if inventory.selected_item != null:
-		if inventory.current_state == inventory.State.PRIMED:
-			print("Dropping selected item.")
-		else:
-			print("Selecting item to drop.")
+			
+			if inventory.primed == true:
+				# if inventory item ready, attempt use on object
+				inventory.use_item_on(body)
+			else:
+				# if no inventory item ready, use normally
+				body.interact(self)
+				if !(body is Pickup):
+					# Bounce cursor when interacting with interactable.
+					inventory.cursor.translation += Vector3(0,0.5,0)
+			return
+			
+	print("chefking for items")
+			
+	# no bodies were found
+	if inventory.primed == true:
+		print("dropping item:")
+		print(inventory.drop_item())
+		inventory.primed = false
+	else:
+		print("priming inventory")
+		print(inventory.prime_item())
+
 		
 func _physics_process(delta):
 	

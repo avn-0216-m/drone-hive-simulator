@@ -46,7 +46,7 @@ resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
-albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
+albedo_color = Color( 1, 0.196078, 0.196078, 1 )
 albedo_texture = ExtResource( 14 )
 
 [sub_resource type="SpatialMaterial" id=5]
@@ -54,7 +54,7 @@ resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
-albedo_color = Color( 0.101961, 0.823529, 0.113725, 1 )
+albedo_color = Color( 0.196078, 1, 0.196078, 1 )
 albedo_texture = ExtResource( 14 )
 
 [sub_resource type="SpatialMaterial" id=6]
@@ -62,14 +62,13 @@ resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
-albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
+albedo_color = Color( 0.196078, 0.196078, 1, 1 )
 albedo_texture = ExtResource( 14 )
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 resource_name = "empty"
 
-[sub_resource type="Animation" id=7]
-resource_name = "new_level"
+[sub_resource type="Animation" id=8]
 length = 10.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Level:translation")
@@ -189,6 +188,10 @@ material_override = SubResource( 6 )
 wait_time = 3.0
 one_shot = true
 
+[node name="PrimedFlash" type="Timer" parent="Viewport/Game/Inventory"]
+wait_time = 0.2
+autostart = true
+
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
 [node name="MainCamera" type="Camera" parent="Viewport/Game/CameraContainer"]
@@ -207,8 +210,8 @@ collision_mask = 2
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 18 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Game"]
-anims/empty = SubResource( 8 )
-anims/new_level = SubResource( 7 )
+anims/empty = SubResource( 7 )
+anims/new_level = SubResource( 8 )
 
 [node name="GameOverText" type="RichTextLabel" parent="."]
 visible = false

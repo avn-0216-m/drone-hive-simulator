@@ -17,7 +17,7 @@ flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 
-[node name="Slot1" type="Sprite3D"]
+[node name="Slot" type="Sprite3D"]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 material_override = SubResource( 1 )
 billboard = 2

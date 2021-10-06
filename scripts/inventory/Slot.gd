@@ -2,6 +2,4 @@ extends Sprite3D
 
 var item = null
 onready var icon = get_node("Icon")
-
-func _ready():
-	pass # Replace with function body.
+onready var original_color = icon.material_override.albedo_color

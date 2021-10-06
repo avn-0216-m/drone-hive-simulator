@@ -23,4 +23,7 @@ func interact(interactor):
 	# Dropping is handled seperately by the inventory, so interact should always pickup a pickup.
 	print(self.name + " was picked up.")
 	if interactor.inventory.add_item(self) and !infinite:
-		queue_free()
+		get_parent().remove_child(self)
+
+func use_on(body):
+	print("using on " + body.name + "!!!")
