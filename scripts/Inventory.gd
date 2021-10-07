@@ -8,6 +8,7 @@ onready var total_slots: int = 0
 var inventory_index: int = 0
 var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
+var selected_slot # Slot accessed via inventory index. Updated every time change_selected_slot is called
 
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
@@ -49,6 +50,14 @@ func _process(delta):
 
 			cursor.translation = lerp(cursor.translation, cursor_target, 0.2 if highlighted_object else 0.5)
 		true:
+			
+			if highlighted_object:
+				cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
+			else:
+				cursor_target = drone.item_drop.get_global_transform().origin
+
+			cursor.translation = lerp(cursor.translation, cursor_target, 0.4)
+			
 			cursor.visible = true
 			slots.visible = true
 		
@@ -58,6 +67,8 @@ func _ready():
 	var placeholder_image = Image.new()
 	placeholder_image.load("res://sprites/nosprite.png")
 	placeholder.create_from_image(placeholder_image, 0)
+	
+	selected_slot = slots.get_child(inventory_index)
 	
 	$Timer.connect("timeout",self,"inventory_timeout")
 	$Timer.start()
@@ -78,11 +89,19 @@ func _ready():
 	update_cursor()
 	
 func change_selected_slot(desired_index):
-	primed_item = null
+	
+	# deprime current slot if applicable
+	if primed:
+		primed_item = null
+		primed = false
+		slots.get_child(inventory_index).material_override.albedo_color = slots.get_child(inventory_index).original_color
+		update_cursor()
+	
 	slots.visible = true
 	if desired_index < 0 or desired_index > total_slots - 1:
 		return
 	inventory_index = desired_index
+	selected_slot = slots.get_child(inventory_index)
 	$Timer.start(3)
 	update_cursor()
 
@@ -96,15 +115,44 @@ func add_slot():
 	
 func use_item_on(body):
 	print("using item on a body from inventory")
+	if body.get_class() in primed_item.interactions.keys():
+		print("MATCH!!")
+		if primed_item.interactions[body.get_class()].call_func(body):
+			destroy_item()
+		
+		
+
+
+func destroy_item():
+	primed_item = null
+	primed = false
+	selected_slot.item = null
+	
+	# delete icon image
+	selected_slot.icon.texture = null
+	selected_slot.icon.material_override.albedo_texture = null
+	
+	# undarken inventory slot and cursor
+	selected_slot.material_override.albedo_color = selected_slot.original_color
+	update_cursor()
+	
+	$Timer.start(3)
 	
 func drop_item():
-	print("dropping item from inventory")
+	primed_item.translation = drone.item_drop.get_global_transform().origin
+	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects/").add_child(primed_item)
+	destroy_item()
 	
 func prime_item():
 	print("priming item from inventory!")
-	if slots.get_child(inventory_index).item != null:
+	
+	if selected_slot != null and selected_slot.item != null:
 		print("item primed!")
 		primed = true
+		primed_item = selected_slot.item
+		selected_slot.material_override.albedo_color = selected_slot.original_color - Color(0.3,0.3,0.3,0)
+		update_cursor()
+		print(primed_item)
 	else:
 		print("no item selected!")
 		primed = false
@@ -121,6 +169,9 @@ func add_item(object) -> bool:
 	
 	if destination_slot.item != null:
 		print("Can't pick up. Item already in place.")
+		# show inventory so the user knows that slot is occupied
+		slots.visible = true
+		$Timer.start(3)
 		return false
 	else:
 		print("Item picked up.")
@@ -136,6 +187,8 @@ func add_item(object) -> bool:
 			destination_slot.icon.texture = placeholder
 			destination_slot.icon.material_override.albedo_texture = placeholder
 		destination_slot.item = object
+		print("item picked up here it is:")
+		print(object)
 		$Timer.start(3)
 		slots.visible = true
 		return true

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/heart.png-b3b238598a119b7341da13839ee8a773.stex"
+path="res://.import/lena.png-fe835d5f0978963ca158b3c62295894d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/face/icons/heart.png"
-dest_files=[ "res://.import/heart.png-b3b238598a119b7341da13839ee8a773.stex" ]
+source_file="res://sprites/lena.png"
+dest_files=[ "res://.import/lena.png-fe835d5f0978963ca158b3c62295894d.stex" ]
 
 [params]
 
@@ -19,12 +19,12 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=true
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=1
-process/fix_alpha_border=true
+process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false

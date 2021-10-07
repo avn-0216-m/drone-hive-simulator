@@ -18,7 +18,7 @@ onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
 onready var battery = load("res://objects/Battery.tscn")
 
-onready var item_spawn_point = get_node("ItemSpawnPoint")
+onready var item_drop = get_node("ItemDrop")
 
 var held_item
 
@@ -116,13 +116,13 @@ func _process(delta):
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.1)
 		interact_area.rotation_degrees.y = 0
-		item_spawn_point.translation.x = 2
+		item_drop.translation.x = 3
 	if inputs & move_left:
 		velocity.x = -1 * speed
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.1)
 		interact_area.rotation_degrees.y = 180
-		item_spawn_point.translation.x = -2
+		item_drop.translation.x = -3
 	if inputs & move_down:
 		velocity.z = 1 * speed
 		interact_area.rotation_degrees.y = 270
@@ -166,7 +166,7 @@ func interact_with_object():
 					inventory.cursor.translation += Vector3(0,0.5,0)
 			return
 			
-	print("chefking for items")
+	print("checking for items")
 			
 	# no bodies were found
 	if inventory.primed == true:
@@ -175,7 +175,7 @@ func interact_with_object():
 		inventory.primed = false
 	else:
 		print("priming inventory")
-		print(inventory.prime_item())
+		inventory.prime_item()
 
 		
 func _physics_process(delta):

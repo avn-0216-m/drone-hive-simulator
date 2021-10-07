@@ -143,5 +143,5 @@ hue_variation_random = 0.85
 [node name="FaceTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[node name="ItemSpawnPoint" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 0 )
+[node name="ItemDrop" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
