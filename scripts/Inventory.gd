@@ -89,7 +89,7 @@ func _ready():
 	update_cursor()
 	
 func change_selected_slot(desired_index):
-	
+	$SFXChange.play(0)
 	# deprime current slot if applicable
 	if primed:
 		primed_item = null
@@ -116,7 +116,7 @@ func add_slot():
 func use_item_on(body):
 	print("using item on a body from inventory")
 	if body.get_class() in primed_item.interactions.keys():
-		print("MATCH!!")
+		$SFXConfirm.play(0)
 		if primed_item.interactions[body.get_class()].call_func(body):
 			destroy_item()
 		
@@ -139,6 +139,7 @@ func destroy_item():
 	$Timer.start(3)
 	
 func drop_item():
+	$SFXConfirm.play(0)
 	primed_item.translation = drone.item_drop.get_global_transform().origin
 	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects/").add_child(primed_item)
 	destroy_item()
@@ -147,6 +148,7 @@ func prime_item():
 	print("priming item from inventory!")
 	
 	if selected_slot != null and selected_slot.item != null:
+		$SFXSelect.play(0)
 		print("item primed!")
 		primed = true
 		primed_item = selected_slot.item
@@ -154,6 +156,7 @@ func prime_item():
 		update_cursor()
 		print(primed_item)
 	else:
+		$SFXChange.play(0)
 		print("no item selected!")
 		primed = false
 
@@ -169,11 +172,13 @@ func add_item(object) -> bool:
 	
 	if destination_slot.item != null:
 		print("Can't pick up. Item already in place.")
+		$SFXChange.play(0)
 		# show inventory so the user knows that slot is occupied
 		slots.visible = true
 		$Timer.start(3)
 		return false
 	else:
+		$SFXSelect.play(0)
 		print("Item picked up.")
 		
 		if object.icon_scale != null and object.icon_translation != null and object.icon != null:

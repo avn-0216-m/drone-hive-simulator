@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -18,6 +18,9 @@
 [ext_resource path="res://objects/test/TestPickup.tscn" type="PackedScene" id=16]
 [ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=17]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=18]
+[ext_resource path="res://sfx/inventory/inventoryselect.ogg" type="AudioStream" id=19]
+[ext_resource path="res://sfx/inventory/inventoryconfirm.ogg" type="AudioStream" id=20]
+[ext_resource path="res://sfx/inventory/inventorychange.ogg" type="AudioStream" id=21]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -195,6 +198,15 @@ one_shot = true
 wait_time = 0.2
 autostart = true
 
+[node name="SFXSelect" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
+stream = ExtResource( 19 )
+
+[node name="SFXConfirm" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
+stream = ExtResource( 20 )
+
+[node name="SFXChange" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
+stream = ExtResource( 21 )
+
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
 [node name="MainCamera" type="Camera" parent="Viewport/Game/CameraContainer"]
@@ -227,5 +239,3 @@ text = "~ Game Over ~"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[editable path="Viewport/Game/Drone"]
