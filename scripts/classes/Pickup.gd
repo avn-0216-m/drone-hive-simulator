@@ -6,8 +6,8 @@ var icon # Static image to use in inventory slot.
 # Icon can be automatically loaded if the pickup has a Sprite3D node.
 var animation: String # Name of animation to use in inventory slot.
 # Either an icon or an animation must be provided.
-var icon_translation: Vector3 = Vector3(0,0,0) # How image should be positioned in inventory slot 
-var icon_scale: Vector3 = Vector3(0,0,0) # How image should be scaled in inventory slot 
+var icon_translation: Vector3 = Vector3(0,0,0.001) # How image should be positioned in inventory slot 
+var icon_scale: Vector3 = Vector3(0,0,1) # How image should be scaled in inventory slot 
 var interactions: Dictionary = {} # A class/func dict of other items this item can be used on.
 var infinite: bool = false # Determines if an object is deleted on pickup.
 

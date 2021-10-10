@@ -159,6 +159,18 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.2272
 [node name="KinemannaticBody" parent="Viewport/Game" instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15335, 4.52299, 8.79644 )
 
+[node name="KinemannaticBody2" parent="Viewport/Game" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15335, 4.52299, 10.602 )
+
+[node name="KinemannaticBody3" parent="Viewport/Game" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.06128, 4.52299, 11.4263 )
+
+[node name="KinemannaticBody4" parent="Viewport/Game" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6806, 4.52299, 11.4263 )
+
+[node name="KinemannaticBody5" parent="Viewport/Game" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6806, 4.52299, 9.44625 )
+
 [node name="Flower" parent="Viewport/Game" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95596, 2.1382, 6.11896 )
 
@@ -223,7 +235,7 @@ game_over_rotation_y = 10.0
 
 [node name="WallhugRaycast" type="RayCast" parent="Viewport/Game/CameraContainer"]
 enabled = true
-cast_to = Vector3( 0, 0, 5 )
+cast_to = Vector3( 0, 0, 4 )
 collision_mask = 2
 
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 21 )]

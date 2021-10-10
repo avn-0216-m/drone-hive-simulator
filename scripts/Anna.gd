@@ -30,6 +30,13 @@ func _ready():
 	timer.connect("timeout",self,"new_action")
 	area.connect("body_entered", self, "something_near")
 	
+	icon = ImageTexture.new()
+	var img = Image.new()
+	img.load("res://sprites/anna/idle.png")
+	icon.create_from_image(img, 0)
+	
+	icon_scale = Vector3(2,2,1)
+	
 func something_near(body):
 	if body.name == "Drone":
 		flying == true
@@ -115,5 +122,8 @@ func new_action():
 			sprite.frame = 0
 	timer.start()
 
-func pickup():
-	print("bawk!! you cannot pick me up!! i am too slippery! >:3c")
+func interact(interactor):
+	$Chirp.play(0)
+	if randi() % 10 == 0:
+		print("caught!")
+		.interact(interactor)
