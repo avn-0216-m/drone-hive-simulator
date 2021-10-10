@@ -203,21 +203,18 @@ func sfx_complete():
 		print("Drone shutdown complete, emitting signal.")
 		emit_signal("shutdown_complete")
 		
-func pickup_in_range(body):
-	if body.get_filename() == battery.get_path():
-		body.queue_free()
-		sfx.stream = sfx_battery
-		sfx.play()
-		$BatteryParticles.one_shot = false
-		$BatteryParticles.emitting = true
-		$BatteryParticles.one_shot = true
-		icon_display.frame = 3
-		show_icon()
-		$FaceTimer.start()
+func recharge():
+	sfx.stream = sfx_battery
+	sfx.play()
+	$BatteryParticles.one_shot = false
+	$BatteryParticles.emitting = true
+	$BatteryParticles.one_shot = true
+	icon_display.frame = 3
+	show_icon()
+	$FaceTimer.start()	
 
 func object_entered_interaction_range(body):
-	if body is Interactable:
-		print("Body is interactable!")
+	if body is Interactable and body.interactable:
 		inventory.highlighted_object = body
 		if !inventory.slots.visible:
 			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset

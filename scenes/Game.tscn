@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -6,21 +6,22 @@
 [ext_resource path="res://scripts/background.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
-[ext_resource path="res://objects/Flower.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scripts/music.gd" type="Script" id=8]
-[ext_resource path="res://scripts/camera.gd" type="Script" id=9]
-[ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=10]
+[ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/Flower.tscn" type="PackedScene" id=8]
+[ext_resource path="res://objects/test/TestInteractable.tscn" type="PackedScene" id=9]
+[ext_resource path="res://objects/test/TestPickup.tscn" type="PackedScene" id=10]
 [ext_resource path="res://objects/Friend.tscn" type="PackedScene" id=11]
-[ext_resource path="res://objects/test/TestInteractable.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/music.gd" type="Script" id=12]
 [ext_resource path="res://scripts/Inventory.gd" type="Script" id=13]
-[ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=14]
-[ext_resource path="res://sprites/cursor.png" type="Texture" id=15]
-[ext_resource path="res://objects/test/TestPickup.tscn" type="PackedScene" id=16]
-[ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=17]
-[ext_resource path="res://objects/Level.tscn" type="PackedScene" id=18]
-[ext_resource path="res://sfx/inventory/inventoryselect.ogg" type="AudioStream" id=19]
-[ext_resource path="res://sfx/inventory/inventoryconfirm.ogg" type="AudioStream" id=20]
-[ext_resource path="res://sfx/inventory/inventorychange.ogg" type="AudioStream" id=21]
+[ext_resource path="res://sprites/cursor.png" type="Texture" id=14]
+[ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=15]
+[ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=16]
+[ext_resource path="res://sfx/inventory/inventoryselect.ogg" type="AudioStream" id=17]
+[ext_resource path="res://sfx/inventory/inventoryconfirm.ogg" type="AudioStream" id=18]
+[ext_resource path="res://sfx/inventory/inventorychange.ogg" type="AudioStream" id=19]
+[ext_resource path="res://scripts/camera.gd" type="Script" id=20]
+[ext_resource path="res://objects/Level.tscn" type="PackedScene" id=21]
+[ext_resource path="res://objects/Anna.tscn" type="PackedScene" id=22]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -43,7 +44,7 @@ shader_param/mask_src = ExtResource( 2 )
 flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
-albedo_texture = ExtResource( 15 )
+albedo_texture = ExtResource( 14 )
 
 [sub_resource type="SpatialMaterial" id=4]
 resource_local_to_scene = true
@@ -51,7 +52,7 @@ flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
-albedo_texture = ExtResource( 14 )
+albedo_texture = ExtResource( 16 )
 
 [sub_resource type="SpatialMaterial" id=5]
 resource_local_to_scene = true
@@ -59,7 +60,7 @@ flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_color = Color( 0.45098, 0.309804, 0.588235, 1 )
-albedo_texture = ExtResource( 14 )
+albedo_texture = ExtResource( 16 )
 
 [sub_resource type="SpatialMaterial" id=6]
 resource_local_to_scene = true
@@ -67,7 +68,7 @@ flags_transparent = true
 flags_unshaded = true
 flags_no_depth_test = true
 albedo_color = Color( 0, 0.219608, 0.658824, 1 )
-albedo_texture = ExtResource( 14 )
+albedo_texture = ExtResource( 16 )
 
 [sub_resource type="Animation" id=7]
 resource_name = "empty"
@@ -84,7 +85,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 3, 7, 10 ),
 "transitions": PoolRealArray( 2, 0, 0.5, 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 15, 0 ), Vector3( 0, -15, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 15, 0 ), Vector3( 0, -30, 0 ), Vector3( 0, 0, 0 ) ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath("Level")
@@ -152,23 +153,26 @@ render_target_v_flip = true
 [node name="Game" type="Node" parent="Viewport"]
 script = ExtResource( 6 )
 
-[node name="Drone" parent="Viewport/Game" instance=ExtResource( 10 )]
+[node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
-[node name="Flower" parent="Viewport/Game" instance=ExtResource( 7 )]
+[node name="KinemannaticBody" parent="Viewport/Game" instance=ExtResource( 22 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15335, 4.52299, 8.79644 )
+
+[node name="Flower" parent="Viewport/Game" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95596, 2.1382, 6.11896 )
 
-[node name="TestInteractable" parent="Viewport/Game" instance=ExtResource( 12 )]
+[node name="TestInteractable" parent="Viewport/Game" instance=ExtResource( 9 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57383, 14.813, 2.98026 )
 
-[node name="TestPickup" parent="Viewport/Game" instance=ExtResource( 16 )]
+[node name="TestPickup" parent="Viewport/Game" instance=ExtResource( 10 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8102, 5.88771, 8.3969 )
 
 [node name="Friend" parent="Viewport/Game" instance=ExtResource( 11 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 17.2632, 6.57612, 9.20215 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
-script = ExtResource( 8 )
+script = ExtResource( 12 )
 
 [node name="Inventory" type="Spatial" parent="Viewport/Game"]
 script = ExtResource( 13 )
@@ -176,18 +180,18 @@ script = ExtResource( 13 )
 [node name="Cursor" type="Sprite3D" parent="Viewport/Game/Inventory"]
 transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
 material_override = SubResource( 3 )
-texture = ExtResource( 15 )
+texture = ExtResource( 14 )
 
 [node name="Slots" type="Spatial" parent="Viewport/Game/Inventory"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
 
-[node name="Slot1" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 17 )]
+[node name="Slot1" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 15 )]
 material_override = SubResource( 4 )
 
-[node name="Slot2" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 17 )]
+[node name="Slot2" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 15 )]
 material_override = SubResource( 5 )
 
-[node name="Slot3" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 17 )]
+[node name="Slot3" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 15 )]
 material_override = SubResource( 6 )
 
 [node name="Timer" type="Timer" parent="Viewport/Game/Inventory"]
@@ -199,13 +203,13 @@ wait_time = 0.2
 autostart = true
 
 [node name="SFXSelect" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 19 )
+stream = ExtResource( 17 )
 
 [node name="SFXConfirm" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 20 )
+stream = ExtResource( 18 )
 
 [node name="SFXChange" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 21 )
+stream = ExtResource( 19 )
 
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
@@ -214,7 +218,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
 cull_mask = 7
 current = true
 far = 1000.0
-script = ExtResource( 9 )
+script = ExtResource( 20 )
 game_over_rotation_y = 10.0
 
 [node name="WallhugRaycast" type="RayCast" parent="Viewport/Game/CameraContainer"]
@@ -222,7 +226,7 @@ enabled = true
 cast_to = Vector3( 0, 0, 5 )
 collision_mask = 2
 
-[node name="Level" parent="Viewport/Game" instance=ExtResource( 18 )]
+[node name="Level" parent="Viewport/Game" instance=ExtResource( 21 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Game"]
 anims/empty = SubResource( 7 )

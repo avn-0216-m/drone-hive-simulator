@@ -1,13 +1,12 @@
-extends KinematicGravity
+extends Pickup
 
 # She used to program my brain, now it's the other way around.
 # haha.
 
-var base: Vector3
-var jump: Vector3
+var jump: Vector3 # Jump velocity.
 
-export var jump_force: float = 7
-export var jump_length: float = 10
+export var jump_force: float = 12
+export var jump_length: float = 15
 
 var flying = false
 var fly_away_velocity = Vector3(0,3,0)
@@ -38,26 +37,27 @@ func something_near(body):
 		sprite.animation = "fly"
 		gravity = -0.2
 	
-func _process(delta):
-	
-	move_and_slide(Vector3(0,-0.1,0), Vector3(0,1,0))
-	var grounded = is_on_floor()
+func _physics_process(delta):
 	
 	if flying:
-		fly_away_velocity.y = apply_gravity(fly_away_velocity, grounded).y
+		fly_away_velocity.y = apply_gravity(fly_away_velocity)
 		move_and_slide(fly_away_velocity, Vector3(0,1,0))
 	else:
-		jump.y = apply_gravity(jump, grounded).y
+		jump.y = apply_gravity(jump)
 		move_and_slide(jump)
-		if jump.x < 0:
-			jump.x += jump_length_linear_falloff
-		elif jump.x > 0:
-			jump.x -= jump_length_linear_falloff
-			
-		if jump.z < 0:
-			jump.z += jump_length_linear_falloff
-		elif jump.z > 0:
-			jump.z -= jump_length_linear_falloff
+		if is_on_floor():
+			jump.x = 0
+			jump.z = 0
+		else:
+			if jump.x < 0:
+				jump.x += jump_length_linear_falloff
+			elif jump.x > 0:
+				jump.x -= jump_length_linear_falloff
+
+			if jump.z < 0:
+				jump.z += jump_length_linear_falloff
+			elif jump.z > 0:
+				jump.z -= jump_length_linear_falloff
 	
 	if translation.y > 10.8:
 		var gift = battery_src.instance()
@@ -72,7 +72,6 @@ func new_action():
 		timer.wait_time = 1
 		timer.start()
 		return
-	base = translation
 	jump = Vector3(0,0,0)
 	randomize()
 	match(randi() % 10):
@@ -115,3 +114,6 @@ func new_action():
 			sprite.animation = "bob"
 			sprite.frame = 0
 	timer.start()
+
+func pickup():
+	print("bawk!! you cannot pick me up!! i am too slippery! >:3c")

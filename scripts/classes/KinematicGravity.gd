@@ -9,7 +9,7 @@ var skip_process = false
 
 func apply_gravity(velocity) -> float:
 	
-	move_and_slide(Vector3(0,-0.1,0))
+	move_and_slide(Vector3(0,-0.1,0), Vector3.UP)
 	
 	var grounded = is_on_floor()
 
