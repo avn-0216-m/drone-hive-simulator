@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://scripts/camera.gd" type="Script" id=20]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=21]
 [ext_resource path="res://objects/Anna.tscn" type="PackedScene" id=22]
+[ext_resource path="res://objects/Collar.tscn" type="PackedScene" id=23]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -156,20 +157,11 @@ script = ExtResource( 6 )
 [node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
+[node name="Collar" parent="Viewport/Game" instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 15.3033, 2.67797, 3.00249 )
+
 [node name="KinemannaticBody" parent="Viewport/Game" instance=ExtResource( 22 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15335, 4.52299, 8.79644 )
-
-[node name="KinemannaticBody2" parent="Viewport/Game" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15335, 4.52299, 10.602 )
-
-[node name="KinemannaticBody3" parent="Viewport/Game" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.06128, 4.52299, 11.4263 )
-
-[node name="KinemannaticBody4" parent="Viewport/Game" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6806, 4.52299, 11.4263 )
-
-[node name="KinemannaticBody5" parent="Viewport/Game" instance=ExtResource( 22 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.6806, 4.52299, 9.44625 )
 
 [node name="Flower" parent="Viewport/Game" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95596, 2.1382, 6.11896 )
