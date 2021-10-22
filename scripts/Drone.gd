@@ -16,11 +16,8 @@ onready var inventory = get_node("../Inventory")
 
 onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
-onready var battery = load("res://objects/Battery.tscn")
 
 onready var item_drop = get_node("ItemDrop")
-
-var held_item
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
@@ -94,6 +91,8 @@ func get_inputs() -> int:
 		inventory.change_selected_slot(inventory.inventory_index + 1)
 	if Input.is_action_just_pressed("interact"):
 		interact_with_object()
+	elif Input.is_action_just_pressed("inventory_cancel"):
+		inventory.change_selected_slot(inventory.inventory_index)
 	return inputs
 
 func _process(delta):
@@ -150,31 +149,24 @@ func _process(delta):
 	#	display_container.visible = true
 		
 func interact_with_object():
-	print("Drone is finding something to interact with!")
 	for body in interact_area.get_overlapping_bodies():
 		if body is Interactable:
-			print("This item is interactable!")
-			
 			if inventory.primed == true:
 				# if inventory item ready, attempt use on object
 				inventory.use_item_on(body)
 			else:
 				# if no inventory item ready, use normally
+
 				body.interact(self)
-				if !(body is Pickup):
-					# Bounce cursor when interacting with interactable.
+				if !(body is Pickup) and body.interactable:
+					# Bounce cursor and play sound when interacting with interactable.
+					inventory.sfx_confirm.play(0)
 					inventory.cursor.translation += Vector3(0,0.5,0)
 			return
-			
-	print("checking for items")
-			
 	# no bodies were found
 	if inventory.primed == true:
-		print("dropping item:")
-		print(inventory.drop_item())
-		inventory.primed = false
+		inventory.drop_item()
 	else:
-		print("priming inventory")
 		inventory.prime_item()
 
 		
@@ -216,6 +208,7 @@ func recharge():
 func object_entered_interaction_range(body):
 	if body is Interactable and body.interactable:
 		inventory.highlighted_object = body
+		print("marking as interactable")
 		if !inventory.slots.visible:
 			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset
 		

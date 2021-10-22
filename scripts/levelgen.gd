@@ -11,6 +11,26 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(1,0,1) # Bottom right
 	]
 
+var meshlibrary: Dictionary = {
+	0: 
+		{
+			"source": load("res://objects/tiles/Floor.tscn"),
+		},
+	1:
+		{
+			"source": load("res://objects/tiles/Wall.tscn"),
+		},
+	2:
+		{
+			"source": load("res://objects/tiles/ExternalCorner.tscn"),
+		},
+	4:
+		{
+			"source": load("res://objects/Flower.tscn"),
+			"offset": Vector3(0,2,0)
+		}
+}
+
 const WALL_INDEX = 1
 var original_used_cells = null
 
@@ -33,21 +53,18 @@ var room_size_z = 0
 var rng = RandomNumberGenerator.new()
 
 onready var gridmap = get_node("GridMap")
-onready var multimeshes = get_node("Multimeshes")
+onready var multimeshes = get_node("Geometry/Multimeshes")
 
-onready var body_container = get_node("Bodies")
-onready var floor_body_container = get_node("Bodies/Floor")
-onready var wall_body_container = get_node("Bodies/Walls")
-onready var extern_body_container = get_node("Bodies/ExternalCorners")
-onready var intern_body_container = get_node("Bodies/InternalCorners")
-onready var floor_src = preload("res://objects/tiles/Floor.tscn")
-onready var wall_src = preload("res://objects/tiles/Wall.tscn")
-onready var extern_src = preload("res://objects/tiles/ExternalCorner.tscn")
+onready var bodies = get_node("Geometry/Bodies")
+onready var floors = get_node("Geometry/Bodies/Floor")
+onready var walls = get_node("Geometry/Bodies/Walls")
+onready var extern_corners = get_node("Geometry/Bodies/ExternalCorners")
+onready var intern_corners = get_node("Geometry/Bodies/InternalCorners")
+onready var objects = get_node("Objects")
+
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
-onready var object_container = get_node("Objects")
-onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 
 var difficulty: int = 0
 var tasks: int = 1
@@ -105,13 +122,13 @@ func add_walls_to_gridmap():
 						gridmap.set_cell_item(cell.x, cell.y, cell.z, WALL_INDEX, NORMAL_WALL_WEST)
 					# External corners
 					4:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 16)
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 2, 16)
 					32:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 22)
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 2, 22)
 					128:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 0)
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 2, 0)
 					1:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 10)
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 2, 10)
 					22, 150, 151: # internal corners
 						gridmap.set_cell_item(cell.x, cell.y, cell.z, 4, 22)
 					11, 14, 43, 47: 
@@ -150,18 +167,32 @@ func set_start_end_tile():
 			start_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
 
-func instance_gridmap_object(object, cell, parent):
-	var tile_inst = object.instance()
-	tile_inst.translation = gridmap.map_to_world(cell.x, cell.y, cell.z)
-	tile_inst.name = "x" + str(cell.x) + ", z" + str(cell.z)
-	parent.add_child(tile_inst)
+func instance_gridmap_object(cell, cell_item, parent):
+	
+	var object = meshlibrary.get(cell_item, null)
+	if object == null:
+		return
+	
+	var instance = object.source.instance()
+	
+	# set translation + offset if available
+	instance.translation = gridmap.map_to_world(cell.x, cell.y, cell.z)
+	instance.translation += meshlibrary.get(cell_item).get("offset", Vector3(0,0,0))
+	
+	# set name
+	instance.name += " (x" + str(cell.x) + ",z" + str(cell.z) + ")"
+
+	# set rotation
 	match(gridmap.get_cell_item_orientation(cell.x, cell.y, cell.z)):
 		10:
-			tile_inst.rotation_degrees.y = 180
+			instance.rotation_degrees.y = 180
 		16:
-			tile_inst.rotation_degrees.y = 90
+			instance.rotation_degrees.y = 90
 		22:
-			tile_inst.rotation_degrees.y = 270
+			instance.rotation_degrees.y = 270
+	
+	# add child
+	parent.add_child(instance)
 
 func add_tasks():
 	print("Adding tasks.")
@@ -171,7 +202,7 @@ func new_level():
 	difficulty = get_parent().difficulty
 	
 	# clear all existing nodes and variables
-	body_container.reset()
+	bodies.reset()
 	
 	# clear multimeshes
 	multimeshes.reset()
@@ -188,19 +219,38 @@ func new_level():
 	add_walls_to_gridmap()
 	add_tasks()
 	
-	# instance tiles into bodies
+	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
+	# second pass: instance updated level geometry.
+	
+	# debug add flower
+	gridmap.set_cell_item(3,1,3,4)
+	gridmap.set_cell_item(3,1,4,4)
+	gridmap.set_cell_item(3,1,5,4)
+	gridmap.set_cell_item(3,1,6,4)
+	
+	# FIRST PASS
 	for cell in gridmap.get_used_cells():
-		var tile_inst = null
-		match(gridmap.get_cell_item(cell.x, cell.y, cell.z)):
-			0: # floor tile
-				instance_gridmap_object(floor_src, cell, floor_body_container)
-			1: # straight wall
-				instance_gridmap_object(wall_src, cell, wall_body_container)
-				#pass
-			3: # external corner
-				instance_gridmap_object(extern_src, cell, extern_body_container)
-			6: # exit storagebox
-				instance_gridmap_object(storage_box_src, cell, object_container)
+		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
+		if cell_item > 3:
+				print("INSTANCING OBJECT")
+				print(cell_item)
+				instance_gridmap_object(cell, cell_item, objects)
+				
+	for cell in gridmap.get_used_cells():
+		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
+		match(cell_item):
+			0:
+				# floor
+				instance_gridmap_object(cell, cell_item, floors)
+			1:
+				# wall
+				instance_gridmap_object(cell, cell_item, walls)
+			2:
+				# external corner
+				instance_gridmap_object(cell, cell_item, extern_corners)
+			3:
+				# internal corner
+				instance_gridmap_object(cell, cell_item, intern_corners)
 		
 	gridmap.clear()
 	

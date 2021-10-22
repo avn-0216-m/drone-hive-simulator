@@ -13,7 +13,7 @@ onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 onready var background = get_tree().get_root().get_node("Main/Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
-var difficulty: int = 10
+var difficulty: int = 0
 
 var previous_level = null
 var current_level = null

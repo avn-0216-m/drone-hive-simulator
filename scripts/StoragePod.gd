@@ -1,4 +1,4 @@
-extends StaticBody
+extends Spatial
 
 onready var entry_src = load("res://objects/StorageBox.tscn")
 enum State {INPUT, TRANSIT, OUTPUT}

@@ -8,12 +8,12 @@
 [ext_resource path="res://shaders/peephole.shader" type="Shader" id=6]
 [ext_resource path="res://scripts/Bodies.gd" type="Script" id=7]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=9]
 albedo_texture = ExtResource( 4 )
 uv1_scale = Vector3( 4, 4, 1 )
 uv1_offset = Vector3( 0.5, 0, 0 )
 
-[sub_resource type="ArrayMesh" id=2]
+[sub_resource type="ArrayMesh" id=49]
 resource_local_to_scene = true
 surfaces/0 = {
 "aabb": AABB( -1, -0.2, -1, 2, 0.40001, 2 ),
@@ -22,18 +22,18 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 36,
-"material": SubResource( 1 ),
+"material": SubResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 24
 }
 
-[sub_resource type="MultiMesh" id=3]
+[sub_resource type="MultiMesh" id=50]
 resource_local_to_scene = true
 transform_format = 1
-mesh = SubResource( 2 )
+mesh = SubResource( 49 )
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=12]
 shader = ExtResource( 6 )
 shader_param/wall_uv = Vector2( 2, 2 )
 shader_param/wall_offset = null
@@ -45,7 +45,7 @@ shader_param/swirl_speed = 8.0
 shader_param/alias_factor = 6.0
 shader_param/wall_src = ExtResource( 3 )
 
-[sub_resource type="ArrayMesh" id=5]
+[sub_resource type="ArrayMesh" id=51]
 surfaces/0 = {
 "aabb": AABB( -0.2, -2, -1, 0.4, 4.00001, 2.00001 ),
 "array_data": PoolByteArray( 205, 204, 76, 190, 0, 0, 0, 64, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 126, 127, 255, 55, 79, 5, 205, 204, 76, 190, 0, 0, 0, 192, 0, 0, 128, 63, 129, 0, 0, 0, 0, 0, 126, 127, 255, 55, 255, 55, 205, 204, 76, 190, 0, 0, 0, 64, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 126, 127, 0, 0, 226, 8, 205, 204, 76, 190, 0, 0, 0, 192, 0, 0, 128, 191, 129, 0, 0, 0, 0, 0, 126, 127, 137, 7, 255, 55, 205, 204, 76, 62, 0, 0, 0, 64, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 127, 255, 55, 0, 56, 205, 204, 76, 62, 0, 0, 0, 192, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 127, 255, 55, 255, 59, 205, 204, 76, 62, 0, 0, 0, 64, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 127, 141, 6, 0, 56, 205, 204, 76, 62, 0, 0, 0, 64, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 127, 141, 6, 0, 56, 205, 204, 76, 62, 0, 0, 0, 192, 0, 0, 128, 191, 127, 0, 0, 0, 0, 0, 129, 127, 255, 55, 255, 59, 205, 204, 76, 62, 0, 0, 0, 192, 0, 0, 128, 63, 127, 0, 0, 0, 0, 0, 129, 127, 133, 8, 255, 59, 205, 204, 76, 62, 0, 0, 0, 192, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 127, 0, 54, 0, 56, 205, 204, 76, 190, 0, 0, 0, 192, 0, 0, 128, 191, 0, 129, 0, 0, 127, 0, 0, 127, 0, 48, 0, 56, 205, 204, 76, 62, 0, 0, 0, 192, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 127, 0, 54, 0, 52, 205, 204, 76, 190, 0, 0, 0, 192, 0, 0, 128, 63, 0, 129, 0, 0, 127, 0, 0, 127, 0, 48, 0, 52, 205, 204, 76, 190, 0, 0, 0, 64, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 127, 0, 59, 0, 56, 205, 204, 76, 62, 0, 0, 0, 64, 0, 0, 128, 191, 0, 127, 0, 0, 129, 0, 0, 127, 0, 57, 0, 56, 205, 204, 76, 190, 0, 0, 0, 64, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 127, 0, 59, 0, 52, 205, 204, 76, 62, 0, 0, 0, 64, 0, 0, 128, 63, 0, 127, 0, 0, 129, 0, 0, 127, 0, 57, 0, 52 ),
@@ -53,18 +53,18 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 24,
-"material": SubResource( 4 ),
+"material": SubResource( 12 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 18
 }
 
-[sub_resource type="MultiMesh" id=6]
+[sub_resource type="MultiMesh" id=52]
 resource_local_to_scene = true
 transform_format = 1
-mesh = SubResource( 5 )
+mesh = SubResource( 51 )
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=53]
 shader = ExtResource( 6 )
 shader_param/wall_uv = null
 shader_param/wall_offset = null
@@ -84,13 +84,13 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 108,
-"material": SubResource( 7 ),
+"material": SubResource( 53 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 60
 }
 
-[sub_resource type="MultiMesh" id=9]
+[sub_resource type="MultiMesh" id=14]
 resource_local_to_scene = true
 transform_format = 1
 mesh = SubResource( 8 )
@@ -100,7 +100,7 @@ script = ExtResource( 2 )
 
 [node name="GridMap" type="GridMap" parent="."]
 mesh_library = ExtResource( 5 )
-cell_size = Vector3( 2, 0.5, 2 )
+cell_size = Vector3( 2, 0.1, 2 )
 collision_layer = 3
 data = {
 "cells": PoolIntArray(  )
@@ -110,32 +110,34 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, 0, 0 )
 }
 
-[node name="Bodies" type="Spatial" parent="."]
-script = ExtResource( 7 )
+[node name="Objects" type="Spatial" parent="."]
 
-[node name="Floor" type="Spatial" parent="Bodies"]
+[node name="Geometry" type="Spatial" parent="."]
 
-[node name="Walls" type="Spatial" parent="Bodies"]
-
-[node name="InternalCorners" type="Spatial" parent="Bodies"]
-
-[node name="ExternalCorners" type="Spatial" parent="Bodies"]
-
-[node name="Multimeshes" type="Spatial" parent="."]
+[node name="Multimeshes" type="Spatial" parent="Geometry"]
 script = ExtResource( 1 )
 
-[node name="Floor" type="MultiMeshInstance" parent="Multimeshes"]
-multimesh = SubResource( 3 )
+[node name="Floor" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
+multimesh = SubResource( 50 )
 
-[node name="Walls" type="MultiMeshInstance" parent="Multimeshes"]
+[node name="Walls" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
 layers = 2
-multimesh = SubResource( 6 )
+multimesh = SubResource( 52 )
 
-[node name="InternalCorners" type="MultiMeshInstance" parent="Multimeshes"]
+[node name="InternalCorners" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
 layers = 2
 
-[node name="ExternalCorners" type="MultiMeshInstance" parent="Multimeshes"]
+[node name="ExternalCorners" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
 layers = 2147483650
-multimesh = SubResource( 9 )
+multimesh = SubResource( 14 )
 
-[node name="Objects" type="Spatial" parent="."]
+[node name="Bodies" type="Spatial" parent="Geometry"]
+script = ExtResource( 7 )
+
+[node name="Floor" type="Spatial" parent="Geometry/Bodies"]
+
+[node name="Walls" type="Spatial" parent="Geometry/Bodies"]
+
+[node name="InternalCorners" type="Spatial" parent="Geometry/Bodies"]
+
+[node name="ExternalCorners" type="Spatial" parent="Geometry/Bodies"]

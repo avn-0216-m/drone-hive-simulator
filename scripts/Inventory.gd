@@ -10,6 +10,10 @@ var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
 var selected_slot # Slot accessed via inventory index. Updated every time change_selected_slot is called
 
+var inventory_timeout: float = 3.0 # How many seconds before the inventory autohides
+
+onready var sfx_confirm = get_node("SFXConfirm")
+
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
 var primed_item = null # The item selected from the inventory to be dropped/used
@@ -88,6 +92,10 @@ func _ready():
 		slot_translation += distance_between_slots
 	update_cursor()
 	
+func show_slots():
+	slots.visible = true
+	$Timer.start(inventory_timeout)
+	
 func change_selected_slot(desired_index):
 	$SFXChange.play(0)
 	# deprime current slot if applicable
@@ -97,12 +105,11 @@ func change_selected_slot(desired_index):
 		slots.get_child(inventory_index).material_override.albedo_color = slots.get_child(inventory_index).original_color
 		update_cursor()
 	
-	slots.visible = true
+	show_slots()
 	if desired_index < 0 or desired_index > total_slots - 1:
 		return
 	inventory_index = desired_index
 	selected_slot = slots.get_child(inventory_index)
-	$Timer.start(3)
 	update_cursor()
 
 func update_cursor():
@@ -115,12 +122,13 @@ func add_slot():
 	
 func use_item_on(body):
 	print("using item on a body from inventory")
+	if !body.interactable: return
 	if body.get_class() in primed_item.interactions.keys():
 		$SFXConfirm.play(0)
 		if primed_item.interactions[body.get_class()].call_func(body):
 			destroy_item()
-		
-		
+	else:
+		$SFXChange.play(0)
 
 
 func destroy_item():
@@ -136,11 +144,12 @@ func destroy_item():
 	selected_slot.material_override.albedo_color = selected_slot.original_color
 	update_cursor()
 	
-	$Timer.start(3)
+	show_slots()
 	
 func drop_item():
 	$SFXConfirm.play(0)
 	primed_item.translation = drone.item_drop.get_global_transform().origin
+	primed_item.velocity.y = 0
 	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects/").add_child(primed_item)
 	destroy_item()
 	
@@ -174,8 +183,7 @@ func add_item(object) -> bool:
 		print("Can't pick up. Item already in place.")
 		$SFXChange.play(0)
 		# show inventory so the user knows that slot is occupied
-		slots.visible = true
-		$Timer.start(3)
+		show_slots()
 		return false
 	else:
 		$SFXSelect.play(0)
@@ -192,10 +200,7 @@ func add_item(object) -> bool:
 			destination_slot.icon.texture = placeholder
 			destination_slot.icon.material_override.albedo_texture = placeholder
 		destination_slot.item = object
-		print("item picked up here it is:")
-		print(object)
-		$Timer.start(3)
-		slots.visible = true
+		show_slots()
 		return true
 
 func primed_flash():
