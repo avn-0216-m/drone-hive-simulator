@@ -1,17 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 1.1, 0.2, 1.1 )
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=2]
 
-[sub_resource type="ConcavePolygonShape" id=12]
+[sub_resource type="ConcavePolygonShape" id=3]
 data = PoolVector3Array( 0.6, 4.2, 1, 0.6, 0.2, 1, 0.6, 4.2, 0.6, 0.6, 4.2, 0.6, 0.6, 0.2, 1, 0.6, 0.2, 0.6, 0.6, 4.2, 0.6, 0.6, 0.2, 0.6, 1, 4.2, 0.6, 1, 4.2, 0.6, 0.6, 0.2, 0.6, 1, 0.2, 0.6, 1, 4.2, 1, 1, 0.2, 1, 1, 4.2, 3, 1, 4.2, 3, 1, 0.2, 1, 1, 0.2, 3, 1, 4.2, 3, 1, 0.2, 3, 0.6, 4.2, 3, 0.6, 4.2, 3, 1, 0.2, 3, 0.6, 0.2, 3, 1, 0.2, 1, 0.6, 0.2, 1, 1, 0.2, 3, 1, 0.2, 3, 0.6, 0.2, 1, 0.6, 0.2, 3, 0.6, 4.2, 1, 1, 4.2, 1, 0.6, 4.2, 3, 0.6, 4.2, 3, 1, 4.2, 1, 1, 4.2, 3, 0.6, 4.2, 0.6, 1, 4.2, 0.6, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 4.2, 0.6, 1, 4.2, 1, 1, 0.2, 0.6, 0.6, 0.2, 0.6, 1, 0.2, 1, 1, 0.2, 1, 0.6, 0.2, 0.6, 0.6, 0.2, 1, 1, 0.2, 0.6, 1, 0.2, 1, 1, 0.2, 0.6, 1, 0.2, 0.6, 1, 0.2, 1, 1, 0.2, 1, 0.6, 4.2, 3, 0.6, 0.2, 3, 0.6, 4.2, 1, 0.6, 4.2, 1, 0.6, 0.2, 3, 0.6, 0.2, 1, 1, 4.2, 1, 1, 4.2, 0.6, 3, 4.2, 1, 3, 4.2, 1, 1, 4.2, 0.6, 3, 4.2, 0.6, 1, 0.2, 1, 1, 4.2, 1, 1, 0.2, 1, 1, 0.2, 1, 1, 4.2, 1, 1, 4.2, 1, 1, 4.2, 0.6, 1, 0.2, 0.6, 1, 4.2, 0.6, 1, 4.2, 0.6, 1, 0.2, 0.6, 1, 0.2, 0.6, 1, 4.2, 1, 1, 4.2, 0.6, 1, 4.2, 1, 1, 4.2, 1, 1, 4.2, 0.6, 1, 4.2, 0.6, 3, 4.2, 0.6, 3, 0.2, 0.6, 3, 4.2, 1, 3, 4.2, 1, 3, 0.2, 0.6, 3, 0.2, 1, 1, 4.2, 0.6, 1, 0.2, 0.6, 3, 4.2, 0.6, 3, 4.2, 0.6, 1, 0.2, 0.6, 3, 0.2, 0.6, 1, 0.2, 1, 1, 4.2, 1, 3, 0.2, 1, 3, 0.2, 1, 1, 4.2, 1, 3, 4.2, 1, 1, 0.2, 0.6, 1, 0.2, 1, 3, 0.2, 0.6, 3, 0.2, 0.6, 1, 0.2, 1, 3, 0.2, 1 )
 
-[sub_resource type="ConcavePolygonShape" id=16]
+[sub_resource type="ConcavePolygonShape" id=4]
 data = PoolVector3Array( -1, 4.2, -0.6, -1, 0.2, -0.6, -1, 4.2, -1, -1, 4.2, -1, -1, 0.2, -0.6, -1, 0.2, -1, -1, 4.2, -1, -1, 0.2, -1, -0.6, 4.2, -1, -0.6, 4.2, -1, -1, 0.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 1, -0.6, 4.2, 1, -0.6, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 4.2, 1, -0.6, 0.2, 1, -1, 4.2, 1, -1, 4.2, 1, -0.6, 0.2, 1, -1, 0.2, 1, -0.6, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 0.2, 1, -1, 0.2, -0.6, -1, 0.2, 1, -1, 4.2, -0.6, -0.6, 4.2, -0.6, -1, 4.2, 1, -1, 4.2, 1, -0.6, 4.2, -0.6, -0.6, 4.2, 1, -1, 4.2, -1, -0.6, 4.2, -1, -1, 4.2, -0.6, -1, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -1, 0.2, -1, -1, 0.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -1, 4.2, 1, -1, 0.2, 1, -1, 4.2, -0.6, -1, 4.2, -0.6, -1, 0.2, 1, -1, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, 1, 4.2, -0.6, 1, 4.2, -0.6, -0.6, 4.2, -1, 1, 4.2, -1, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -1, -0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -1, 1, 4.2, -1, 1, 0.2, -1, 1, 4.2, -0.6, 1, 4.2, -0.6, 1, 0.2, -1, 1, 0.2, -0.6, -0.6, 4.2, -1, -0.6, 0.2, -1, 1, 4.2, -1, 1, 4.2, -1, -0.6, 0.2, -1, 1, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, 1, 0.2, -0.6, 1, 0.2, -0.6, -0.6, 4.2, -0.6, 1, 4.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -0.6, 1, 0.2, -1, 1, 0.2, -1, -0.6, 0.2, -0.6, 1, 0.2, -0.6 )
 
-[sub_resource type="CubeMesh" id=17]
+[sub_resource type="CubeMesh" id=5]
 
 [node name="Hive" type="Spatial"]
 
@@ -20,7 +20,7 @@ data = PoolVector3Array( -1, 4.2, -0.6, -1, 0.2, -0.6, -1, 4.2, -1, -1, 4.2, -1,
 [node name="StaticBody" type="StaticBody" parent="Floor"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="Wall" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0 )
@@ -31,7 +31,7 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
 transform = Transform( 0.2, 0, 0, 0, 2, 0, 0, 0, 1, 0.8, 2.2, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 2 )
 
 [node name="External Corner" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
@@ -39,7 +39,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0 )
 [node name="StaticBody" type="StaticBody" parent="External Corner"]
 
 [node name="CollisionShape" type="CollisionShape" parent="External Corner/StaticBody"]
-shape = SubResource( 12 )
+shape = SubResource( 3 )
 
 [node name="Internal Corner" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
@@ -47,8 +47,20 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, 0 )
 [node name="StaticBody" type="StaticBody" parent="Internal Corner"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Internal Corner/StaticBody"]
-shape = SubResource( 16 )
+shape = SubResource( 4 )
 
 [node name="Flower" type="MeshInstance" parent="."]
-mesh = SubResource( 17 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Toybox" type="MeshInstance" parent="."]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Placeholder" type="MeshInstance" parent="."]
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Toyhole" type="MeshInstance" parent="."]
+mesh = SubResource( 5 )
 material/0 = null

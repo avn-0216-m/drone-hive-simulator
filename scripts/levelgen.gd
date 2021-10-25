@@ -27,19 +27,26 @@ var meshlibrary: Array = [
 	{ # 4: spatial flower. debug item. spawns a flower with a lot of space around it.
 		"source": load("res://objects/Flower.tscn"),
 		"offset": Vector3(0,2,0),
-		"add_from": Vector2(-5,-5),
-		"add_to": Vector2(5,5)
+		"add_from": Vector2(-2,-2),
+		"add_to": Vector2(2,2)
 	},
-	{ # 5: toybox
+	{ # 5: toybox. origin tile is top mid.
 		"source": load("res://objects/StorageBox.tscn"),
-		"offset": Vector3(0,-0.1,0),
-		"add_from": Vector2(-3,-3), #Vector2(-1,-2),
-		"add_to": Vector2(3,3), #Vector2(2,0),
+		"add_from": Vector2(-2,-2),
+		"add_to": Vector2(2,4),
 		"remove_from": Vector2(-1,0),
-		"remove_to": Vector2(1,0)
+		"remove_to": Vector2(1,1)
+	},
+	{ # 6: Placeholder. Spawns nothing.
+	},
+	{ # 7: toyhole. 0841's lol. Fits the toybox coming in from the prev level.
+		"source": load("res://objects/Toyhole.tscn"),
+		"add_from": Vector2(-5,-5),
+		"add_to": Vector2(5,5),
+		"remove_from": Vector2(-1,0),
+		"remove_to": Vector2(1,1)
 	}
 ]
-
 
 const WALL_INDEX = 1
 var original_used_cells = null
@@ -55,7 +62,7 @@ const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
 var start_tile = null
-var start_tile_pos: Vector3
+var entry_tile_pos: Vector3
 var exit_tile = Vector3(0,0,0)
 var room_size_x = 0
 var room_size_z = 0
@@ -87,8 +94,10 @@ func _ready():
 	# in the camera. very beautiful, very powerful.
 
 	var camera = get_node("../CameraContainer/MainCamera")
+	
 	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
 	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
+	camera.intern_mat = multimeshes.intern_corners.multimesh.mesh.surface_get_material(0)
 
 func get_adjacent_floor_tiles(origin: Vector3) -> int:
 	var tiles = 0
@@ -171,19 +180,19 @@ func cut_holes():
 func add_additional_rooms():
 	return
 	
-func set_start_end_tile():
+func set_toybox_and_toyhole():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
 	match(difficulty):
 		0: # Don't spawn entry tile on first level.
 			var exit_tile = floor_tiles[1]
-			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
+			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
 		_:
 			var exit_tile = floor_tiles[1]
 			start_tile = floor_tiles[0]
-			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 6)
-			gridmap.set_cell_item(start_tile.x, 0, start_tile.z, -1)
-			start_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
+			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
+			gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 7)
+			entry_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
 
 func instance_gridmap_object(cell, cell_item, parent):
@@ -212,14 +221,16 @@ func instance_gridmap_object(cell, cell_item, parent):
 			for z in range(add_from.y, add_to.y + 1):
 				gridmap.set_cell_item(x+origin.x,0,z+origin.z,0)
 				
-	# remove excess tiles
+	# remove excess tiles. tiles are replaced with placeholder items so
+	# walls are not spawned around the item.
 	var remove_from = object.get("remove_from", null)
 	var remove_to = object.get("remove_to", null)
 	if remove_from != null and remove_to != null:
+		print("removing tiles!!")
 		var origin = Vector3(cell.x, cell.y, cell.z)
 		for x in range(remove_from.x, remove_to.x + 1):
 			for z in range(remove_from.y, remove_to.y + 1):
-				gridmap.set_cell_item(x+origin.x,0,z+origin.z,gridmap.INVALID_CELL_ITEM)
+				gridmap.set_cell_item(x+origin.x,0,z+origin.z,6)
 		
 	
 	# set name
@@ -258,15 +269,13 @@ func new_level():
 		cut_holes()
 	if difficulty > 6:
 		add_additional_rooms()
-	set_start_end_tile()
+	set_toybox_and_toyhole()
 	add_tasks()
 	
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
 	# second pass: instance updated level geometry.
 	
-	# adding debug items
-	gridmap.set_cell_item(7,1,7,4)
-	gridmap.set_cell_item(1,1,1,5,16)
+	
 	
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
@@ -290,7 +299,6 @@ func new_level():
 				instance_gridmap_object(cell, cell_item, extern_corners)
 			3:
 				# internal corner
-				print("insting internal corner")
 				instance_gridmap_object(cell, cell_item, intern_corners)
 		
 	gridmap.clear()

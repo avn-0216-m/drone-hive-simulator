@@ -15,9 +15,6 @@ onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
 var difficulty: int = 0
 
-var previous_level = null
-var current_level = null
-
 func _ready():
 	
 	drone.connect("shutdown_complete",self,"drone_shutdown_complete")
@@ -52,26 +49,6 @@ func drone_shutdown_complete():
 	drone.game_over_2()
 	music.game_over_2()
 	get_tree().get_root().get_child(0).get_node("GameOverText").visible = true
-		
-func new_level_old():
-	
-	difficulty += 1
-	
-	var level = level_src.instance()
-	level.difficulty = difficulty
-	
-	level.name = "Level"
-	previous_level = current_level
-	current_level = level
-	if previous_level != null:
-		previous_level.name = "oldLevel"
-	add_child(level)
-	# Set translation after adding child otherwise multimeshes break.
-	camera.current_state = camera.State.TRANSITION
-	current_state = State.TRANSITION_OUT
-	
-	#drone.translation = level.gridmap.map_to_world(level.start_tile.x, level.start_tile.y, level.start_tile.z) + Vector3(0,3,0)
-	#camera.translation = drone.translation
 
 func wipe_out():
 	background.wipe_out()
@@ -80,13 +57,13 @@ func wipe_in():
 	background.wipe_in()
 
 func new_level():
-	difficulty = 10
+	difficulty += 1
 	print("New level")
 	$AnimationPlayer.play("new_level")
 
 func reposition_storage_box():
 	var storage = get_node("StorageBox")
-	storage.translation = get_node("Level").start_tile_pos
+	storage.translation = get_node("Level").entry_tile_pos
 	drone.translation = storage.translation + Vector3(0,2,0)
 
 func animation_finished(animation):
@@ -98,5 +75,5 @@ func animation_finished(animation):
 		storage_box.drone = drone
 		storage_box.current_state = storage_box.State.OUTPUT
 		drone.immobile = false
-		get_node("Level/Bodies").add_child(storage_box)
+		get_node("Level/Objects").add_child(storage_box)
 		get_node("StorageBox").queue_free()

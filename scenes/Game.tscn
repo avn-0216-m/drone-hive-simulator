@@ -65,9 +65,9 @@ flags_no_depth_test = true
 albedo_color = Color( 0, 0.219608, 0.658824, 1 )
 albedo_texture = ExtResource( 12 )
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=7]
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=8]
 length = 10.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Level:translation")
@@ -177,10 +177,6 @@ material_override = SubResource( 6 )
 wait_time = 3.0
 one_shot = true
 
-[node name="PrimedFlash" type="Timer" parent="Viewport/Game/Inventory"]
-wait_time = 0.2
-autostart = true
-
 [node name="SFXSelect" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
 stream = ExtResource( 13 )
 
@@ -208,8 +204,8 @@ collision_mask = 2
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Game"]
-anims/empty = SubResource( 16 )
-anims/new_level = SubResource( 17 )
+anims/empty = SubResource( 7 )
+anims/new_level = SubResource( 8 )
 
 [node name="GameOverText" type="RichTextLabel" parent="."]
 visible = false

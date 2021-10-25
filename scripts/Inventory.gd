@@ -77,8 +77,6 @@ func _ready():
 	$Timer.connect("timeout",self,"inventory_timeout")
 	$Timer.start()
 	
-	$PrimedFlash.connect("timeout",self,"primed_flash")
-	
 	total_slots = len(slots.get_children())
 	# Calculate how far back slots should start being placed so the drone is the midpoint.
 	var slot_translation = distance_between_slots * - (total_slots/2)

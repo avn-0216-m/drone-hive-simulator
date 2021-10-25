@@ -17,6 +17,7 @@ func _ready():
 		State.INPUT:
 			$AnimationPlayer.play("open")
 			$TriggerZone.connect("body_entered",self,"body_entered")
+			$AnimationPlayer.connect("animation_finished",self,"animation_complete")
 		State.TRANSIT:
 			drone.immobile = false
 			drone.translation = translation + Vector3(0,2,0)
@@ -25,17 +26,24 @@ func _ready():
 	
 func body_entered(body):
 	if body.name == "Drone":
-		# Respawn node outside of level tree.
+
+		drone = body
 		
-		$AnimationPlayer.play_backwards("open")
+		$AnimationPlayer.play("close")
 		return
 		
-		var reparent = entry_src.instance()
-		reparent.current_state = State.TRANSIT
-		reparent.translation = translation
-		reparent.drone = body
-		
-		var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
-		game_root.add_child(reparent)
-		game_root.new_level()
-		queue_free()
+func animation_complete(anim_name):
+	match(anim_name):
+		"open":
+			print("open complete")
+		"close":
+			# Respawn node outside of level tree.
+			var reparent = entry_src.instance()
+			reparent.current_state = State.TRANSIT
+			reparent.translation = translation
+			reparent.drone = drone
+			
+			var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
+			game_root.add_child(reparent)
+			game_root.new_level()
+			queue_free()

@@ -19,10 +19,10 @@ export var game_over: bool = false
 onready var raycast: RayCast = get_node("../WallhugRaycast")
 onready var drone: KinematicBody = get_parent().get_parent().get_node("Drone")
 onready var timer: Timer = get_node("../../TransitionTimers/TransitionMid")
-var wall_mat: Material
-var extern_mat: Material # Material for external corner.
 
-onready var no_walls_camera = get_node("../Viewport/NoWallsCamera")
+var wall_mat: Material
+var extern_mat: Material # Material for external corner mesh.
+var intern_mat: Material # Material for internal corner mesh.
 
 enum State {LOCKED, MAIN, WALL_HUG, GAME_OVER, TRANSITION, ORBIT}
 var current_state = State.MAIN
@@ -55,16 +55,20 @@ func _process(delta):
 			var new_circle_center = unproject_position(drone.get_global_transform().origin)
 			wall_mat.set_shader_param("circle_center", new_circle_center)
 			extern_mat.set_shader_param("circle_center", new_circle_center)
+			intern_mat.set_shader_param("circle_center", new_circle_center)
 			var new_radius = lerp(peephole_current_radius, peephole_max_radius, 0.05)
 			wall_mat.set_shader_param("radius", new_radius)
 			extern_mat.set_shader_param("radius", new_radius)
+			intern_mat.set_shader_param("radius", new_radius)
 		_:
 			var new_circle_center = unproject_position(drone.get_global_transform().origin)
 			wall_mat.set_shader_param("circle_center", new_circle_center)
 			extern_mat.set_shader_param("circle_center", new_circle_center)
+			intern_mat.set_shader_param("circle_center", new_circle_center)
 			var new_radius = lerp(peephole_current_radius, 0, 0.15)
 			wall_mat.set_shader_param("radius", new_radius)
 			extern_mat.set_shader_param("radius", new_radius)
+			intern_mat.set_shader_param("radius", new_radius)
 			
 	# Update translation if offset was decided.
 	if offset != null:
