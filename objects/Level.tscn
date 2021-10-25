@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scripts/Multimeshes.gd" type="Script" id=1]
 [ext_resource path="res://scripts/levelgen.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://meshlibraries/hive.meshlib" type="MeshLibrary" id=5]
 [ext_resource path="res://shaders/peephole.shader" type="Shader" id=6]
 [ext_resource path="res://scripts/Bodies.gd" type="Script" id=7]
+[ext_resource path="res://blender/obj/cell aligned/internal corner.obj" type="ArrayMesh" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 4 )
@@ -63,6 +64,10 @@ surfaces/0 = {
 resource_local_to_scene = true
 transform_format = 1
 mesh = SubResource( 5 )
+
+[sub_resource type="MultiMesh" id=10]
+transform_format = 1
+mesh = ExtResource( 8 )
 
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 6 )
@@ -126,6 +131,7 @@ multimesh = SubResource( 6 )
 
 [node name="InternalCorners" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
 layers = 2
+multimesh = SubResource( 10 )
 
 [node name="ExternalCorners" type="MultiMeshInstance" parent="Geometry/Multimeshes"]
 layers = 2147483650

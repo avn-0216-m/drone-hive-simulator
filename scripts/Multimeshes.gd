@@ -25,6 +25,11 @@ func init_multimeshes():
 	for i in range(len(external_bodies)):
 		extern_corners.multimesh.set_instance_transform(i, external_bodies[i].get_child(0).get_global_transform())
 
+	var internal_bodies = get_tree().get_root().get_node("Main/Viewport/Game/Level/Geometry/Bodies/InternalCorners").get_children()
+	intern_corners.multimesh.instance_count = len(internal_bodies)
+	for i in range(len(internal_bodies)):
+		intern_corners.multimesh.set_instance_transform(i, internal_bodies[i].get_child(0).get_global_transform())
+
 func reset():
 	floors.multimesh.instance_count = 0
 	walls.multimesh.instance_count = 0

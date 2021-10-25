@@ -22,17 +22,19 @@ var meshlibrary: Array = [
 		"source": load("res://objects/tiles/ExternalCorner.tscn"),
 	},
 	{ # 3: internal corner
-		
+		"source": load("res://objects/tiles/InternalCorner.tscn")
 	},
-	{ # 4: flower
+	{ # 4: spatial flower. debug item. spawns a flower with a lot of space around it.
 		"source": load("res://objects/Flower.tscn"),
-		"offset": Vector3(0,2,0)
+		"offset": Vector3(0,2,0),
+		"add_from": Vector2(-5,-5),
+		"add_to": Vector2(5,5)
 	},
 	{ # 5: toybox
 		"source": load("res://objects/StorageBox.tscn"),
-		"offset": Vector3(0,-0.19,0),
-		"add_from": Vector2(-1,-2),
-		"add_to": Vector2(2,0),
+		"offset": Vector3(0,-0.1,0),
+		"add_from": Vector2(-3,-3), #Vector2(-1,-2),
+		"add_to": Vector2(3,3), #Vector2(2,0),
 		"remove_from": Vector2(-1,0),
 		"remove_to": Vector2(1,0)
 	}
@@ -143,13 +145,17 @@ func add_walls_to_gridmap():
 					1:
 						gridmap.set_cell_item(cell.x, cell.y, cell.z, 2, 10)
 					22, 150, 151: # internal corners
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 4, 22)
+						print("setting internal corner")
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 22)
 					11, 14, 43, 47: 
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 4, 0)
+						print("setting internal corner")
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 0)
 					104, 105, 232, 233:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 4, 16)
+						print("setting internal corner")
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 16)
 					208, 212, 240, 244:
-						gridmap.set_cell_item(cell.x, cell.y, cell.z, 4, 10)
+						print("setting internal corner")
+						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 10)
 
 func generate_floor(difficulty: int):
 	room_size_x = rng.randi_range(5, 5 + difficulty)
@@ -201,7 +207,6 @@ func instance_gridmap_object(cell, cell_item, parent):
 	var add_from = object.get("add_from", null)
 	var add_to = object.get("add_to", null)
 	if add_from != null and add_to != null:
-		print("adding additional tiles")
 		var origin = Vector3(cell.x, cell.y, cell.z)
 		for x in range(add_from.x, add_to.x + 1):
 			for z in range(add_from.y, add_to.y + 1):
@@ -211,12 +216,9 @@ func instance_gridmap_object(cell, cell_item, parent):
 	var remove_from = object.get("remove_from", null)
 	var remove_to = object.get("remove_to", null)
 	if remove_from != null and remove_to != null:
-		print("removing excessive tiles")
 		var origin = Vector3(cell.x, cell.y, cell.z)
 		for x in range(remove_from.x, remove_to.x + 1):
-			print("beep")
 			for z in range(remove_from.y, remove_to.y + 1):
-				print("removing tile at: " + str(x+origin.x) + "," + str(z+origin.z))
 				gridmap.set_cell_item(x+origin.x,0,z+origin.z,gridmap.INVALID_CELL_ITEM)
 		
 	
@@ -263,15 +265,13 @@ func new_level():
 	# second pass: instance updated level geometry.
 	
 	# adding debug items
-	gridmap.set_cell_item(3,2,3,4)
-	gridmap.set_cell_item(1,2,1,5,16)
+	gridmap.set_cell_item(7,1,7,4)
+	gridmap.set_cell_item(1,1,1,5,16)
 	
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
 		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
 		if cell_item > 3:
-				print("INSTANCING OBJECT")
-				print(cell_item)
 				instance_gridmap_object(cell, cell_item, objects)
 				
 	add_walls_to_gridmap()
@@ -290,6 +290,7 @@ func new_level():
 				instance_gridmap_object(cell, cell_item, extern_corners)
 			3:
 				# internal corner
+				print("insting internal corner")
 				instance_gridmap_object(cell, cell_item, intern_corners)
 		
 	gridmap.clear()
