@@ -15,7 +15,8 @@ var drone: KinematicBody
 func _ready():
 	match(current_state):
 		State.INPUT:
-			$Area.connect("body_entered",self,"body_entered")
+			$AnimationPlayer.play("open")
+			$TriggerZone.connect("body_entered",self,"body_entered")
 		State.TRANSIT:
 			drone.immobile = false
 			drone.translation = translation + Vector3(0,2,0)
@@ -25,6 +26,9 @@ func _ready():
 func body_entered(body):
 	if body.name == "Drone":
 		# Respawn node outside of level tree.
+		
+		$AnimationPlayer.play_backwards("open")
+		return
 		
 		var reparent = entry_src.instance()
 		reparent.current_state = State.TRANSIT

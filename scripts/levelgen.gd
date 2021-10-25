@@ -11,25 +11,33 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(1,0,1) # Bottom right
 	]
 
-var meshlibrary: Dictionary = {
-	0: 
-		{
-			"source": load("res://objects/tiles/Floor.tscn"),
-		},
-	1:
-		{
-			"source": load("res://objects/tiles/Wall.tscn"),
-		},
-	2:
-		{
-			"source": load("res://objects/tiles/ExternalCorner.tscn"),
-		},
-	4:
-		{
-			"source": load("res://objects/Flower.tscn"),
-			"offset": Vector3(0,2,0)
-		}
-}
+var meshlibrary: Array = [
+	{ # 0: floor tile
+		"source": load("res://objects/tiles/Floor.tscn"),
+	},
+	{ # 1: wall tile
+		"source": load("res://objects/tiles/Wall.tscn"),
+	},
+	{ # 2: external corner
+		"source": load("res://objects/tiles/ExternalCorner.tscn"),
+	},
+	{ # 3: internal corner
+		
+	},
+	{ # 4: flower
+		"source": load("res://objects/Flower.tscn"),
+		"offset": Vector3(0,2,0)
+	},
+	{ # 5: toybox
+		"source": load("res://objects/StorageBox.tscn"),
+		"offset": Vector3(0,-0.19,0),
+		"add_from": Vector2(-1,-2),
+		"add_to": Vector2(2,0),
+		"remove_from": Vector2(-1,0),
+		"remove_to": Vector2(1,0)
+	}
+]
+
 
 const WALL_INDEX = 1
 var original_used_cells = null
@@ -102,6 +110,11 @@ func add_walls_to_gridmap():
 	# correctly around it.
 	
 	for tile in original_used_cells:
+		
+		# skip objects not on the floor (level 0)
+		if tile.y > 0:
+			continue
+		
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
 			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1 or cell == start_tile:
@@ -169,15 +182,43 @@ func set_start_end_tile():
 
 func instance_gridmap_object(cell, cell_item, parent):
 	
-	var object = meshlibrary.get(cell_item, null)
-	if object == null:
+	# don't retrieve invalid objects
+	# TODO: why the fuck does my mesh library have an item 6
+	if cell_item >= len(meshlibrary):
+		return
+	
+	var object = meshlibrary[cell_item]
+	if object.get("source", null) == null:
 		return
 	
 	var instance = object.source.instance()
 	
 	# set translation + offset if available
 	instance.translation = gridmap.map_to_world(cell.x, cell.y, cell.z)
-	instance.translation += meshlibrary.get(cell_item).get("offset", Vector3(0,0,0))
+	instance.translation += object.get("offset", Vector3(0,0,0))
+	
+	# add additional tiles
+	var add_from = object.get("add_from", null)
+	var add_to = object.get("add_to", null)
+	if add_from != null and add_to != null:
+		print("adding additional tiles")
+		var origin = Vector3(cell.x, cell.y, cell.z)
+		for x in range(add_from.x, add_to.x + 1):
+			for z in range(add_from.y, add_to.y + 1):
+				gridmap.set_cell_item(x+origin.x,0,z+origin.z,0)
+				
+	# remove excess tiles
+	var remove_from = object.get("remove_from", null)
+	var remove_to = object.get("remove_to", null)
+	if remove_from != null and remove_to != null:
+		print("removing excessive tiles")
+		var origin = Vector3(cell.x, cell.y, cell.z)
+		for x in range(remove_from.x, remove_to.x + 1):
+			print("beep")
+			for z in range(remove_from.y, remove_to.y + 1):
+				print("removing tile at: " + str(x+origin.x) + "," + str(z+origin.z))
+				gridmap.set_cell_item(x+origin.x,0,z+origin.z,gridmap.INVALID_CELL_ITEM)
+		
 	
 	# set name
 	instance.name += " (x" + str(cell.x) + ",z" + str(cell.z) + ")"
@@ -216,17 +257,14 @@ func new_level():
 	if difficulty > 6:
 		add_additional_rooms()
 	set_start_end_tile()
-	add_walls_to_gridmap()
 	add_tasks()
 	
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
 	# second pass: instance updated level geometry.
 	
-	# debug add flower
-	gridmap.set_cell_item(3,1,3,4)
-	gridmap.set_cell_item(3,1,4,4)
-	gridmap.set_cell_item(3,1,5,4)
-	gridmap.set_cell_item(3,1,6,4)
+	# adding debug items
+	gridmap.set_cell_item(3,2,3,4)
+	gridmap.set_cell_item(1,2,1,5,16)
 	
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
@@ -235,6 +273,8 @@ func new_level():
 				print("INSTANCING OBJECT")
 				print(cell_item)
 				instance_gridmap_object(cell, cell_item, objects)
+				
+	add_walls_to_gridmap()
 				
 	for cell in gridmap.get_used_cells():
 		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)

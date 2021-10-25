@@ -113,13 +113,13 @@ func _process(delta):
 	if inputs & move_right:
 		velocity.x = 1 * speed
 		sprite.flip_h = false
-		display_container.translation = Vector3(0.05,2.4,0.1)
+		display_container.translation = Vector3(0.05,2.4,0.15)
 		interact_area.rotation_degrees.y = 0
 		item_drop.translation.x = 3
 	if inputs & move_left:
 		velocity.x = -1 * speed
 		sprite.flip_h = true
-		display_container.translation = Vector3(-0.5,2.4,0.1)
+		display_container.translation = Vector3(-0.5,2.4,0.15)
 		interact_area.rotation_degrees.y = 180
 		item_drop.translation.x = -3
 	if inputs & move_down:
