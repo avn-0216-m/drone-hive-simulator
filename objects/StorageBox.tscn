@@ -109,7 +109,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33468, 0 )
 shape = SubResource( 1 )
 
 [node name="Box" type="Spatial" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.5, 2.2, 0 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -0.5, 2.21, 0 )
 
 [node name="Side" type="MeshInstance" parent="Box"]
 transform = Transform( 0, 0, -0.6, 0, 0.99, 0, 0, 0, -9.77524e-08, 0, 0, -0.999 )
