@@ -28,14 +28,17 @@ var meshlibrary: Array = [
 		"source": load("res://objects/Flower.tscn"),
 		"offset": Vector3(0,2,0),
 		"add_from": Vector2(-2,-2),
-		"add_to": Vector2(2,2)
+		"add_to": Vector2(2,2),
+		"collision": Vector3(0,0,0)
 	},
 	{ # 5: toybox. origin tile is top mid.
 		"source": load("res://objects/StorageBox.tscn"),
 		"add_from": Vector2(-2,-2),
 		"add_to": Vector2(2,4),
 		"remove_from": Vector2(-1,0),
-		"remove_to": Vector2(1,1)
+		"remove_to": Vector2(1,1),
+		"collision_translation": Vector3(0,0,2),
+		"collision_scale": Vector3(4,1,6)
 	},
 	{ # 6: Placeholder. Spawns nothing.
 	},
@@ -44,7 +47,7 @@ var meshlibrary: Array = [
 		"add_from": Vector2(-5,-5),
 		"add_to": Vector2(5,5),
 		"remove_from": Vector2(-1,0),
-		"remove_to": Vector2(1,1)
+		"remove_to": Vector2(1,1),
 	}
 ]
 
@@ -78,6 +81,7 @@ onready var walls = get_node("Geometry/Bodies/Walls")
 onready var extern_corners = get_node("Geometry/Bodies/ExternalCorners")
 onready var intern_corners = get_node("Geometry/Bodies/InternalCorners")
 onready var objects = get_node("Objects")
+onready var collision_checks = get_node("CollisionChecks")
 
 
 # Objects are mobile complexities with programming and meshes that cannot be
@@ -180,18 +184,61 @@ func cut_holes():
 func add_additional_rooms():
 	return
 	
+func add_object_to_gridmap(pos: Vector3, item_index):
+	
+	# add an area
+	# check if area intersects
+	# if true, don't add object/move it
+	# if false, add object to gridmap
+	
+	var area = Area.new()
+	var collision = CollisionShape.new()
+	var box_shape = BoxShape.new()
+	collision.shape = box_shape
+	area.add_child(collision)
+	
+	print("ADDING AREA CHECK")
+	
+	print(area)
+	print(collision)
+	
+	collision_checks.add_child(area)
+	
+	print("ADDED AREA CHILD")
+	print(collision_checks.get_children())
+	
+	if item_index >= len(meshlibrary):
+		return
+	
+	var item_data = meshlibrary[item_index]
+	
+	collision.translation = gridmap.map_to_world(pos.x, pos.y, pos.z)
+	
+	collision.scale = item_data.get("collision_scale", Vector3(1,1,1))
+	collision.translation += item_data.get("collision_translation", Vector3(0,0,0))
+	
+	
+	
+	gridmap.set_cell_item(pos.x, pos.y, pos.z, item_index)
+	
+	print("adding object")
+	return
+	
 func set_toybox_and_toyhole():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
 	match(difficulty):
 		0: # Don't spawn entry tile on first level.
 			var exit_tile = floor_tiles[1]
-			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
+			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
+			add_object_to_gridmap(exit_tile, 5)
 		_:
 			var exit_tile = floor_tiles[1]
 			start_tile = floor_tiles[0]
-			gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
-			gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 7)
+			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
+			add_object_to_gridmap(exit_tile, 5)
+			#gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 7)
+			add_object_to_gridmap(start_tile, 7)
 			entry_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
 
@@ -248,6 +295,11 @@ func instance_gridmap_object(cell, cell_item, parent):
 	# add child
 	parent.add_child(instance)
 
+func clear_collisions():
+	# Removes all collision test areas from CollisionChecks node.
+	for area in get_node("CollisionChecks").get_children():
+		area.queue_free()
+
 func add_tasks():
 	print("Adding tasks.")
 
@@ -274,8 +326,6 @@ func new_level():
 	
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
 	# second pass: instance updated level geometry.
-	
-	
 	
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
