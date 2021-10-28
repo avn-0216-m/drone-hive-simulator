@@ -1,4 +1,4 @@
-extends KinematicBody
+extends KinematicGravity
 class_name Drone
 
 signal shutdown_complete
@@ -21,9 +21,7 @@ onready var item_drop = get_node("ItemDrop")
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
-var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
-const GRAVITY: Vector3 = Vector3(0,-1,0)
 
 var immobile: bool = false
 
@@ -41,6 +39,7 @@ func _ready():
 	interact_area.connect("body_entered", self, "object_entered_interaction_range")
 	interact_area.connect("body_exited", self, "object_left_interaction_range")
 	set_id("0216")
+	gravity = 5
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -104,7 +103,7 @@ func _process(delta):
 		display_container.visible = true
 		return
 	
-	velocity = Vector3(0,0,0) + GRAVITY
+	velocity = Vector3(0,0,0)
 	
 	# Get inputs, set velocity
 	var inputs = get_inputs()
@@ -168,14 +167,6 @@ func interact_with_object():
 	else:
 		inventory.prime_item()
 
-		
-func _physics_process(delta):
-	
-	if immobile:
-		return
-	
-	move_and_slide(velocity)
-		
 func game_over_1():
 	print("Drone game over")
 	show_icon()

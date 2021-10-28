@@ -15,7 +15,6 @@ var drone: KinematicBody
 func _ready():
 	match(current_state):
 		State.INPUT:
-			$AnimationPlayer.play("open")
 			$TriggerZone.connect("body_entered",self,"body_entered")
 			$AnimationPlayer.connect("animation_finished",self,"animation_complete")
 		State.TRANSIT:
@@ -23,6 +22,9 @@ func _ready():
 			drone.translation = translation + Vector3(0,2,0)
 		_:
 			print("beep")
+	
+func open():
+	$AnimationPlayer.play("open")
 	
 func body_entered(body):
 	if body.name == "Drone":

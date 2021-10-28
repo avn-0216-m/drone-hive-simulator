@@ -1,8 +1,9 @@
 extends Spatial
 
 var placements: Array = []
-var good_tiles: Array = []
 const frame_wait_time: int = 5
+
+var tasks: Array = [[8,9]]
 
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -55,6 +56,17 @@ var meshlibrary: Array = [
 		"add_to": Vector2(5,5),
 		"remove_from": Vector2(-1,0),
 		"remove_to": Vector2(1,1),
+		"collision_scale": Vector3(5,1,5)
+	},
+	{ # 8: cube. put on button
+		"source": load("res://objects/Cube.tscn"),
+		"add_from": Vector2(-1,-1),
+		"add_to": Vector2(1,1)
+	},
+	{ # 9: button. put cube on.
+		"source": load("res://objects/Button.tscn"),
+		"add_from": Vector2(-1,-1),
+		"add_to": Vector2(1,1)
 	}
 ]
 
@@ -72,15 +84,13 @@ const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
 var level_size = Vector2(0,0)
-var start_tile = null
 var entry_tile_pos: Vector3
-var exit_tile = Vector3(0,0,0)
 
 var rng = RandomNumberGenerator.new()
 
 onready var gridmap = get_node("GridMap")
 onready var multimeshes = get_node("Geometry/Multimeshes")
-
+onready var task_manager = get_node("../Tasks")
 onready var bodies = get_node("Geometry/Bodies")
 onready var floors = get_node("Geometry/Bodies/Floor")
 onready var walls = get_node("Geometry/Bodies/Walls")
@@ -94,7 +104,7 @@ onready var collision_checks = get_node("CollisionChecks")
 # represented in the body + multimesh combo.
 
 var difficulty: int = 0
-var tasks: int = 1
+var num_tasks: int = 1
 
 func _ready():
 	
@@ -124,8 +134,6 @@ func add_walls_to_gridmap():
 	# for an empty tile. Add a wall as necessary.
 	
 	original_used_cells = gridmap.get_used_cells()
-	if start_tile != null:
-		original_used_cells += [start_tile]
 	# start tile is empty for the elevator to come down into
 	# so it needs to be added to the used cells so walls still generate
 	# correctly around it.
@@ -138,7 +146,7 @@ func add_walls_to_gridmap():
 		
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
-			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1 or cell == start_tile:
+			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1:
 				var found_tiles = get_adjacent_floor_tiles(Vector3(cell.x, cell.y, cell.z))
 				
 				# 1  2  4
@@ -214,28 +222,18 @@ func set_toybox_and_toyhole():
 	# debug code, remove the return later
 	# you dunce
 	
-	place(5)
-	place(4)
-	place(4)
-	return
+	# TODO: set toyhole collision checker
 	
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
 	match(difficulty):
 		0: # Don't spawn entry tile on first level.
-			var exit_tile = floor_tiles[1]
-			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
 			place(5)
 		_:
-			var exit_tile = floor_tiles[1]
-			start_tile = floor_tiles[0]
-			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
 			place(5)
-			#gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 7)
 			place(7)
-			entry_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
-func place(item_index):
+func place(item_index, task_index: int = -1):
 	
 	print("adding place req for: " + str(item_index))
 	
@@ -301,6 +299,8 @@ func instance_gridmap_object(cell, cell_item, parent):
 	
 	# add child
 	parent.add_child(instance)
+	
+	return instance
 
 func clear_collisions():
 	# Removes all collision test areas from CollisionChecks node.
@@ -308,7 +308,8 @@ func clear_collisions():
 		area.queue_free()
 
 func add_tasks():
-	print("Adding tasks.")
+	place(8, 0)
+	place(9, 0)
 
 func instance_gridmap():
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
@@ -316,7 +317,16 @@ func instance_gridmap():
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
 		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
-		if cell_item > 3:
+		
+		# TODO: rewrite this so it uses the placements list rather than gridmap cells
+		# then make sure the task manager knows which group of objects represent which task
+		
+		match(cell_item):
+			0,1,2,3:
+				pass
+			5:
+				task_manager.exit_box = instance_gridmap_object(cell, cell_item, objects)
+			_:
 				instance_gridmap_object(cell, cell_item, objects)
 				
 	add_walls_to_gridmap()
@@ -345,6 +355,8 @@ func instance_gridmap():
 	translation = Vector3(0,0,0)
 	multimeshes.init_multimeshes()
 	translation = previous_translation
+	
+	task_manager.get_tasks()
 	
 	state = State.DONE
 
@@ -404,6 +416,8 @@ func generate_new_placement_pos(req):
 	
 func _physics_process(delta):
 	
+	# TODO: optimization. order all objects from smallest to largest, move the smaller ones first.
+	
 	var all_positions_safe: bool = true
 	var moved_area: bool = false
 	
@@ -432,6 +446,9 @@ func _physics_process(delta):
 			
 			for placement in placements:
 				gridmap.set_cell_item(placement.pos.x, placement.pos.y, placement.pos.z, placement.index)
+				if placement.index == 7: # toyhole
+					print("setting toyhole beep hfdjkfhsdk")
+					entry_tile_pos = gridmap.map_to_world(placement.pos.x, placement.pos.y, placement.pos.z)
 			
 			state = State.INSTANCING
 			clear_collisions()

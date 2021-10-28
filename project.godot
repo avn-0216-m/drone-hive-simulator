@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody",
+"base": "KinematicGravity",
 "class": "Drone",
 "language": "GDScript",
 "path": "res://scripts/Drone.gd"

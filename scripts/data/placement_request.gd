@@ -6,6 +6,7 @@ var countdown: int = 3
 var pos # Vector3 but if I type hint Godot gets shitty about nulls so
 var area: Area
 var index: int
+var task: int = -1
 
 func _init(given_index):
 	index = given_index
@@ -19,6 +20,7 @@ func _init(given_index):
 	collision.shape = box_shape
 	# add collision to area
 	area.add_child(collision)
+	area.scale = Vector3(2,1,2)
 	# add area reference to placement
 	self.area = area
 	# connect signal
