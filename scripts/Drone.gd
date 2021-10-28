@@ -23,7 +23,7 @@ var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
 var velocity: Vector3 = Vector3(0,0,0)
 var speed: float = 5
-const GRAVITY: Vector3 = Vector3(0,-7,0)
+const GRAVITY: Vector3 = Vector3(0,-1,0)
 
 var immobile: bool = false
 
@@ -38,7 +38,6 @@ var interact = 64
 func _ready():
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
-	pickup_area.connect("body_entered", self, "pickup_in_range")
 	interact_area.connect("body_entered", self, "object_entered_interaction_range")
 	interact_area.connect("body_exited", self, "object_left_interaction_range")
 	set_id("0216")

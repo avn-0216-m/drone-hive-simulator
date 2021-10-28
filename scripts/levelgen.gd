@@ -1,5 +1,9 @@
 extends Spatial
 
+var placements: Array = []
+var good_tiles: Array = []
+const frame_wait_time: int = 5
+
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
 		Vector3(0,0,-1),  # Top mid
@@ -10,6 +14,9 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(0,0,1), # Bottom mid
 		Vector3(1,0,1) # Bottom right
 	]
+	
+enum State {PLACING, INSTANCING, DONE}
+var state = State.PLACING
 
 var meshlibrary: Array = [
 	{ # 0: floor tile
@@ -27,9 +34,9 @@ var meshlibrary: Array = [
 	{ # 4: spatial flower. debug item. spawns a flower with a lot of space around it.
 		"source": load("res://objects/Flower.tscn"),
 		"offset": Vector3(0,2,0),
-		"add_from": Vector2(-2,-2),
-		"add_to": Vector2(2,2),
-		"collision": Vector3(0,0,0)
+		"add_from": Vector2(-1,-1),
+		"add_to": Vector2(1,1),
+		"collision_scale": Vector3(2,2,2)
 	},
 	{ # 5: toybox. origin tile is top mid.
 		"source": load("res://objects/StorageBox.tscn"),
@@ -64,11 +71,10 @@ const EXTERN_CORNER_TOP_LEFT = 16
 const EXTERN_CORNER_BOTTOM_RIGHT = 0
 const EXTERN_CORNER_BOTTOM_LEFT = 22
 
+var level_size = Vector2(0,0)
 var start_tile = null
 var entry_tile_pos: Vector3
 var exit_tile = Vector3(0,0,0)
-var room_size_x = 0
-var room_size_z = 0
 
 var rng = RandomNumberGenerator.new()
 
@@ -170,21 +176,16 @@ func add_walls_to_gridmap():
 						print("setting internal corner")
 						gridmap.set_cell_item(cell.x, cell.y, cell.z, 3, 10)
 
-func generate_floor(difficulty: int):
-	room_size_x = rng.randi_range(5, 5 + difficulty)
-	room_size_z = rng.randi_range(5, 5 + difficulty)
+func generate_floor_prototype(difficulty: int):
 	
-	for tile_x in range(0, room_size_x):
-		for tile_z in range(0,room_size_z):
+	level_size.x = rng.randi_range(5, 5 + difficulty)
+	level_size.y = rng.randi_range(5, 5 + difficulty)
+	
+	for tile_x in range(0, level_size.x):
+		for tile_z in range(0,level_size.y):
 			gridmap.set_cell_item(tile_x, 0, tile_z, 0)
 	
-func cut_holes():
-	return
-	
-func add_additional_rooms():
-	return
-	
-func add_object_to_gridmap(pos: Vector3, item_index):
+func check_for_collisions(pos: Vector3, item_index):
 	
 	# add an area
 	# check if area intersects
@@ -196,16 +197,7 @@ func add_object_to_gridmap(pos: Vector3, item_index):
 	var box_shape = BoxShape.new()
 	collision.shape = box_shape
 	area.add_child(collision)
-	
-	print("ADDING AREA CHECK")
-	
-	print(area)
-	print(collision)
-	
 	collision_checks.add_child(area)
-	
-	print("ADDED AREA CHILD")
-	print(collision_checks.get_children())
 	
 	if item_index >= len(meshlibrary):
 		return
@@ -217,30 +209,45 @@ func add_object_to_gridmap(pos: Vector3, item_index):
 	collision.scale = item_data.get("collision_scale", Vector3(1,1,1))
 	collision.translation += item_data.get("collision_translation", Vector3(0,0,0))
 	
+func set_toybox_and_toyhole():
 	
+	# debug code, remove the return later
+	# you dunce
 	
-	gridmap.set_cell_item(pos.x, pos.y, pos.z, item_index)
-	
-	print("adding object")
+	place(5)
+	place(4)
+	place(4)
 	return
 	
-func set_toybox_and_toyhole():
 	var floor_tiles = gridmap.get_used_cells()
 	floor_tiles.shuffle()
 	match(difficulty):
 		0: # Don't spawn entry tile on first level.
 			var exit_tile = floor_tiles[1]
 			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
-			add_object_to_gridmap(exit_tile, 5)
+			place(5)
 		_:
 			var exit_tile = floor_tiles[1]
 			start_tile = floor_tiles[0]
 			#gridmap.set_cell_item(exit_tile.x, 0, exit_tile.z, 5)
-			add_object_to_gridmap(exit_tile, 5)
+			place(5)
 			#gridmap.set_cell_item(start_tile.x, 0, start_tile.z, 7)
-			add_object_to_gridmap(start_tile, 7)
+			place(7)
 			entry_tile_pos = gridmap.map_to_world(start_tile.x, start_tile.y, start_tile.z)
 
+func place(item_index):
+	
+	print("adding place req for: " + str(item_index))
+	
+	var item_data = meshlibrary[item_index]
+	
+	var req = placement_req.new(item_index)
+	
+	req.area.scale = item_data.get("collision_scale", Vector3(1,1,1))
+	
+	# add area node to tree
+	collision_checks.add_child(req.area)
+	placements.append(req)
 
 func instance_gridmap_object(cell, cell_item, parent):
 	
@@ -303,30 +310,9 @@ func clear_collisions():
 func add_tasks():
 	print("Adding tasks.")
 
-func new_level():
-	
-	difficulty = get_parent().difficulty
-	
-	# clear all existing nodes and variables
-	bodies.reset()
-	
-	# clear multimeshes
-	multimeshes.reset()
-	
-	# gridmap setup
-	randomize()
-	gridmap.clear()
-	generate_floor(difficulty)
-	if difficulty > 3:
-		cut_holes()
-	if difficulty > 6:
-		add_additional_rooms()
-	set_toybox_and_toyhole()
-	add_tasks()
-	
+func instance_gridmap():
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
 	# second pass: instance updated level geometry.
-	
 	# FIRST PASS
 	for cell in gridmap.get_used_cells():
 		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
@@ -359,3 +345,120 @@ func new_level():
 	translation = Vector3(0,0,0)
 	multimeshes.init_multimeshes()
 	translation = previous_translation
+	
+	state = State.DONE
+
+func new_level():
+	
+	difficulty = get_parent().difficulty
+	
+	# clear placements from previous level
+	placements.clear()
+	
+	# clear all geometry bodies
+	bodies.reset()
+	
+	# delete all level objects
+	for node in objects.get_children():
+		node.queue_free()
+	
+	# clear multimeshes
+	multimeshes.reset()
+	
+	# gridmap setup
+	randomize()
+	gridmap.clear()
+	generate_floor_prototype(difficulty)
+	set_toybox_and_toyhole()
+	add_tasks()
+	placements.invert()
+	state = State.PLACING
+	
+func generate_new_placement_pos(req):
+	
+	rng.randomize()
+	
+	# add_from MUST represent top left corner & add_to must represent bottom right corner
+	
+		#"add_from": Vector2(-2,-2),
+		#"add_to": Vector2(2,4),
+	
+	# item data (add_from/to) is required to calculate "stray"
+	# "stray" is how far an item can be placed off the edge of the map
+	# for example, if a toybox places 2 tiles to the right of it, that means
+	# it can also be placed 2 tiles to the left of the map (e.g (-2,3))
+	# while still being connected to the map
+	
+	var item_data = meshlibrary[req.index]
+	
+	var new_pos = Vector3(0,1,0)
+	new_pos.x = rng.randi_range(0 + item_data.add_from.x, level_size.x + item_data.add_to.x)
+	new_pos.z = rng.randi_range(0 - item_data.add_to.y, level_size.y + item_data.add_from.y)
+	
+	req.pos = new_pos
+	req.area.translation = gridmap.map_to_world(req.pos.x, req.pos.y, req.pos.z)
+	
+	# x in range(0 - req.to.x, level_size.x + abs(req.to.y):
+	# y in range(0 + abs(req.from.x), level_size.y + req.from.y):
+	
+	
+func _physics_process(delta):
+	
+	var all_positions_safe: bool = true
+	var moved_area: bool = false
+	
+	if state == State.PLACING:
+		print("ITERATION")
+		for placement in placements:
+			placement.countdown = max(0, placement.countdown - 1)
+			if placement.countdown == 0 and placement.safe == false:
+				placement.safe = true
+			if placement.pos == null:
+				print("assigning random gridmap position")
+				generate_new_placement_pos(placement)
+			if !placement.area.get_overlapping_areas().empty() and !moved_area:
+				print("Overlap found, moving area")
+				moved_area = true
+				placement.countdown = false
+				placement.safe = false
+				generate_new_placement_pos(placement)
+			if placement.safe == false:
+				all_positions_safe = false
+				
+				
+		if all_positions_safe:
+			print("ALL POSITIONS SAFE")
+			print(placements)
+			
+			for placement in placements:
+				gridmap.set_cell_item(placement.pos.x, placement.pos.y, placement.pos.z, placement.index)
+			
+			state = State.INSTANCING
+			clear_collisions()
+			instance_gridmap()
+
+# make an array of dictionaries that contain:
+#	area node
+#	item id
+#	position
+#	if in safe pos
+#	countdown
+
+# every time you want to add an item to the map, push a dict/object of that data
+# onto the stack for processing
+# in _process(), iterate through array, create area if null,
+# deincrement countdown by 1 each frame
+# if countdown hits 0, mark as safe
+# connect each area "area_entered" signal to "overlap_found"
+# using the area provided in the func args, lookup in processing stack and mark as unsafe.
+# spawn in new location, reset countdown, update area node position.
+
+# every frame, iterate over processing stack, see if all items are marked as in safe position
+# if yes, change State.PLACING to State.INSTANCING as it is now safe to do so
+
+func overlapping_area_detected(area):
+	for placement in placements:
+		if area == placement.area:
+			print("matching naughty area found")
+			placement.countdown = frame_wait_time
+			placement.area.translation = Vector3(90,90,90)

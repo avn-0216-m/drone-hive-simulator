@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scripts/StoragePod.gd" type="Script" id=1]
 [ext_resource path="res://textures/toybox/top flap.png" type="Texture" id=2]
@@ -97,8 +97,6 @@ uv1_scale = Vector3( 6, 6, 1 )
 material = SubResource( 15 )
 size = Vector3( 2, 0.2, 3 )
 
-[sub_resource type="BoxShape" id=17]
-
 [node name="StorageBox" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -109,7 +107,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33468, 0 )
 shape = SubResource( 1 )
 
 [node name="Box" type="Spatial" parent="."]
-transform = Transform( -3.25841e-07, 0, 2, 0, 2, 0, -2, 0, -3.25841e-07, 0, 2.21, 0.5 )
+transform = Transform( -3.25841e-07, 0, 2, 0, 2, 0, -2, 0, -3.25841e-07, 0, 2.139, 0.5 )
 
 [node name="Side" type="MeshInstance" parent="Box"]
 transform = Transform( 0, 0, -0.6, 0, 0.99, 0, 0, 0, -9.77524e-08, 0, 0, -0.999 )
@@ -163,7 +161,7 @@ anims/close = SubResource( 12 )
 anims/open = SubResource( 13 )
 
 [node name="Spatial" type="StaticBody" parent="."]
-transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, 0, 0 )
+transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 0, -0.1, 0 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0 )
@@ -173,7 +171,3 @@ shape = SubResource( 14 )
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -1.00017, 0, 0 )
 mesh = SubResource( 16 )
 material/0 = null
-
-[node name="CollisionPolygon" type="CollisionShape" parent="."]
-transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 6, 0, 0, 2 )
-shape = SubResource( 17 )
