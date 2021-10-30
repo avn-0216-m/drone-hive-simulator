@@ -59,14 +59,16 @@ var meshlibrary: Array = [
 		"collision_scale": Vector3(5,1,5)
 	},
 	{ # 8: cube. put on button
-		"source": load("res://objects/Cube.tscn"),
+		"source": load("res://objects/WeightedCube.tscn"),
 		"add_from": Vector2(-1,-1),
-		"add_to": Vector2(1,1)
+		"add_to": Vector2(1,1),
+		"offset": Vector3(0,3,0)
 	},
 	{ # 9: button. put cube on.
-		"source": load("res://objects/Button.tscn"),
+		"source": load("res://objects/WeightedButton.tscn"),
 		"add_from": Vector2(-1,-1),
-		"add_to": Vector2(1,1)
+		"add_to": Vector2(1,1),
+		"offset": Vector3(0,0,0)
 	}
 ]
 
@@ -233,7 +235,7 @@ func set_toybox_and_toyhole():
 			place(5)
 			place(7)
 
-func place(item_index, task_index: int = -1):
+func place(item_index):
 	
 	print("adding place req for: " + str(item_index))
 	
@@ -247,16 +249,16 @@ func place(item_index, task_index: int = -1):
 	collision_checks.add_child(req.area)
 	placements.append(req)
 
-func instance_gridmap_object(cell, cell_item, parent):
+func instance_gridmap_object(cell, cell_item, parent) -> Node:
 	
-	# don't retrieve invalid objects
-	# TODO: why the fuck does my mesh library have an item 6
 	if cell_item >= len(meshlibrary):
-		return
+		print("Couldn't instance item. Index too high.")
+		return null
 	
 	var object = meshlibrary[cell_item]
 	if object.get("source", null) == null:
-		return
+		print("Couldn't instance item. Source not found.")
+		return null
 	
 	var instance = object.source.instance()
 	
@@ -308,26 +310,30 @@ func clear_collisions():
 		area.queue_free()
 
 func add_tasks():
-	place(8, 0)
-	place(9, 0)
+	place(8)
+	place(9)
 
 func instance_gridmap():
 	# first pass: instance all NON LEVEL GEOMETRY objects, add or remove required tiles
 	# second pass: instance updated level geometry.
 	# FIRST PASS
-	for cell in gridmap.get_used_cells():
-		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
+	for object in placements:
+		
+		print("instancing: " + str(object.index))
 		
 		# TODO: rewrite this so it uses the placements list rather than gridmap cells
 		# then make sure the task manager knows which group of objects represent which task
 		
-		match(cell_item):
+		match(object.index):
 			0,1,2,3:
 				pass
 			5:
-				task_manager.exit_box = instance_gridmap_object(cell, cell_item, objects)
+				task_manager.exit_box = instance_gridmap_object(object.pos, object.index, objects)
 			_:
-				instance_gridmap_object(cell, cell_item, objects)
+				var instanced_node = instance_gridmap_object(object.pos, object.index, objects)
+				print("result: " + str(instanced_node))
+				if instanced_node != null and instanced_node.has_signal("task_complete"):
+					task_manager.add_task_node(instanced_node)
 				
 	add_walls_to_gridmap()
 				
@@ -355,8 +361,7 @@ func instance_gridmap():
 	translation = Vector3(0,0,0)
 	multimeshes.init_multimeshes()
 	translation = previous_translation
-	
-	task_manager.get_tasks()
+	placements.clear()
 	
 	state = State.DONE
 
@@ -433,7 +438,7 @@ func _physics_process(delta):
 			if !placement.area.get_overlapping_areas().empty() and !moved_area:
 				print("Overlap found, moving area")
 				moved_area = true
-				placement.countdown = false
+				placement.countdown = frame_wait_time
 				placement.safe = false
 				generate_new_placement_pos(placement)
 			if placement.safe == false:
@@ -453,25 +458,6 @@ func _physics_process(delta):
 			state = State.INSTANCING
 			clear_collisions()
 			instance_gridmap()
-
-# make an array of dictionaries that contain:
-#	area node
-#	item id
-#	position
-#	if in safe pos
-#	countdown
-
-# every time you want to add an item to the map, push a dict/object of that data
-# onto the stack for processing
-# in _process(), iterate through array, create area if null,
-# deincrement countdown by 1 each frame
-# if countdown hits 0, mark as safe
-# connect each area "area_entered" signal to "overlap_found"
-# using the area provided in the func args, lookup in processing stack and mark as unsafe.
-# spawn in new location, reset countdown, update area node position.
-
-# every frame, iterate over processing stack, see if all items are marked as in safe position
-# if yes, change State.PLACING to State.INSTANCING as it is now safe to do so
 
 func overlapping_area_detected(area):
 	for placement in placements:

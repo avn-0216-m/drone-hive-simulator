@@ -5,9 +5,12 @@ extends Node
 var exit_box: Node
 var tasks = []
 
+func add_task_node(node):
+	print("adding " + node.name + " to task list.")
+	node.connect("task_complete", self, "task_done")
 
-func task_complete(node):
+func task_done(node):
 	print("Task completed. :)")
-
-func get_tasks():
-	tasks = get_tree().get_nodes_in_group("Completable")
+	if tasks.empty():
+		print("All tasks done!!!!")
+		exit_box.open()
