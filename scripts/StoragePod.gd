@@ -25,6 +25,11 @@ func _ready():
 	
 func open():
 	$AnimationPlayer.play("open")
+	$TriggerZone/CollisionShape.disabled = false
+	
+func close():
+	$AnimationPlayer.play("close")
+	$TriggerZone/CollisionShape.disabled = true
 	
 func body_entered(body):
 	if body.name == "Drone":
@@ -39,6 +44,8 @@ func animation_complete(anim_name):
 		"open":
 			print("open complete")
 		"close":
+			print("bwa")
+			return
 			# Respawn node outside of level tree.
 			var reparent = entry_src.instance()
 			reparent.current_state = State.TRANSIT

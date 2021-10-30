@@ -147,25 +147,35 @@ func _process(delta):
 	#	display_container.visible = true
 		
 func interact_with_object():
-	for body in interact_area.get_overlapping_bodies():
-		if body is Interactable:
-			if inventory.primed == true:
-				# if inventory item ready, attempt use on object
-				inventory.use_item_on(body)
-			else:
-				# if no inventory item ready, use normally
-
-				body.interact(self)
-				if !(body is Pickup) and body.interactable:
-					# Bounce cursor and play sound when interacting with interactable.
-					inventory.sfx_confirm.play(0)
-					inventory.cursor.translation += Vector3(0,0.5,0)
-			return
-	# no bodies were found
-	if inventory.primed == true:
-		inventory.drop_item()
+	
+	var body = null
+	
+	# if no highlighted object
+	if inventory.highlighted_object == null and !interact_area.get_overlapping_areas().empty():
+		body = interact_area.get_overlapping_areas()[0]
 	else:
-		inventory.prime_item()
+		body = inventory.highlighted_object
+
+	if body is Interactable and body.interactable:
+		if inventory.primed == true:
+			# if inventory item ready, attempt use on object
+			inventory.use_item_on(body)
+			return
+		else:
+			# if no inventory item ready, use normally
+
+			body.interact(self)
+			if !(body is Pickup) and body.interactable:
+				# Bounce cursor and play sound when interacting with interactable.
+				inventory.sfx_confirm.play(0)
+				inventory.cursor.translation += Vector3(0,0.5,0)
+			return
+	elif body == null:
+		if inventory.primed == true:
+			inventory.drop_item()
+		else:
+			inventory.prime_item()
+
 
 func game_over_1():
 	print("Drone game over")
@@ -198,7 +208,7 @@ func recharge():
 func object_entered_interaction_range(body):
 	if body is Interactable and body.interactable:
 		inventory.highlighted_object = body
-		print("marking as interactable")
+		print("marking as interactable: " + str(body.name))
 		if !inventory.slots.visible:
 			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset
 		
