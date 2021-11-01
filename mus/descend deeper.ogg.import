@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/descend deeper.ogg-4ba06606c5deec7abf56df0101ae4af8.oggstr"
+
+[deps]
+
+source_file="res://mus/descend deeper.ogg"
+dest_files=[ "res://.import/descend deeper.ogg-4ba06606c5deec7abf56df0101ae4af8.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

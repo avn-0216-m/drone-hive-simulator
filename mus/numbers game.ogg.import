@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/numbers game.ogg-bca6ad576f0e70ea454c4d02fc950c00.oggstr"
+
+[deps]
+
+source_file="res://mus/numbers game.ogg"
+dest_files=[ "res://.import/numbers game.ogg-bca6ad576f0e70ea454c4d02fc950c00.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

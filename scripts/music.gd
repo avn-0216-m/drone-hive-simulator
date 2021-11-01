@@ -1,73 +1,18 @@
 extends AudioStreamPlayer
 
-var game_node: Node = get_parent()
-var songs: Array = [] # Contains arrays of intro-loop pairs. [0] = intro, [1] = loop.
-var song_index: int = -1
-var playing_intro: bool = false
-var music_path: String = "res://mus/level/"
-var keep_playing: bool = true
-onready var game_over_intro: AudioStream = preload("res://mus/bawk_intro.ogg")
-onready var game_over_loop: AudioStream = preload("res://mus/bawk_loop.ogg")
-
-func _ready():
-	# Load all available songs in the level mus directory to the songs array.
-	print("Loading music.")
-	var dir: Directory = Directory.new()
-	if dir.open(music_path) == OK:
-		print("Music directory opened.")
-		dir.list_dir_begin() # Inits the file reader stream.
-		var file_name: String = dir.get_next()
-		while file_name != "":
-			if file_name.get_extension() == "ogg" and not file_name.ends_with("intro.ogg"):
-				var audio_stream: AudioStream = load(music_path + file_name)
-				var audio_stream_intro: AudioStream = load(music_path + file_name.get_basename() + " intro." + file_name.get_extension()) # Attempt to find an intro track if there is one
-				if audio_stream_intro != null:
-					print("Loaded " + file_name + " intro.")
-				songs.append([audio_stream_intro, audio_stream])
-				print("Loaded " + file_name)
-			file_name = dir.get_next()
-		print("Finished loading songs.")
-		dir.list_dir_end() # Closes file reader stream.
-	else:
-		print("Failed to open music directory.")
-		
-	# Connect "finished" signal with music restart function
-	connect("finished", self, "stream_finished")
-	print("In-game music node ready.")
-	
-func stream_finished():
-	print("Audio stream finished.")
-	if get_stream() == game_over_intro:
-		stream = game_over_loop
-	elif playing_intro:
-		print("Intro complete, starting loop.")
-		stream = songs[song_index][1]
-		playing_intro = false
-	if keep_playing:
-		play()
-
-func game_over_1():
-	keep_playing = false
-	print("music game over 1")
-	stop()
-	
-func game_over_2():
-	stream = game_over_intro
-	keep_playing = true
-	play()
+var songs: Array = [
+	preload("res://mus/bawk.ogg"),
+	preload("res://mus/bawk (alternate).ogg"),
+	preload("res://mus/clicker training.ogg"),
+	preload("res://mus/descend deeper.ogg"),
+	preload("res://mus/nanite slurry.ogg"),
+	preload("res://mus/numbers game.ogg"),
+	preload("res://mus/respite.ogg"),
+	preload("res://mus/task assignment.ogg"),
+	preload("res://mus/victory lap.ogg"),
+	preload("res://mus/welcome2hive.ogg")
+	]
 
 func change_music():
-	song_index += 1
-	if songs == []:
-		print("Couldn't change music. No songs loaded.")
-		return
-	print("Changing music.")
-	if song_index >= len(songs):
-		song_index = 0
-	if songs[song_index][0] != null:
-		playing_intro = true
-		stream = songs[song_index][0]
-		print("Playing song intro.")
-	else:
-		stream = songs[song_index][1]
+	stream = songs[randi() % songs.size()]
 	play()

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggstr"
+
+[deps]
+
+source_file="res://mus/task assignment.ogg"
+dest_files=[ "res://.import/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
