@@ -15,6 +15,8 @@ func task_done(node):
 	tasks.remove(tasks.find(node))
 	if tasks.empty():
 		print("All tasks done!!!!")
+		exit_box.trigger_col.disabled = false
+		exit_box.all_tasks_complete = true
 		exit_box.open()
 
 func task_incomplete(node):

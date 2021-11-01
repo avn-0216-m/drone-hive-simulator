@@ -148,15 +148,14 @@ func _process(delta):
 		
 func interact_with_object():
 	
-	var body = null
-	
-	# if no highlighted object
-	if inventory.highlighted_object == null and !interact_area.get_overlapping_areas().empty():
-		body = interact_area.get_overlapping_areas()[0]
-	else:
-		body = inventory.highlighted_object
+	var body = inventory.highlighted_object
 
-	if body is Interactable and body.interactable:
+	if body == null:
+		if inventory.primed == true:
+			inventory.drop_item()
+		else:
+			inventory.prime_item()
+	elif body is Interactable and body.interactable:
 		if inventory.primed == true:
 			# if inventory item ready, attempt use on object
 			inventory.use_item_on(body)
@@ -170,11 +169,7 @@ func interact_with_object():
 				inventory.sfx_confirm.play(0)
 				inventory.cursor.translation += Vector3(0,0.5,0)
 			return
-	elif body == null:
-		if inventory.primed == true:
-			inventory.drop_item()
-		else:
-			inventory.prime_item()
+
 
 
 func game_over_1():

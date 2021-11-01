@@ -11,6 +11,9 @@ enum State {INPUT, TRANSIT, OUTPUT}
 # The node has arrived at the next level and is now non-functional.
 var current_state = State.INPUT
 var drone: KinematicBody
+var all_tasks_complete: bool = false
+onready var trigger_zone = get_node("TriggerZone")
+onready var trigger_col = get_node("TriggerZone/CollisionShape")
 
 func _ready():
 	match(current_state):
@@ -44,15 +47,15 @@ func animation_complete(anim_name):
 		"open":
 			print("open complete")
 		"close":
-			print("bwa")
-			return
-			# Respawn node outside of level tree.
-			var reparent = entry_src.instance()
-			reparent.current_state = State.TRANSIT
-			reparent.translation = translation
-			reparent.drone = drone
-			
-			var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
-			game_root.add_child(reparent)
-			game_root.new_level()
-			queue_free()
+				return
+				print("box spawning new level")
+				# Respawn node outside of level tree.
+				var reparent = entry_src.instance()
+				reparent.current_state = State.TRANSIT
+				reparent.translation = translation
+				reparent.drone = drone
+				
+				var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
+				game_root.add_child(reparent)
+				game_root.new_level()
+				queue_free()

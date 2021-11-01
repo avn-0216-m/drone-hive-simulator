@@ -24,6 +24,7 @@ func body_entered(body):
 	
 func body_exited(body):
 	if body.get_class() == "WeightedCube":
+		print("cube exited")
 		emit_signal("task_incomplete", self)
 		interactable = true
 		button_pos = Vector3(0,0,0)

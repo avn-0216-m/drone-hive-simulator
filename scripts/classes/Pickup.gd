@@ -22,6 +22,7 @@ func _ready():
 func interact(interactor):
 	# Dropping is handled seperately by the inventory, so interact should always pickup a pickup.
 	print(self.name + " was picked up.")
+	translation = Vector3(999,999,999) # moving object so it exits areas
 	if interactor.inventory.add_item(self) and !infinite:
 		get_parent().remove_child(self)
 
