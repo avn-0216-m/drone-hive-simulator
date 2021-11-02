@@ -64,3 +64,7 @@ material/0 = null
 [node name="Toyhole" type="MeshInstance" parent="."]
 mesh = SubResource( 5 )
 material/0 = null
+
+[node name="Anna" type="MeshInstance" parent="."]
+mesh = SubResource( 5 )
+material/0 = null

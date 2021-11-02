@@ -67,6 +67,11 @@ func _physics_process(delta):
 				jump.z -= jump_length_linear_falloff
 	
 	if translation.y > 10.8:
+		return
+		
+		# TODO: don't spawn battery based on height,
+		# instead start a timer and delete+spawn when it ends.
+		
 		var gift = battery_src.instance()
 		gift.translation = get_global_transform().origin
 		get_tree().get_root().get_node("Main/Viewport/Game").add_child(gift)
@@ -124,6 +129,6 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % 10 == 0:
+	if true or randi() % 10 == 0:
 		print("caught!")
 		.interact(interactor)

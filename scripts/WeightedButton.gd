@@ -5,11 +5,14 @@ signal task_incomplete(node)
 
 var button_pos = Vector3(0,0,0)
 
+var weighed = false
+
 func get_class() -> String:
 	return "WeightedButton"
 
 func _physics_process(delta):
 	$Button.translation = lerp($Button.translation, button_pos, 0.1)
+	
 
 func _ready():
 	$Area.connect("body_entered",self,"body_entered")

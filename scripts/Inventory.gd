@@ -27,8 +27,8 @@ var primed: bool = false # If the inventory has an item prepared to drop or not.
 
 func _process(delta):
 	
-	if slots.get_child(inventory_index).item != null:
-		slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
+	#if slots.get_child(inventory_index).item != null:
+	#	slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
 	
 	slots.translation = drone.translation + Vector3(0,2.4,0)
 	
@@ -95,6 +95,11 @@ func show_slots():
 	$Timer.start(inventory_timeout)
 	
 func change_selected_slot(desired_index):
+	
+	print("----")
+	for slot in slots.get_children():
+		print(slot.item)
+	
 	$SFXChange.play(0)
 	# deprime current slot if applicable
 	if primed:
@@ -148,7 +153,7 @@ func drop_item():
 	$SFXConfirm.play(0)
 	primed_item.translation = drone.item_drop.get_global_transform().origin
 	primed_item.velocity.y = 0
-	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects/").add_child(primed_item)
+	primed_item.skip_process = false
 	destroy_item()
 	
 func prime_item():
@@ -175,6 +180,10 @@ func add_item(object) -> bool:
 	# Returns true if successfully added.
 	# False is not.
 	
+	# TODO: items are moved to 999 and kept in the Object node.
+	# they need to be moved to a seperate node ("Stored" sibling node?)
+	# or else they'll be deleted during level transitions
+	
 	var destination_slot = slots.get_child(inventory_index)
 	
 	if destination_slot.item != null:
@@ -198,6 +207,11 @@ func add_item(object) -> bool:
 			destination_slot.icon.texture = placeholder
 			destination_slot.icon.material_override.albedo_texture = placeholder
 		destination_slot.item = object
+		
+		highlighted_object = null
+		object.translation = Vector3(999,999,999)
+		object.skip_process = true
+		
 		show_slots()
 		return true
 

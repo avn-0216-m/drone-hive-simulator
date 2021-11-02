@@ -3,7 +3,9 @@ extends Spatial
 var placements: Array = []
 const frame_wait_time: int = 5
 
-var tasks: Array = [[8,9]]
+var good_tiles: Array = [] # List of Vector3s representing known clear tile co-ords for placement optimization
+
+var bird_factor: int = 3 # How often Anna appears. (Default: once every 3 levels)
 
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -69,6 +71,13 @@ var meshlibrary: Array = [
 		"add_from": Vector2(-1,-1),
 		"add_to": Vector2(1,1),
 		"offset": Vector3(0,0,0)
+	},
+	{ # 10: Anna. Anna is 10/10 best birb.
+		"source": load("res://objects/Anna.tscn"),
+		"offset": Vector3(0,5,0),
+		"collision_scale": Vector3(1,1,1),
+		"add_from": Vector2(-1,-1),
+		"add_to": Vector2(1,1)
 	}
 ]
 
@@ -194,6 +203,7 @@ func generate_floor_prototype(difficulty: int):
 	for tile_x in range(0, level_size.x):
 		for tile_z in range(0,level_size.y):
 			gridmap.set_cell_item(tile_x, 0, tile_z, 0)
+			good_tiles.append(Vector3(tile_x, 0, tile_z))
 	
 func check_for_collisions(pos: Vector3, item_index):
 	
@@ -274,6 +284,7 @@ func instance_gridmap_object(cell, cell_item, parent) -> Node:
 		for x in range(add_from.x, add_to.x + 1):
 			for z in range(add_from.y, add_to.y + 1):
 				gridmap.set_cell_item(x+origin.x,0,z+origin.z,0)
+				good_tiles.erase(Vector3(x+origin.x,0,z+origin.z))
 				
 	# remove excess tiles. tiles are replaced with placeholder items so
 	# walls are not spawned around the item.
@@ -285,6 +296,7 @@ func instance_gridmap_object(cell, cell_item, parent) -> Node:
 		for x in range(remove_from.x, remove_to.x + 1):
 			for z in range(remove_from.y, remove_to.y + 1):
 				gridmap.set_cell_item(x+origin.x,0,z+origin.z,6)
+				good_tiles.erase(Vector3(x+origin.x,0,z+origin.z))
 		
 	
 	# set name
@@ -320,9 +332,6 @@ func instance_gridmap():
 	for object in placements:
 		
 		print("instancing: " + str(object.index))
-		
-		# TODO: rewrite this so it uses the placements list rather than gridmap cells
-		# then make sure the task manager knows which group of objects represent which task
 		
 		match(object.index):
 			0,1,2,3:
@@ -361,7 +370,6 @@ func instance_gridmap():
 	translation = Vector3(0,0,0)
 	multimeshes.init_multimeshes()
 	translation = previous_translation
-	placements.clear()
 	
 	state = State.DONE
 
@@ -369,8 +377,14 @@ func new_level():
 	
 	difficulty = get_parent().difficulty
 	
+	# clear previous tasks
+	task_manager.tasks.clear()
+	
 	# clear placements from previous level
 	placements.clear()
+	
+	# clear known good tiles
+	good_tiles.clear()
 	
 	# clear all geometry bodies
 	bodies.reset()
@@ -388,7 +402,10 @@ func new_level():
 	generate_floor_prototype(difficulty)
 	set_toybox_and_toyhole()
 	add_tasks()
-	placements.invert()
+	
+	if true or difficulty % bird_factor == 0: # add anna if on a birdy level
+		place(10)
+	
 	state = State.PLACING
 	
 func generate_new_placement_pos(req):
@@ -409,8 +426,9 @@ func generate_new_placement_pos(req):
 	var item_data = meshlibrary[req.index]
 	
 	var new_pos = Vector3(0,1,0)
-	new_pos.x = rng.randi_range(0 + item_data.add_from.x, level_size.x + item_data.add_to.x)
-	new_pos.z = rng.randi_range(0 - item_data.add_to.y, level_size.y + item_data.add_from.y)
+	
+	new_pos.x = rng.randi_range(0 + item_data.get("add_from", Vector2(0,0)).x, level_size.x + item_data.get("add_to", Vector2(0,0)).x)
+	new_pos.z = rng.randi_range(0 - item_data.get("add_to", Vector2(0,0)).y, level_size.y + item_data.get("add_from", Vector2(0,0)).y)
 	
 	req.pos = new_pos
 	req.area.translation = gridmap.map_to_world(req.pos.x, req.pos.y, req.pos.z)

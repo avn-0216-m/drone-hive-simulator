@@ -36,9 +36,7 @@ func close():
 	
 func body_entered(body):
 	if body.name == "Drone":
-
 		drone = body
-		
 		$AnimationPlayer.play("close")
 		return
 		
@@ -47,15 +45,15 @@ func animation_complete(anim_name):
 		"open":
 			print("open complete")
 		"close":
-				return
-				print("box spawning new level")
-				# Respawn node outside of level tree.
-				var reparent = entry_src.instance()
-				reparent.current_state = State.TRANSIT
-				reparent.translation = translation
-				reparent.drone = drone
-				
-				var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
-				game_root.add_child(reparent)
-				game_root.new_level()
-				queue_free()
+				if all_tasks_complete and $TriggerZone.overlaps_body(drone):
+					print("box spawning new level")
+					# Respawn node outside of level tree.
+					var reparent = entry_src.instance()
+					reparent.current_state = State.TRANSIT
+					reparent.translation = translation
+					reparent.drone = drone
+					
+					var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
+					game_root.add_child(reparent)
+					game_root.new_level()
+					queue_free()
