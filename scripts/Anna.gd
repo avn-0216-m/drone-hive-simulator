@@ -46,6 +46,9 @@ func something_near(body):
 	
 func _physics_process(delta):
 	
+	if skip_process:
+		return
+	
 	if flying:
 		fly_away_velocity.y = apply_gravity(fly_away_velocity)
 		move_and_slide(fly_away_velocity, Vector3(0,1,0))
