@@ -125,13 +125,13 @@ func new_action():
 			sprite.animation = "sit"
 			sprite.frame = 0
 		_: # Bob
-			timer.wait_time = bob_time
+#			timer.wait_time = bob_time
 			sprite.animation = "bob"
 			sprite.frame = 0
 	timer.start()
 
 func interact(interactor):
 	$Chirp.play(0)
-	if true or randi() % 10 == 0:
+	if randi() % 10 == 0:
 		print("caught!")
 		.interact(interactor)

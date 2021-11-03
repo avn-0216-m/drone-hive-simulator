@@ -26,6 +26,9 @@ var intern_mat: Material # Material for internal corner mesh.
 
 enum State {LOCKED, MAIN, WALL_HUG, GAME_OVER, TRANSITION, ORBIT}
 var current_state = State.MAIN
+
+func _ready():
+	translation = drone.translation + normal_offset
 	
 func _process(delta):
 	

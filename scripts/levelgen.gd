@@ -74,7 +74,7 @@ var meshlibrary: Array = [
 	},
 	{ # 10: Anna. Anna is 10/10 best birb.
 		"source": load("res://objects/Anna.tscn"),
-		"offset": Vector3(0,5,0),
+		"offset": Vector3(0,1,0),
 		"collision_scale": Vector3(1,1,1),
 		"add_from": Vector2(-1,-1),
 		"add_to": Vector2(1,1)
@@ -110,6 +110,9 @@ onready var intern_corners = get_node("Geometry/Bodies/InternalCorners")
 onready var objects = get_node("Objects")
 onready var collision_checks = get_node("CollisionChecks")
 
+# combined wall mesh not built from gridmap walls
+onready var wall_mesh = get_node("WallMesh")
+
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
@@ -130,15 +133,78 @@ func _ready():
 	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
 	camera.intern_mat = multimeshes.intern_corners.multimesh.mesh.surface_get_material(0)
 
-func get_adjacent_floor_tiles(origin: Vector3) -> int:
+func get_adjacent_tiles(origin: Vector3) -> int:
 	var tiles = 0
 	var addition = 1
+	
+	var used_cells = gridmap.get_used_cells()
+	
 	for adjacent in adjacent_transforms:
-		if (origin + adjacent) in original_used_cells:
+		if (origin + adjacent) in used_cells:
 			tiles += addition
 		addition *= 2
 
 	return tiles
+
+func get_adjacent_edge_tile(origin: Vector3, visited: Array):
+	"""
+	Given a Vector3 gridmap co-ordinate and array of visited tiles,
+	Return the first co-ordinate for an edge tile not in the visited array.
+	Returns null if none found.
+	"""
+	
+	#if visited.size() == 10: return null
+	
+	# TODO: you need to look for EMPTY TILES with FLOOR TILES adjacent
+	# as opposed to empty tiles with nothing adjacent (they are not the outline)
+	
+	for adjacent in adjacent_transforms:
+		var translated = origin + adjacent
+		if get_adjacent_tiles(translated) != 255 and !(translated in visited) and gridmap.get_cell_item(translated.x, translated.y, translated.z) == 0:
+			print("NEXT EDGE FOUND")
+			return translated
+	
+	print("NO EDGE TILES FOUDN FROM THIS POSITION KYS")
+	
+	return null
+
+func create_wall_mesh():
+	
+	# find start tile (ABITRARYTYYG)
+	
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES) # every 3 verticies is rendered as a tri
+
+	
+	
+	var visited_tiles: Array = []
+	var next_tile = Vector3(0,0,0)
+	
+	# find start tile:
+	for cell in gridmap.get_used_cells():
+		if gridmap.get_cell_item(cell.x, cell.y, cell.z) == 0 and get_adjacent_tiles(Vector3(cell.x, cell.y, cell.z)) != 255:
+			print("Start tile for wall mesh gen found: " + str(next_tile))
+			next_tile = Vector3(cell.x, cell.y, cell.z)
+			break
+	
+	while(next_tile != null):
+		
+		visited_tiles.append(next_tile)
+		print("ITERATING MESH ADDITION")
+		
+		# add mesh verticies here
+		var tile_world_pos = gridmap.map_to_world(next_tile.x, next_tile.y, next_tile.z)
+		print(tile_world_pos)
+		st.add_vertex(tile_world_pos + Vector3(-1,0,0))
+		st.add_vertex(tile_world_pos + Vector3(-1,3,0))
+		st.add_vertex(tile_world_pos + Vector3(1,0,0))
+		
+		# call this last for the while loop
+		next_tile = get_adjacent_edge_tile(next_tile, visited_tiles)
+		
+	wall_mesh.mesh = st.commit()
+	wall_mesh.create_trimesh_collision()
+
 
 func add_walls_to_gridmap():
 	# Iterate over every floor tile on floor 0, and check each adjacent space
@@ -158,7 +224,7 @@ func add_walls_to_gridmap():
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
 			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1:
-				var found_tiles = get_adjacent_floor_tiles(Vector3(cell.x, cell.y, cell.z))
+				var found_tiles = get_adjacent_tiles(Vector3(cell.x, cell.y, cell.z))
 				
 				# 1  2  4
 				# 8     16
@@ -340,11 +406,9 @@ func instance_gridmap():
 				task_manager.exit_box = instance_gridmap_object(object.pos, object.index, objects)
 			_:
 				var instanced_node = instance_gridmap_object(object.pos, object.index, objects)
-				print("result: " + str(instanced_node))
+				print("result: " + str(instanced_node.name))
 				if instanced_node != null and instanced_node.has_signal("task_complete"):
 					task_manager.add_task_node(instanced_node)
-				
-	add_walls_to_gridmap()
 				
 	for cell in gridmap.get_used_cells():
 		var cell_item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
@@ -361,8 +425,6 @@ func instance_gridmap():
 			3:
 				# internal corner
 				instance_gridmap_object(cell, cell_item, intern_corners)
-		
-	gridmap.clear()
 	
 	# multi mesh renderers get fucky if you set them up at any
 	# translation besides 0,0,0. so set that first, then reset position.
@@ -402,6 +464,7 @@ func new_level():
 	generate_floor_prototype(difficulty)
 	set_toybox_and_toyhole()
 	add_tasks()
+	
 	
 	if true or difficulty % bird_factor == 0: # add anna if on a birdy level
 		place(10)
@@ -476,7 +539,10 @@ func _physics_process(delta):
 			state = State.INSTANCING
 			clear_collisions()
 			instance_gridmap()
-
+			print("abt to call create wall mesh ---------------------")
+			create_wall_mesh()
+			gridmap.clear()
+			
 func overlapping_area_detected(area):
 	for placement in placements:
 		if area == placement.area:
