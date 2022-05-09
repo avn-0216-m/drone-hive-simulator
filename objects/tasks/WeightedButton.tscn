@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://scripts/WeightedButton.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+albedo_color = Color( 0.278431, 0.360784, 0.533333, 1 )
+
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
+size = Vector3( 2, 0.2, 2 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.608856, 0.546539, 1 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 0.8, 0.2, 0.8 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+albedo_color = Color( 0.521569, 0.686275, 0.792157, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 5 )
+size = Vector3( 1.5, 0.5, 1.5 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 1, 0.1, 1 )
+
+[node name="WeightedButton" type="Spatial"]
+
+[node name="WeightedButton" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2 )
+script = ExtResource( 1 )
+
+[node name="Base" type="MeshInstance" parent="WeightedButton"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Area" type="Area" parent="WeightedButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="WeightedButton/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.928822, 0 )
+shape = SubResource( 3 )
+
+[node name="Button" type="KinematicBody" parent="WeightedButton"]
+
+[node name="CollisionShape" type="CollisionShape" parent="WeightedButton/Button"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.539689, 0 )
+shape = SubResource( 4 )
+
+[node name="Button" type="MeshInstance" parent="WeightedButton/Button"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.489689, 0 )
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="WeightedButton"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.199265, 0 )
+shape = SubResource( 7 )

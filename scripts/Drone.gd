@@ -38,7 +38,7 @@ func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
 	interact_area.connect("body_entered", self, "object_entered_interaction_range")
 	interact_area.connect("body_exited", self, "object_left_interaction_range")
-	set_id("3366")
+	set_id("0052")
 	gravity = 5
 	
 func set_id(new_id: String):

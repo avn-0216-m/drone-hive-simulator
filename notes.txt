@@ -1,0 +1,2 @@
+internal corners and normal walls have the same length
+external corners have the length + a square corner piece.

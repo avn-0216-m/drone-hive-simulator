@@ -48,7 +48,7 @@ func _process(delta):
 
 			# Set cursor target
 			if highlighted_object:
-				cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
+				cursor_target = highlighted_object.get_global_transform().origin + highlighted_object.cursor_offset
 			else:
 				cursor_target = slots.get_child(inventory_index).translation + slots.translation + Vector3(0,1,0)
 
@@ -56,7 +56,7 @@ func _process(delta):
 		true:
 			
 			if highlighted_object:
-				cursor_target = highlighted_object.transform.origin + highlighted_object.cursor_offset
+				cursor_target = highlighted_object.get_global_transform().origin + highlighted_object.cursor_offset
 			else:
 				cursor_target = drone.item_drop.get_global_transform().origin
 
@@ -95,10 +95,6 @@ func show_slots():
 	$Timer.start(inventory_timeout)
 	
 func change_selected_slot(desired_index):
-	
-	print("----")
-	for slot in slots.get_children():
-		print(slot.item)
 	
 	$SFXChange.play(0)
 	# deprime current slot if applicable
@@ -151,7 +147,7 @@ func destroy_item():
 	
 func drop_item():
 	$SFXConfirm.play(0)
-	primed_item.translation = drone.item_drop.get_global_transform().origin
+	primed_item.translation = primed_item.to_local(drone.item_drop.transform.origin)
 	primed_item.velocity.y = 0
 	primed_item.skip_process = false
 	destroy_item()

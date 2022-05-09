@@ -1,4 +1,4 @@
-extends KinematicGravity
+extends "res://scripts/classes/KinematicGravity.gd"
 class_name Interactable
 
 var interactable: bool = true # If the object can be interacted with.

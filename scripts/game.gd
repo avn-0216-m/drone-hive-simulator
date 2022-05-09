@@ -8,7 +8,7 @@ enum State {PLAYING, TRANSITION_OUT, TRANSITION_MID, TRANSITION_IN}
 var current_state = State.PLAYING
 
 onready var music = get_node("Music")
-onready var level_src = preload("res://objects/Level.tscn")
+onready var level = get_node("Level")
 onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 onready var background = get_tree().get_root().get_node("Main/Background")
 onready var camera = get_node("CameraContainer/MainCamera")
@@ -21,8 +21,8 @@ func _ready():
 	$AnimationPlayer.connect("animation_finished",self,"animation_finished")
 	drone.show_id()
 	
-	print("Root game node ready!")
-	print("Starting intro wipe")
+	#level.new_level()
+	
 	#music.change_music()
 	
 func _process(delta):

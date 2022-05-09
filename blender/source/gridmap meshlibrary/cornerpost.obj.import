@@ -1,0 +1,19 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/cornerpost.obj-f240b5c75a961d4767c8e88df3443caf.mesh"
+
+[deps]
+
+files=[ "res://.import/cornerpost.obj-f240b5c75a961d4767c8e88df3443caf.mesh" ]
+
+source_file="res://blender/source/gridmap meshlibrary/cornerpost.obj"
+dest_files=[ "res://.import/cornerpost.obj-f240b5c75a961d4767c8e88df3443caf.mesh", "res://.import/cornerpost.obj-f240b5c75a961d4767c8e88df3443caf.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+optimize_mesh=true

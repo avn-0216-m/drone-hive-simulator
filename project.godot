@@ -29,12 +29,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Friend.gd"
 }, {
-"base": "Node",
-"class": "Instancable",
-"language": "GDScript",
-"path": "res://scripts/classes/Instanceable.gd"
-}, {
-"base": "KinematicGravity",
+"base": "KinematicBody",
 "class": "Interactable",
 "language": "GDScript",
 "path": "res://scripts/classes/Interactable.gd"
@@ -59,7 +54,6 @@ _global_script_class_icons={
 "Floor": "",
 "Flower": "",
 "Friend": "",
-"Instancable": "",
 "Interactable": "",
 "KinematicGravity": "",
 "Pickup": "",
@@ -71,6 +65,10 @@ _global_script_class_icons={
 config/name="Drone Hive Simulator"
 run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+MeshLib="*res://meshlibraries/meshlib.gd"
 
 [debug]
 
