@@ -8,7 +8,7 @@ uniform float mask_intensity;
 uniform float tile_darkness;
 uniform float cutoff : hint_range(0,2);
 uniform float cutoff_bottom_diff_multiplier : hint_range(0,1);
-uniform int slices : hint_range(0,10);
+uniform int slices : hint_range(0,100);
 uniform vec4 slice_start_color : hint_color;
 uniform float slice_distance_multiplier = 0;
 

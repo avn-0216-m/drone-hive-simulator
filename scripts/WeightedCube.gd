@@ -1,4 +1,5 @@
 extends Pickup
+class_name WeightedCube
 
 func get_class() -> String:
 	return "WeightedCube"
@@ -10,9 +11,7 @@ func place_on_button(button):
 	button.get_parent().add_child(self)
 	print("Putting down")
 	return true
-	
-func _ready():
-	interactions = {"WeightedButton": funcref(self, "place_on_button")}
 
-func _physics_process(delta):
-	return
+func use_on(target):
+	if target is WeightedButton:
+		print("Placing cube on button! Wow")

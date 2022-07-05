@@ -92,7 +92,6 @@ func add_object_placeholder(pos: Vector2, index: int):
 	task_tally += 1
 	
 func get_object_data_from_meshlib_index(index: int) -> Object:
-	print(objects)
 	return objects[index]
 	
 func associate_object_with_task(node, id):

@@ -1,8 +1,8 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
-[ext_resource path="res://textures/swirlcollection.png" type="Texture" id=3]
+[ext_resource path="res://textures/beep.png" type="Texture" id=3]
 [ext_resource path="res://scripts/background.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
@@ -13,8 +13,7 @@
 [ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=12]
 [ext_resource path="res://sfx/inventory/inventoryselect.ogg" type="AudioStream" id=13]
-[ext_resource path="res://sfx/inventory/inventoryconfirm.ogg" type="AudioStream" id=14]
-[ext_resource path="res://sfx/inventory/inventorychange.ogg" type="AudioStream" id=15]
+[ext_resource path="res://objects/tasks/WeightedCube.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scripts/TaskManager.gd" type="Script" id=18]
@@ -26,17 +25,19 @@
 [ext_resource path="res://scripts/debugui/generatewalls.gd" type="Script" id=24]
 [ext_resource path="res://scripts/debugui/instancegridmap.gd" type="Script" id=25]
 [ext_resource path="res://meshlibraries/meshlib.gd" type="Script" id=26]
+[ext_resource path="res://scripts/debugui/hide debug menu.gd" type="Script" id=27]
+[ext_resource path="res://scripts/debugui/random music.gd" type="Script" id=28]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/scroll = Vector2( -0.038, -0.015 )
+shader_param/scroll = Vector2( 0.05, -0.015 )
 shader_param/screen_size = Vector2( 1024, 600 )
-shader_param/tile_count = 0.516
+shader_param/tile_count = 0.658
 shader_param/mask_intensity = 2.686
 shader_param/tile_darkness = 0.0
 shader_param/cutoff = 0.0
-shader_param/cutoff_bottom_diff_multiplier = null
-shader_param/slices = null
+shader_param/cutoff_bottom_diff_multiplier = 0.0
+shader_param/slices = 10
 shader_param/slice_start_color = Color( 0, 1, 1, 1 )
 shader_param/slice_distance_multiplier = 1.0
 shader_param/texture_src = ExtResource( 3 )
@@ -158,6 +159,9 @@ render_target_v_flip = true
 [node name="Game" type="Node" parent="Viewport"]
 script = ExtResource( 6 )
 
+[node name="Spatial" parent="Viewport/Game" instance=ExtResource( 14 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2292, 1.74776, 2.25268 )
+
 [node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
@@ -185,18 +189,12 @@ material_override = SubResource( 5 )
 [node name="Slot3" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 11 )]
 material_override = SubResource( 6 )
 
-[node name="Timer" type="Timer" parent="Viewport/Game/Inventory"]
+[node name="VisibilityTimer" type="Timer" parent="Viewport/Game/Inventory"]
 wait_time = 3.0
 one_shot = true
 
-[node name="SFXSelect" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
+[node name="SFX" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
 stream = ExtResource( 13 )
-
-[node name="SFXConfirm" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 14 )
-
-[node name="SFXChange" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 15 )
 
 [node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
 
@@ -239,9 +237,9 @@ __meta__ = {
 [node name="Debug" type="GridContainer" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -209.0
+margin_left = -344.0
 margin_bottom = 1080.0
-columns = 2
+columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -303,3 +301,24 @@ margin_right = 106.0
 margin_bottom = 140.0
 text = "instance!"
 script = ExtResource( 25 )
+
+[node name="Other" type="GridContainer" parent="Debug"]
+margin_left = 213.0
+margin_right = 337.0
+margin_bottom = 140.0
+
+[node name="hide debug menu" type="Button" parent="Debug/Other"]
+margin_right = 124.0
+margin_bottom = 20.0
+text = "hide debug menu"
+script = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Debug/Other"]
+margin_top = 24.0
+margin_right = 124.0
+margin_bottom = 44.0
+text = "random music"
+script = ExtResource( 28 )

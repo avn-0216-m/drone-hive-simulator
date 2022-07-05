@@ -1,4 +1,5 @@
 extends Interactable
+class_name Battery
 
 var frame = 0
 var wiggle_magnitude = 0.5

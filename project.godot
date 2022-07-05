@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Interactable",
+"class": "Battery",
+"language": "GDScript",
+"path": "res://scripts/Battery.gd"
+}, {
 "base": "KinematicGravity",
 "class": "Drone",
 "language": "GDScript",
@@ -44,12 +49,23 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/classes/Pickup.gd"
 }, {
+"base": "Interactable",
+"class": "WeightedButton",
+"language": "GDScript",
+"path": "res://scripts/WeightedButton.gd"
+}, {
+"base": "Pickup",
+"class": "WeightedCube",
+"language": "GDScript",
+"path": "res://scripts/WeightedCube.gd"
+}, {
 "base": "Object",
 "class": "placement_req",
 "language": "GDScript",
 "path": "res://scripts/data/placement_request.gd"
 } ]
 _global_script_class_icons={
+"Battery": "",
 "Drone": "",
 "Floor": "",
 "Flower": "",
@@ -57,6 +73,8 @@ _global_script_class_icons={
 "Interactable": "",
 "KinematicGravity": "",
 "Pickup": "",
+"WeightedButton": "",
+"WeightedCube": "",
 "placement_req": ""
 }
 

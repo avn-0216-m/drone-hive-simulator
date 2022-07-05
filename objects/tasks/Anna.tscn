@@ -12,29 +12,29 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jump",
-"speed": 7.0
-}, {
 "frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "stand",
 "speed": 15.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
-"loop": false,
-"name": "sit",
-"speed": 10.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "bob",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "still",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "fly",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "sit",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
@@ -47,10 +47,10 @@ animations = [ {
 "name": "peck",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "still",
-"speed": 5.0
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jump",
+"speed": 7.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
@@ -67,7 +67,6 @@ jump_length = 2.0
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0 )
 frames = SubResource( 1 )
 animation = "bob"
-frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]

@@ -10,9 +10,7 @@ var cursor_target: Vector3 = Vector3(0,0,0)
 var highlighted_object = null
 var selected_slot # Slot accessed via inventory index. Updated every time change_selected_slot is called
 
-var inventory_timeout: float = 3.0 # How many seconds before the inventory autohides
-
-onready var sfx_confirm = get_node("SFXConfirm")
+var timeout: float = 3.0 # How many seconds before the inventory autohides
 
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
@@ -24,6 +22,18 @@ var time: float = 0 # Increases every frame for use in sin()
 var magnitude: float = 0.07 # How much up and down the slots wiggle
 
 var primed: bool = false # If the inventory has an item prepared to drop or not.
+
+var sfx = [
+	preload("res://sfx/inventory/inventorychange.ogg"),
+	preload("res://sfx/inventory/inventoryconfirm.ogg"),
+	preload("res://sfx/inventory/inventoryselect.ogg")
+	]
+
+enum SFX {low = 0, mid = 1, high = 2}
+
+func play_sfx(choice: int = 0):
+	$SFX.stream = sfx[choice]
+	$SFX.play()
 
 func _process(delta):
 	
@@ -74,8 +84,8 @@ func _ready():
 	
 	selected_slot = slots.get_child(inventory_index)
 	
-	$Timer.connect("timeout",self,"inventory_timeout")
-	$Timer.start()
+	$VisibilityTimer.connect("timeout",self,"inventory_timeout")
+	$VisibilityTimer.start()
 	
 	total_slots = len(slots.get_children())
 	# Calculate how far back slots should start being placed so the drone is the midpoint.
@@ -92,11 +102,11 @@ func _ready():
 	
 func show_slots():
 	slots.visible = true
-	$Timer.start(inventory_timeout)
+	$VisibilityTimer.start(timeout)
 	
 func change_selected_slot(desired_index):
 	
-	$SFXChange.play(0)
+	play_sfx(SFX.low)
 	# deprime current slot if applicable
 	if primed:
 		primed_item = null
@@ -114,6 +124,9 @@ func change_selected_slot(desired_index):
 func update_cursor():
 	cursor.material_override.albedo_color = slots.get_child(inventory_index).material_override.albedo_color
 	cursor.material_override.albedo_color.a = 1
+
+func current_slot_empty() -> bool:
+	return selected_slot.item == null
 
 func add_slot():
 	print("Unimplemented")
@@ -146,11 +159,20 @@ func destroy_item():
 	show_slots()
 	
 func drop_item():
+	
+	
+	print("lookhere")
+	print(primed_item.get_parent().to_local(drone.item_drop.get_global_transform().origin))
+	print(drone.item_drop.get_global_transform().origin)
+	
 	$SFXConfirm.play(0)
-	primed_item.translation = primed_item.to_local(drone.item_drop.transform.origin)
+	primed_item.translation = primed_item.get_parent().to_local(drone.item_drop.get_global_transform().origin)
 	primed_item.velocity.y = 0
 	primed_item.skip_process = false
 	destroy_item()
+	
+func pop_item() -> PackedScene:
+	return PackedScene.new()
 	
 func prime_item():
 	print("priming item from inventory!")
@@ -160,7 +182,7 @@ func prime_item():
 		print("item primed!")
 		primed = true
 		primed_item = selected_slot.item
-		selected_slot.material_override.albedo_color = selected_slot.original_color - Color(0.3,0.3,0.3,0)
+		selected_slot.material_override.albedo_color = selected_slot.original_color
 		update_cursor()
 		print(primed_item)
 	else:
@@ -171,45 +193,7 @@ func prime_item():
 func inventory_timeout():
 	slots.visible = false
 
-func add_item(object) -> bool:
-	# Adds an item to the inventory.
-	# Returns true if successfully added.
-	# False is not.
-	
-	# TODO: items are moved to 999 and kept in the Object node.
-	# they need to be moved to a seperate node ("Stored" sibling node?)
-	# or else they'll be deleted during level transitions
-	
-	var destination_slot = slots.get_child(inventory_index)
-	
-	if destination_slot.item != null:
-		print("Can't pick up. Item already in place.")
-		$SFXChange.play(0)
-		# show inventory so the user knows that slot is occupied
-		show_slots()
-		return false
-	else:
-		$SFXSelect.play(0)
-		print("Item picked up.")
-		
-		if object.icon_scale != null and object.icon_translation != null and object.icon != null:
-			destination_slot.icon.scale = object.icon_scale
-			destination_slot.icon.translation = object.icon_translation
-			destination_slot.icon.texture = object.icon
-			destination_slot.icon.material_override.albedo_texture = object.icon
-		else:
-			destination_slot.icon.scale = Vector3(0.5,0.5,0)
-			destination_slot.icon.translation = Vector3(0,0,0.01)
-			destination_slot.icon.texture = placeholder
-			destination_slot.icon.material_override.albedo_texture = placeholder
-		destination_slot.item = object
-		
-		highlighted_object = null
-		object.translation = Vector3(999,999,999)
-		object.skip_process = true
-		
-		show_slots()
-		return true
-
-func primed_flash():
-	cursor.visible = !cursor.visible
+func set_item(object: PackedScene) -> bool:
+	selected_slot.item = object
+	selected_slot.icon.visible = true
+	return true

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/stories of stardomme.ogg-582eb2c6f74835d224d02842a7cc1005.oggstr"
+
+[deps]
+
+source_file="res://mus/stories of stardomme.ogg"
+dest_files=[ "res://.import/stories of stardomme.ogg-582eb2c6f74835d224d02842a7cc1005.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

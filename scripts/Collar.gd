@@ -11,7 +11,6 @@ func own(object):
 func _ready():
 	icon_scale = Vector3(1.5,1.5,0)
 	icon_translation = Vector3(0,0,0.01)
-	interactions = {"Friend": funcref(self, "own")}
 
 func get_class() -> String:
 	return "Collar"

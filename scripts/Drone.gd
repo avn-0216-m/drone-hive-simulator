@@ -19,6 +19,8 @@ onready var interact_area = get_node("InteractArea")
 
 onready var item_drop = get_node("ItemDrop")
 
+var nearby_object: Node = null
+
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
 var speed: float = 5
@@ -34,11 +36,14 @@ var inventory_right = 32
 var interact = 64
 
 func _ready():
+	
+	# connect signals
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
 	interact_area.connect("body_entered", self, "object_entered_interaction_range")
 	interact_area.connect("body_exited", self, "object_left_interaction_range")
-	set_id("0052")
+	
+	set_id("9993")
 	gravity = 5
 	
 func set_id(new_id: String):
@@ -88,7 +93,7 @@ func get_inputs() -> int:
 	elif Input.is_action_just_pressed("inventory_right"):
 		inventory.change_selected_slot(inventory.inventory_index + 1)
 	if Input.is_action_just_pressed("interact"):
-		interact_with_object()
+		interact()
 	elif Input.is_action_just_pressed("inventory_cancel"):
 		inventory.change_selected_slot(inventory.inventory_index)
 	return inputs
@@ -102,6 +107,13 @@ func _process(delta):
 		#display_container.translation.y = headbob_offset.y
 		display_container.visible = true
 		return
+		
+	# find any nearby items
+	var nearby_bodies = interact_area.get_overlapping_bodies()
+	for body in nearby_bodies:
+		if body is Interactable:
+			nearby_object = body
+			break
 	
 	velocity = Vector3(0,0,0)
 	
@@ -145,52 +157,26 @@ func _process(delta):
 	#	display_container.visible = false
 	#else:
 	#	display_container.visible = true
-		
-func interact_with_object():
 	
-	var body = inventory.highlighted_object
-
-	if body == null:
-		if inventory.primed == true:
-			inventory.drop_item()
-		else:
-			inventory.prime_item()
-	elif body is Interactable and body.interactable:
-		if inventory.primed == true:
-			# if inventory item ready, attempt use on object
-			inventory.use_item_on(body)
-			return
-		else:
-			# if no inventory item ready, use normally
-
-			body.interact(self)
-			if !(body is Pickup) and body.interactable:
-				# Bounce cursor and play sound when interacting with interactable.
-				inventory.sfx_confirm.play(0)
-				inventory.cursor.translation += Vector3(0,0.5,0)
-			return
-
-
-
-func game_over_1():
-	print("Drone game over")
-	show_icon()
-	icon_display.frame = 1
-	sfx.stream = shutdown
-	sfx.play()
-	sprite.playing = false
-	sprite.frame = 0
-
-func game_over_2():
-	sprite.playing = true
-	icon_display.frame = 3
-
-func sfx_complete():
-	if sfx.stream == shutdown:
-		print("Drone shutdown complete, emitting signal.")
-		emit_signal("shutdown_complete")
+func interact():
+	if nearby_object == null:
+		return
+		# add code for dropping here
+	elif nearby_object is Pickup and inventory.current_slot_empty():
+		print("SETTING ITEM")
 		
-func recharge():
+		var item = nearby_object.interact(self)
+		inventory.set_item(item.source)
+		return
+	elif nearby_object is Interactable:
+		# interact code here. nest additional code for interacting with objects
+		return
+	else:
+		return
+		# play error noise from inventory sfx
+	
+		
+func recharge(amount: int = 100):
 	sfx.stream = sfx_battery
 	sfx.play()
 	$BatteryParticles.one_shot = false
@@ -199,14 +185,3 @@ func recharge():
 	icon_display.frame = 3
 	show_icon()
 	$FaceTimer.start()	
-
-func object_entered_interaction_range(body):
-	if body is Interactable and body.interactable:
-		inventory.highlighted_object = body
-		print("marking as interactable: " + str(body.name))
-		if !inventory.slots.visible:
-			inventory.cursor.translation = inventory.highlighted_object.transform.origin + inventory.highlighted_object.cursor_offset
-		
-func object_left_interaction_range(body):
-	if inventory.highlighted_object != null and body.name == inventory.highlighted_object.name:
-		inventory.highlighted_object = null

@@ -1,0 +1,9 @@
+pickup code should be on drone script because items do not "know" how to be picked up, a drone knows how to pick items up.
+should be called "selected" instead of "primed"
+inventory should not know what items the drone is looking at/standing in front of. the drone should know that.
+"if item is pickup, [pickup code here]"
+pickups should have a source (to go with the infinite var) so items other than themselves can be picked up (such as spoons from a drawer)
+
+# TODO: STOP HANDLING THE INVENTORY VIA THE DRONE
+# DELETE THIS
+# THE INVENTORY SHOULD BE A SELF CONTAINED OBJECT
