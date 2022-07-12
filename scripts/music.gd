@@ -6,7 +6,10 @@ var level_songs: Array = [
 	preload("res://mus/nanite slurry.ogg"),
 	preload("res://mus/task assignment.ogg"),
 	preload("res://mus/victory lap.ogg"),
+	preload("res://mus/stories of stardomme.ogg"),
+	preload("res://mus/phoenix.ogg"),
 	preload("res://mus/welcome2hive.ogg")
+	
 	]
 
 onready var game_over = preload("res://mus/bawk.ogg")
