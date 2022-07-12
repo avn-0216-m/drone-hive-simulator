@@ -34,6 +34,9 @@ func play_sfx(choice: int = 0):
 	$SFX.stream = sfx[choice]
 	$SFX.play()
 	
+func jump():
+	cursor.translation.y += 0.5
+	
 func set_slot_color(selected: bool):
 	show_slots()
 	if selected:
@@ -56,12 +59,10 @@ func _physics_process(delta):
 		if time > 360:
 			time = 0
 	
-	cursor.visible = visible or drone.nearby_interactable or item_selected
-	
-	cursor_target = Vector3(0,0,0)
-	
 	if drone.nearby_interactable and drone.nearby_interactable.get_global_transform().origin != Vector3(0,0,0):
-		cursor_target = drone.nearby_interactable.get_global_transform().origin
+		cursor_target = drone.nearby_interactable.get_global_transform().origin + drone.nearby_interactable.cursor_offset
+	elif item_selected:
+		cursor_target = drone.drop_location.get_global_transform().origin
 	else:
 		cursor_target = current_slot.get_global_transform().origin + Vector3(0,1,0)
 	
@@ -69,6 +70,8 @@ func _physics_process(delta):
 		cursor.translation = lerp(cursor.translation, cursor_target, 0.3)
 	else:
 		cursor.translation = cursor_target
+		
+	cursor.visible = slots.visible or drone.nearby_interactable or item_selected
 		
 func _ready():
 	

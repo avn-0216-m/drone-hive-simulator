@@ -162,6 +162,12 @@ script = ExtResource( 6 )
 [node name="Spatial" parent="Viewport/Game" instance=ExtResource( 14 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2292, 1.74776, 2.25268 )
 
+[node name="Spatial2" parent="Viewport/Game" instance=ExtResource( 14 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3.37369, 4.86335 )
+
+[node name="Spatial3" parent="Viewport/Game" instance=ExtResource( 14 )]
+transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 2.98675, 2.8805, 5.15567 )
+
 [node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 

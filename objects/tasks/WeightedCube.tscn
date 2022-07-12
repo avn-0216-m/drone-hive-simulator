@@ -22,6 +22,7 @@ script = ExtResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="WeightedCube"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="WeightedCube"]
+[node name="MeshInstance" type="MeshInstance" parent="WeightedCube/CollisionShape"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = null
