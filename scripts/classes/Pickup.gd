@@ -2,7 +2,7 @@ extends Interactable
 class_name Pickup
 
 # Record parent so object can be readded in the right place in the scene tree when dropped.
-onready var parent: Node = get_parent() 
+onready var parent: Node = get_parent()
 
 # Static image to use in inventory slot.
 export var inventory_icon: ImageTexture
@@ -11,18 +11,14 @@ export var inventory_icon: ImageTexture
 var infinite: bool = false 
 
 # Item that is stored in inventory.
-var source: PackedScene 
-
-func pack_source():
-	source = PackedScene.new()
-	source.pack(self)
+var source: Node
 
 func interact(interactor):
 	if !infinite:
-		queue_free()
-	# Pack source at the moment of pickup so that object state changes are always preserved.
-	pack_source()
-	return self
+		parent.remove_child(self)
+		return self
+	else:
+		return source
 	
 func on_drop():
 	return

@@ -8,7 +8,7 @@ enum Type {
 	ITEMS, # Only interactable by using an item on it
 	DIRECT, # Only interactable directly
 	BOTH} # Interactable directly and with items.
-var type = Type.BOTH
+var interact_type = Type.BOTH
 # TODO: implement this ^
 
 func interact(interactor):

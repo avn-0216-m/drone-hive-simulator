@@ -17,9 +17,9 @@ onready var inventory = get_node("../Inventory")
 onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
 
-onready var item_drop = get_node("ItemDrop")
+onready var drop_location = get_node("ItemDrop")
 
-var nearby_object: Node = null
+var nearby_interactable: Node # holds the nearest interactable object that the drone is facing
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
@@ -97,6 +97,13 @@ func get_inputs() -> int:
 	elif Input.is_action_just_pressed("inventory_cancel"):
 		inventory.change_selected_slot(inventory.inventory_index)
 	return inputs
+	
+func get_nearby_interactables() -> Node:
+	var nearby_bodies = interact_area.get_overlapping_bodies()
+	for body in nearby_bodies:
+		if body is Interactable:
+			return body
+	return null
 
 func _process(delta):
 	
@@ -109,11 +116,7 @@ func _process(delta):
 		return
 		
 	# find any nearby items
-	var nearby_bodies = interact_area.get_overlapping_bodies()
-	for body in nearby_bodies:
-		if body is Interactable:
-			nearby_object = body
-			break
+
 	
 	velocity = Vector3(0,0,0)
 	
@@ -125,13 +128,13 @@ func _process(delta):
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.15)
 		interact_area.rotation_degrees.y = 0
-		item_drop.translation.x = 3
+		drop_location.translation.x = 3
 	if inputs & move_left:
 		velocity.x = -1 * speed
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.15)
 		interact_area.rotation_degrees.y = 180
-		item_drop.translation.x = -3
+		drop_location.translation.x = -3
 	if inputs & move_down:
 		velocity.z = 1 * speed
 		interact_area.rotation_degrees.y = 270
@@ -141,6 +144,8 @@ func _process(delta):
 
 	# Check if drone should keep walking.
 	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
+	
+	nearby_interactable = get_nearby_interactables()
 
 	# Calculate headbob
 	if sprite.frame % 2 != 0:
@@ -159,21 +164,26 @@ func _process(delta):
 	#	display_container.visible = true
 	
 func interact():
-	if nearby_object == null:
+	print(nearby_interactable)
+	if nearby_interactable == null:
+		if inventory.item_selected:
+			var item = inventory.pop_item()
+			item.parent.add_child(item)
+			item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
+		else:
+			# select inventory item
+			inventory.select_item()
+			return
+	elif nearby_interactable is Pickup and inventory.current_slot_empty():
+		var item = nearby_interactable.interact(self)
+		inventory.set_item(item)
 		return
-		# add code for dropping here
-	elif nearby_object is Pickup and inventory.current_slot_empty():
-		print("SETTING ITEM")
-		
-		var item = nearby_object.interact(self)
-		inventory.set_item(item.source)
-		return
-	elif nearby_object is Interactable:
+	elif nearby_interactable is Interactable:
 		# interact code here. nest additional code for interacting with objects
 		return
 	else:
 		return
-		# play error noise from inventory sfx
+		inventory.play_sfx(inventory.Sfx.LOW)
 	
 		
 func recharge(amount: int = 100):
