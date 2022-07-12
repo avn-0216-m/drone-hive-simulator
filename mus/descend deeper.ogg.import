@@ -12,4 +12,4 @@ dest_files=[ "res://.import/descend deeper.ogg-4ba06606c5deec7abf56df0101ae4af8.
 [params]
 
 loop=true
-loop_offset=0
+loop_offset=4.0
