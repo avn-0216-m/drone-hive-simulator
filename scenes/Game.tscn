@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -13,7 +13,7 @@
 [ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=12]
 [ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=13]
-[ext_resource path="res://objects/tasks/WeightedCube.tscn" type="PackedScene" id=14]
+[ext_resource path="res://fonts/vcr osd.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scripts/TaskManager.gd" type="Script" id=18]
@@ -27,6 +27,7 @@
 [ext_resource path="res://meshlibraries/meshlib.gd" type="Script" id=26]
 [ext_resource path="res://scripts/debugui/hide debug menu.gd" type="Script" id=27]
 [ext_resource path="res://scripts/debugui/random music.gd" type="Script" id=28]
+[ext_resource path="res://scripts/ui/TaskList.gd" type="Script" id=29]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -126,6 +127,10 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="DynamicFont" id=9]
+size = 40
+font_data = ExtResource( 15 )
+
 [node name="Main" type="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -158,15 +163,6 @@ render_target_v_flip = true
 
 [node name="Game" type="Node" parent="Viewport"]
 script = ExtResource( 6 )
-
-[node name="Spatial" parent="Viewport/Game" instance=ExtResource( 14 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.2292, 1.74776, 2.25268 )
-
-[node name="Spatial2" parent="Viewport/Game" instance=ExtResource( 14 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3.37369, 4.86335 )
-
-[node name="Spatial3" parent="Viewport/Game" instance=ExtResource( 14 )]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 2.98675, 2.8805, 5.15567 )
 
 [node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
@@ -328,3 +324,14 @@ margin_right = 124.0
 margin_bottom = 44.0
 text = "random music"
 script = ExtResource( 28 )
+
+[node name="TaskList" type="ItemList" parent="."]
+margin_right = 387.0
+margin_bottom = 211.0
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = SubResource( 9 )
+items = [ "testitem", null, false ]
+script = ExtResource( 29 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

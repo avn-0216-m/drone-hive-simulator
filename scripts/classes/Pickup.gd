@@ -5,13 +5,13 @@ class_name Pickup
 onready var parent: Node = get_parent()
 
 # Static image to use in inventory slot.
-export var inventory_icon: ImageTexture
+export var icon: Texture
 
 # Determines if an object is deleted on pickup.
 var infinite: bool = false 
 
 # Item that is stored in inventory.
-var source: Node
+var source: Node = null
 
 func interact(interactor):
 	if !infinite:

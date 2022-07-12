@@ -1,7 +1,6 @@
 extends Pickup
 
-# She used to program my brain, now it's the other way around.
-# haha.
+
 
 var jump: Vector3 # Jump velocity.
 
@@ -11,6 +10,8 @@ export var jump_length: float = 15
 var flying = false
 var fly_away_velocity = Vector3(0,3,0)
 var floor_test = Vector3(0,-0.1,0)
+
+var skittishness: int = 10 # How likely you are to grab Anna.
 
 export(float, 0, 5) var jump_time = 1
 export(float, 0, 5) var peck_time = 4
@@ -29,13 +30,7 @@ func _ready():
 	gravity = 0.5
 	timer.connect("timeout",self,"new_action")
 	area.connect("body_entered", self, "something_near")
-	
-	icon = ImageTexture.new()
-	var img = Image.new()
-	img.load("res://sprites/anna/idle.png")
-	icon.create_from_image(img, 0)
-	
-	icon_scale = Vector3(2,2,1)
+	._ready()
 	
 func something_near(body):
 	if body.name == "Drone":
@@ -132,6 +127,7 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % 10 == 0:
-		print("caught!")
-		.interact(interactor)
+	if randi() % skittishness == 0:
+		get_parent().remove_child(self)
+		return self
+	return null

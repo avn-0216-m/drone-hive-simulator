@@ -174,8 +174,8 @@ func interact():
 			return
 	elif nearby_interactable is Pickup and inventory.current_slot_empty():
 		var item = nearby_interactable.interact(self)
-		inventory.set_item(item)
-		return
+		if item != null:
+			inventory.set_item(item)
 	elif nearby_interactable is Interactable:
 		# interact code here. nest additional code for interacting with objects
 		return

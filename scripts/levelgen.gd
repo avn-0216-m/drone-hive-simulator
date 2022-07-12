@@ -184,13 +184,10 @@ func a_add_tasks_to_gridmap():
 			#Add object placeholder
 			gridmap.set_cell_item(origin.x,1,origin.y,object.index)
 			
-			print("placed at " + str(origin))
-			
 			task_manager.add_object_placeholder(origin, object.index)
 	
 	
 func a_add_walls_to_gridmap():
-	print("Adding walls to gridmap")
 
 	# Iterate over every floor tile on floor 0, and check each adjacent space
 	# for an empty tile. Add a wall as necessary.
@@ -247,8 +244,6 @@ func a_add_walls_to_gridmap():
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Wall, WallOrient.West)
 
 func a_instance_gridmap():
-	print("Instancing gridmap")
-	
 	# Delete all placeholder tiles on floor 2
 	for cell in gridmap.get_used_cells():
 		if cell.y == 2:
@@ -256,11 +251,10 @@ func a_instance_gridmap():
 
 	# iterate over task manager placeholders and instance
 	for placeholder in task_manager.placeholders:
-		print("instancing object for task " + str(placeholder.id) + " at " + str(placeholder.pos))
 		var object = task_manager.get_object_data_from_meshlib_index(placeholder.index)
 		if object != null:
-			print("object data found")
 			var instance = load(object.source).instance()
 			objects.add_child(instance)
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
+			task_manager.register_task_object(instance, placeholder.id)
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)

@@ -12,6 +12,16 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jump",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "flap",
+"speed": 6.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "stand",
@@ -27,30 +37,20 @@ animations = [ {
 "name": "still",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "fly",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
 "loop": false,
 "name": "sit",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "flap",
-"speed": 6.0
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "fly",
+"speed": 10.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
 "loop": false,
 "name": "peck",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jump",
-"speed": 7.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
@@ -61,6 +61,7 @@ extents = Vector3( 2.16, 1, 2.16 )
 
 [node name="KinemannaticBody" type="KinematicBody"]
 script = ExtResource( 1 )
+icon = ExtResource( 2 )
 jump_length = 2.0
 
 [node name="AnnamatedSprite3D" type="AnimatedSprite3D" parent="."]

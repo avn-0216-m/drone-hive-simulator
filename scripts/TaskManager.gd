@@ -16,6 +16,8 @@ var active_tasks: Array # In-progress tasks for the current level.
 var task_pool: Array # All tasks that are eligble to randomly spawn in a level.
 var objects: Array # All objects used in all tasks.
 
+onready var task_list_ui = get_tree().get_root().get_node("Main/TaskList")
+
 # Special tasks that exist outside the standard pool.
 var anna_task: Task # Birdy.
 var entry: Task # Entry toybox.
@@ -83,9 +85,6 @@ func _ready():
 	
 	# resize so levels can have up to 100 tasks at a time.
 	active_tasks.resize(100)
-	
-func add_task(task: Task):
-	pass
 
 func add_object_placeholder(pos: Vector2, index: int):
 	placeholders.append(Placeholder.new(Vector3(pos.x, 1, pos.y), index, task_tally))
@@ -94,9 +93,17 @@ func add_object_placeholder(pos: Vector2, index: int):
 func get_object_data_from_meshlib_index(index: int) -> Object:
 	return objects[index]
 	
-func associate_object_with_task(node, id):
+func register_task_object(node: Node, id: int):
+	
+	if active_tasks[id] == null:
+		active_tasks[id] = Task.new()
+	
 	active_tasks[id].objects.append(node)
 	# also setup signal emissions here
+	if node.has_user_signal("task_complete"):
+		node.connect("task_complete", self, "task_complete")
+		node.task_id = id
+		print("Task object successfully registered.")
 	
 func generate_task_list(difficulty: int) -> Array:
 	
@@ -109,8 +116,15 @@ func generate_task_list(difficulty: int) -> Array:
 	for i in range(0,ceil(float(difficulty)/ratio)):
 		print("Adding random task to task list.")
 		generated.append(task_pool[randi() % task_pool.size()])
-	
+	register_tasks(generated)
 	return generated
+		
+func register_tasks(tasks: Array):
+	for task in tasks:
+		active_tasks[task.id] = task
+		task_list_ui.add_task(task)
+
+
 	
 func task_complete(id):
 	print("Task complete.")

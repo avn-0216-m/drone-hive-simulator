@@ -19,11 +19,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Drone.gd"
 }, {
-"base": "Instancable",
-"class": "Floor",
-"language": "GDScript",
-"path": "res://scripts/instancables/Floor_Inst.gd"
-}, {
 "base": "Pickup",
 "class": "Flower",
 "language": "GDScript",
@@ -67,7 +62,6 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Battery": "",
 "Drone": "",
-"Floor": "",
 "Flower": "",
 "Friend": "",
 "Interactable": "",

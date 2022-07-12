@@ -1,9 +1,6 @@
 extends Interactable
 class_name WeightedButton
 
-signal task_complete(node)
-signal task_incomplete(node)
-
 var button_pos = Vector3(0,0,0)
 
 var weighed = false
@@ -13,6 +10,7 @@ func _physics_process(delta):
 	
 
 func _ready():
+	add_user_signal("task_complete", [self])
 	$Area.connect("body_entered",self,"body_entered")
 	$Area.connect("body_exited",self,"body_exited")
 	skip_process = false

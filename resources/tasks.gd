@@ -1,7 +1,6 @@
 extends Resource
 
 class task:
-	extends Resource
 	var title: String = "UNTITLED TASK"
 	var objects: Array = []
 	
@@ -10,7 +9,6 @@ class task:
 		self.objects = objects
 
 class object:
-	extends Resource
 	var source: String
 	var area: Vector2 = Vector2(0,0)
 	var index: int = -1
