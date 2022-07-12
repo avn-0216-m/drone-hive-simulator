@@ -40,8 +40,6 @@ func _ready():
 	# connect signals
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
-	interact_area.connect("body_entered", self, "object_entered_interaction_range")
-	interact_area.connect("body_exited", self, "object_left_interaction_range")
 	
 	set_id("9993")
 	gravity = 5
@@ -168,8 +166,8 @@ func interact():
 	if nearby_interactable == null:
 		if inventory.item_selected:
 			var item = inventory.pop_item()
-			item.parent.add_child(item)
 			item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
+			item.parent.add_child(item)
 		else:
 			# select inventory item
 			inventory.select_item()

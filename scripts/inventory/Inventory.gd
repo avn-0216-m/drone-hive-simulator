@@ -42,7 +42,7 @@ func set_slot_color(selected: bool):
 		current_slot.material_override.albedo_color = current_slot.color
 	update_cursor()
 
-func _process(delta):
+func _physics_process(delta):
 	
 	#if slots.get_child(inventory_index).item != null:
 	#	slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
@@ -56,31 +56,19 @@ func _process(delta):
 		if time > 360:
 			time = 0
 	
-	match(primed):
-		false:
-			if slots.visible or highlighted_object:
-				cursor.visible = true
-			else:
-				cursor.visible = false
-
-			# Set cursor target
-			if highlighted_object:
-				cursor_target = highlighted_object.get_global_transform().origin + highlighted_object.cursor_offset
-			else:
-				cursor_target = slots.get_child(inventory_index).translation + slots.translation + Vector3(0,1,0)
-
-			cursor.translation = lerp(cursor.translation, cursor_target, 0.2 if highlighted_object else 0.5)
-		true:
-			
-			if highlighted_object:
-				cursor_target = highlighted_object.get_global_transform().origin + highlighted_object.cursor_offset
-			else:
-				cursor_target = drone.item_drop.get_global_transform().origin
-
-			cursor.translation = lerp(cursor.translation, cursor_target, 0.4)
-			
-			cursor.visible = true
-			slots.visible = true
+	cursor.visible = visible or drone.nearby_interactable or item_selected
+	
+	cursor_target = Vector3(0,0,0)
+	
+	if drone.nearby_interactable and drone.nearby_interactable.get_global_transform().origin != Vector3(0,0,0):
+		cursor_target = drone.nearby_interactable.get_global_transform().origin
+	else:
+		cursor_target = current_slot.get_global_transform().origin + Vector3(0,1,0)
+	
+	if visible:	
+		cursor.translation = lerp(cursor.translation, cursor_target, 0.3)
+	else:
+		cursor.translation = cursor_target
 		
 func _ready():
 	
