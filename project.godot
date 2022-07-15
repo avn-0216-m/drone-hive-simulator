@@ -80,7 +80,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-MeshLib="*res://meshlibraries/meshlib.gd"
+UI="*res://objects/UI/SingletonUI.tscn"
 
 [debug]
 

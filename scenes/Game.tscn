@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=11]
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=12]
 [ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=13]
-[ext_resource path="res://fonts/vcr osd.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scripts/TaskManager.gd" type="Script" id=18]
@@ -27,7 +26,6 @@
 [ext_resource path="res://meshlibraries/meshlib.gd" type="Script" id=26]
 [ext_resource path="res://scripts/debugui/hide debug menu.gd" type="Script" id=27]
 [ext_resource path="res://scripts/debugui/random music.gd" type="Script" id=28]
-[ext_resource path="res://scripts/ui/TaskList.gd" type="Script" id=29]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -127,10 +125,6 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="DynamicFont" id=9]
-size = 40
-font_data = ExtResource( 15 )
-
 [node name="Main" type="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -138,7 +132,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Composite" type="CanvasLayer" parent="."]
+layer = -1
+__meta__ = {
+"_editor_description_": "This node is used to put the 3D render and background behind the singleton UIs. "
+}
+
+[node name="Background" type="ColorRect" parent="Composite"]
 material = SubResource( 1 )
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -147,7 +147,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ViewportView" type="TextureRect" parent="."]
+[node name="ViewportView" type="TextureRect" parent="Composite"]
 material = SubResource( 2 )
 margin_right = 1920.0
 margin_bottom = 1080.0
@@ -223,18 +223,6 @@ MeshLib = ExtResource( 26 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Game"]
 anims/empty = SubResource( 7 )
 anims/new_level = SubResource( 8 )
-
-[node name="GameOverText" type="RichTextLabel" parent="."]
-visible = false
-margin_left = 513.913
-margin_top = 245.611
-margin_right = 613.913
-margin_bottom = 275.611
-rect_scale = Vector2( 3, 3 )
-text = "~ Game Over ~"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Debug" type="GridContainer" parent="."]
 anchor_left = 1.0
@@ -324,14 +312,3 @@ margin_right = 124.0
 margin_bottom = 44.0
 text = "random music"
 script = ExtResource( 28 )
-
-[node name="TaskList" type="ItemList" parent="."]
-margin_right = 387.0
-margin_bottom = 211.0
-rect_scale = Vector2( 0.5, 0.5 )
-custom_fonts/font = SubResource( 9 )
-items = [ "testitem", null, false ]
-script = ExtResource( 29 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

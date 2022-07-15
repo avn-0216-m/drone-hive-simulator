@@ -127,7 +127,6 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % skittishness == 0:
-		get_parent().remove_child(self)
-		return self
+	if randi() % skittishness == 0 or true:
+		return .interact(interactor)
 	return null

@@ -61,13 +61,17 @@ extents = Vector3( 2.16, 1, 2.16 )
 
 [node name="KinemannaticBody" type="KinematicBody"]
 script = ExtResource( 1 )
+interactable_name = "Anna"
 icon = ExtResource( 2 )
+pickup_text = " was nabbed!"
+drop_text = " was released. Bye bye Anna!"
 jump_length = 2.0
 
 [node name="AnnamatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0 )
 frames = SubResource( 1 )
 animation = "bob"
+frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]

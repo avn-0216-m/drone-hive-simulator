@@ -122,7 +122,7 @@ func generate_task_list(difficulty: int) -> Array:
 func register_tasks(tasks: Array):
 	for task in tasks:
 		active_tasks[task.id] = task
-		task_list_ui.add_task(task)
+		#task_list_ui.add_task(task)
 
 
 	

@@ -12,5 +12,7 @@ enum Type {
 var interact_type = Type.BOTH
 # TODO: implement this ^
 
+export var interactable_name = "N/A"
+
 func interact(interactor):
-	print(self.name + " was interacted with. This is the default interaction function.")
+	print(interactable_name + " (" + name + ") was interacted with. This is the default interaction function.")

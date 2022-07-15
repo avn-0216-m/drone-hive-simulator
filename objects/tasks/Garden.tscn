@@ -6,9 +6,12 @@
 
 [node name="Flower" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.882123, 0 )
+interactable_name = "Lovely flower"
 
 [node name="Flower2" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7584, 0.882123, 3.2984 )
+interactable_name = "Flower"
 
 [node name="Flower3" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.02893, 0.882123, 1.42693 )
+interactable_name = "Exceptional flower"
