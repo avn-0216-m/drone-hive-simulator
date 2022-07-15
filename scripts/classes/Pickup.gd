@@ -24,7 +24,7 @@ func _ready():
 func interact(interactor):
 	if !infinite:
 		parent.remove_child(self)
-		UI.log(interactable_name + pickup_text)
+		UI.log(interactable_name + " " + pickup_text)
 		picked_up = true
 		return self
 	else:

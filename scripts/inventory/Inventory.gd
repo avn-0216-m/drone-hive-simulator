@@ -15,13 +15,6 @@ var timeout: float = 3.0 # How many seconds before the inventory autohides
 
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
-# Variables for inventory slot oscilation
-var wiggle: bool = true # If true, slots will oscilate.
-var time: float = 0 # Increases every frame for use in sin()
-var magnitude: float = 0.07 # How much up and down the slots wiggle
-
-var primed: bool = false # If the inventory has an item prepared to drop or not.
-
 var sfx = [
 	preload("res://sfx/inventory/inventorylow.ogg"),
 	preload("res://sfx/inventory/inventorymid.ogg"),
@@ -51,13 +44,7 @@ func _physics_process(delta):
 	#	slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
 	
 	slots.translation = drone.translation + Vector3(0,2.4,0)
-	
-	if wiggle:
-		for i in range(0, total_slots):
-			slots.get_child(i).translation.y = sin(time + (i*2)) * magnitude
-			time += 0.02
-		if time > 360:
-			time = 0
+
 	
 	if drone.nearby_interactable and drone.nearby_interactable.get_global_transform().origin != Vector3(0,0,0):
 		cursor_target = drone.nearby_interactable.get_global_transform().origin + drone.nearby_interactable.cursor_offset
@@ -85,6 +72,11 @@ func _ready():
 	$VisibilityTimer.connect("timeout",self,"inventory_timeout")
 	$VisibilityTimer.start()
 	
+	# start slot wiggle animation
+	for i in range (0, slots.get_child_count()):
+		slots.get_child(i).get_node("AnimationPlayer").play("wiggle")
+		slots.get_child(i).get_node("AnimationPlayer").advance(1 * i)
+
 	total_slots = len(slots.get_children())
 	# Calculate how far back slots should start being placed so the drone is the midpoint.
 	var slot_translation = distance_between_slots * - (total_slots/2)
