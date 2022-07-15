@@ -17,10 +17,15 @@ animations = [ {
 "name": "jump",
 "speed": 7.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
 "loop": false,
-"name": "flap",
-"speed": 6.0
+"name": "sit",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "peck",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": false,
@@ -32,25 +37,20 @@ animations = [ {
 "name": "bob",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "flap",
+"speed": 6.0
+}, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "still",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 8 ) ],
-"loop": false,
-"name": "sit",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "fly",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "peck",
-"speed": 5.0
 } ]
 
 [sub_resource type="BoxShape" id=2]
@@ -63,15 +63,14 @@ extents = Vector3( 2.16, 1, 2.16 )
 script = ExtResource( 1 )
 interactable_name = "Anna"
 icon = ExtResource( 2 )
-pickup_text = " was nabbed!"
-drop_text = " was released. Bye bye Anna!"
+pickup_text = "was nabbed!"
+drop_text = "was released. Bye bye Anna!"
 jump_length = 2.0
 
 [node name="AnnamatedSprite3D" type="AnimatedSprite3D" parent="."]
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0 )
 frames = SubResource( 1 )
 animation = "bob"
-frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]
