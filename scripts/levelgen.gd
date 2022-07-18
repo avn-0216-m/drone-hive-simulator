@@ -72,7 +72,6 @@ var rng = RandomNumberGenerator.new()
 
 onready var gridmap = get_node("GridMap")
 onready var multimeshes = get_node("Geometry/Multimeshes")
-onready var task_manager = get_node("../TaskManager")
 onready var bodies = get_node("Geometry/Bodies")
 onready var floors = get_node("Geometry/Bodies/Floor")
 onready var walls = get_node("Geometry/Bodies/Walls")
@@ -166,7 +165,7 @@ func placeholder_in_valid_position(origin, area) -> bool:
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	var AAA_tasks = task_manager.generate_task_list(difficulty)
+	var AAA_tasks = TaskManager.generate_task_list(difficulty)
 	for BBB_task in AAA_tasks:
 		
 		for placeholder in BBB_task.placeholders:
@@ -259,7 +258,7 @@ func a_instance_gridmap():
 		if cell.y == 2:
 			gridmap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
-	for task in task_manager.get_active_tasks():
+	for task in TaskManager.get_active_tasks():
 		
 		for placeholder in task.placeholders:
 			var instance = load(placeholder.source).instance()

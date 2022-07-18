@@ -2,7 +2,7 @@ extends Node
 
 # Script for coordinating the completion of tasks.
 
-export(GDScript) var MeshLib
+var MeshLib = load("res://scripts/data/meshlib.gd")
 
 var task_tally = 0 # Tracks current-level task ID.
 

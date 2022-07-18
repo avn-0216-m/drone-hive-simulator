@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -15,7 +15,6 @@
 [ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=13]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scripts/TaskManager.gd" type="Script" id=18]
 [ext_resource path="res://mus/clicker training.ogg" type="AudioStream" id=19]
 [ext_resource path="res://scripts/debugui/respawndrone.gd" type="Script" id=20]
 [ext_resource path="res://scripts/debugui/generatefloor.gd" type="Script" id=21]
@@ -23,7 +22,7 @@
 [ext_resource path="res://scripts/debugui/addtasks.gd" type="Script" id=23]
 [ext_resource path="res://scripts/debugui/generatewalls.gd" type="Script" id=24]
 [ext_resource path="res://scripts/debugui/instancegridmap.gd" type="Script" id=25]
-[ext_resource path="res://meshlibraries/meshlib.gd" type="Script" id=26]
+[ext_resource path="res://scripts/data/meshlib.gd" type="Script" id=26]
 [ext_resource path="res://scripts/debugui/hide debug menu.gd" type="Script" id=27]
 [ext_resource path="res://scripts/debugui/random music.gd" type="Script" id=28]
 
@@ -212,10 +211,6 @@ game_over_rotation_y = 10.0
 enabled = true
 cast_to = Vector3( 0, 0, 4 )
 collision_mask = 2
-
-[node name="TaskManager" type="Node" parent="Viewport/Game"]
-script = ExtResource( 18 )
-MeshLib = ExtResource( 26 )
 
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
 MeshLib = ExtResource( 26 )
