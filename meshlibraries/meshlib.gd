@@ -1,2 +1,2 @@
 extends Resource
-enum data {Floor,Wall,Garden,DoNotPlace,Post,Corner,Curve,Double,Box,Anna,WeightedBox,WeightedButton}
+enum Data {FLOOR,WALL,GARDEN,DONOTPLACE,POST,CORNER,CURVE,DOUBLE,BOX,ANNA,WEIGHTEDCUBE,WEIGHTEDBUTTON}

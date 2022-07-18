@@ -11,120 +11,87 @@ var bird_factor: int = 3 # How often Anna appears.
 
 var rng = RandomNumberGenerator.new()
 
-var placeholders: Array # Gridmap cells to be instanced into real objects.
-var active_tasks: Array # In-progress tasks for the current level.
-var task_pool: Array # All tasks that are eligble to randomly spawn in a level.
-var objects: Array # All objects used in all tasks.
+var active_tasks: Array setget set_active_tasks, get_active_tasks # In-progress tasks for the current level.
+var task_pool: Array
 
 onready var task_list_ui = get_tree().get_root().get_node("Main/TaskList")
 
-# Special tasks that exist outside the standard pool.
-var anna_task: Task # Birdy.
-var entry: Task # Entry toybox.
-var exit: Task # Exit toybox.
-
-class TaskObject:
-	var source: String
-	var area: Vector2
-	var index: int
+func get_active_tasks() -> Array:
+	return active_tasks
 	
-	func _init(source, area, index):
-		self.source = source
-		self.area = area
-		self.index = index
+func set_active_tasks(new_tasks: Array):
+	active_tasks = new_tasks
 
 class Task:
+	extends Node
 	var id: int
 	var complete: bool = false
 	var title: String
-	var objects: Array
+	var objects: Array # instanciated objects.
+	var placeholders: Array
+	var optional: bool = false # If the task is required to complete the level.
 	
-	func _init(title = "N/A", objects = []):
+	func _init(title = "N/A", placeholders = []):
 		self.title = title
-		self.objects = objects
+		self.placeholders = placeholders
 
 class Placeholder:
-	var id: int
-	var index: int
+	extends Node
+	var index: int # MeshLib index
 	var pos: Vector3
+	var source: String = ""
+	var area: Vector2
 	
-	func _init(pos: Vector3, index: int, id: int):
+	func _init(index = -1, source = "", area = Vector2(1,1), pos: Vector3 = Vector3(0,0,0)):
 		self.pos = pos
 		self.index = index
-		self.id = id
+		self.source = source
+		self.area = area
 
 func _ready():
-	
-	# init task objects
-	var garden = TaskObject.new("res://objects/tasks/Garden.tscn", Vector2(2,2), MeshLib.data.Garden)
-	var anna = TaskObject.new("res://objects/tasks/Anna.tscn", Vector2(0,0), MeshLib.data.Anna)
-	var cube = TaskObject.new("res://objects/tasks/WeightedCube.tscn", Vector2(0,0), MeshLib.data.WeightedBox)
-	var button = TaskObject.new("res://objects/tasks/WeightedButton.tscn", Vector2(2,2), MeshLib.data.WeightedButton)
-	
-	objects = [
-		garden, anna,
-		cube, button
-	]
-	
-	# insert objects into objects array based on meshinstance placeholder index
-	# so they can be reverse lookup'd during the instantiation process.
-	var temp = objects.duplicate()
-	objects.clear()
-	objects.resize(100)
-	for object in temp:
-			objects[object.index] = object
-	
-	# Setup tasks outside of the standard pool
-	anna_task = Task.new("Anna has a gift for you!", [anna])
-	
-	# init tasks
+	# Do not copy from the task pool directly or else all the references
+	# will be the same.
+	# I've tried .new and .instance and .duplicate and nothing seems to work.
+	# See clone_tasks() for workaround.
 	task_pool = [
-		Task.new("Enjoy the pretty garden.", [garden]),
-		Task.new("Put the box on the button.", [cube, button])
-	]
+			Task.new("Enjoy the pretty garden", [
+				Placeholder.new(MeshLib.Data.GARDEN, "res://objects/tasks/Garden.tscn", Vector2(3,3))
+				]),
+			Task.new("Put the cube on the button", [
+				Placeholder.new(MeshLib.Data.WEIGHTEDBUTTON, "res://objects/tasks/WeightedButton.tscn"),
+				Placeholder.new(MeshLib.Data.WEIGHTEDCUBE, "res://objects/tasks/WeightedCube.tscn")
+			])
+		]
 	
-	# resize so levels can have up to 100 tasks at a time.
-	active_tasks.resize(100)
-
-func add_object_placeholder(pos: Vector2, index: int):
-	placeholders.append(Placeholder.new(Vector3(pos.x, 1, pos.y), index, task_tally))
-	task_tally += 1
-	
-func get_object_data_from_meshlib_index(index: int) -> Object:
-	return objects[index]
-	
-func register_task_object(node: Node, id: int):
-	
-	if active_tasks[id] == null:
-		active_tasks[id] = Task.new()
-	
-	active_tasks[id].objects.append(node)
-	# also setup signal emissions here
-	if node.has_user_signal("task_complete"):
-		node.connect("task_complete", self, "task_complete")
-		node.task_id = id
-		print("Task object successfully registered.")
+func clone_tasks(found_tasks: Array) -> Array:
+	var cloned_tasks: Array = []
+	for task in found_tasks:
+		var cloned_task = Task.new(task.title)
+		for placeholder in task.placeholders:
+			cloned_task.placeholders.append(
+				Placeholder.new(
+					placeholder.index, 
+					placeholder.source, 
+					placeholder.area))
+		cloned_tasks.append(cloned_task)
+	return cloned_tasks
 	
 func generate_task_list(difficulty: int) -> Array:
 	
 	rng.randomize()
 	
-	var generated: Array = []
-	if difficulty % bird_factor == 0 or true:
-		print("Adding Anna placeholder.")
-		generated.append(anna_task)
+	var found_tasks = []
+	var cloned_tasks = []
 	for i in range(0,ceil(float(difficulty)/ratio)):
 		print("Adding random task to task list.")
-		generated.append(task_pool[randi() % task_pool.size()])
-	register_tasks(generated)
-	return generated
-		
-func register_tasks(tasks: Array):
-	for task in tasks:
-		active_tasks[task.id] = task
-		#task_list_ui.add_task(task)
-
-
+		# Gotta do this the hard way because if we append tasks from the pool
+		# wholesale then they all share the same references, which is bad.
+		# so I gotta deep-duplicate the task and placeholder before I append
+		# it.	
+		found_tasks.append(task_pool[randi() % task_pool.size()])
 	
+	active_tasks = clone_tasks(found_tasks)
+	return active_tasks
+
 func task_complete(id):
 	print("Task complete.")

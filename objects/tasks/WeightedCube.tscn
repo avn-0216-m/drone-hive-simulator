@@ -18,11 +18,11 @@ material = SubResource( 2 )
 [node name="WeightedCube" type="KinematicBody" parent="."]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 script = ExtResource( 1 )
+interactable_name = "Cube"
 
 [node name="CollisionShape" type="CollisionShape" parent="WeightedCube"]
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="WeightedCube/CollisionShape"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = SubResource( 3 )
 material/0 = null

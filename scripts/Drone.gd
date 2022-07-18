@@ -166,7 +166,8 @@ func interact():
 	if nearby_interactable == null:
 		if inventory.item_selected:
 			var item = inventory.pop_item()
-			item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
+			if item.parent.has_method("to_local"):
+				item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
 			item.parent.add_child(item)
 		else:
 			# select inventory item

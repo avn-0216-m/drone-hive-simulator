@@ -10,3 +10,6 @@ func log(text: String):
 	var label = label_src.instance()
 	label.text = text
 	activitylog.add_child(label)
+
+func add_task(task):
+	return

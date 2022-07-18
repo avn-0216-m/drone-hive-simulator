@@ -127,6 +127,7 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % skittishness == 0 or true:
+	if randi() % skittishness == 0:
 		return .interact(interactor)
+	UI.log("Anna slips right out of your hands.")
 	return null

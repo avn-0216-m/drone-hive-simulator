@@ -25,6 +25,13 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 enum State {PLACING, INSTANCING, DONE}
 var state = State.PLACING
 
+# List of tasks to generate in the level
+# Provided by the TaskManager
+# When they are originally received, they are sent without position data
+# The levelgen adds this position data when a suitable placeholder position
+# is found.
+var tasks: Array = [] 
+
 # 1  2  4
 # 8  x  16
 # 32 64 128 
@@ -159,15 +166,19 @@ func placeholder_in_valid_position(origin, area) -> bool:
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	for task in task_manager.generate_task_list(difficulty):
+	var AAA_tasks = task_manager.generate_task_list(difficulty)
+	for BBB_task in AAA_tasks:
 		
-		for object in task.objects:
+		for placeholder in BBB_task.placeholders:
 			
 			# find start tile
 			rng.randomize()
-			var origin = Vector2(rng.randi_range(0 - object.area.x, level_size.x),rng.randi_range(0 - object.area.y, level_size.y - 1))
+			var origin = Vector2(
+				rng.randi_range(0 - placeholder.area.x, level_size.x),
+				rng.randi_range(0 - placeholder.area.y, level_size.y - 1)
+				)
 			
-			while !placeholder_in_valid_position(origin, object.area):
+			while !placeholder_in_valid_position(origin, placeholder.area):
 				origin.x += 1
 				# If a "do not place" is found, travel right
 				# until a gap is found, then place the object placeholder there.
@@ -176,16 +187,15 @@ func a_add_tasks_to_gridmap():
 				# "bump" the object right until it fits in place.
 			
 			#Add additional tiles
-			for x in range(origin.x, origin.x + object.area.x + 1):
-				for y in range(origin.y, origin.y + object.area.y + 1):
+			for x in range(origin.x, origin.x + placeholder.area.x + 1):
+				for y in range(origin.y, origin.y + placeholder.area.y + 1):
 					gridmap.set_cell_item(x,0,y,0) # set tile
 					gridmap.set_cell_item(x,2,y,3) # set "do not place" signs to prevent overlapping task objects
 			
 			#Add object placeholder
-			gridmap.set_cell_item(origin.x,1,origin.y,object.index)
-			
-			task_manager.add_object_placeholder(origin, object.index)
-	
+			gridmap.set_cell_item(origin.x,1,origin.y,placeholder.index)
+			# Update placeholder position.
+			placeholder.pos = Vector3(origin.x, 1, origin.y)
 	
 func a_add_walls_to_gridmap():
 
@@ -194,7 +204,7 @@ func a_add_walls_to_gridmap():
 	
 	var floor_tiles = gridmap.get_used_cells()
 	for tile in floor_tiles:
-		if gridmap.get_cell_item(tile.x, tile.y, tile.z) != MeshLib.data.Floor:
+		if gridmap.get_cell_item(tile.x, tile.y, tile.z) != MeshLib.Data.FLOOR:
 			floor_tiles.erase(tile)
 	
 	for tile in floor_tiles:
@@ -213,35 +223,35 @@ func a_add_walls_to_gridmap():
 				# 32 64 128
 				
 				if(found_tiles & Pattern.Box) >= Pattern.Box:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Box)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.BOX)
 				elif(found_tiles & Pattern.NCurve) >= Pattern.NCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Curve, CurveOrient.North)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.North)
 				elif(found_tiles & Pattern.SCurve) >= Pattern.SCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Curve, CurveOrient.South)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.South)
 				elif(found_tiles & Pattern.ECurve) >= Pattern.ECurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Curve, CurveOrient.East)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.East)
 				elif(found_tiles & Pattern.WCurve) >= Pattern.WCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Curve, CurveOrient.West)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.West)
 				elif(found_tiles & Pattern.NECorner) >= Pattern.NECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Corner, CornerOrient.NorthEast)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.NorthEast)
 				elif(found_tiles & Pattern.NWCorner) >= Pattern.NWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Corner, CornerOrient.NorthWest)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.NorthWest)
 				elif(found_tiles & Pattern.SECorner) >= Pattern.SECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Corner, CornerOrient.SouthEast)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.SouthEast)
 				elif(found_tiles & Pattern.SWCorner) >= Pattern.SWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Corner, CornerOrient.SouthWest)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.SouthWest)
 				elif(found_tiles & Pattern.DoubleHori) >= Pattern.DoubleHori:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Double, DoubleOrient.Hori)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, DoubleOrient.Hori)
 				elif(found_tiles & Pattern.DoubleVert) >= Pattern.DoubleVert:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Double, DoubleOrient.Vert)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, DoubleOrient.Vert)
 				elif(found_tiles & Pattern.NWall) >= Pattern.NWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Wall, WallOrient.North)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.North)
 				elif(found_tiles & Pattern.SWall) >= Pattern.SWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Wall, WallOrient.South)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.South)
 				elif(found_tiles & Pattern.EWall) >= Pattern.EWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Wall, WallOrient.East)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.East)
 				elif(found_tiles & Pattern.WWall) >= Pattern.WWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.data.Wall, WallOrient.West)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.West)
 
 func a_instance_gridmap():
 	# Delete all placeholder tiles on floor 2
@@ -249,12 +259,12 @@ func a_instance_gridmap():
 		if cell.y == 2:
 			gridmap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
-	# iterate over task manager placeholders and instance
-	for placeholder in task_manager.placeholders:
-		var object = task_manager.get_object_data_from_meshlib_index(placeholder.index)
-		if object != null:
-			var instance = load(object.source).instance()
-			objects.add_child(instance)
+	for task in task_manager.get_active_tasks():
+		
+		for placeholder in task.placeholders:
+			var instance = load(placeholder.source).instance()
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
-			task_manager.register_task_object(instance, placeholder.id)
+			# Add instance
+			objects.add_child(instance)
+			# Delete placeholder
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
