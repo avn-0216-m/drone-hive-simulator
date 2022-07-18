@@ -2,7 +2,7 @@
 
 [ext_resource path="res://fonts/vcr osd.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="DynamicFont" id=2]
 size = 30
@@ -16,13 +16,13 @@ Fonts/fonts/Font = null
 ItemList/colors/custom_styles = Color( 0.72549, 0.72549, 0.72549, 1 )
 ItemList/colors/font_color = Color( 0.63, 0.63, 0.63, 1 )
 ItemList/colors/font_color_selected = Color( 1, 1, 1, 1 )
-ItemList/colors/guide_color = Color( 0, 0, 0, 0.1 )
+ItemList/colors/guide_color = Color( 0, 0, 0, 0 )
 ItemList/constants/hseparation = 4
 ItemList/constants/icon_margin = 4
 ItemList/constants/line_separation = 2
 ItemList/constants/vseparation = 2
 ItemList/fonts/font = null
-ItemList/styles/bg = SubResource( 1 )
+ItemList/styles/bg = SubResource( 3 )
 ItemList/styles/bg_focus = null
 ItemList/styles/cursor = null
 ItemList/styles/cursor_unfocused = null

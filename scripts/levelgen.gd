@@ -21,16 +21,6 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(0,0,1), # Bottom mid
 		Vector3(1,0,1) # Bottom right
 	]
-	
-enum State {PLACING, INSTANCING, DONE}
-var state = State.PLACING
-
-# List of tasks to generate in the level
-# Provided by the TaskManager
-# When they are originally received, they are sent without position data
-# The levelgen adds this position data when a suitable placeholder position
-# is found.
-var tasks: Array = [] 
 
 # 1  2  4
 # 8  x  16
@@ -78,7 +68,6 @@ onready var walls = get_node("Geometry/Bodies/Walls")
 onready var extern_corners = get_node("Geometry/Bodies/ExternalCorners")
 onready var intern_corners = get_node("Geometry/Bodies/InternalCorners")
 onready var objects = get_node("Objects")
-onready var collision_checks = get_node("CollisionChecks")
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
@@ -262,8 +251,22 @@ func a_instance_gridmap():
 		
 		for placeholder in task.placeholders:
 			var instance = load(placeholder.source).instance()
+			print(instance)
+			print(instance.name)
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
 			# Add instance
 			objects.add_child(instance)
-			# Delete placeholder
+			
+			# Code sets task ID on Interactables even if they are
+			# the child of a spatial parent.
+			if instance.get("task_id"):
+				instance.task_id = task.task_id
+			else:
+				for child in instance.get_children():
+					child.task_id = task.task_id
+					
+			task.objects.append(instance)
+			# Delete placeholders
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
+	
+	UI.set_tasks(TaskManager.get_active_tasks())

@@ -24,7 +24,7 @@ func set_active_tasks(new_tasks: Array):
 
 class Task:
 	extends Node
-	var id: int
+	var task_id: int
 	var complete: bool = false
 	var title: String
 	var objects: Array # instanciated objects.
@@ -64,6 +64,12 @@ func _ready():
 		]
 	
 func clone_tasks(found_tasks: Array) -> Array:
+	
+	# Using a counter like this assumes the task list will not change
+	# throughout the level.
+	# If new tasks are added, this will break.
+	
+	var counter: int = 0
 	var cloned_tasks: Array = []
 	for task in found_tasks:
 		var cloned_task = Task.new(task.title)
@@ -73,6 +79,8 @@ func clone_tasks(found_tasks: Array) -> Array:
 					placeholder.index, 
 					placeholder.source, 
 					placeholder.area))
+		cloned_task.task_id = counter 
+		counter += 1
 		cloned_tasks.append(cloned_task)
 	return cloned_tasks
 	
@@ -87,11 +95,12 @@ func generate_task_list(difficulty: int) -> Array:
 		# Gotta do this the hard way because if we append tasks from the pool
 		# wholesale then they all share the same references, which is bad.
 		# so I gotta deep-duplicate the task and placeholder before I append
-		# it.	
+		# it.
 		found_tasks.append(task_pool[randi() % task_pool.size()])
 	
 	active_tasks = clone_tasks(found_tasks)
 	return active_tasks
 
-func task_complete(id):
-	print("Task complete.")
+func on_task_completion(task_id: int):
+	UI.log("Task complete! " + str(task_id))
+	UI.update_task(task_id, UI.tick)

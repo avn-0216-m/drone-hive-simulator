@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://themes/theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/UI.gd" type="Script" id=2]
+[ext_resource path="res://sprites/tasks/cross.png" type="Texture" id=3]
+[ext_resource path="res://sprites/tasks/tick.png" type="Texture" id=4]
+[ext_resource path="res://sprites/tasks/treasure.png" type="Texture" id=5]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
@@ -15,6 +18,9 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+tick = ExtResource( 4 )
+cross = ExtResource( 3 )
+treasure = ExtResource( 5 )
 
 [node name="Anchor" type="Control" parent="."]
 margin_left = 40.0
@@ -42,6 +48,7 @@ __meta__ = {
 margin_right = 800.0
 margin_bottom = 400.0
 theme = ExtResource( 1 )
+auto_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

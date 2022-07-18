@@ -10,10 +10,9 @@ func _physics_process(delta):
 	
 
 func _ready():
-	add_user_signal("task_complete", [self])
+	._ready()
 	$Area.connect("body_entered",self,"body_entered")
 	$Area.connect("body_exited",self,"body_exited")
-	skip_process = false
 
 func body_entered(body):
 	if body.get_class() == "WeightedCube":

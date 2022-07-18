@@ -12,7 +12,12 @@ enum Type {
 var interact_type = Type.BOTH
 # TODO: implement this ^
 
-export var interactable_name = "N/A"
+signal task_completed(task_id)
+
+func _ready():
+	connect("task_completed",TaskManager,"on_task_completion")
+
+export var interactable_name = "UNNAMED INTERACTABLE PLEASE CHANGE"
 
 func interact(interactor):
 	print(interactable_name + " (" + name + ") was interacted with. This is the default interaction function.")

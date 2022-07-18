@@ -53,11 +53,6 @@ _global_script_classes=[ {
 "class": "WeightedCube",
 "language": "GDScript",
 "path": "res://scripts/WeightedCube.gd"
-}, {
-"base": "Object",
-"class": "placement_req",
-"language": "GDScript",
-"path": "res://scripts/data/placement_request.gd"
 } ]
 _global_script_class_icons={
 "Battery": "",
@@ -68,8 +63,7 @@ _global_script_class_icons={
 "KinematicGravity": "",
 "Pickup": "",
 "WeightedButton": "",
-"WeightedCube": "",
-"placement_req": ""
+"WeightedCube": ""
 }
 
 [application]
