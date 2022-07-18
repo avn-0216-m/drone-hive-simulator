@@ -165,10 +165,10 @@ func placeholder_in_valid_position(origin, area) -> bool:
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	var AAA_tasks = TaskManager.generate_task_list(difficulty)
-	for BBB_task in AAA_tasks:
+	var tasks = TaskManager.generate_task_list(difficulty)
+	for task in tasks:
 		
-		for placeholder in BBB_task.placeholders:
+		for placeholder in task.placeholders:
 			
 			# find start tile
 			rng.randomize()
