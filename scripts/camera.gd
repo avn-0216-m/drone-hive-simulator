@@ -9,7 +9,7 @@ var transition_offset: Vector3 = Vector3(0,0,0)
 # Force override look_at, if false, camera will not rotate to face drone
 # even if state is supposed to look at drone.
 var look_at = true
-
+#
 var peephole_current_radius: int = 0
 var peephole_max_radius: int = 400
 
