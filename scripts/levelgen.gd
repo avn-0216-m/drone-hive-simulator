@@ -261,7 +261,8 @@ func a_instance_gridmap():
 				instance.task_id = task.task_id
 			else:
 				for child in instance.get_children():
-					child.task_id = task.task_id
+					if child.get("task_id"):
+						child.task_id = task.task_id
 					
 			task.objects.append(instance)
 			# Delete placeholders
