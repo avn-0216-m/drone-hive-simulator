@@ -151,6 +151,7 @@ func set_item(object: Node) -> bool:
 		play_sfx(Sfx.MID)
 		return true
 	else:
+		UI.log("The item vanished into thin air.")
 		play_sfx(Sfx.LOW)
 		return false
 

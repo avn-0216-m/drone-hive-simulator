@@ -178,7 +178,7 @@ func interact():
 		var item = nearby.interact(self)
 		if item != null:
 			inventory.set_item(item)
-	elif nearby is Interactable:
+	elif nearby is Interactable and not nearby is Pickup:
 		# interact code here. nest additional code for interacting with objects
 		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
 		inventory.item_selected):
@@ -191,16 +191,19 @@ func interact():
 					nearby.interactable_name + 
 					"."
 				)
+				inventory.play_sfx(inventory.Sfx.LOW)
 		elif (nearby.type == nearby.Type.ITEMS and !inventory.item_selected):
 			UI.log(
 				"You need to use an item on the " + 
 				nearby.interactable_name + 
 				"."
 			)
+			inventory.play_sfx(inventory.Sfx.LOW)
 		elif (nearby.type in [nearby.Type.BOTH, nearby.Type.DIRECT]):
 			nearby.interact(self)
 		elif (nearby.type == nearby.Type.NONE):
 			UI.log("You cannot use the " + nearby.interactable_name + ".")
+			inventory.play_sfx(inventory.Sfx.LOW)
 	else:
 		inventory.play_sfx(inventory.Sfx.LOW)
 	
