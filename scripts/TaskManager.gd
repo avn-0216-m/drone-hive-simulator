@@ -102,5 +102,7 @@ func generate_task_list(difficulty: int) -> Array:
 	return active_tasks
 
 func on_task_completion(task_id: int):
-	UI.log("Task complete!")
-	UI.update_task(task_id, UI.tick)
+	if !active_tasks[task_id].complete:
+		active_tasks[task_id].complete = true
+		UI.log("Task complete!")
+		UI.update_task(task_id, UI.tick)

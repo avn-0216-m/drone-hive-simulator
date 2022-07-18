@@ -12,13 +12,13 @@
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "backward",
-"speed": 4.0
+"name": "forward",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "forward",
-"speed": 5.0
+"name": "backward",
+"speed": 4.0
 } ]
 
 [sub_resource type="CapsuleShape" id=2]
@@ -140,3 +140,9 @@ wait_time = 3.0
 
 [node name="ItemDrop" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
+
+[node name="SouthRaycast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, 5 )
+
+[node name="NorthRaycast" type="RayCast" parent="."]
+cast_to = Vector3( 0, 0, -2 )

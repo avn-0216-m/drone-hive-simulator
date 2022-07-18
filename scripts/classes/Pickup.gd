@@ -12,8 +12,8 @@ var infinite: bool = false
 
 signal picked_up
 
-export var pickup_text = "picked up."
-export var drop_text = "dropped."
+export var pickup_text = "Picked up"
+export var drop_text = "Dropped"
 
 # Item that is stored in inventory.
 var source: Node = null
@@ -31,11 +31,11 @@ func interact(interactor):
 		return source
 	
 func on_drop():
-	UI.log(interactable_name + " " + drop_text)
+	UI.log(drop_text + " " + interactable_name + ".")
 
 func on_pickup():
-	UI.log(interactable_name + " " + pickup_text)
+	UI.log(pickup_text + " " + interactable_name + ".")
 	
 func use_on(target):
 	# Extend out custom behaviour for using on items.
-	return
+	return false

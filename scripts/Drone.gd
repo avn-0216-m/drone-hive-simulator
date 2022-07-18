@@ -19,7 +19,7 @@ onready var interact_area = get_node("InteractArea")
 
 onready var drop_location = get_node("ItemDrop")
 
-var nearby_interactable: Node # holds the nearest interactable object that the drone is facing
+var nearby: Node # holds the nearest interactable object that the drone is facing
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
@@ -96,7 +96,7 @@ func get_inputs() -> int:
 		inventory.change_selected_slot(inventory.inventory_index)
 	return inputs
 	
-func get_nearby_interactables() -> Node:
+func get_nearbys() -> Node:
 	var nearby_bodies = interact_area.get_overlapping_bodies()
 	for body in nearby_bodies:
 		if body is Interactable:
@@ -143,7 +143,7 @@ func _process(delta):
 	# Check if drone should keep walking.
 	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
 	
-	nearby_interactable = get_nearby_interactables()
+	nearby = get_nearbys()
 
 	# Calculate headbob
 	if sprite.frame % 2 != 0:
@@ -162,8 +162,7 @@ func _process(delta):
 	#	display_container.visible = true
 	
 func interact():
-	print(nearby_interactable)
-	if nearby_interactable == null:
+	if nearby == null:
 		if inventory.item_selected:
 			var item = inventory.pop_item()
 			if item.parent.has_method("to_local"):
@@ -172,16 +171,34 @@ func interact():
 		else:
 			# select inventory item
 			inventory.select_item()
-			return
-	elif nearby_interactable is Pickup and inventory.current_slot_empty():
-		var item = nearby_interactable.interact(self)
+	elif nearby is Pickup and inventory.current_slot_empty():
+		var item = nearby.interact(self)
 		if item != null:
 			inventory.set_item(item)
-	elif nearby_interactable is Interactable:
+	elif nearby is Interactable:
 		# interact code here. nest additional code for interacting with objects
-		return
+		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
+		inventory.item_selected):
+			var inv_item = inventory.get_item()
+			if !inv_item.use_on(nearby):
+				UI.log(
+					"You cannot use " + 
+					inv_item.interactable_name + 
+					" on the " + 
+					nearby.interactable_name + 
+					"."
+				)
+		elif (nearby.type == nearby.Type.ITEMS and !inventory.item_selected):
+			UI.log(
+				"You need to use an item on the " + 
+				nearby.interactable_name + 
+				"."
+			)
+		elif (nearby.type in [nearby.Type.BOTH, nearby.Type.DIRECT]):
+			nearby.interact(self)
+		elif (nearby.type == nearby.Type.NONE):
+			UI.log("You cannot use the " + nearby.interactable_name + ".")
 	else:
-		return
 		inventory.play_sfx(inventory.Sfx.LOW)
 	
 		

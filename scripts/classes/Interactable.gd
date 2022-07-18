@@ -9,7 +9,7 @@ enum Type {
 	ITEMS, # Only interactable by using an item on it
 	DIRECT, # Only interactable directly
 	BOTH} # Interactable directly and with items.
-var interact_type = Type.BOTH
+var type = Type.BOTH
 # TODO: implement this ^
 
 signal task_completed(task_id)

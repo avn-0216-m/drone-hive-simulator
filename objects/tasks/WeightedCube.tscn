@@ -18,7 +18,7 @@ material = SubResource( 2 )
 [node name="WeightedCube" type="KinematicBody" parent="."]
 transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0 )
 script = ExtResource( 1 )
-interactable_name = "Cube"
+interactable_name = "cube"
 
 [node name="CollisionShape" type="CollisionShape" parent="WeightedCube"]
 shape = SubResource( 1 )

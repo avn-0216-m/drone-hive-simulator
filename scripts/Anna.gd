@@ -131,3 +131,9 @@ func interact(interactor):
 		return .interact(interactor)
 	UI.log("Anna slips right out of your hands.")
 	return null
+	
+func on_pickup():
+	UI.log("Anna was nabbed!")
+	
+func on_drop():
+	UI.log("Anna was released. Bye bye Anna!")

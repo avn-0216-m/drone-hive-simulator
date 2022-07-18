@@ -7,7 +7,7 @@ var respawn_point: Vector3 = Vector3(0,5,0)
 
 var bird_factor: int = 3 # How often Anna appears. (Default: once every 3 levels)
 
-var difficulty: int = 30
+var difficulty: int = 10
 
 export(GDScript) var MeshLib
 
@@ -251,8 +251,6 @@ func a_instance_gridmap():
 		
 		for placeholder in task.placeholders:
 			var instance = load(placeholder.source).instance()
-			print(instance)
-			print(instance.name)
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
 			# Add instance
 			objects.add_child(instance)

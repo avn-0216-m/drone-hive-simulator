@@ -46,8 +46,8 @@ func _physics_process(delta):
 	slots.translation = drone.translation + Vector3(0,2.4,0)
 
 	
-	if drone.nearby_interactable and drone.nearby_interactable.get_global_transform().origin != Vector3(0,0,0):
-		cursor_target = drone.nearby_interactable.get_global_transform().origin + drone.nearby_interactable.cursor_offset
+	if drone.nearby and drone.nearby.get_global_transform().origin != Vector3(0,0,0):
+		cursor_target = drone.nearby.get_global_transform().origin + drone.nearby.cursor_offset
 	elif item_selected:
 		cursor_target = drone.drop_location.get_global_transform().origin
 	else:
@@ -58,7 +58,7 @@ func _physics_process(delta):
 	else:
 		cursor.translation = cursor_target
 		
-	cursor.visible = slots.visible or drone.nearby_interactable or item_selected
+	cursor.visible = slots.visible or drone.nearby or item_selected
 		
 func _ready():
 	
@@ -114,7 +114,6 @@ func update_cursor():
 	cursor.material_override.albedo_color.a = 1
 
 func current_slot_empty() -> bool:
-	print("Current slot empty: " + str(current_slot.item == null))
 	return current_slot.item == null
 
 func add_slot():
@@ -149,3 +148,6 @@ func set_item(object: Node):
 	current_slot.item = object
 	current_slot.icon.visible = true
 	play_sfx(Sfx.MID)
+
+func get_item() -> Node:
+	return current_slot.item
