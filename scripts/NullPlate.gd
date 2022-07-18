@@ -14,4 +14,8 @@ func place_cube_on(cube):
 	cube.type = Type.NONE
 	cube.translation = Vector3(0,5,0)
 	$AnimationPlayer.play("activate")
+
+
+func complete_task():
 	emit_signal("task_completed", task_id)
+	
