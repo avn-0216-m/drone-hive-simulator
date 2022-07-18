@@ -150,40 +150,47 @@ func placeholder_in_valid_position(origin, area) -> bool:
 			if gridmap.get_cell_item(x,2,y) == 3:
 				return false
 	return true
+	
+func flatten_placeholders(tasks: Array) -> Array:
+	print(tasks)
+	var flattened = []
+	for task in tasks:
+		for placeholder in task.placeholders:
+			flattened.append(placeholder)
+	
+	flattened.shuffle()
+	return flattened
 
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	var tasks = TaskManager.generate_task_list(difficulty)
-	for task in tasks:
+	for placeholder in flatten_placeholders(TaskManager.generate_task_list(difficulty)):
 		
-		for placeholder in task.placeholders:
-			
-			# find start tile
-			rng.randomize()
-			var origin = Vector2(
-				rng.randi_range(0 - placeholder.area.x, level_size.x),
-				rng.randi_range(0 - placeholder.area.y, level_size.y - 1)
-				)
-			
-			while !placeholder_in_valid_position(origin, placeholder.area):
-				origin.x += 1
-				# If a "do not place" is found, travel right
-				# until a gap is found, then place the object placeholder there.
-				# Allows for dynamic levels that extend beyond the original level size
-				# based on difficulty.
-				# "bump" the object right until it fits in place.
-			
-			#Add additional tiles
-			for x in range(origin.x, origin.x + placeholder.area.x + 1):
-				for y in range(origin.y, origin.y + placeholder.area.y + 1):
-					gridmap.set_cell_item(x,0,y,0) # set tile
-					gridmap.set_cell_item(x,2,y,3) # set "do not place" signs to prevent overlapping task objects
-			
-			#Add object placeholder
-			gridmap.set_cell_item(origin.x,1,origin.y,placeholder.index)
-			# Update placeholder position.
-			placeholder.pos = Vector3(origin.x, 1, origin.y)
+		# find start tile
+		rng.randomize()
+		var origin = Vector2(
+			rng.randi_range(0 - placeholder.area.x, level_size.x),
+			rng.randi_range(0 - placeholder.area.y, level_size.y - 1)
+			)
+		
+		while !placeholder_in_valid_position(origin, placeholder.area):
+			origin.x += 1
+			# If a "do not place" is found, travel right
+			# until a gap is found, then place the object placeholder there.
+			# Allows for dynamic levels that extend beyond the original level size
+			# based on difficulty.
+			# "bump" the object right until it fits in place.
+		
+		#Add additional tiles
+		for x in range(origin.x, origin.x + placeholder.area.x + 1):
+			for y in range(origin.y, origin.y + placeholder.area.y + 1):
+				gridmap.set_cell_item(x,0,y,0) # set tile
+				gridmap.set_cell_item(x,2,y,3) # set "do not place" signs to prevent overlapping task objects
+		
+		#Add object placeholder
+		gridmap.set_cell_item(origin.x,1,origin.y,placeholder.index)
+		# Update placeholder position.
+		placeholder.pos = Vector3(origin.x, 1, origin.y)
 	
 func a_add_walls_to_gridmap():
 

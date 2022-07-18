@@ -59,7 +59,7 @@ func _ready():
 				]),
 			Task.new("Put the cube on the button", [
 				Placeholder.new(MeshLib.Data.WEIGHTEDBUTTON, "res://objects/tasks/WeightedButton.tscn"),
-				Placeholder.new(MeshLib.Data.WEIGHTEDCUBE, "res://objects/tasks/WeightedCube.tscn")
+				Placeholder.new(MeshLib.Data.WEIGHTEDCUBE, "res://objects/tasks/NullCube.tscn")
 			])
 		]
 	

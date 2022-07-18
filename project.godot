@@ -100,7 +100,7 @@ texture={
 "flags/anisotropic": false,
 "flags/filter": false,
 "flags/mipmaps": true,
-"flags/repeat": 0,
+"flags/repeat": 1,
 "flags/srgb": 1,
 "process/HDR_as_SRGB": false,
 "process/fix_alpha_border": false,
