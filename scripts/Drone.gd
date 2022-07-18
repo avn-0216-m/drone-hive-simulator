@@ -14,6 +14,9 @@ onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
 onready var inventory = get_node("../Inventory")
 
+onready var south_ray = get_node("SouthRaycast")
+onready var north_ray = get_node("NorthRaycast")
+
 onready var pickup_area = get_node("PickupArea")
 onready var interact_area = get_node("InteractArea")
 

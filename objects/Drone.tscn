@@ -142,7 +142,9 @@ wait_time = 3.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
 
 [node name="SouthRaycast" type="RayCast" parent="."]
+enabled = true
 cast_to = Vector3( 0, 0, 5 )
 
 [node name="NorthRaycast" type="RayCast" parent="."]
-cast_to = Vector3( 0, 0, -2 )
+enabled = true
+cast_to = Vector3( 0, 0, -4 )
