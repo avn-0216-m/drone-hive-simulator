@@ -17,7 +17,7 @@ export var game_over_rotation_y: float = 45
 var active: bool = true
 export var game_over: bool = false
 onready var raycast: RayCast = get_node("../WallhugRaycast")
-onready var drone: KinematicBody = get_parent().get_parent().get_node("Drone")
+onready var drone: KinematicBody = get_tree().get_root().get_node("Main/Viewport/Game/Drone")
 
 var wall_mat: Material
 var extern_mat: Material # Material for external corner mesh.
