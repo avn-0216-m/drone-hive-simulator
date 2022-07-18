@@ -1,6 +1,6 @@
 extends Pickup
 
 func use_on(obj):
-	if obj is WeightedButton:
-		UI.log("Yeah okay")
-		return true
+	if obj is NullPlate:
+		obj.place_cube_on(self)
+		return Result.CONSUMED

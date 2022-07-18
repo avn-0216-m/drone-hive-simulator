@@ -102,7 +102,7 @@ func get_inputs() -> int:
 func get_nearbys() -> Node:
 	var nearby_bodies = interact_area.get_overlapping_bodies()
 	for body in nearby_bodies:
-		if body is Interactable:
+		if body is Interactable and body.type != body.Type.NONE:
 			return body
 	return null
 
@@ -183,7 +183,8 @@ func interact():
 		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
 		inventory.item_selected):
 			var inv_item = inventory.get_item()
-			if !inv_item.use_on(nearby):
+			var result = inv_item.use_on(nearby)
+			if result == inv_item.Result.FAIL:
 				UI.log(
 					"You cannot use " + 
 					inv_item.interactable_name + 
@@ -192,6 +193,11 @@ func interact():
 					"."
 				)
 				inventory.play_sfx(inventory.Sfx.LOW)
+			elif result == inv_item.Result.CONSUMED:
+				inventory.play_sfx(inventory.Sfx.HIGH)
+				inventory.delete_item()
+			else:
+				inventory.play_sfx(inventory.Sfx.HIGH)
 		elif (nearby.type == nearby.Type.ITEMS and !inventory.item_selected):
 			UI.log(
 				"You need to use an item on the " + 

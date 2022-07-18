@@ -58,7 +58,7 @@ func _ready():
 				Placeholder.new(MeshLib.Data.GARDEN, "res://objects/tasks/Garden.tscn", Vector2(3,3))
 				]),
 			Task.new("Put the cube on the button", [
-				Placeholder.new(MeshLib.Data.WEIGHTEDBUTTON, "res://objects/tasks/WeightedButton.tscn"),
+				Placeholder.new(MeshLib.Data.WEIGHTEDBUTTON, "res://objects/tasks/NullPlate.tscn"),
 				Placeholder.new(MeshLib.Data.WEIGHTEDCUBE, "res://objects/tasks/NullCube.tscn")
 			])
 		]

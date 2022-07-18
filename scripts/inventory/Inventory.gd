@@ -157,3 +157,8 @@ func set_item(object: Node) -> bool:
 
 func get_item() -> Node:
 	return current_slot.item
+	
+func delete_item() -> void:
+	current_slot.item = null
+	current_slot.icon.visible = false
+	item_selected = false

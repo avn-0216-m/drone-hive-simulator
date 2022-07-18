@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nullcube grey base.png-8a81391ecd3b344be52383c2d4eef152.stex"
+path="res://.import/nullplate7.png-d157356bf3f28dec2238d93afd15d4ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/nullcube/nullcube grey base.png"
-dest_files=[ "res://.import/nullcube grey base.png-8a81391ecd3b344be52383c2d4eef152.stex" ]
+source_file="res://textures/nullplate/nullplate7.png"
+dest_files=[ "res://.import/nullplate7.png-d157356bf3f28dec2238d93afd15d4ca.stex" ]
 
 [params]
 
@@ -31,4 +31,4 @@ process/invert_color=false
 stream=false
 size_limit=0
 detect_3d=false
-svg/scale=1.016
+svg/scale=1.0

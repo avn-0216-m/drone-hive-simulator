@@ -15,6 +15,8 @@ signal picked_up
 export var pickup_text = "Picked up"
 export var drop_text = "Dropped"
 
+enum Result {FAIL, SUCCESS, CONSUMED}
+
 # Item that is stored in inventory.
 var source: Node = null
 
@@ -38,4 +40,4 @@ func on_pickup():
 	
 func use_on(target):
 	# Extend out custom behaviour for using on items.
-	return false
+	return Result.FAIL
