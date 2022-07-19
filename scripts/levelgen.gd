@@ -7,7 +7,7 @@ var respawn_point: Vector3 = Vector3(0,5,0)
 
 var bird_factor: int = 3 # How often Anna appears. (Default: once every 3 levels)
 
-var difficulty: int = 10
+var difficulty: int = 30
 
 export(GDScript) var MeshLib
 
@@ -152,7 +152,6 @@ func placeholder_in_valid_position(origin, area) -> bool:
 	return true
 	
 func flatten_placeholders(tasks: Array) -> Array:
-	print(tasks)
 	var flattened = []
 	for task in tasks:
 		for placeholder in task.placeholders:
@@ -256,21 +255,26 @@ func a_instance_gridmap():
 
 	for task in TaskManager.get_active_tasks():
 		
+		print("vari")
+		print(task.variant)
+		
 		for placeholder in task.placeholders:
 			var instance = load(placeholder.source).instance()
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
 			# Add instance
-			objects.add_child(instance)
 			
-			# Code sets task ID on Interactables even if they are
+			# Code sets task ID and variant on Interactables even if they are
 			# the child of a spatial parent.
-			if instance.get("task_id"):
+			if instance is Interactable:
 				instance.task_id = task.task_id
+				instance.variant = task.variant
 			else:
 				for child in instance.get_children():
-					if child.get("task_id"):
+					if child is Interactable:
 						child.task_id = task.task_id
+						child.variant = task.variant
 					
+			objects.add_child(instance)
 			task.objects.append(instance)
 			# Delete placeholders
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)

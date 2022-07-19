@@ -15,7 +15,12 @@ signal picked_up
 export var pickup_text = "Picked up"
 export var drop_text = "Dropped"
 
-enum Result {FAIL, SUCCESS, CONSUMED}
+enum Result {
+	FAIL, # The item is not compatible with what you're using it on.
+	WRONG_VARIANT,
+	SUCCESS, # The item is used, but not consumed.
+	CONSUMED # The item is used and removed from the inventory.
+	}
 
 # Item that is stored in inventory.
 var source: Node = null

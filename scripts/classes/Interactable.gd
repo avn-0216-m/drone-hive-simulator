@@ -4,6 +4,7 @@ class_name Interactable
 var interactable: bool = true # If the object can be interacted with.
 var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
 var task_id: int = -1 # Corresponds to a relevant task if applicable.
+var variant: int = 0
 enum Type {
 	NONE, # Not interactable 
 	ITEMS, # Only interactable by using an item on it

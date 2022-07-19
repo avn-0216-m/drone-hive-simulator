@@ -1,8 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://textures/nullcube/test1.png" type="Texture" id=1]
-[ext_resource path="res://textures/nullcube/nullcube lg lock.png" type="Texture" id=2]
+[ext_resource path="res://textures/null/numbers1.png" type="Texture" id=2]
+[ext_resource path="res://textures/null/numbers4.png" type="Texture" id=3]
+[ext_resource path="res://textures/null/numbers6.png" type="Texture" id=4]
 [ext_resource path="res://scripts/NullCube.gd" type="Script" id=5]
+[ext_resource path="res://textures/null/numbers5.png" type="Texture" id=6]
+[ext_resource path="res://textures/null/numbers3.png" type="Texture" id=7]
+[ext_resource path="res://textures/null/numbers2.png" type="Texture" id=8]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_albedo_tex_force_srgb = true
@@ -12,21 +17,18 @@ uv1_scale = Vector3( 3, 2, 1 )
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
 
-[sub_resource type="SpatialMaterial" id=3]
-resource_local_to_scene = true
+[sub_resource type="CubeMesh" id=7]
+
+[sub_resource type="SpatialMaterial" id=8]
 flags_transparent = true
-flags_albedo_tex_force_srgb = true
-albedo_color = Color( 1, 1, 1, 0 )
-albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 3, 2, 1 )
 
 [sub_resource type="CubeMesh" id=4]
 resource_local_to_scene = true
-material = SubResource( 3 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=5]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=6]
 resource_name = "flash"
 length = 2.0
 tracks/0/type = "value"
@@ -58,21 +60,33 @@ tracks/1/keys = {
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 script = ExtResource( 5 )
 interactable_name = "NullCube"
+number1 = ExtResource( 2 )
+number2 = ExtResource( 8 )
+number3 = ExtResource( 7 )
+number4 = ExtResource( 3 )
+number5 = ExtResource( 6 )
+number6 = ExtResource( 4 )
 
 [node name="Cube" type="MeshInstance" parent="."]
 mesh = SubResource( 2 )
 material/0 = null
 
+[node name="Numbers" type="MeshInstance" parent="."]
+transform = Transform( 1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+
 [node name="Lock" type="MeshInstance" parent="."]
 transform = Transform( 1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0 )
+visible = false
 mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/flash = SubResource( 8 )
+anims/flash = SubResource( 6 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
 visible = false

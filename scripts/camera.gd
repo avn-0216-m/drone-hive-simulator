@@ -3,7 +3,7 @@ extends Camera
 # camera offsets
 var normal_offset: Vector3 = Vector3(0,4,6)
 var close_south_offset: Vector3 = Vector3(0,1,7)
-var close_north_offset: Vector3 = Vector3(0,6,8)
+var close_north_offset: Vector3 = Vector3(0,7,9)
 var game_over_offset: Vector3 = Vector3(3,0,6)
 var transition_offset: Vector3 = Vector3(0,0,0)
 

@@ -22,6 +22,7 @@ func get_active_tasks() -> Array:
 func set_active_tasks(new_tasks: Array):
 	active_tasks = new_tasks
 
+
 class Task:
 	extends Node
 	var task_id: int
@@ -30,10 +31,12 @@ class Task:
 	var objects: Array # instanciated objects.
 	var placeholders: Array
 	var optional: bool = false # If the task is required to complete the level.
+	var variant: int # Task variant (e.g nullcubes have different numbers on them)
 	
-	func _init(title = "N/A", placeholders = []):
+	func _init(title = "UNNAMED TASK PLEASE CHANGE", placeholders = [], variant: int = 0):
 		self.title = title
 		self.placeholders = placeholders
+		self.variant = variant
 
 class Placeholder:
 	extends Node
@@ -72,7 +75,7 @@ func clone_tasks(found_tasks: Array) -> Array:
 	var counter: int = 0
 	var cloned_tasks: Array = []
 	for task in found_tasks:
-		var cloned_task = Task.new(task.title)
+		var cloned_task = Task.new(task.title, [], rng.randi() % 10)
 		for placeholder in task.placeholders:
 			cloned_task.placeholders.append(
 				Placeholder.new(

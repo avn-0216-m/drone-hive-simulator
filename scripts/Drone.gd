@@ -3,6 +3,13 @@ class_name Drone
 
 signal shutdown_complete
 
+# Drone movement statistics
+var burden: float = 0.2 # How much carrying an item slows you.
+var speed: float = 5.0 # Base speed
+var sprint: float = 2 # How much faster sprinting makes you
+var sprint_drain: float = 0.3 # How much more battery drains while sprinting
+
+
 onready var icon_display: Sprite3D = get_node("Display/Icon")
 onready var id_display: Spatial = get_node("Display/ID")
 onready var display_container: Spatial = get_node("Display")
@@ -26,7 +33,6 @@ var nearby: Node # holds the nearest interactable object that the drone is facin
 
 var id: String = "0000"
 var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
-var speed: float = 5
 
 var immobile: bool = false
 
@@ -174,10 +180,13 @@ func interact():
 		else:
 			# select inventory item
 			inventory.select_item()
-	elif nearby is Pickup and inventory.current_slot_empty():
-		var item = nearby.interact(self)
-		if item != null:
-			inventory.set_item(item)
+	elif nearby is Pickup:
+		if inventory.current_slot_empty():
+			var item = nearby.interact(self)
+			if item != null:
+				inventory.set_item(item)
+		else:
+			UI.log("That inventory slot is already filled.")
 	elif nearby is Interactable and not nearby is Pickup:
 		# interact code here. nest additional code for interacting with objects
 		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
@@ -196,6 +205,8 @@ func interact():
 			elif result == inv_item.Result.CONSUMED:
 				inventory.play_sfx(inventory.Sfx.HIGH)
 				inventory.delete_item()
+			elif result == inv_item.Result.WRONG_VARIANT:
+				inventory.play_sfx(inventory.Sfx.LOW)
 			else:
 				inventory.play_sfx(inventory.Sfx.HIGH)
 		elif (nearby.type == nearby.Type.ITEMS and !inventory.item_selected):
