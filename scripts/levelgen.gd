@@ -254,9 +254,7 @@ func a_instance_gridmap():
 			gridmap.set_cell_item(cell.x, cell.y, cell.z, -1)
 
 	for task in TaskManager.get_active_tasks():
-		
-		print("vari")
-		print(task.variant)
+
 		
 		for placeholder in task.placeholders:
 			var instance = load(placeholder.source).instance()

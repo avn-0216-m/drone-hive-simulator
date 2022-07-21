@@ -22,6 +22,9 @@ func _ready():
 	variant = set_variant_within_range(variant_max)
 	
 func set_variant_within_range(maximum: int) -> int:
+	
+	#return int(min(maximum, variant))
+	
 	if variant <= maximum:
 		return variant
 	return int(lerp(0, maximum, float(variant) / 10.0))

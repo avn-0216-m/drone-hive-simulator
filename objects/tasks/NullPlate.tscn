@@ -1,6 +1,12 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/NullPlate.gd" type="Script" id=1]
+[ext_resource path="res://sprites/numbers/null/null numbers5.png" type="Texture" id=2]
+[ext_resource path="res://sprites/numbers/null/null numbers6.png" type="Texture" id=3]
+[ext_resource path="res://sprites/numbers/null/null numbers3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/numbers/null/null numbers4.png" type="Texture" id=5]
+[ext_resource path="res://sprites/numbers/null/null numbers1.png" type="Texture" id=6]
+[ext_resource path="res://sprites/numbers/null/null numbers2.png" type="Texture" id=7]
 [ext_resource path="res://textures/cubeplate/nullcubeplate.png" type="Texture" id=25]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -12,6 +18,14 @@ size = Vector3( 1.8, 0.503, 1.8 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 0.0780637, 1 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="CubeMesh" id=4]
 
@@ -80,7 +94,7 @@ material/0 = null
 transform = Transform( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.184967, 0 )
 shape = SubResource( 3 )
 
-[node name="Sprite3D" type="Sprite3D" parent="Pressure"]
+[node name="Texture" type="Sprite3D" parent="Pressure"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.251997, 7.64391e-09 )
 pixel_size = 0.1125
 shaded = true
@@ -89,6 +103,12 @@ texture = ExtResource( 25 )
 __meta__ = {
 "_editor_description_": ""
 }
+
+[node name="Number" type="AnimatedSprite3D" parent="Pressure/Texture"]
+transform = Transform( 1, 0, 0, 0, 1, -1.1921e-07, 0, 1.1921e-07, 1, 0, 1.8038e-08, 0.0157608 )
+modulate = Color( 1, 0, 0, 1 )
+pixel_size = 0.1125
+frames = SubResource( 8 )
 
 [node name="Base" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.15, 0 )
