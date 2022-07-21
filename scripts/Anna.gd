@@ -33,15 +33,13 @@ func something_near(body):
 		timer.set_paused(true)
 		sprite.animation = "fly"
 		gravity = 0
-		
-		# set anim start point
 		var anim = $AnimationPlayer.get_animation("fly away")
 		var idx = anim.find_track(".:translation:y")
 		anim.track_set_key_value(idx, 0, translation.y)
-		
 		$AnimationPlayer.play("fly away")
 		
 func drop_battery():
+	UI.log("She leaves you with a gift.")
 	var inst = battery_src.instance()
 	inst.translation = get_global_transform().origin
 	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects").add_child(inst)
@@ -126,6 +124,12 @@ func interact(interactor):
 	
 func on_pickup():
 	UI.log("Anna was nabbed!")
+#	$AnimationPlayer.stop(true)
 	
 func on_drop():
 	UI.log("Anna was released. Bye bye Anna!")
+	var anim = $AnimationPlayer.get_animation("fly away")
+	var idx = anim.find_track(".:translation:y")
+	anim.track_set_key_value(idx, 0, translation.y)
+	$AnimationPlayer.seek(0.3)
+	$AnimationPlayer.play("fly away")
