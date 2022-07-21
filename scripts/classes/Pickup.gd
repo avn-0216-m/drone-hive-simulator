@@ -26,6 +26,7 @@ enum Result {
 var source: Node = null
 
 func _ready():
+	._ready()
 	connect("tree_entered", self, "on_drop")
 	connect("picked_up", self, "on_pickup")
 

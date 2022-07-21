@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/nullcube grey lock1.png-ed989ae2a68b26792bed0fef60005742.stex"
+path="res://.import/nullcubeplate.png-0bc3a5c9c42aa866a426e3c22e987df5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/nullcube/nullcube grey lock1.png"
-dest_files=[ "res://.import/nullcube grey lock1.png-ed989ae2a68b26792bed0fef60005742.stex" ]
+source_file="res://textures/cubeplate/nullcubeplate.png"
+dest_files=[ "res://.import/nullcubeplate.png-0bc3a5c9c42aa866a426e3c22e987df5.stex" ]
 
 [params]
 
@@ -23,7 +23,7 @@ flags/repeat=1
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=0
 process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false

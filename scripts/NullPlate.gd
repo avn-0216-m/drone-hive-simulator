@@ -4,9 +4,8 @@ class_name NullPlate
 onready var sprite = get_node("Pressure/AnimatedSprite3D")
 
 func _ready():
+	._ready()
 	type = Type.ITEMS
-	sprite.frame = 0
-	sprite.playing = false
 
 func place_cube_on(cube):
 	add_child(cube)

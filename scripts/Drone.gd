@@ -186,7 +186,7 @@ func interact():
 			if item != null:
 				inventory.set_item(item)
 		else:
-			UI.log("That inventory slot is already filled.")
+			UI.log("You're already holding something.")
 	elif nearby is Interactable and not nearby is Pickup:
 		# interact code here. nest additional code for interacting with objects
 		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 

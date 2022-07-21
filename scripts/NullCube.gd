@@ -1,24 +1,12 @@
 extends Pickup
 
-export var number1: StreamTexture
-export var number2: StreamTexture
-export var number3: StreamTexture
-export var number4: StreamTexture
-export var number5: StreamTexture
-export var number6: StreamTexture
-
-var variants = [
-	number1,
-	number2,
-	number3,
-	number4,
-	number5,
-	number6
-]
+export(Array, StreamTexture) var variants
 
 func _ready():
 	._ready()
-	$Numbers.get_surface_material(0).set("albedo_texture", number1)
+	return
+	$Numbers.get_surface_material(0).set("albedo_texture", variants[variant])
+	$Numbers.visible = true
 	
 func use_on(obj):
 	if obj is NullPlate:
@@ -26,7 +14,7 @@ func use_on(obj):
 			obj.place_cube_on(self)
 			return Result.CONSUMED
 		else:
-			UI.log("This is not the right plate for this cube.")
+			UI.log("This NullPlate has the wrong number.")
 			return Result.WRONG_VARIANT
 	return Result.FAIL
 
