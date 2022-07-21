@@ -6,7 +6,8 @@ uniform sampler2D texture_src;
 uniform sampler2D mask_src;
 uniform float mask_intensity;
 uniform float tile_darkness;
-uniform float cutoff : hint_range(0,2);
+uniform float cutoff : hint_range(-1,1);
+uniform float slices_start_offset : hint_range(0,1);
 uniform float cutoff_bottom_diff_multiplier : hint_range(0,1);
 uniform int slices : hint_range(0,100);
 uniform vec4 slice_start_color : hint_color;
@@ -33,9 +34,11 @@ void fragment(){
 	// render cutoff slices
 	float slice_distance = 1.0 - cutoff;
 	
+	
+	
 	if(cutoff < 1.0){ // Don't render colour slices if cutoff is greater than one
 		for(int slice = 0; slice <= slices; slice++){
-			if(UV.x < cutoff - cutoff_bottom_difference * UV.y - float(slice) * slice_distance * float(slice) * slice_distance * slice_distance_multiplier){
+			if(UV.x < cutoff + slices_start_offset - cutoff_bottom_difference * UV.y - float(slice) * slice_distance * float(slice) * slice_distance * slice_distance_multiplier){
 				if(slice==0 && slices == 0 || slice==slices){
 					COLOR.rgb = vec3(0,0,0);
 				} else {

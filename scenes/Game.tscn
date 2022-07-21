@@ -34,7 +34,8 @@ shader_param/screen_size = Vector2( 1024, 600 )
 shader_param/tile_count = 0.203
 shader_param/mask_intensity = 0.0
 shader_param/tile_darkness = 0.0
-shader_param/cutoff = 0.0
+shader_param/cutoff = -1.0
+shader_param/slices_start_offset = 0.5
 shader_param/cutoff_bottom_diff_multiplier = 0.0
 shader_param/slices = 10
 shader_param/slice_start_color = Color( 0, 1, 1, 1 )
@@ -146,6 +147,8 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CutoffTween" type="Tween" parent="Composite/Background"]
 
 [node name="ViewportView" type="TextureRect" parent="Composite"]
 material = SubResource( 2 )

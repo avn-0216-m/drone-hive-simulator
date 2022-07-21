@@ -252,6 +252,8 @@ func a_instance_gridmap():
 	for cell in gridmap.get_used_cells():
 		if cell.y == 2:
 			gridmap.set_cell_item(cell.x, cell.y, cell.z, -1)
+			
+	# Add multimaps and colliders
 
 	for task in TaskManager.get_active_tasks():
 

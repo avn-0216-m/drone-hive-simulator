@@ -10,7 +10,7 @@ var current_state = State.PLAYING
 onready var music = get_node("Music")
 onready var level = get_node("Level")
 onready var storage_box_src = preload("res://objects/StorageBox.tscn")
-onready var background = get_tree().get_root().get_node("Main/Background")
+onready var background = get_tree().get_root().get_node("Main/Composite/Background")
 onready var camera = get_node("CameraContainer/MainCamera")
 onready var drone: KinematicBody = get_node("Drone")
 var difficulty: int = 0
@@ -20,6 +20,7 @@ func _ready():
 	drone.connect("shutdown_complete",self,"drone_shutdown_complete")
 	$AnimationPlayer.connect("animation_finished",self,"animation_finished")
 	drone.show_id()
+	background.wipe_in()
 	
 	#level.new_level()
 	

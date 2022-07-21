@@ -4,28 +4,17 @@ var wipe_direction: String = "IN"
 
 func _ready():
 	material.set_shader_param("screen_size", rect_size)
-	
-func _process(delta):
-	if wipe_direction == "IN":
-#		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), -0.15, 0.02))
-		material.set_shader_param("cutoff", material.get_shader_param("cutoff") - 0.01)
-		if material.get_shader_param("cutoff") < 0:
-			wipe_direction = "NONE"
-	elif wipe_direction == "OUT":
-#		material.set_shader_param("cutoff", lerp(material.get_shader_param("cutoff"), 1.15, 0.02))
-		material.set_shader_param("cutoff", material.get_shader_param("cutoff") + 0.02)
-		if material.get_shader_param("cutoff") > 1:
-			wipe_direction = "NONE"
 
 func game_over_1():
 	material.set_shader_param("cutoff", 1)
 	wipe_direction = "NONE"
 
 func wipe_in():
-	wipe_direction = "IN"
+	$CutoffTween.interpolate_property(material, "shader_param/cutoff", 1, -1, 5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	$CutoffTween.start()
 	material.set_shader_param("slices", 5)
 	material.set_shader_param("cutoff", 1)
-	material.set_shader_param("cutoff_bottom_diff_multiplier", 0.5)
+	material.set_shader_param("cutoff_bottom_diff_multiplier", 0)
 	
 func wipe_out():
 	wipe_direction = "OUT"
