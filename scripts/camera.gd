@@ -85,7 +85,6 @@ func _process(delta):
 	previous_state = state
 
 func update_shader_params(materials: Array, radius: float, circle_center: Vector2):
-	print(radius)
 	for material in materials:
 		material.set_shader_param("radius", radius)
 		material.set_shader_param("circle_center", circle_center)

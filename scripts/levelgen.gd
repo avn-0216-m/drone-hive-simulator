@@ -1,13 +1,12 @@
 extends Spatial
 
-var placements: Array = []
-const frame_wait_time: int = 5
+
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
-var bird_factor: int = 3 # How often Anna appears. (Default: once every 3 levels)
+var level: int = 30
 
-var difficulty: int = 30
+var known_tiles: Array = []
 
 export(GDScript) var MeshLib
 export(GDScript) var Orientation
@@ -89,7 +88,7 @@ func get_adjacent_tiles(origin: Vector3, floor_tiles) -> int:
 
 func new_level():
 	
-	difficulty += 1
+	level += 1
 	
 	a_reset_level()
 	a_add_floor_to_gridmap()
@@ -116,18 +115,18 @@ func a_add_floor_to_gridmap():
 	
 	print("Adding floor to gridmap")
 	
-	level_size.x = rng.randi_range(5, 5 + difficulty)
-	level_size.y = rng.randi_range(5, 5 + difficulty)
+	level_size.x = rng.randi_range(5, 5 + level)
+	level_size.y = rng.randi_range(5, 5 + level)
 	
 	for tile_x in range(0, level_size.x):
 		for tile_z in range(0,level_size.y):
-			gridmap.set_cell_item(tile_x, 0, tile_z, 0)
+			set_floor_tile(tile_x, 0, tile_z)
 
 func placeholder_in_valid_position(origin, area) -> bool:
 	# check to see if object area has ANY "do not place" signs
 	for x in range(origin.x, origin.x + area.x + 1):
-		for y in range(origin.y, origin.y + area.y + 1):
-			if gridmap.get_cell_item(x,2,y) == 3:
+		for z in range(origin.z, origin.z + area.y + 1):
+			if gridmap.get_cell_item(x,2,z) == MeshLib.Data.DONOTPLACE:
 				return false
 	return true
 	
@@ -137,39 +136,48 @@ func flatten_placeholders(tasks: Array) -> Array:
 		for placeholder in task.placeholders:
 			flattened.append(placeholder)
 	
+	randomize()
 	flattened.shuffle()
 	return flattened
 
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	for placeholder in flatten_placeholders(TaskManager.generate_task_list(difficulty)):
+	for placeholder in flatten_placeholders(TaskManager.generate_task_list(level)):
 		
 		# find start tile
 		rng.randomize()
-		var origin = Vector2(
-			rng.randi_range(0 - placeholder.area.x, level_size.x),
-			rng.randi_range(0 - placeholder.area.y, level_size.y - 1)
-			)
+		known_tiles.shuffle()
+		
+		var origin: Vector3 = Vector3(0,0,0)
+		
+		# Error prevention when debugging if I forget to generate floor tiles
+		# manually.
+		if known_tiles != []:
+			origin = known_tiles[0]
 		
 		while !placeholder_in_valid_position(origin, placeholder.area):
-			origin.x += 1
+			rng.randomize()
+			if rng.randi() % 2 == 0:
+				origin.x += 1
+			else:
+				origin.z += 1
 			# If a "do not place" is found, travel right
 			# until a gap is found, then place the object placeholder there.
 			# Allows for dynamic levels that extend beyond the original level size
-			# based on difficulty.
+			# based on level.
 			# "bump" the object right until it fits in place.
 		
 		#Add additional tiles
 		for x in range(origin.x, origin.x + placeholder.area.x + 1):
-			for y in range(origin.y, origin.y + placeholder.area.y + 1):
-				gridmap.set_cell_item(x,0,y,0) # set tile
-				gridmap.set_cell_item(x,2,y,3) # set "do not place" signs to prevent overlapping task objects
+			for z in range(origin.z, origin.z + placeholder.area.y + 1):
+				set_floor_tile(x,0,z) # set tile
+				gridmap.set_cell_item(x,2,z,3) # set "do not place" signs to prevent overlapping task objects
 		
 		#Add object placeholder
-		gridmap.set_cell_item(origin.x,1,origin.y,placeholder.index)
+		gridmap.set_cell_item(origin.x,1,origin.z,placeholder.index)
 		# Update placeholder position.
-		placeholder.pos = Vector3(origin.x, 1, origin.y)
+		placeholder.pos = Vector3(origin.x, 1, origin.z)
 	
 func a_add_walls_to_gridmap():
 
@@ -226,6 +234,10 @@ func a_add_walls_to_gridmap():
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.EAST)
 				elif(found_tiles & Pattern.WWall) >= Pattern.WWall:
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.WEST)
+
+func set_floor_tile(x: float, y: float, z: float):
+	gridmap.set_cell_item(x, y, z, MeshLib.Data.FLOOR)
+	known_tiles.append(Vector3(x,y,z))
 
 func a_instance_gridmap():
 			

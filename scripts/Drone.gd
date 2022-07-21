@@ -231,6 +231,5 @@ func recharge(amount: int = 100):
 	$BatteryParticles.one_shot = false
 	$BatteryParticles.emitting = true
 	$BatteryParticles.one_shot = true
-	icon_display.frame = 3
 	show_icon()
 	$FaceTimer.start()	

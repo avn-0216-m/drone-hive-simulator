@@ -1,15 +1,9 @@
 extends Pickup
 
-
-
-var jump: Vector3 # Jump velocity.
+var jump: Vector3 = Vector3(0,0,0) # Jump velocity.
 
 export var jump_force: float = 12
 export var jump_length: float = 15
-
-var flying = false
-var fly_away_velocity = Vector3(0,3,0)
-var floor_test = Vector3(0,-0.1,0)
 
 var skittishness: int = 10 # How likely you are to grab Anna.
 
@@ -28,52 +22,50 @@ onready var battery_src = load("res://objects/Battery.tscn")
 
 func _ready():
 	gravity = 0.5
+	sprite.animation = "bob"
+	$Particles.emitting = false
 	timer.connect("timeout",self,"new_action")
 	area.connect("body_entered", self, "something_near")
 	._ready()
 	
 func something_near(body):
-	if body.name == "Drone":
-		flying == true
+	if body is Drone:
 		timer.set_paused(true)
 		sprite.animation = "fly"
-		gravity = -0.2
+		gravity = 0
+		
+		# set anim start point
+		var anim = $AnimationPlayer.get_animation("fly away")
+		var idx = anim.find_track(".:translation:y")
+		anim.track_set_key_value(idx, 0, translation.y)
+		
+		$AnimationPlayer.play("fly away")
+		
+func drop_battery():
+	var inst = battery_src.instance()
+	inst.translation = get_global_transform().origin
+	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects").add_child(inst)
 	
 func _physics_process(delta):
 	
 	if skip_process:
 		return
 	
-	if flying:
-		fly_away_velocity.y = apply_gravity(fly_away_velocity)
-		move_and_slide(fly_away_velocity, Vector3(0,1,0))
+	jump.y = apply_gravity(jump)
+	move_and_slide(jump)
+	if is_on_floor():
+		jump.x = 0
+		jump.z = 0
 	else:
-		jump.y = apply_gravity(jump)
-		move_and_slide(jump)
-		if is_on_floor():
-			jump.x = 0
-			jump.z = 0
-		else:
-			if jump.x < 0:
-				jump.x += jump_length_linear_falloff
-			elif jump.x > 0:
-				jump.x -= jump_length_linear_falloff
+		if jump.x < 0:
+			jump.x += jump_length_linear_falloff
+		elif jump.x > 0:
+			jump.x -= jump_length_linear_falloff
 
-			if jump.z < 0:
-				jump.z += jump_length_linear_falloff
-			elif jump.z > 0:
-				jump.z -= jump_length_linear_falloff
-	
-	if translation.y > 10.8:
-		return
-		
-		# TODO: don't spawn battery based on height,
-		# instead start a timer and delete+spawn when it ends.
-		
-		var gift = battery_src.instance()
-		gift.translation = get_global_transform().origin
-		get_tree().get_root().get_node("Main/Viewport/Game").add_child(gift)
-		queue_free()
+		if jump.z < 0:
+			jump.z += jump_length_linear_falloff
+		elif jump.z > 0:
+			jump.z -= jump_length_linear_falloff
 	
 func new_action():
 	if sprite.animation == "sit":
