@@ -106,15 +106,15 @@ tracks/2/keys = {
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:translation:y")
-tracks/3/interp = 1
+tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0.3, 1.8, 2.5 ),
-"transitions": PoolRealArray( 3.5, 2, 1 ),
+"times": PoolRealArray( 0.3, 2.5 ),
+"transitions": PoolRealArray( 3.5, 1 ),
 "update": 0,
-"values": [ 0.0, 3.0, 10.0 ]
+"values": [ 0.0, 10.0 ]
 }
 
 [sub_resource type="Curve" id=7]
@@ -167,6 +167,7 @@ jump_length = 2.0
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0 )
 frames = SubResource( 1 )
 animation = "fly"
+frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]
