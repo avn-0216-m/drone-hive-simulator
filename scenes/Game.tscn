@@ -34,7 +34,7 @@ shader_param/tile_count = 0.203
 shader_param/mask_intensity = 0.0
 shader_param/tile_darkness = 0.0
 shader_param/cutoff = -1.0
-shader_param/slices_start_offset = 0.5
+shader_param/slices_start_offset = 1.0
 shader_param/cutoff_bottom_diff_multiplier = 0.0
 shader_param/slices = 10
 shader_param/slice_start_color = Color( 0, 1, 1, 1 )
@@ -169,6 +169,16 @@ script = ExtResource( 6 )
 [node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
+[node name="Camera" type="Camera" parent="Viewport/Game"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
+cull_mask = 7
+current = true
+far = 1000.0
+script = ExtResource( 16 )
+game_over_rotation_y = 10.0
+
+[node name="PeepholeTween" type="Tween" parent="Viewport/Game/Camera"]
+
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
 stream = ExtResource( 19 )
 script = ExtResource( 8 )
@@ -199,21 +209,6 @@ one_shot = true
 
 [node name="SFX" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
 stream = ExtResource( 13 )
-
-[node name="CameraContainer" type="Spatial" parent="Viewport/Game"]
-
-[node name="MainCamera" type="Camera" parent="Viewport/Game/CameraContainer"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
-cull_mask = 7
-current = true
-far = 1000.0
-script = ExtResource( 16 )
-game_over_rotation_y = 10.0
-
-[node name="WallhugRaycast" type="RayCast" parent="Viewport/Game/CameraContainer"]
-enabled = true
-cast_to = Vector3( 0, 0, 4 )
-collision_mask = 2
 
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
 

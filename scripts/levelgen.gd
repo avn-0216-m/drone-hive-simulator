@@ -63,7 +63,7 @@ onready var objects = get_node("Objects")
 
 func _ready():
 	
-	var camera = get_node("../CameraContainer/MainCamera")
+	var camera = get_node("../Camera")
 	
 #	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
 #	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)

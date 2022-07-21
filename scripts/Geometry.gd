@@ -46,6 +46,13 @@ func add_collider(pos: Vector3, type: int, rot: int):
 	inst.rotation_degrees = inst_rotation
 	inst_parent.add_child(inst)
 	
+func get_wall_materials() -> Array:
+	var materials: Array = []
+	for child in get_node("Multimeshes").get_children():
+		if child.multimesh.mesh.surface_get_material(0) is ShaderMaterial:
+			materials.append(child.multimesh.mesh.surface_get_material(0))
+	return materials
+	
 func init_multimeshes():
 	for c in associations:
 		var mm = associations[c]

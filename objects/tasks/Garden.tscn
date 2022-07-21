@@ -9,17 +9,17 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.3, 0.3, 0.3 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( 2, 2, 2 )
 
-[sub_resource type="PlaneMesh" id=2]
-material = SubResource( 5 )
-
 [sub_resource type="PlaneMesh" id=3]
+material = SubResource( 2 )
+
+[sub_resource type="PlaneMesh" id=4]
 size = Vector2( 6, 2 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
 params_cull_mode = 2
 albedo_texture = ExtResource( 3 )
@@ -49,7 +49,7 @@ texture = ExtResource( 4 )
 [node name="Flower2" type="KinematicBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.7584, 0.882123, 3.2984 )
 script = ExtResource( 2 )
-interactable_name = "52's flower"
+interactable_name = "a 52lip"
 
 [node name="CollisionShape" type="CollisionShape" parent="Flower2"]
 shape = SubResource( 1 )
@@ -82,20 +82,20 @@ texture = ExtResource( 4 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 3, 0, 0, 0, 1, 0, 0, 0, 3, 2, -0.79, 2 )
-mesh = SubResource( 2 )
+mesh = SubResource( 3 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 2.09778, 1.2742e-07, -0.782102 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]
 transform = Transform( 7.54979e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 7.54979e-08, -3.30012e-15, -0.970869, 1.27335e-09, 2.2 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
 
 [node name="MeshInstance4" type="MeshInstance" parent="."]
 transform = Transform( 7.54979e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, 7.54979e-08, -3.30012e-15, 4.94312, -2.4861e-09, 2.2 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )

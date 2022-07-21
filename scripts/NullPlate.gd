@@ -1,7 +1,8 @@
 extends Interactable
 class_name NullPlate
 
-onready var sprite = get_node("Pressure/AnimatedSprite3D")
+onready var number = get_node("Pressure/Texture/Number")
+export var color_curve: Curve
 
 var numbers = [
 	load("res://sprites/numbers/null/null numbers1.png"),
@@ -17,6 +18,11 @@ func _ready():
 	._ready()
 	type = Type.ITEMS
 	$Pressure/Texture/Number.frame = variant
+	
+	var step: float = float(variant)/float(variant_max + 1)
+	number.modulate.r = color_curve.interpolate(fmod(step, 1))
+	number.modulate.g = color_curve.interpolate(fmod(step+0.75, 1))
+	number.modulate.b = color_curve.interpolate(fmod(step+0.5, 1))
 
 func place_cube_on(cube):
 	add_child(cube)
