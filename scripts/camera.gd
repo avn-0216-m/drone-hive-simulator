@@ -44,7 +44,7 @@ func _process(delta):
 		state = State.NORMAL
 	
 		
-	var peephole_current_radius = wall_mat.get_shader_param("radius")
+	#var peephole_current_radius = wall_mat.get_shader_param("radius")
 		
 	# Set camera offset based on state.
 	match(state):
@@ -61,22 +61,22 @@ func _process(delta):
 	match(state):
 		State.CLOSE_SOUTH:
 			var new_circle_center = unproject_position(drone.get_global_transform().origin)
-			wall_mat.set_shader_param("circle_center", new_circle_center)
-			extern_mat.set_shader_param("circle_center", new_circle_center)
-			intern_mat.set_shader_param("circle_center", new_circle_center)
+#			wall_mat.set_shader_param("circle_center", new_circle_center)
+#			extern_mat.set_shader_param("circle_center", new_circle_center)
+#			intern_mat.set_shader_param("circle_center", new_circle_center)
 			var new_radius = lerp(peephole_current_radius, peephole_max_radius, 0.05)
-			wall_mat.set_shader_param("radius", new_radius)
-			extern_mat.set_shader_param("radius", new_radius)
-			intern_mat.set_shader_param("radius", new_radius)
+#			wall_mat.set_shader_param("radius", new_radius)
+#			extern_mat.set_shader_param("radius", new_radius)
+#			intern_mat.set_shader_param("radius", new_radius)
 		_:
 			var new_circle_center = unproject_position(drone.get_global_transform().origin)
-			wall_mat.set_shader_param("circle_center", new_circle_center)
-			extern_mat.set_shader_param("circle_center", new_circle_center)
-			intern_mat.set_shader_param("circle_center", new_circle_center)
+#			wall_mat.set_shader_param("circle_center", new_circle_center)
+#			extern_mat.set_shader_param("circle_center", new_circle_center)
+#			intern_mat.set_shader_param("circle_center", new_circle_center)
 			var new_radius = lerp(peephole_current_radius, 0, 0.15)
-			wall_mat.set_shader_param("radius", new_radius)
-			extern_mat.set_shader_param("radius", new_radius)
-			intern_mat.set_shader_param("radius", new_radius)
+#			wall_mat.set_shader_param("radius", new_radius)
+#			extern_mat.set_shader_param("radius", new_radius)
+#			intern_mat.set_shader_param("radius", new_radius)
 			
 	# Update translation if offset was decided.
 	if offset != null:

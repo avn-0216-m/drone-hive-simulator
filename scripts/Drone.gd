@@ -50,7 +50,7 @@ func _ready():
 	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
 	
-	set_id("9993")
+	set_id("0546")
 	gravity = 5
 	
 func set_id(new_id: String):

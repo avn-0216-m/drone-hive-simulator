@@ -10,6 +10,7 @@ var bird_factor: int = 3 # How often Anna appears. (Default: once every 3 levels
 var difficulty: int = 30
 
 export(GDScript) var MeshLib
+export(GDScript) var Orientation
 
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -48,25 +49,13 @@ enum Pattern {
 	SWPost = 32
 	}
 
-
-enum WallOrient {East=0, West=10, North=16, South=22}
-enum PostOrient {NorthEast=0, NorthWest=10, SouthEast=16, SouthWest=22}
-enum CornerOrient {NorthEast=22, NorthWest=0, SouthWest=16, SouthEast=10}
-enum CurveOrient {East=22, West=16, North=0, South=10}
-enum DoubleOrient {Hori=22, Vert=0}
-
 var level_size = Vector2(0,0)
 var entry_tile_pos: Vector3
 
 var rng = RandomNumberGenerator.new()
 
 onready var gridmap = get_node("GridMap")
-onready var multimeshes = get_node("Geometry/Multimeshes")
-onready var bodies = get_node("Geometry/Bodies")
-onready var floors = get_node("Geometry/Bodies/Floor")
-onready var walls = get_node("Geometry/Bodies/Walls")
-onready var extern_corners = get_node("Geometry/Bodies/ExternalCorners")
-onready var intern_corners = get_node("Geometry/Bodies/InternalCorners")
+onready var geometry = get_node("Geometry")
 onready var objects = get_node("Objects")
 
 # Objects are mobile complexities with programming and meshes that cannot be
@@ -76,9 +65,9 @@ func _ready():
 	
 	var camera = get_node("../CameraContainer/MainCamera")
 	
-	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
-	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
-	camera.intern_mat = multimeshes.intern_corners.multimesh.mesh.surface_get_material(0)
+#	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
+#	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
+#	camera.intern_mat = multimeshes.intern_corners.multimesh.mesh.surface_get_material(0)
 	
 	#return # return early, use debug buttons to generate level
 	
@@ -112,18 +101,9 @@ func a_reset_level():
 	
 	print("Resetting level.")
 	
-	# clear placements from previous level
-	placements.clear()
-	
-	# clear all geometry bodies
-	bodies.reset()
-	
 	# delete all level objects
 	for node in objects.get_children():
 		node.queue_free()
-	
-	# clear multimeshes
-	multimeshes.reset()
 	
 	# delete everything on gridmap
 	randomize()
@@ -219,41 +199,51 @@ func a_add_walls_to_gridmap():
 				if(found_tiles & Pattern.Box) >= Pattern.Box:
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.BOX)
 				elif(found_tiles & Pattern.NCurve) >= Pattern.NCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.North)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.NORTH)
 				elif(found_tiles & Pattern.SCurve) >= Pattern.SCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.South)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.SOUTH)
 				elif(found_tiles & Pattern.ECurve) >= Pattern.ECurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.East)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.EAST)
 				elif(found_tiles & Pattern.WCurve) >= Pattern.WCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, CurveOrient.West)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.WEST)
 				elif(found_tiles & Pattern.NECorner) >= Pattern.NECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.NorthEast)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.NORTHEAST)
 				elif(found_tiles & Pattern.NWCorner) >= Pattern.NWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.NorthWest)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.NORTHWEST)
 				elif(found_tiles & Pattern.SECorner) >= Pattern.SECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.SouthEast)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.SOUTHEAST)
 				elif(found_tiles & Pattern.SWCorner) >= Pattern.SWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, CornerOrient.SouthWest)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.SOUTHWEST)
 				elif(found_tiles & Pattern.DoubleHori) >= Pattern.DoubleHori:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, DoubleOrient.Hori)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, Orientation.Double.HORI)
 				elif(found_tiles & Pattern.DoubleVert) >= Pattern.DoubleVert:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, DoubleOrient.Vert)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, Orientation.Double.VERT)
 				elif(found_tiles & Pattern.NWall) >= Pattern.NWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.North)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.NORTH)
 				elif(found_tiles & Pattern.SWall) >= Pattern.SWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.South)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.SOUTH)
 				elif(found_tiles & Pattern.EWall) >= Pattern.EWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.East)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.EAST)
 				elif(found_tiles & Pattern.WWall) >= Pattern.WWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, WallOrient.West)
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.WEST)
 
 func a_instance_gridmap():
-	# Delete all placeholder tiles on floor 2
+			
+	# Add multimeshes and colliders
 	for cell in gridmap.get_used_cells():
+		
+		# Delete placeholder tiles (all on floor 2)
 		if cell.y == 2:
 			gridmap.set_cell_item(cell.x, cell.y, cell.z, -1)
+		
+		var item = gridmap.get_cell_item(cell.x, cell.y, cell.z)
+		var rot = gridmap.get_cell_item_orientation(cell.x, cell.y, cell.z)
+		if item in [
+			MeshLib.Data.FLOOR,
+			MeshLib.Data.WALL,
+		]:
+			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			
-	# Add multimaps and colliders
 
 	for task in TaskManager.get_active_tasks():
 
@@ -280,3 +270,5 @@ func a_instance_gridmap():
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
 	
 	UI.set_tasks(TaskManager.get_active_tasks())
+	gridmap.clear()
+	geometry.init_multimeshes()
