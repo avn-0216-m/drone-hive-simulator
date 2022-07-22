@@ -109,7 +109,7 @@ func change_selected_slot(desired_index):
 	update_cursor()
 
 func update_cursor():
-	cursor.material_override.albedo_color = current_slot.material_override.albedo_color
+	cursor.material_override.albedo_color = current_slot.get_color()
 	cursor.material_override.albedo_color.a = 1
 
 func current_slot_empty() -> bool:

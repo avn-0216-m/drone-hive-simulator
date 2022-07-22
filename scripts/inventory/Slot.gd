@@ -20,6 +20,11 @@ onready var selection_color: Color = material_override.albedo_color - color_damp
 # Color for unselected inventory slot.
 onready var unselected_color: Color = original_color
 
+func get_color():
+	if selected:
+		return selection_color
+	return unselected_color
+
 func set_icon(texture: Texture):
 	if texture == null:
 		icon.material_override.albedo_texture = placeholder_texture
