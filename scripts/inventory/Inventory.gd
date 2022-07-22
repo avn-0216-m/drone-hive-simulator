@@ -71,6 +71,9 @@ func _ready():
 	$VisibilityTimer.connect("timeout",self,"inventory_timeout")
 	$VisibilityTimer.start()
 	
+	for slot in slots.get_children():
+		slot.connect("duplicate_item", self, "duplicate_item")
+	
 	# start slot wiggle animation
 	for i in range (0, slots.get_child_count()):
 		slots.get_child(i).get_node("AnimationPlayer").play("wiggle")
@@ -121,14 +124,9 @@ func add_slot():
 	
 func pop_item() -> Node:
 	show_slots()
-	var item = current_slot.item
-	current_slot.item = null
-	current_slot.icon.visible = false
-	set_slot_color(false)
-	
 	play_sfx(Sfx.HIGH)
 	item_selected = false
-	return item
+	return current_slot.pop_item()
 	
 func select_item():
 	show_slots()
@@ -157,10 +155,20 @@ func get_item() -> Node:
 	return current_slot.item
 	
 func delete_item() -> void:
-	current_slot.item = null
-	current_slot.icon.visible = false
+	current_slot.pop_item()
 	item_selected = false
 	set_slot_color(false)
 
-func duplicate_anna():
-	print("wow! more birds")
+func duplicate_item(item: Node):
+	var next_available_slot = null
+	for slot in slots.get_children():
+		if slot.item == null:
+			next_available_slot = slot
+			break
+	if next_available_slot == null:
+		UI.log("Your inventory is overflowing.")
+	else:
+		UI.log("Your inventory feels heavier.")
+		var dupe = item.duplicate(8)
+		dupe.parent = item.parent
+		next_available_slot.set_item(dupe)
