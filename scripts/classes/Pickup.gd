@@ -7,7 +7,7 @@ onready var parent: Node = get_parent()
 # Static image to use in inventory slot.
 export var icon: Texture
 
-export var icon_size: float = 1
+export var icon_size: float = 0.01
 
 # Determines if an object is deleted on pickup.
 var infinite: bool = false 
