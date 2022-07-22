@@ -15,6 +15,8 @@ var timeout: float = 3.0 # How many seconds before the inventory autohides
 
 var placeholder: ImageTexture # placeholder texture for pickups that do not have one
 
+signal item_entered_inventory(item, slot)
+
 var sfx = [
 	preload("res://sfx/inventory/inventorylow.ogg"),
 	preload("res://sfx/inventory/inventorymid.ogg"),
@@ -32,10 +34,7 @@ func jump():
 	
 func set_slot_color(selected: bool):
 	show_slots()
-	if selected:
-		current_slot.material_override.albedo_color = current_slot.selected_color
-	else:
-		current_slot.material_override.albedo_color = current_slot.color
+	current_slot.select(selected)
 	update_cursor()
 
 func _physics_process(delta):
@@ -146,8 +145,7 @@ func inventory_timeout():
 func set_item(object: Node) -> bool:
 	show_slots()
 	if current_slot_empty():
-		current_slot.item = object
-		current_slot.icon.visible = true
+		current_slot.set_item(object)
 		play_sfx(Sfx.MID)
 		return true
 	else:
@@ -163,3 +161,6 @@ func delete_item() -> void:
 	current_slot.icon.visible = false
 	item_selected = false
 	set_slot_color(false)
+
+func duplicate_anna():
+	print("wow! more birds")

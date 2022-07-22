@@ -1,4 +1,5 @@
 extends Pickup
+class_name Anna
 
 var jump: Vector3 = Vector3(0,0,0) # Jump velocity.
 
@@ -117,7 +118,7 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % skittishness == 0:
+	if randi() % skittishness == 0 or true:
 		return .interact(interactor)
 	UI.log("Anna slips right out of your hands.")
 	return null

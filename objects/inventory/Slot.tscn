@@ -52,3 +52,5 @@ texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/wiggle = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
