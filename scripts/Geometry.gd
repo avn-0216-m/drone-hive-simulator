@@ -12,10 +12,15 @@ onready var post_collision = load("res://objects/collision/Post.tscn")
 onready var c_post = get_node("Bodies/Posts")
 onready var mm_post = get_node("Multimeshes/Posts")
 
+onready var corner_collision = load("res://objects/collision/Corner.tscn")
+onready var c_corner = get_node("Bodies/Corner")
+onready var mm_corner = get_node("Multimeshes/Corner")
+
 onready var associations = {
 	c_floor: mm_floor,
 	c_walls: mm_walls,
-	c_post: mm_post
+	c_post: mm_post,
+	c_corner: mm_corner
 }
 
 export(GDScript) var MeshLib
@@ -39,13 +44,28 @@ func add_collider(pos: Vector3, type: int, rot: int):
 					inst_rotation = Vector3(0,90,0)
 				Orientation.Wall.SOUTH:
 					inst_rotation = Vector3(0,-90,0)
-				Orientation.Wall.EAST:
-					inst_rotation = Vector3(0,0,0)
 				Orientation.Wall.WEST:
 					inst_rotation = Vector3(0,180,0)
 		MeshLib.Data.POST:
 			inst = post_collision.instance()
 			inst_parent = c_post
+			match(rot):
+				Orientation.Post.SOUTHWEST:
+					inst_rotation = Vector3(0,0,0)
+				Orientation.Post.SOUTHEAST:
+					inst_rotation = Vector3(0,180,0)
+				Orientation.Post.NORTHEAST:
+					inst_rotation = Vector3(0,0,0)
+		MeshLib.Data.CORNER:
+			inst = corner_collision.instance()
+			inst_parent = c_corner
+			match(rot):
+				Orientation.Corner.NORTHEAST:
+					inst_rotation = Vector3(0,90,0)
+				Orientation.Corner.SOUTHEAST:
+					inst_rotation = Vector3(0,180,0)
+				Orientation.Corner.SOUTHWEST:
+					inst_rotation = Vector3(0,-90,0)
 		_:
 			return
 		

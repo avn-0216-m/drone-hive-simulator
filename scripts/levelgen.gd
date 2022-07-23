@@ -262,7 +262,8 @@ func a_instance_gridmap():
 		if item in [
 			MeshLib.Data.FLOOR,
 			MeshLib.Data.WALL,
-			MeshLib.Data.POST
+			MeshLib.Data.POST,
+			MeshLib.Data.CORNER
 		]:
 			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			

@@ -84,7 +84,7 @@ transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.017096,
 material_override = ExtResource( 12 )
 pixel_size = 0.075
 frames = SubResource( 2 )
-frame = 2
+frame = 3
 playing = true
 
 [node name="Spiral" type="Sprite3D" parent="Hypnoscreen/Screen/SpiralBackground"]
