@@ -53,16 +53,6 @@ _global_script_classes=[ {
 "class": "Pickup",
 "language": "GDScript",
 "path": "res://scripts/classes/Pickup.gd"
-}, {
-"base": "Interactable",
-"class": "WeightedButton",
-"language": "GDScript",
-"path": "res://scripts/WeightedButton.gd"
-}, {
-"base": "Pickup",
-"class": "WeightedCube",
-"language": "GDScript",
-"path": "res://scripts/WeightedCube.gd"
 } ]
 _global_script_class_icons={
 "Anna": "",
@@ -73,9 +63,7 @@ _global_script_class_icons={
 "Interactable": "",
 "KinematicGravity": "",
 "NullPlate": "",
-"Pickup": "",
-"WeightedButton": "",
-"WeightedCube": ""
+"Pickup": ""
 }
 
 [application]

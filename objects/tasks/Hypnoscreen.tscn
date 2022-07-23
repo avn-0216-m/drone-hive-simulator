@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://scripts/Hypnoscreen.gd" type="Script" id=1]
+[ext_resource path="res://shaders/static.tres" type="Shader" id=2]
+[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background3.png" type="Texture" id=5]
+[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background4.png" type="Texture" id=6]
+[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background5.png" type="Texture" id=7]
+[ext_resource path="res://sprites/hypnoscreen/spiral.png" type="Texture" id=8]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 6, 3, 0.4 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 7.0
+} ]
+
+[sub_resource type="Animation" id=7]
+resource_name = "spiral"
+length = 3.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector3( -3.4151e-06, 0, 0 ), Vector3( 0, 0, 360 ) ]
+}
+tracks/1/type = "transform"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = PoolRealArray( 0, 1, 0, -0.0324454, 0.0539329, 0, 0, 3.25841e-07, 1, 1, 0.999999, 0.999999, 1.5, 1, 0, -0.0324454, 0.0539329, 0, 0, 3.25841e-07, 1, 1.2, 1.2, 1, 3, 1, 0, -0.0324454, 0.0539329, 0, 0, 3.25841e-07, 1, 1, 0.999999, 0.999999 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 2 )
+
+[sub_resource type="NoiseTexture" id=3]
+width = 580
+height = 280
+
+[sub_resource type="CubeMesh" id=4]
+size = Vector3( 0.5, 4, 0.5 )
+
+[sub_resource type="BoxShape" id=5]
+extents = Vector3( 3.46472, 1.998, 1 )
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Interactable" type="KinematicBody" parent="."]
+transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 3, 0, 3 )
+script = ExtResource( 1 )
+interactable_name = "Hypnoscreen"
+
+[node name="Screen" type="MeshInstance" parent="Interactable"]
+transform = Transform( 1, 0, 0, 0, 0.960099, -0.279661, 0, 0.279661, 0.960099, 0, 4.45007, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="SpiralBackground" type="AnimatedSprite3D" parent="Interactable/Screen"]
+transform = Transform( 1, 0, 0, 0, 1, 2.98023e-08, 0, -2.98023e-08, 1, 0, 0.032445, 0.222097 )
+pixel_size = 0.075
+frames = SubResource( 6 )
+playing = true
+
+[node name="Sprite3D" type="Sprite3D" parent="Interactable/Screen/SpiralBackground"]
+transform = Transform( -1.13416, 0.376779, 0, -0.376779, -1.13416, 2.67597e-08, 1.00825e-08, 3.03498e-08, 1, 0, -0.0324454, 0.0539329 )
+modulate = Color( 0.941176, 0.521569, 1, 1 )
+pixel_size = 0.04
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interactable/Screen/SpiralBackground/Sprite3D"]
+anims/spiral = SubResource( 7 )
+
+[node name="Static" type="Sprite3D" parent="Interactable/Screen"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.242342 )
+visible = false
+material_override = SubResource( 2 )
+texture = SubResource( 3 )
+
+[node name="Leg" type="MeshInstance" parent="Interactable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.25, 2, -0.175 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Leg2" type="MeshInstance" parent="Interactable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.252, 2, -0.175 )
+mesh = SubResource( 4 )
+material/0 = null
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="Interactable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116335, 2.27171, 0 )
+shape = SubResource( 5 )
