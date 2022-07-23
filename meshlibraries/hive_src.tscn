@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://blender/obj/cell aligned/culledwall.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://textures/floor.png" type="Texture" id=2]
+[ext_resource path="res://textures/geometry/floor tile.png" type="Texture" id=2]
 [ext_resource path="res://sprites/donotplacehere.png" type="Texture" id=3]
 [ext_resource path="res://blender/source/gridmap meshlibrary/cornerpost.obj" type="ArrayMesh" id=4]
 [ext_resource path="res://blender/obj/cell aligned/internal corner.obj" type="ArrayMesh" id=5]

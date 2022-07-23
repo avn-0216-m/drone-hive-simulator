@@ -234,6 +234,15 @@ func a_add_walls_to_gridmap():
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.EAST)
 				elif(found_tiles & Pattern.WWall) >= Pattern.WWall:
 					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.WEST)
+				elif(found_tiles & Pattern.NWPost) >= Pattern.NWPost:
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.NORTHWEST)
+				elif(found_tiles & Pattern.NEPost) >= Pattern.NEPost:
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.NORTHEAST)
+				elif(found_tiles & Pattern.SWPost) >= Pattern.SWPost:
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.SOUTHWEST)
+				elif(found_tiles & Pattern.SEPost) >= Pattern.SEPost:
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.SOUTHEAST)
+					
 
 func set_floor_tile(x: float, y: float, z: float):
 	gridmap.set_cell_item(x, y, z, MeshLib.Data.FLOOR)
@@ -253,6 +262,7 @@ func a_instance_gridmap():
 		if item in [
 			MeshLib.Data.FLOOR,
 			MeshLib.Data.WALL,
+			MeshLib.Data.POST
 		]:
 			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			

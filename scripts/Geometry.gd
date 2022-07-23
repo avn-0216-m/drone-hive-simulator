@@ -8,9 +8,14 @@ onready var wall_collision = load("res://objects/collision/Wall.tscn")
 onready var c_walls = get_node("Bodies/Walls")
 onready var mm_walls = get_node("Multimeshes/Walls")
 
+onready var post_collision = load("res://objects/collision/Post.tscn")
+onready var c_post = get_node("Bodies/Posts")
+onready var mm_post = get_node("Multimeshes/Posts")
+
 onready var associations = {
 	c_floor: mm_floor,
-	c_walls: mm_walls
+	c_walls: mm_walls,
+	c_post: mm_post
 }
 
 export(GDScript) var MeshLib
@@ -38,6 +43,9 @@ func add_collider(pos: Vector3, type: int, rot: int):
 					inst_rotation = Vector3(0,0,0)
 				Orientation.Wall.WEST:
 					inst_rotation = Vector3(0,180,0)
+		MeshLib.Data.POST:
+			inst = post_collision.instance()
+			inst_parent = c_post
 		_:
 			return
 		
