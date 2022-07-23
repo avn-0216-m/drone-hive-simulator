@@ -45,7 +45,7 @@ func set_item(item: Node):
 	set_icon(item.icon, item.icon_size)
 	
 	if item is Anna:
-		$Tween.interpolate_method(self, "set_color", original_color, goopy_color, 60, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		$Tween.interpolate_method(self, "set_color", original_color, goopy_color, 10, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 		$Tween.start()
 
 func pop_item() -> Node:
