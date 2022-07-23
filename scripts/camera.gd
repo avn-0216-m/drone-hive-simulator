@@ -36,7 +36,6 @@ var state = State.NORMAL
 var previous_state = State.NORMAL
 
 func handle_state_change(new_state: int):
-	print("handling state change!")
 	if new_state == State.CLOSE_SOUTH: 
 		tween.interpolate_property(self, "peephole_radius", 0, peephole_max_radius, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.start()
