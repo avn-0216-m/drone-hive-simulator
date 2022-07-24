@@ -12,16 +12,16 @@
 [ext_resource path="res://textures/geometry/wall tile.png" type="Texture" id=11]
 [ext_resource path="res://materials/static.tres" type="Material" id=12]
 
-[sub_resource type="SpatialMaterial" id=9]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 11 )
 uv1_scale = Vector3( 3, 0.8, 1 )
 uv1_offset = Vector3( 0, -0.02, 0 )
 
-[sub_resource type="CubeMesh" id=1]
-material = SubResource( 9 )
+[sub_resource type="CubeMesh" id=2]
+material = SubResource( 1 )
 size = Vector3( 6, 3, 0.4 )
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
@@ -29,8 +29,7 @@ animations = [ {
 "speed": 7.0
 } ]
 
-[sub_resource type="Animation" id=3]
-resource_name = "spiral"
+[sub_resource type="Animation" id=4]
 length = 3.0
 loop = true
 tracks/0/type = "value"
@@ -58,13 +57,13 @@ tracks/1/keys = {
 "values": [ 0.03, 0.05, 0.03 ]
 }
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="SpatialMaterial" id=5]
 albedo_texture = ExtResource( 10 )
 
-[sub_resource type="BoxShape" id=7]
+[sub_resource type="BoxShape" id=6]
 extents = Vector3( 3.46472, 1.998, 1 )
 
-[sub_resource type="BoxShape" id=11]
+[sub_resource type="BoxShape" id=7]
 extents = Vector3( 3.99365, 2.63571, 3.13357 )
 
 [node name="Spatial" type="Spatial"]
@@ -76,15 +75,15 @@ interactable_name = "Hypnoscreen"
 
 [node name="Screen" type="MeshInstance" parent="Hypnoscreen"]
 transform = Transform( 1, 0, 0, 0, 0.960099, -0.279661, 0, 0.279661, 0.960099, 0, 4.45007, 0 )
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="SpiralBackground" type="AnimatedSprite3D" parent="Hypnoscreen/Screen"]
 transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.017096, -0.121845, 0.222097 )
 material_override = ExtResource( 12 )
 pixel_size = 0.075
-frames = SubResource( 2 )
-frame = 3
+frames = SubResource( 3 )
+frame = 1
 playing = true
 
 [node name="Spiral" type="Sprite3D" parent="Hypnoscreen/Screen/SpiralBackground"]
@@ -95,27 +94,26 @@ pixel_size = 0.03
 texture = ExtResource( 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hypnoscreen/Screen/SpiralBackground/Spiral"]
-anims/spiral = SubResource( 3 )
+anims/spiral = SubResource( 4 )
 
 [node name="Leg2" type="MeshInstance" parent="Hypnoscreen"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0, 0.6 )
 mesh = ExtResource( 9 )
-material/0 = SubResource( 8 )
+material/0 = SubResource( 5 )
 
 [node name="Leg3" type="MeshInstance" parent="Hypnoscreen"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0.6 )
 mesh = ExtResource( 9 )
-material/0 = SubResource( 8 )
+material/0 = SubResource( 5 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Hypnoscreen"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116335, 2.27171, 0 )
-shape = SubResource( 7 )
+shape = SubResource( 6 )
 
 [node name="Nearby" type="Area" parent="Hypnoscreen"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Hypnoscreen/Nearby"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15226, 2.77402 )
-shape = SubResource( 11 )
+shape = SubResource( 7 )
 
 [node name="Timer" type="Timer" parent="Hypnoscreen"]
-wait_time = 1.5

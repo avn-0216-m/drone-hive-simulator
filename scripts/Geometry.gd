@@ -33,7 +33,7 @@ func add_collider(pos: Vector3, type: int, rot: int):
 	var inst_rotation: Vector3 = Vector3(0,0,0)
 	
 	match(type):
-		MeshLib.Data.FLOOR:
+		MeshLib.Data.FLOOR, MeshLib.Data.FLOORNOWALLS:
 			inst = floor_collision.instance()
 			inst_parent = c_floor
 		MeshLib.Data.WALL:
@@ -50,22 +50,26 @@ func add_collider(pos: Vector3, type: int, rot: int):
 			inst = post_collision.instance()
 			inst_parent = c_post
 			match(rot):
-				Orientation.Post.SOUTHWEST:
-					inst_rotation = Vector3(0,0,0)
-				Orientation.Post.SOUTHEAST:
-					inst_rotation = Vector3(0,180,0)
 				Orientation.Post.NORTHEAST:
 					inst_rotation = Vector3(0,0,0)
+				Orientation.Post.SOUTHEAST:
+					inst_rotation = Vector3(0,270,0)
+				Orientation.Post.SOUTHWEST:
+					inst_rotation = Vector3(0,180,0)
+				Orientation.Post.NORTHWEST:
+					inst_rotation = Vector3(0,90,0)
 		MeshLib.Data.CORNER:
 			inst = corner_collision.instance()
 			inst_parent = c_corner
 			match(rot):
+				Orientation.Corner.NORTHWEST:
+					inst_rotation = Vector3(0,0,0)
 				Orientation.Corner.NORTHEAST:
 					inst_rotation = Vector3(0,90,0)
 				Orientation.Corner.SOUTHEAST:
 					inst_rotation = Vector3(0,180,0)
 				Orientation.Corner.SOUTHWEST:
-					inst_rotation = Vector3(0,-90,0)
+					inst_rotation = Vector3(0,270 - 180,0)
 		_:
 			return
 		
@@ -85,7 +89,7 @@ func init_multimeshes():
 	for c in associations:
 		var mm = associations[c]
 		mm.multimesh.instance_count = c.get_child_count()
-		for i in range(c_floor.get_child_count() - 1):
+		for i in range(c_floor.get_child_count()):
 			if c.get_child(i) == null:
 				continue
 			mm.multimesh.set_instance_transform(i, c.get_child(i).get_child(0).get_global_transform())

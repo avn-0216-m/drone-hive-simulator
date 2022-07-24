@@ -9,64 +9,64 @@
 [ext_resource path="res://blender/export/double.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://blender/export/Box.obj" type="ArrayMesh" id=8]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=2]
 albedo_texture = ExtResource( 2 )
 uv1_scale = Vector3( 3, 2, 1 )
 
-[sub_resource type="CubeMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="CubeMesh" id=42]
+material = SubResource( 2 )
 size = Vector3( 2, 0.4, 2 )
 
-[sub_resource type="BoxShape" id=3]
+[sub_resource type="BoxShape" id=4]
 extents = Vector3( 1, 0.15, 1 )
 
-[sub_resource type="BoxShape" id=4]
+[sub_resource type="BoxShape" id=8]
 extents = Vector3( 0.2, 2, 1 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=11]
 albedo_color = Color( 0.196078, 1, 0, 1 )
 uv1_scale = Vector3( 5, 5, 1 )
 
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
+[sub_resource type="SphereMesh" id=43]
+material = SubResource( 11 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=15]
 flags_unshaded = true
 params_billboard_mode = 1
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="QuadMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="QuadMesh" id=44]
+material = SubResource( 15 )
 
-[sub_resource type="ConcavePolygonShape" id=9]
+[sub_resource type="ConcavePolygonShape" id=23]
 data = PoolVector3Array( -1, 4.2, -0.6, -1, 0.2, -0.6, -1, 4.2, -1, -1, 4.2, -1, -1, 0.2, -0.6, -1, 0.2, -1, -1, 4.2, -1, -1, 0.2, -1, -0.6, 4.2, -1, -0.6, 4.2, -1, -1, 0.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 1, -0.6, 4.2, 1, -0.6, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 4.2, 1, -0.6, 0.2, 1, -1, 4.2, 1, -1, 4.2, 1, -0.6, 0.2, 1, -1, 0.2, 1, -0.6, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 0.2, 1, -1, 0.2, -0.6, -1, 0.2, 1, -1, 4.2, -0.6, -0.6, 4.2, -0.6, -1, 4.2, 1, -1, 4.2, 1, -0.6, 4.2, -0.6, -0.6, 4.2, 1, -1, 4.2, -1, -0.6, 4.2, -1, -1, 4.2, -0.6, -1, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -1, 0.2, -1, -1, 0.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -1, 4.2, 1, -1, 0.2, 1, -1, 4.2, -0.6, -1, 4.2, -0.6, -1, 0.2, 1, -1, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, 1, 4.2, -0.6, 1, 4.2, -0.6, -0.6, 4.2, -1, 1, 4.2, -1, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -1, -0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -1, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -1, 1, 4.2, -1, 1, 0.2, -1, 1, 4.2, -0.6, 1, 4.2, -0.6, 1, 0.2, -1, 1, 0.2, -0.6, -0.6, 4.2, -1, -0.6, 0.2, -1, 1, 4.2, -1, 1, 4.2, -1, -0.6, 0.2, -1, 1, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 4.2, -0.6, 1, 0.2, -0.6, 1, 0.2, -0.6, -0.6, 4.2, -0.6, 1, 4.2, -0.6, -0.6, 0.2, -1, -0.6, 0.2, -0.6, 1, 0.2, -1, 1, 0.2, -1, -0.6, 0.2, -0.6, 1, 0.2, -0.6 )
 
-[sub_resource type="ConcavePolygonShape" id=10]
+[sub_resource type="ConcavePolygonShape" id=28]
 data = PoolVector3Array( -1, 4.2, -0.6, -0.6, 4.2, -0.6, -1, 4.2, 1, -1, 4.2, 1, -0.6, 4.2, -0.6, -0.6, 4.2, 1, 0.6, 4.2, -1, 0.6, 0.2, -1, 1, 4.2, -1, 1, 4.2, -1, 0.6, 0.2, -1, 1, 0.2, -1, 1, 4.2, -0.6, 1, 0.2, -0.6, 1, 4.2, 1, 1, 4.2, 1, 1, 0.2, -0.6, 1, 0.2, 1, 1, 4.2, 1, 1, 0.2, 1, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 0.2, 1, 0.6, 0.2, 1, 1, 0.2, -0.6, 0.6, 0.2, -0.6, 1, 0.2, 1, 1, 0.2, 1, 0.6, 0.2, -0.6, 0.6, 0.2, 1, 0.6, 4.2, -0.6, 1, 4.2, -0.6, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 4.2, -0.6, 1, 4.2, 1, 0.6, 4.2, -1, 1, 4.2, -1, 0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 1, 4.2, -1, 1, 4.2, -0.6, 1, 0.2, -1, 0.6, 0.2, -1, 1, 0.2, -0.6, 1, 0.2, -0.6, 0.6, 0.2, -1, 0.6, 0.2, -0.6, 1, 4.2, -1, 1, 0.2, -1, 1, 4.2, -0.6, 1, 4.2, -0.6, 1, 0.2, -1, 1, 0.2, -0.6, 0.6, 4.2, 1, 0.6, 0.2, 1, 0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 0.6, 0.2, 1, 0.6, 0.2, -0.6, -1, 4.2, -0.6, -1, 0.2, -0.6, -1, 4.2, -1, -1, 4.2, -1, -1, 0.2, -0.6, -1, 0.2, -1, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -1, 4.2, -1, -1, 4.2, -1, -0.6, 4.2, -0.6, -1, 4.2, -0.6, -0.6, 0.2, -1, -0.6, 4.2, -1, -1, 0.2, -1, -1, 0.2, -1, -0.6, 4.2, -1, -1, 4.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -1, 0.6, 0.2, -0.6, 0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, 0.6, 0.2, -1, -0.6, 0.2, -1, 0.6, 0.2, -1, 0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -1, 0.6, 4.2, -1, -0.6, 4.2, -1, 0.6, 4.2, -1, 0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -1, 0.6, 4.2, -0.6, -0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, 0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 1, -0.6, 0.2, 1, -1, 4.2, 1, -1, 4.2, 1, -0.6, 0.2, 1, -1, 0.2, 1, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 1, -0.6, 4.2, 1, -0.6, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, 1, -0.6, 0.2, 1, -1, 0.2, -0.6, -1, 0.2, 1, -1, 0.2, -0.6, -1, 4.2, -0.6, -1, 0.2, 1, -1, 0.2, 1, -1, 4.2, -0.6, -1, 4.2, 1 )
 
-[sub_resource type="ConcavePolygonShape" id=11]
+[sub_resource type="ConcavePolygonShape" id=33]
 data = PoolVector3Array( -1, 4.2, 1, -1, 0.2, 1, -1, 4.2, -1, -1, 4.2, -1, -1, 0.2, 1, -1, 0.2, -1, -0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 4.2, 1, -0.6, 4.2, 1, -0.6, 0.2, -1, -0.6, 0.2, 1, -0.6, 0.2, -1, -1, 0.2, -1, -0.6, 0.2, 1, -0.6, 0.2, 1, -1, 0.2, -1, -1, 0.2, 1, -1, 4.2, -1, -0.6, 4.2, -1, -1, 4.2, 1, -1, 4.2, 1, -0.6, 4.2, -1, -0.6, 4.2, 1, 0.6, 4.2, 1, 0.6, 0.2, 1, 0.6, 4.2, -1, 0.6, 4.2, -1, 0.6, 0.2, 1, 0.6, 0.2, -1, 1, 4.2, -1, 1, 0.2, -1, 1, 4.2, 1, 1, 4.2, 1, 1, 0.2, -1, 1, 0.2, 1, 1, 0.2, -1, 0.6, 0.2, -1, 1, 0.2, 1, 1, 0.2, 1, 0.6, 0.2, -1, 0.6, 0.2, 1, 0.6, 4.2, -1, 1, 4.2, -1, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 4.2, -1, 1, 4.2, 1 )
 
-[sub_resource type="ConcavePolygonShape" id=12]
+[sub_resource type="ConcavePolygonShape" id=38]
 data = PoolVector3Array( -1, 4.2, 0.6, -0.6, 4.2, 0.6, -1, 4.2, 1, -1, 4.2, 1, -0.6, 4.2, 0.6, -0.6, 4.2, 1, 1, 4.2, 1, 1, 4.2, 0.6, 1, 0.2, 1, 1, 0.2, 1, 1, 4.2, 0.6, 1, 0.2, 0.6, 1, 0.2, 0.6, 1, 4.2, 0.6, 1, 0.2, -0.6, 1, 0.2, -0.6, 1, 4.2, 0.6, 1, 0.2, -1, 1, 0.2, -1, 1, 4.2, 0.6, 1, 4.2, -1, 1, 4.2, -1, 1, 4.2, 0.6, 1, 4.2, -0.6, 1, 0.2, 0.6, 0.6, 0.2, 0.6, 1, 0.2, 1, 1, 0.2, 1, 0.6, 0.2, 0.6, 0.6, 0.2, 1, 0.6, 4.2, 0.6, 1, 4.2, 0.6, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 4.2, 0.6, 1, 4.2, 1, 0.6, 4.2, -1, 1, 4.2, -1, 0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 1, 4.2, -1, 1, 4.2, -0.6, 1, 0.2, -1, 0.6, 0.2, -1, 1, 0.2, -0.6, 1, 0.2, -0.6, 0.6, 0.2, -1, 0.6, 0.2, -0.6, 1, 4.2, -1, 0.6, 4.2, -1, 1, 0.2, -1, 1, 0.2, -1, 0.6, 4.2, -1, 0.6, 0.2, -1, 0.6, 0.2, -1, 0.6, 4.2, -1, -0.6, 0.2, -1, -0.6, 0.2, -1, 0.6, 4.2, -1, -1, 0.2, -1, -1, 0.2, -1, 0.6, 4.2, -1, -1, 4.2, -1, -1, 4.2, -1, 0.6, 4.2, -1, -0.6, 4.2, -1, 0.6, 4.2, 0.6, 0.6, 0.2, 0.6, 0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 0.6, 0.2, 0.6, 0.6, 0.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -0.6, -1, 4.2, -1, -1, 4.2, -1, -0.6, 4.2, -0.6, -1, 4.2, -0.6, -1, 4.2, -1, -1, 4.2, -0.6, -1, 0.2, -1, -1, 0.2, -1, -1, 4.2, -0.6, -1, 0.2, -0.6, -1, 0.2, -0.6, -1, 4.2, -0.6, -1, 0.2, 0.6, -1, 0.2, 0.6, -1, 4.2, -0.6, -1, 0.2, 1, -1, 0.2, 1, -1, 4.2, -0.6, -1, 4.2, 1, -1, 4.2, 1, -1, 4.2, -0.6, -1, 4.2, 0.6, -0.6, 0.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, -1, -1, 0.2, -1, 0.6, 0.2, -0.6, 0.6, 0.2, -1, -0.6, 0.2, -0.6, -0.6, 0.2, -0.6, 0.6, 0.2, -1, -0.6, 0.2, -1, 0.6, 4.2, -1, 0.6, 4.2, -0.6, -0.6, 4.2, -1, -0.6, 4.2, -1, 0.6, 4.2, -0.6, -0.6, 4.2, -0.6, 0.6, 4.2, -0.6, 0.6, 0.2, -0.6, -0.6, 4.2, -0.6, -0.6, 4.2, -0.6, 0.6, 0.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 1, -0.6, 4.2, 0.6, 0.6, 4.2, 1, 0.6, 4.2, 1, -0.6, 4.2, 0.6, 0.6, 4.2, 0.6, -0.6, 0.2, 0.6, -1, 0.2, 0.6, -0.6, 0.2, 1, -0.6, 0.2, 1, -1, 0.2, 0.6, -1, 0.2, 1, -0.6, 0.2, -0.6, -1, 0.2, -0.6, -0.6, 0.2, 0.6, -0.6, 0.2, 0.6, -1, 0.2, -0.6, -1, 0.2, 0.6, -0.6, 4.2, -0.6, -0.6, 0.2, -0.6, -0.6, 4.2, 0.6, -0.6, 4.2, 0.6, -0.6, 0.2, -0.6, -0.6, 0.2, 0.6, -1, 4.2, -0.6, -0.6, 4.2, -0.6, -1, 4.2, 0.6, -1, 4.2, 0.6, -0.6, 4.2, -0.6, -0.6, 4.2, 0.6, 0.6, 4.2, 1, 0.6, 0.2, 1, 0.6, 4.2, 0.6, 0.6, 4.2, 0.6, 0.6, 0.2, 1, 0.6, 0.2, 0.6, 0.6, 4.2, -0.6, 1, 4.2, -0.6, 0.6, 4.2, 0.6, 0.6, 4.2, 0.6, 1, 4.2, -0.6, 1, 4.2, 0.6, 1, 0.2, -0.6, 0.6, 0.2, -0.6, 1, 0.2, 0.6, 1, 0.2, 0.6, 0.6, 0.2, -0.6, 0.6, 0.2, 0.6, -0.6, 4.2, 0.6, -0.6, 0.2, 0.6, 0.6, 4.2, 0.6, 0.6, 4.2, 0.6, -0.6, 0.2, 0.6, 0.6, 0.2, 0.6, -0.6, 0.2, 0.6, -0.6, 0.2, 1, 0.6, 0.2, 0.6, 0.6, 0.2, 0.6, -0.6, 0.2, 1, 0.6, 0.2, 1, 1, 4.2, 1, 1, 0.2, 1, 0.6, 4.2, 1, 0.6, 4.2, 1, 1, 0.2, 1, -0.6, 4.2, 1, -0.6, 4.2, 1, 1, 0.2, 1, -1, 4.2, 1, -1, 4.2, 1, 1, 0.2, 1, -1, 0.2, 1, -1, 0.2, 1, 1, 0.2, 1, -0.6, 0.2, 1, -0.6, 0.2, 1, 1, 0.2, 1, 0.6, 0.2, 1 )
 
-[sub_resource type="SpatialMaterial" id=13]
+[sub_resource type="SpatialMaterial" id=41]
 flags_unshaded = true
 albedo_color = Color( 1, 0.654902, 0.921569, 1 )
 
-[sub_resource type="SphereMesh" id=14]
-material = SubResource( 13 )
+[sub_resource type="SphereMesh" id=45]
+material = SubResource( 41 )
 
 [node name="Hive" type="Spatial"]
 
 [node name="Floor" type="MeshInstance" parent="."]
-mesh = SubResource( 2 )
+mesh = SubResource( 42 )
 material/0 = null
 
 [node name="StaticBody" type="StaticBody" parent="Floor"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="Wall" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, 0, 0 )
@@ -77,16 +77,16 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Wall/StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 2.2, 0 )
-shape = SubResource( 4 )
+shape = SubResource( 8 )
 
 [node name="GardenPlaceholder" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2, 0 )
-mesh = SubResource( 6 )
+mesh = SubResource( 43 )
 material/0 = null
 
 [node name="PlacementNotAllowed" type="MeshInstance" parent="."]
 transform = Transform( 2, 0, 0, 0, -3.25841e-07, 1, 0, -2, -1.62921e-07, 6, 2, 0 )
-mesh = SubResource( 8 )
+mesh = SubResource( 44 )
 material/0 = null
 
 [node name="Post" type="MeshInstance" parent="."]
@@ -102,7 +102,7 @@ material/0 = null
 [node name="StaticBody2" type="StaticBody" parent="Corner"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Corner/StaticBody2"]
-shape = SubResource( 9 )
+shape = SubResource( 23 )
 
 [node name="Curve" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
@@ -112,7 +112,7 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Curve"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Curve/StaticBody"]
-shape = SubResource( 10 )
+shape = SubResource( 28 )
 
 [node name="Double" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0 )
@@ -122,7 +122,7 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Double"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Double/StaticBody"]
-shape = SubResource( 11 )
+shape = SubResource( 33 )
 
 [node name="Box" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0 )
@@ -132,9 +132,9 @@ material/0 = null
 [node name="StaticBody" type="StaticBody" parent="Box"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Box/StaticBody"]
-shape = SubResource( 12 )
+shape = SubResource( 38 )
 
 [node name="Anna" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 2, 0 )
-mesh = SubResource( 14 )
+mesh = SubResource( 45 )
 material/0 = null

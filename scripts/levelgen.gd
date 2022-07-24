@@ -42,8 +42,8 @@ enum Pattern {
 	SWall = 64, 
 	EWall = 16, 
 	WWall = 8,
-	NEPost = 1, 
-	NWPost = 4, 
+	NEPost = 4, 
+	NWPost = 1, 
 	SEPost = 128, 
 	SWPost = 32
 	}
@@ -263,7 +263,8 @@ func a_instance_gridmap():
 			MeshLib.Data.FLOOR,
 			MeshLib.Data.WALL,
 			MeshLib.Data.POST,
-			MeshLib.Data.CORNER
+			MeshLib.Data.CORNER,
+			MeshLib.Data.FLOORNOWALLS,
 		]:
 			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			
