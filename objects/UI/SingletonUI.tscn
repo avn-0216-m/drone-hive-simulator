@@ -1,10 +1,51 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://themes/theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/UI.gd" type="Script" id=2]
 [ext_resource path="res://sprites/tasks/cross.png" type="Texture" id=3]
 [ext_resource path="res://sprites/tasks/tick.png" type="Texture" id=4]
 [ext_resource path="res://sprites/tasks/treasure.png" type="Texture" id=5]
+[ext_resource path="res://sfx/talk.ogg" type="AudioStream" id=6]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.133333, 0.12549, 0.203922, 1, 0.0392157, 0.0392157, 0.0392157, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = SubResource( 2 )
+region_rect = Rect2( 0, 0, 2048, 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "dialog down"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Anchor/Dialog:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 500, 650 ), Vector2( 500, 1200 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "dialog up"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Anchor/Dialog:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 500, 1200 ), Vector2( 500, 650 ) ]
+}
 
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
@@ -52,3 +93,36 @@ auto_height = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Dialog" type="Panel" parent="Anchor"]
+margin_left = 500.0
+margin_top = 1164.8
+margin_right = 1300.0
+margin_bottom = 1464.8
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Anchor/Dialog"]
+margin_right = 800.0
+margin_bottom = 299.0
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/dialog down" = SubResource( 5 )
+"anims/dialog up" = SubResource( 4 )
+
+[node name="CharacterWaitTime" type="Timer" parent="."]
+wait_time = 0.02
+
+[node name="BoxWaitTime" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )

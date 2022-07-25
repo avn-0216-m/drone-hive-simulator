@@ -1,17 +1,19 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=5 format=2]
 
 [ext_resource path="res://fonts/vcr osd.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="StyleBoxTexture" id=2]
+
+[sub_resource type="DynamicFont" id=3]
 size = 30
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
 [resource]
-default_font = SubResource( 2 )
+default_font = SubResource( 3 )
 Fonts/fonts/Font = null
 ItemList/colors/custom_styles = Color( 0.72549, 0.72549, 0.72549, 1 )
 ItemList/colors/font_color = Color( 0.63, 0.63, 0.63, 1 )
@@ -29,3 +31,4 @@ ItemList/styles/cursor_unfocused = null
 ItemList/styles/custom_styles = null
 ItemList/styles/selected = null
 ItemList/styles/selected_focus = null
+Panel/styles/panel = SubResource( 2 )
