@@ -4,12 +4,12 @@ extends Spatial
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
-var level: int = 30
+var level: int = 10
 
 var known_tiles: Array = []
 
+var TileData = preload("res://scripts/data/TileData.gd")
 export(GDScript) var MeshLib
-export(GDScript) var Orientation
 
 var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -198,51 +198,13 @@ func a_add_walls_to_gridmap():
 		for adjacent in adjacent_transforms:
 			var cell = tile + adjacent
 			if gridmap.get_cell_item(cell.x, cell.y, cell.z) == -1:
-				var found_tiles = get_adjacent_tiles(Vector3(cell.x, cell.y, cell.z), floor_tiles)
+				var adjacent_tiles = get_adjacent_tiles(Vector3(cell.x, cell.y, cell.z), floor_tiles)
+				var data = TileData.patterns[adjacent_tiles]
 				
-				# 1  2  4
-				# 8  X  16
-				# 32 64 128
-				
-				if(found_tiles & Pattern.Box) >= Pattern.Box:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.BOX)
-				elif(found_tiles & Pattern.NCurve) >= Pattern.NCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.NORTH)
-				elif(found_tiles & Pattern.SCurve) >= Pattern.SCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.SOUTH)
-				elif(found_tiles & Pattern.ECurve) >= Pattern.ECurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.EAST)
-				elif(found_tiles & Pattern.WCurve) >= Pattern.WCurve:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CURVE, Orientation.Curve.WEST)
-				elif(found_tiles & Pattern.NECorner) >= Pattern.NECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.NORTHEAST)
-				elif(found_tiles & Pattern.NWCorner) >= Pattern.NWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.NORTHWEST)
-				elif(found_tiles & Pattern.SECorner) >= Pattern.SECorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.SOUTHEAST)
-				elif(found_tiles & Pattern.SWCorner) >= Pattern.SWCorner:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.CORNER, Orientation.Corner.SOUTHWEST)
-				elif(found_tiles & Pattern.DoubleHori) >= Pattern.DoubleHori:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, Orientation.Double.HORI)
-				elif(found_tiles & Pattern.DoubleVert) >= Pattern.DoubleVert:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.DOUBLE, Orientation.Double.VERT)
-				elif(found_tiles & Pattern.NWall) >= Pattern.NWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.NORTH)
-				elif(found_tiles & Pattern.SWall) >= Pattern.SWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.SOUTH)
-				elif(found_tiles & Pattern.EWall) >= Pattern.EWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.EAST)
-				elif(found_tiles & Pattern.WWall) >= Pattern.WWall:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.WALL, Orientation.Wall.WEST)
-				elif(found_tiles & Pattern.NWPost) >= Pattern.NWPost:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.NORTHWEST)
-				elif(found_tiles & Pattern.NEPost) >= Pattern.NEPost:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.NORTHEAST)
-				elif(found_tiles & Pattern.SWPost) >= Pattern.SWPost:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.SOUTHWEST)
-				elif(found_tiles & Pattern.SEPost) >= Pattern.SEPost:
-					gridmap.set_cell_item(cell.x, cell.y, cell.z, MeshLib.Data.POST, Orientation.Post.SOUTHEAST)
-					
+				if data == null:
+					continue
+				else:
+					gridmap.set_cell_item(cell.x, cell.y, cell.z, data[0], data[1])
 
 func set_floor_tile(x: float, y: float, z: float):
 	gridmap.set_cell_item(x, y, z, MeshLib.Data.FLOOR)

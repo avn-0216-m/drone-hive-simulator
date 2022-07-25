@@ -65,11 +65,11 @@ func add_collider(pos: Vector3, type: int, rot: int):
 				Orientation.Corner.NORTHWEST:
 					inst_rotation = Vector3(0,0,0)
 				Orientation.Corner.NORTHEAST:
-					inst_rotation = Vector3(0,90,0)
+					inst_rotation = Vector3(0,-90,0)
 				Orientation.Corner.SOUTHEAST:
 					inst_rotation = Vector3(0,180,0)
 				Orientation.Corner.SOUTHWEST:
-					inst_rotation = Vector3(0,270 - 180,0)
+					inst_rotation = Vector3(0,90,0)
 		_:
 			return
 		
