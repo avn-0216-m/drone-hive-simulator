@@ -176,6 +176,7 @@ game_over_rotation_y = 10.0
 
 [node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
 stream = ExtResource( 19 )
+bus = "Music"
 script = ExtResource( 8 )
 
 [node name="Inventory" type="Spatial" parent="Viewport/Game"]
@@ -205,6 +206,7 @@ one_shot = true
 
 [node name="SFX" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
 stream = ExtResource( 13 )
+bus = "SFX"
 
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
 
@@ -307,3 +309,5 @@ margin_right = 124.0
 margin_bottom = 68.0
 text = "dialog"
 script = ExtResource( 15 )
+
+[connection signal="respawn" from="Viewport/Game/Drone" to="Viewport/Game" method="respawn_drone"]

@@ -78,3 +78,8 @@ func animation_finished(animation):
 		drone.immobile = false
 		get_node("Level/Objects").add_child(storage_box)
 		get_node("StorageBox").queue_free()
+
+
+func respawn_drone(drone):
+	UI.log("How'd you get down there? Silly little thing.")
+	drone.translation = level.respawn_point

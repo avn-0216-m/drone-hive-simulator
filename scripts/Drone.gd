@@ -2,6 +2,7 @@ extends KinematicGravity
 class_name Drone
 
 signal shutdown_complete
+signal respawn(drone)
 
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
@@ -113,6 +114,10 @@ func get_nearbys() -> Node:
 	return null
 
 func _process(delta):
+	
+	if translation.y < -3:
+		emit_signal("respawn", self)
+		return
 	
 	if immobile:
 		sprite.animation = "forward"
