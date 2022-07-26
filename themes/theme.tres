@@ -1,10 +1,18 @@
-[gd_resource type="Theme" load_steps=5 format=2]
+[gd_resource type="Theme" load_steps=7 format=2]
 
 [ext_resource path="res://fonts/vcr osd.ttf" type="DynamicFontData" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
+[sub_resource type="Gradient" id=4]
+colors = PoolColorArray( 0.133333, 0.12549, 0.203922, 1, 0.0392157, 0.0392157, 0.0392157, 1 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
 [sub_resource type="StyleBoxTexture" id=2]
+texture = SubResource( 5 )
+region_rect = Rect2( 0, 0, 2048, 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 30

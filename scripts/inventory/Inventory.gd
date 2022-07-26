@@ -45,7 +45,7 @@ func _physics_process(delta):
 	slots.translation = drone.translation + Vector3(0,2.4,0)
 
 	
-	if drone.nearby and drone.nearby.get_global_transform().origin != Vector3(0,0,0):
+	if is_instance_valid(drone.nearby) and drone.nearby.get_global_transform().origin != Vector3(0,0,0):
 		cursor_target = drone.nearby.get_global_transform().origin + drone.nearby.cursor_offset
 	elif item_selected:
 		cursor_target = drone.drop_location.get_global_transform().origin

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/talk3.ogg-f59e31a337548c60163798452f5b2a7a.oggstr"
+
+[deps]
+
+source_file="res://sfx/talk3.ogg"
+dest_files=[ "res://.import/talk3.ogg-f59e31a337548c60163798452f5b2a7a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

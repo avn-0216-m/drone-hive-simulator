@@ -22,9 +22,6 @@ func _ready():
 	drone.show_id()
 	background.wipe_in()
 	
-	UI.queue_dialog("According to all known laws of aviation, there is no possible way a bee should be able to fly. I just lost the game. Hee hee hoo hoo. Babaooey. I can write whatever I want, and you goddamn fuckers can't stop me.")
-	UI.queue_dialog("I can even queue multiple boxes of text. Assuming this works. Which it will eventually, because I'm unstoppable.")
-	
 	#level.new_level()
 	
 	#music.change_music()

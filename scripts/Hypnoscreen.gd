@@ -25,6 +25,10 @@ func something_nearby(body):
 		$Screen/SpiralBackground/Spiral.visible = true
 		$Screen/SpiralBackground/Spiral/AnimationPlayer.play("spiral")
 		$Timer.start()
+		UI.dialog.queue(UI.dialog.Portrait.MAIDEN)
+		UI.dialog.queue("Buddy, I've got just one thing to say to you...")
+		UI.dialog.queue(UI.dialog.Portrait.YOUSHOULDHYPNOTIZEYOURSELF)
+		UI.dialog.queue("You should hypnotize yourself... NOW!")
 
 func count_down():
 	if count < 0 or type == Type.NONE:
@@ -33,6 +37,8 @@ func count_down():
 	UI.log(str(count) + "...")
 	if count == 0:
 		UI.log("Good drone. Your owner loves you.")
+		UI.dialog.queue("That feels good, doesn't it? Just keep sinking deeper and deeper as you complete all your tasks throughout these halls.")
+		UI.dialog.queue("Just as a good drone ought to do.")
 		emit_signal("task_completed", task_id)
 		$Timer.stop()
 		type = Type.NONE

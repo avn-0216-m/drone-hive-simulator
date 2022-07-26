@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=12]
 [ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=13]
 [ext_resource path="res://objects/bonus/Anna.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scripts/debugui/play dialog.gd" type="Script" id=15]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://mus/clicker training.ogg" type="AudioStream" id=19]
@@ -128,9 +129,6 @@ tracks/2/keys = {
 [node name="Main" type="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Composite" type="CanvasLayer" parent="."]
 layer = -1
@@ -143,9 +141,6 @@ material = SubResource( 1 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CutoffTween" type="Tween" parent="Composite/Background"]
 
@@ -226,9 +221,6 @@ anchor_right = 1.0
 margin_left = -344.0
 margin_bottom = 1080.0
 columns = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Drone" type="GridContainer" parent="Debug"]
 margin_right = 99.0
@@ -308,3 +300,10 @@ margin_right = 124.0
 margin_bottom = 44.0
 text = "random music"
 script = ExtResource( 28 )
+
+[node name="play dialog" type="Button" parent="Debug/Other"]
+margin_top = 48.0
+margin_right = 124.0
+margin_bottom = 68.0
+text = "dialog"
+script = ExtResource( 15 )
