@@ -97,13 +97,13 @@ func get_inputs() -> int:
 		inputs += move_down
 	
 	if Input.is_action_just_pressed("inventory_left"):
-		inventory.change_selected_slot(inventory.inventory_index - 1)
+		inventory.change_slot(-1)
 	elif Input.is_action_just_pressed("inventory_right"):
-		inventory.change_selected_slot(inventory.inventory_index + 1)
+		inventory.change_slot(1)
 	if Input.is_action_just_pressed("interact"):
 		interact()
 	elif Input.is_action_just_pressed("inventory_cancel"):
-		inventory.change_selected_slot(inventory.inventory_index)
+		inventory.change_slot(0)
 	return inputs
 	
 func get_nearbys() -> Node:

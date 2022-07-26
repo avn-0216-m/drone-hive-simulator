@@ -40,7 +40,7 @@ func something_near(body):
 		$AnimationPlayer.play("fly away")
 		
 func drop_battery():
-	UI.log("She leaves you with a gift.")
+	UI.log("Anna has left you a gift.")
 	var inst = battery_src.instance()
 	inst.translation = get_global_transform().origin
 	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects").add_child(inst)

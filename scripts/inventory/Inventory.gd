@@ -4,18 +4,22 @@ onready var drone = get_node("../Drone")
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
 var distance_between_slots: float = 1.1
-onready var total_slots: int = 0
-var inventory_index: int = 0
+
 var cursor_target: Vector3 = Vector3(0,0,0)
-var highlighted_object = null
+var current_index: int = 0
 var current_slot = null # Slot accessed via inventory index. Updated every time change_selected_slot is called
 var item_selected = false # If an item has been selected from the inventory.
 
 var timeout: float = 3.0 # How many seconds before the inventory autohides
 
-var placeholder: ImageTexture # placeholder texture for pickups that do not have one
-
-signal item_entered_inventory(item, slot)
+var slot_colours: Array = [
+	Color(0,0,0),
+	Color(0,0,0),
+	Color(0,0,0),
+	Color(0,0,0),
+	Color(0,0,0),
+	Color(0,0,0)
+]
 
 var sfx = [
 	preload("res://sfx/inventory/inventorylow.ogg"),
@@ -39,9 +43,6 @@ func set_slot_color(selected: bool):
 
 func _physics_process(delta):
 	
-	#if slots.get_child(inventory_index).item != null:
-	#	slots.get_child(inventory_index).item.translation = Vector3(3,3,0)
-	
 	slots.translation = drone.translation + Vector3(0,2.4,0)
 
 	
@@ -61,12 +62,7 @@ func _physics_process(delta):
 		
 func _ready():
 	
-	placeholder = ImageTexture.new()
-	var placeholder_image = Image.new()
-	placeholder_image.load("res://sprites/nosprite.png")
-	placeholder.create_from_image(placeholder_image, 0)
-	
-	current_slot = slots.get_child(inventory_index)
+	current_slot = slots.get_child(0)
 	
 	$VisibilityTimer.connect("timeout",self,"inventory_timeout")
 	$VisibilityTimer.start()
@@ -79,7 +75,7 @@ func _ready():
 		slots.get_child(i).get_node("AnimationPlayer").play("wiggle")
 		slots.get_child(i).get_node("AnimationPlayer").advance(1 * i)
 
-	total_slots = len(slots.get_children())
+	var total_slots = len(slots.get_children())
 	# Calculate how far back slots should start being placed so the drone is the midpoint.
 	var slot_translation = distance_between_slots * - (total_slots/2)
 	
@@ -96,7 +92,7 @@ func show_slots():
 	slots.visible = true
 	$VisibilityTimer.start(timeout)
 	
-func change_selected_slot(desired_index):
+func change_slot(desired_index):
 	
 	# reset any item selection
 	set_slot_color(false)
@@ -105,10 +101,10 @@ func change_selected_slot(desired_index):
 	play_sfx(Sfx.LOW)
 	
 	show_slots()
-	if desired_index < 0 or desired_index > total_slots - 1:
+	if (current_index + desired_index) < 0 or (current_index + desired_index) > slots.get_child_count() - 1:
 		return
-	inventory_index = desired_index
-	current_slot = slots.get_child(inventory_index)
+	current_index += desired_index
+	current_slot = slots.get_child(current_index)
 	update_cursor()
 
 func update_cursor():
