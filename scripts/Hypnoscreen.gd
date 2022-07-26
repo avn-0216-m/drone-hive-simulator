@@ -7,11 +7,9 @@ var count = start_count
 
 func _ready():
 	._ready()
-	$Nearby.connect("body_entered",self,"something_nearby")
-	$Nearby.connect("body_exited",self,"something_left")
 	$Timer.connect("timeout",self,"count_down")
 	
-func something_left(body):
+func body_left(body):
 	if body is Drone:
 		$Screen/SpiralBackground.set_material_override(static_mat)
 		$Screen/SpiralBackground/Spiral.visible = false
@@ -19,7 +17,7 @@ func something_left(body):
 		count = start_count
 		$Timer.stop()
 
-func something_nearby(body):
+func body_nearby(body):
 	if body is Drone and type != Type.NONE:
 		$Screen/SpiralBackground.set_material_override(null)
 		$Screen/SpiralBackground/Spiral.visible = true
@@ -39,7 +37,7 @@ func count_down():
 		UI.log("Good drone. Your owner loves you.")
 		UI.dialog.queue("That feels good, doesn't it? Just keep sinking deeper and deeper as you complete all your tasks throughout these halls.")
 		UI.dialog.queue("Just as a good drone ought to do.")
-		emit_signal("task_completed", task_id)
+		emit_signal("task_completed", task)
 		$Timer.stop()
 		type = Type.NONE
 

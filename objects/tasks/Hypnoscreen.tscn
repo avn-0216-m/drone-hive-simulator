@@ -83,7 +83,6 @@ transform = Transform( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.017096,
 material_override = ExtResource( 12 )
 pixel_size = 0.075
 frames = SubResource( 3 )
-frame = 1
 playing = true
 
 [node name="Spiral" type="Sprite3D" parent="Hypnoscreen/Screen/SpiralBackground"]
@@ -110,10 +109,10 @@ material/0 = SubResource( 5 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116335, 2.27171, 0 )
 shape = SubResource( 6 )
 
+[node name="Timer" type="Timer" parent="Hypnoscreen"]
+
 [node name="Nearby" type="Area" parent="Hypnoscreen"]
 
 [node name="CollisionShape" type="CollisionShape" parent="Hypnoscreen/Nearby"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15226, 2.77402 )
 shape = SubResource( 7 )
-
-[node name="Timer" type="Timer" parent="Hypnoscreen"]

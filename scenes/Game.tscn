@@ -311,3 +311,4 @@ text = "dialog"
 script = ExtResource( 15 )
 
 [connection signal="respawn" from="Viewport/Game/Drone" to="Viewport/Game" method="respawn_drone"]
+[connection signal="spawn_level_obj" from="Viewport/Game/Level/KinemannaticBody" to="Viewport/Game" method="spawn_level_obj"]

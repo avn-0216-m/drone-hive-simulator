@@ -33,5 +33,5 @@ func place_cube_on(cube):
 
 
 func complete_task():
-	emit_signal("task_completed", task_id)
+	emit_signal("task_completed", task.task_id)
 	

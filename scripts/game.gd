@@ -83,3 +83,9 @@ func animation_finished(animation):
 func respawn_drone(drone):
 	UI.log("How'd you get down there? Silly little thing.")
 	drone.translation = level.respawn_point
+
+func spawn_level_obj(inst, translation = Vector3(0,0,0)):
+	print("hello world")
+	print(inst)
+	inst.translation = translation
+	get_node("Level/Objects").add_child(inst)

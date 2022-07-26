@@ -2,8 +2,9 @@ extends "res://scripts/classes/KinematicGravity.gd"
 class_name Interactable
 
 var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
-var task_id: int = -1 # Corresponds to a relevant task if applicable.
+var task: TaskManager.Task = TaskManager.Task.new() # Corresponds to a relevant task if applicable.
 var variant: int = 0
+onready var nearby_area = get_node("Nearby")
 export var variant_max = 10
 enum Type {
 	NONE, # Not interactable 
@@ -14,19 +15,25 @@ var type = Type.BOTH
 
 export var interactable_name = "UNNAMED INTERACTABLE PLEASE CHANGE"
 
-signal task_completed(task_id)
+signal task_completed(task)
 
 func _ready():
 	connect("task_completed",TaskManager,"on_task_completion")
-	variant = set_variant_within_range(variant_max)
+	task.variant = set_variant_within_range(variant_max)
+	if nearby_area:
+		nearby_area.connect("body_entered",self,"body_nearby")
+		nearby_area.connect("body_exited",self,"body_left")
+
+func body_nearby(body):
+	print(name + ": default body nearby func.")
 	
+func body_left(body):
+	print(name + ": default body left func.")
+
 func set_variant_within_range(maximum: int) -> int:
-	
-	#return int(min(maximum, variant))
-	
-	if variant <= maximum:
-		return variant
-	return int(lerp(0, maximum, float(variant) / 10.0))
+	if task.variant <= maximum:
+		return task.variant
+	return int(lerp(0, maximum, float(task.variant) / 10.0))
 
 func interact(interactor):
-	print(interactable_name + " (" + name + ") was interacted with. This is the default interaction function.")
+	print(name + ": default interaction func.")

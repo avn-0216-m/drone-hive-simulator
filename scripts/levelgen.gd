@@ -60,6 +60,15 @@ onready var objects = get_node("Objects")
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
 
+func recursively_assign(root: Node, task: TaskManager.Task):
+	if root.get_child_count() == 0:
+		return
+	else:
+		for child in root.get_children():
+			if child is Interactable:
+				child.task = task
+			recursively_assign(child, task)
+
 func _ready():
 	
 	var camera = get_node("../Camera")
@@ -239,16 +248,7 @@ func a_instance_gridmap():
 			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
 			# Add instance
 			
-			# Code sets task ID and variant on Interactables even if they are
-			# the child of a spatial parent.
-			if instance is Interactable:
-				instance.task_id = task.task_id
-				instance.variant = task.variant
-			else:
-				for child in instance.get_children():
-					if child is Interactable:
-						child.task_id = task.task_id
-						child.variant = task.variant
+			recursively_assign(instance, task)
 					
 			objects.add_child(instance)
 			task.objects.append(instance)

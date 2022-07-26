@@ -8,6 +8,8 @@ export var jump_length: float = 15
 
 var skittishness: int = 10 # How likely you are to grab Anna.
 
+signal spawn_level_obj(inst)
+
 export(float, 0, 5) var jump_time = 1
 export(float, 0, 5) var peck_time = 4
 export(float, 0, 5) var bob_time = 2
@@ -17,7 +19,6 @@ export(float, 0, 10) var sit_time = 8
 export var jump_interpolate_weight: float = 0.05
 export var jump_length_linear_falloff: float = 0.05
 onready var timer = get_node("Timer")
-onready var area = get_node("Annarea")
 onready var sprite = get_node("AnnamatedSprite3D")
 onready var battery_src = load("res://objects/Battery.tscn")
 
@@ -26,10 +27,9 @@ func _ready():
 	sprite.animation = "bob"
 	$Particles.emitting = false
 	timer.connect("timeout",self,"new_action")
-	area.connect("body_entered", self, "something_near")
 	._ready()
 	
-func something_near(body):
+func body_nearby(body):
 	if body is Drone:
 		timer.set_paused(true)
 		sprite.animation = "fly"
@@ -41,10 +41,8 @@ func something_near(body):
 		
 func drop_battery():
 	UI.log("Anna has left you a gift.")
-	var inst = battery_src.instance()
-	inst.translation = get_global_transform().origin
-	get_tree().get_root().get_node("Main/Viewport/Game/Level/Objects").add_child(inst)
-	
+	emit_signal("spawn_level_obj", battery_src.instance(), get_global_transform().origin)
+
 func _physics_process(delta):
 	
 	if skip_process:
