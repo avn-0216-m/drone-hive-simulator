@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -8,11 +8,6 @@
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
 [ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/music.gd" type="Script" id=8]
-[ext_resource path="res://scripts/inventory/Inventory.gd" type="Script" id=9]
-[ext_resource path="res://sprites/cursor.png" type="Texture" id=10]
-[ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=11]
-[ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=12]
-[ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=13]
 [ext_resource path="res://objects/bonus/Anna.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scripts/debugui/play dialog.gd" type="Script" id=15]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=16]
@@ -44,36 +39,6 @@ shader_param/texture_src = ExtResource( 3 )
 shader_param/mask_src = ExtResource( 2 )
 
 [sub_resource type="ShaderMaterial" id=2]
-
-[sub_resource type="SpatialMaterial" id=3]
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-albedo_texture = ExtResource( 10 )
-
-[sub_resource type="SpatialMaterial" id=4]
-resource_local_to_scene = true
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-albedo_color = Color( 0.843137, 0.00784314, 0.439216, 1 )
-albedo_texture = ExtResource( 12 )
-
-[sub_resource type="SpatialMaterial" id=5]
-resource_local_to_scene = true
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-albedo_color = Color( 0.45098, 0.309804, 0.588235, 1 )
-albedo_texture = ExtResource( 12 )
-
-[sub_resource type="SpatialMaterial" id=6]
-resource_local_to_scene = true
-flags_transparent = true
-flags_unshaded = true
-flags_no_depth_test = true
-albedo_color = Color( 0, 0.219608, 0.658824, 1 )
-albedo_texture = ExtResource( 12 )
 
 [sub_resource type="Animation" id=7]
 
@@ -161,7 +126,7 @@ render_target_v_flip = true
 [node name="Game" type="Node" parent="Viewport"]
 script = ExtResource( 6 )
 
-[node name="Drone" parent="Viewport/Game" instance=ExtResource( 7 )]
+[node name="Player" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
 [node name="Camera" type="Camera" parent="Viewport/Game"]
@@ -178,35 +143,6 @@ game_over_rotation_y = 10.0
 stream = ExtResource( 19 )
 bus = "Music"
 script = ExtResource( 8 )
-
-[node name="Inventory" type="Spatial" parent="Viewport/Game"]
-script = ExtResource( 9 )
-
-[node name="Cursor" type="Sprite3D" parent="Viewport/Game/Inventory"]
-transform = Transform( 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0 )
-material_override = SubResource( 3 )
-texture = ExtResource( 10 )
-
-[node name="Slots" type="Spatial" parent="Viewport/Game/Inventory"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0 )
-
-[node name="Slot1" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 11 )]
-material_override = SubResource( 4 )
-modulate = Color( 1, 0.6, 1, 1 )
-
-[node name="Slot2" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 11 )]
-material_override = SubResource( 5 )
-
-[node name="Slot3" parent="Viewport/Game/Inventory/Slots" instance=ExtResource( 11 )]
-material_override = SubResource( 6 )
-
-[node name="VisibilityTimer" type="Timer" parent="Viewport/Game/Inventory"]
-wait_time = 3.0
-one_shot = true
-
-[node name="SFX" type="AudioStreamPlayer" parent="Viewport/Game/Inventory"]
-stream = ExtResource( 13 )
-bus = "SFX"
 
 [node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
 
@@ -310,5 +246,5 @@ margin_bottom = 68.0
 text = "dialog"
 script = ExtResource( 15 )
 
-[connection signal="respawn" from="Viewport/Game/Drone" to="Viewport/Game" method="respawn_drone"]
+[connection signal="respawn" from="Viewport/Game/Player" to="Viewport/Game" method="respawn_drone"]
 [connection signal="spawn_level_obj" from="Viewport/Game/Level/KinemannaticBody" to="Viewport/Game" method="spawn_level_obj"]

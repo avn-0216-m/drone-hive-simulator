@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scripts/Drone.gd" type="Script" id=1]
 [ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=2]
@@ -7,18 +7,21 @@
 [ext_resource path="res://sprites/drone/icons/battery full.png" type="Texture" id=5]
 [ext_resource path="res://sprites/face/numergrid.png" type="Texture" id=6]
 [ext_resource path="res://sprites/zap.png" type="Texture" id=7]
+[ext_resource path="res://objects/Inventory.tscn" type="PackedScene" id=8]
+[ext_resource path="res://sfx/sprint2.ogg" type="AudioStream" id=11]
+[ext_resource path="res://sfx/sprint1.ogg" type="AudioStream" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "forward",
-"speed": 5.0
+"name": "backward",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "backward",
-"speed": 4.0
+"name": "forward",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape" id=2]
@@ -147,3 +150,18 @@ cast_to = Vector3( 0, 0, 5 )
 [node name="NorthRaycast" type="RayCast" parent="."]
 enabled = true
 cast_to = Vector3( 0, 0, -4 )
+
+[node name="Inventory" parent="." instance=ExtResource( 8 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, 0 )
+
+[node name="SFXs" type="Node" parent="."]
+
+[node name="Sprint" type="AudioStreamPlayer" parent="SFXs"]
+stream = ExtResource( 12 )
+bus = "Footsteps"
+
+[node name="Sprint2" type="AudioStreamPlayer" parent="SFXs"]
+stream = ExtResource( 11 )
+bus = "Footsteps"
+
+[connection signal="frame_changed" from="Body" to="." method="frame_changed"]

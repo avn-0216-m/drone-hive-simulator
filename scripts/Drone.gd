@@ -20,7 +20,7 @@ onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
 onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
-onready var inventory = get_node("../Inventory")
+onready var inventory = get_node("Inventory")
 
 onready var south_ray = get_node("SouthRaycast")
 onready var north_ray = get_node("NorthRaycast")
@@ -46,13 +46,9 @@ var inventory_right = 32
 var interact = 64
 
 func _ready():
-	
-	# connect signals
-	sfx.connect("finished", self, "sfx_complete")
 	$FaceTimer.connect("timeout", self, "show_id")
-	
 	set_id("0546")
-	gravity = 5
+	gravity = 9.8
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -126,8 +122,6 @@ func _process(delta):
 		#display_container.translation.y = headbob_offset.y
 		display_container.visible = true
 		return
-		
-	# find any nearby items
 
 	
 	velocity = Vector3(0,0,0)
@@ -238,3 +232,12 @@ func recharge(amount: int = 100):
 	$BatteryParticles.one_shot = true
 	show_icon()
 	$FaceTimer.start()	
+
+
+func frame_changed():
+	match(sprite.frame):
+		1:
+			$SFXs/Sprint.play()
+		3:
+			$SFXs/Sprint2.play()
+		

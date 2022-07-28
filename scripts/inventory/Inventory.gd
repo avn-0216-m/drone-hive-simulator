@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var drone = get_node("../Drone")
+onready var parent: Drone = get_parent()
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
 var distance_between_slots: float = 1.1
@@ -43,13 +43,10 @@ func set_slot_color(selected: bool):
 
 func _physics_process(delta):
 	
-	slots.translation = drone.translation + Vector3(0,2.4,0)
-
-	
-	if is_instance_valid(drone.nearby) and drone.nearby.get_global_transform().origin != Vector3(0,0,0):
-		cursor_target = drone.nearby.get_global_transform().origin + drone.nearby.cursor_offset
+	if is_instance_valid(parent.nearby) and parent.nearby.get_global_transform().origin != Vector3(0,0,0):
+		cursor_target = parent.nearby.get_global_transform().origin + parent.nearby.cursor_offset
 	elif item_selected:
-		cursor_target = drone.drop_location.get_global_transform().origin
+		cursor_target = parent.drop_location.get_global_transform().origin
 	else:
 		cursor_target = current_slot.get_global_transform().origin + Vector3(0,1,0)
 	
@@ -58,7 +55,7 @@ func _physics_process(delta):
 	else:
 		cursor.translation = cursor_target
 		
-	cursor.visible = slots.visible or drone.nearby or item_selected
+	cursor.visible = slots.visible or parent.nearby or item_selected
 		
 func _ready():
 	
@@ -80,7 +77,7 @@ func _ready():
 	var slot_translation = distance_between_slots * - (total_slots/2)
 	
 	# If even amount of slots, offset by half the distance so the middle
-	# slot is still directly above the drone.
+	# slot is still directly above the parent.
 	if total_slots % 2 == 0:
 		slot_translation += (distance_between_slots/2)
 	for slot in slots.get_children():

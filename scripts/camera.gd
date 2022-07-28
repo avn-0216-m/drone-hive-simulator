@@ -8,7 +8,7 @@ var game_over_offset: Vector3 = Vector3(3,0,6)
 var transition_offset: Vector3 = Vector3(0,0,0)
 
 # Force override look_at, if false, camera will not rotate to face drone
-# even if state is supposed to look at drone.
+# even if state is supposed to look at player.
 var look_at = true
 
 var circle_center: Vector2 = Vector2(0,0)
@@ -18,9 +18,9 @@ var peephole_max_radius: int = 400
 export var game_over_rotation_y: float = 45
 var active: bool = true
 export var game_over: bool = false
-onready var drone: KinematicBody = get_tree().get_root().get_node("Main/Viewport/Game/Drone")
-onready var south_ray: RayCast = drone.south_ray
-onready var north_ray: RayCast = drone.north_ray
+onready var player: KinematicBody = get_tree().get_root().get_node("Main/Viewport/Game/Player")
+onready var south_ray: RayCast = player.south_ray
+onready var north_ray: RayCast = player.north_ray
 
 onready var tween: Tween = get_node("PeepholeTween")
 
@@ -44,7 +44,7 @@ func handle_state_change(new_state: int):
 		tween.start()
 
 func _ready():
-	translation = drone.translation + normal_offset
+	translation = player.translation + normal_offset
 	materials = get_node("../Level/Geometry").get_wall_materials()
 	
 func _process(delta):
@@ -60,7 +60,7 @@ func _process(delta):
 	if state != previous_state:
 		handle_state_change(state)	
 		
-	circle_center = unproject_position(drone.get_global_transform().origin)
+	circle_center = unproject_position(player.get_global_transform().origin)
 	var offset: Vector3 = Vector3(0,0,0)
 		
 	# Set camera offset based on state.
@@ -77,9 +77,9 @@ func _process(delta):
 	update_shader_params(materials, peephole_radius, circle_center)
 
 
-	translation = lerp(translation, drone.get_global_transform().origin + offset, 0.1)
+	translation = lerp(translation, player.get_global_transform().origin + offset, 0.1)
 	if look_at:
-		look_at(drone.get_global_transform().origin, Vector3(0,1,0))
+		look_at(player.get_global_transform().origin, Vector3(0,1,0))
 		
 	previous_state = state
 

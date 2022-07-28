@@ -14,8 +14,6 @@ var rng = RandomNumberGenerator.new()
 var active_tasks: Array setget set_active_tasks, get_active_tasks # In-progress tasks for the current level.
 var task_pool: Array
 
-onready var task_list_ui = get_tree().get_root().get_node("Main/TaskList")
-
 func get_active_tasks() -> Array:
 	return active_tasks
 	

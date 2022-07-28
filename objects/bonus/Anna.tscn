@@ -168,7 +168,6 @@ jump_length = 2.0
 transform = Transform( 7, 0, 0, 0, 7, 0, 0, 0, 7, 0, 0, 0 )
 frames = SubResource( 1 )
 animation = "fly"
-frame = 1
 playing = true
 
 [node name="Timer" type="Timer" parent="."]
