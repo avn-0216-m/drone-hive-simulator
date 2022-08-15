@@ -70,7 +70,7 @@ _global_script_class_icons={
 
 config/name="Drone Hive Simulator"
 run/main_scene="res://scenes/Game.tscn"
-config/icon="res://icon.png"
+config/icon="res://sprites/anna/feather.png"
 
 [audio]
 
