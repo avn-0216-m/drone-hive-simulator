@@ -26,11 +26,6 @@ onready var tween: Tween = get_node("PeepholeTween")
 
 var materials: Array = []
 
-
-var wall_mat: Material
-var extern_mat: Material # Material for external corner mesh.
-var intern_mat: Material # Material for internal corner mesh.
-
 enum State {LOCKED, NORMAL, CLOSE_SOUTH, CLOSE_NORTH}
 var state = State.NORMAL
 var previous_state = State.NORMAL
@@ -45,7 +40,6 @@ func handle_state_change(new_state: int):
 
 func _ready():
 	translation = player.translation + normal_offset
-	materials = get_node("../Level/Geometry").get_wall_materials()
 	
 func _process(delta):
 
