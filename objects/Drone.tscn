@@ -152,7 +152,7 @@ enabled = true
 cast_to = Vector3( 0, 0, -4 )
 
 [node name="Inventory" parent="." instance=ExtResource( 8 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 4, 0 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5, 0 )
 
 [node name="SFXs" type="Node" parent="."]
 
@@ -163,5 +163,10 @@ bus = "Footsteps"
 [node name="Sprint2" type="AudioStreamPlayer" parent="SFXs"]
 stream = ExtResource( 11 )
 bus = "Footsteps"
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.44816, 0 )
+light_energy = 0.3
+spot_range = 24.121
 
 [connection signal="frame_changed" from="Body" to="." method="frame_changed"]
