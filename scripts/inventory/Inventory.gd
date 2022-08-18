@@ -44,11 +44,11 @@ func set_slot_color(selected: bool):
 func _physics_process(delta):
 	
 	if is_instance_valid(parent.nearby) and parent.nearby.get_global_transform().origin != Vector3(0,0,0):
-		cursor_target = parent.nearby.get_global_transform().origin + parent.nearby.cursor_offset
+		cursor_target = to_local(parent.nearby.get_global_transform().origin + parent.nearby.cursor_offset)
 	elif item_selected:
-		cursor_target = parent.drop_location.get_global_transform().origin
+		cursor_target = to_local(parent.drop_location.get_global_transform().origin)
 	else:
-		cursor_target = current_slot.get_global_transform().origin + Vector3(0,1,0)
+		cursor_target = to_local(current_slot.get_global_transform().origin + Vector3(0,1,0))
 	
 	if visible:	
 		cursor.translation = lerp(cursor.translation, cursor_target, 0.3)
