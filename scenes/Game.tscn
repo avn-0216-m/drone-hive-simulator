@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -8,19 +8,12 @@
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
 [ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/music.gd" type="Script" id=8]
+[ext_resource path="res://scripts/DebugButton.gd" type="Script" id=9]
+[ext_resource path="res://scripts/Root.gd" type="Script" id=10]
 [ext_resource path="res://objects/bonus/Anna.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scripts/debugui/play dialog.gd" type="Script" id=15]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=16]
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://mus/clicker training.ogg" type="AudioStream" id=19]
-[ext_resource path="res://scripts/debugui/respawndrone.gd" type="Script" id=20]
-[ext_resource path="res://scripts/debugui/generatefloor.gd" type="Script" id=21]
-[ext_resource path="res://scripts/debugui/resetlevel.gd" type="Script" id=22]
-[ext_resource path="res://scripts/debugui/addtasks.gd" type="Script" id=23]
-[ext_resource path="res://scripts/debugui/generatewalls.gd" type="Script" id=24]
-[ext_resource path="res://scripts/debugui/instancegridmap.gd" type="Script" id=25]
-[ext_resource path="res://scripts/debugui/hide debug menu.gd" type="Script" id=27]
-[ext_resource path="res://scripts/debugui/random music.gd" type="Script" id=28]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
@@ -91,9 +84,10 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Main" type="Control"]
+[node name="Root" type="Control"]
 margin_right = 1920.0
 margin_bottom = 1080.0
+script = ExtResource( 10 )
 
 [node name="Composite" type="CanvasLayer" parent="."]
 layer = -1
@@ -114,9 +108,6 @@ material = SubResource( 2 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 script = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 1920, 1080 )
@@ -164,12 +155,14 @@ columns = 3
 margin_right = 99.0
 margin_bottom = 140.0
 
-[node name="Button" type="Button" parent="Debug/Drone"]
+[node name="Recharge" type="Button" parent="Debug/Drone"]
 margin_right = 99.0
 margin_bottom = 20.0
 text = "recharge 10%"
+script = ExtResource( 9 )
+function = "Recharge drone"
 
-[node name="LevelGen" type="GridContainer" parent="Debug"]
+[node name="Level" type="GridContainer" parent="Debug"]
 margin_left = 103.0
 margin_right = 209.0
 margin_bottom = 140.0
@@ -177,46 +170,42 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="Button" parent="Debug/LevelGen"]
+[node name="Respawn" type="Button" parent="Debug/Level"]
 margin_right = 106.0
 margin_bottom = 20.0
 text = "respawn drone"
-script = ExtResource( 20 )
+script = ExtResource( 9 )
+function = "Respawn drone"
 
-[node name="Button5" type="Button" parent="Debug/LevelGen"]
+[node name="Button5" type="Button" parent="Debug/Level"]
 margin_top = 24.0
 margin_right = 106.0
 margin_bottom = 44.0
 text = "reset level"
-script = ExtResource( 22 )
 
-[node name="Button2" type="Button" parent="Debug/LevelGen"]
+[node name="Button2" type="Button" parent="Debug/Level"]
 margin_top = 48.0
 margin_right = 106.0
 margin_bottom = 68.0
 text = "generate floor"
-script = ExtResource( 21 )
 
-[node name="Button4" type="Button" parent="Debug/LevelGen"]
+[node name="Button4" type="Button" parent="Debug/Level"]
 margin_top = 72.0
 margin_right = 106.0
 margin_bottom = 92.0
 text = "add tasks"
-script = ExtResource( 23 )
 
-[node name="Button3" type="Button" parent="Debug/LevelGen"]
+[node name="Button3" type="Button" parent="Debug/Level"]
 margin_top = 96.0
 margin_right = 106.0
 margin_bottom = 116.0
 text = "generate walls"
-script = ExtResource( 24 )
 
-[node name="Button6" type="Button" parent="Debug/LevelGen"]
+[node name="Button6" type="Button" parent="Debug/Level"]
 margin_top = 120.0
 margin_right = 106.0
 margin_bottom = 140.0
 text = "instance!"
-script = ExtResource( 25 )
 
 [node name="Other" type="GridContainer" parent="Debug"]
 margin_left = 213.0
@@ -227,21 +216,22 @@ margin_bottom = 140.0
 margin_right = 124.0
 margin_bottom = 20.0
 text = "hide debug menu"
-script = ExtResource( 27 )
+script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+function = "Hide debug menu"
 
 [node name="Button" type="Button" parent="Debug/Other"]
 margin_top = 24.0
 margin_right = 124.0
 margin_bottom = 44.0
 text = "random music"
-script = ExtResource( 28 )
 
 [node name="play dialog" type="Button" parent="Debug/Other"]
 margin_top = 48.0
 margin_right = 124.0
 margin_bottom = 68.0
 text = "dialog"
-script = ExtResource( 15 )
+script = ExtResource( 9 )
+function = "Test dialog"

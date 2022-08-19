@@ -18,7 +18,7 @@ var peephole_max_radius: int = 400
 export var game_over_rotation_y: float = 45
 var active: bool = true
 export var game_over: bool = false
-onready var player: KinematicBody = get_tree().get_root().get_node("Main/Viewport/Game/Player")
+onready var player: KinematicBody = get_tree().get_root().get_node("Root/Viewport/Game/Player")
 onready var south_ray: RayCast = player.south_ray
 onready var north_ray: RayCast = player.north_ray
 

@@ -112,7 +112,7 @@ func get_nearbys() -> Node:
 func _process(delta):
 	
 	if translation.y < -3:
-		emit_signal("respawn", self)
+		emit_signal("respawn")
 		return
 	
 	if immobile:

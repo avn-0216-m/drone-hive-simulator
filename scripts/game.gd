@@ -10,7 +10,7 @@ var current_state = State.PLAYING
 onready var music = get_node("Music")
 onready var level = get_node("Level")
 onready var storage_box_src = preload("res://objects/StorageBox.tscn")
-onready var background = get_tree().get_root().get_node("Main/Composite/Background")
+onready var background = get_tree().get_root().get_node("Root/Composite/Background")
 onready var camera = get_node("Camera")
 onready var player: KinematicBody = get_node("Player")
 var difficulty: int = 0
@@ -39,7 +39,7 @@ func new_level():
 	$AnimationPlayer.play("new_level")
 
 
-func respawn_drone(player):
+func respawn_drone():
 	UI.log("How'd you get down there? Silly little thing.")
 	player.translation = level.respawn_point
 

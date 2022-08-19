@@ -110,9 +110,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -575.0
-margin_top = -300.0
-margin_right = 575.0
+margin_left = 345.0
+margin_top = 700.0
+margin_right = 1495.0
+margin_bottom = 1000.0
 script = ExtResource( 7 )
 
 [node name="CharacterWaitTime" type="Timer" parent="Anchor/Dialog"]
