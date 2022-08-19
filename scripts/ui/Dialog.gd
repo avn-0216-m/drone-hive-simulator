@@ -13,8 +13,6 @@ var portraits = [
 onready var dialog_label = get_node("Panel/Margins/Anchor/Label")
 onready var dialog_counter = get_node("Panel/Margins/Anchor/DialogCounter")
 
-var pitches = [0.85, 0.9, 0.95, 1.0, 1.05, 1.1, 1.15, 1.2]
-
 var rng = RandomNumberGenerator.new()
 
 var dialog_queue = []

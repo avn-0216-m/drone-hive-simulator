@@ -22,32 +22,6 @@ var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(1,0,1) # Bottom right
 	]
 
-# 1  2  4
-# 8  x  16
-# 32 64 128 
-
-enum Pattern {
-	Box = 2 + 8 + 16 + 64, 
-	NCurve = 2 + 8 + 16, 
-	SCurve = 8 + 16 + 64, 
-	ECurve = 2 + 16 + 64, 
-	WCurve = 2 + 8 + 64, 
-	NECorner = 2 + 16, 
-	NWCorner = 2 + 8, 
-	SECorner = 16 + 64, 
-	SWCorner = 8 + 64,
-	DoubleVert = 8 + 16,
-	DoubleHori = 2 + 64,
-	NWall = 2, 
-	SWall = 64, 
-	EWall = 16, 
-	WWall = 8,
-	NEPost = 4, 
-	NWPost = 1, 
-	SEPost = 128, 
-	SWPost = 32
-	}
-
 var level_size = Vector2(0,0)
 var entry_tile_pos: Vector3
 
@@ -60,7 +34,7 @@ onready var objects = get_node("Objects")
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
 
-func recursively_assign(root: Node, task: TaskManager.Task):
+func recursively_assign(root: Node, task):
 	if root.get_child_count() == 0:
 		return
 	else:
@@ -152,7 +126,7 @@ func flatten_placeholders(tasks: Array) -> Array:
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	for placeholder in flatten_placeholders(TaskManager.generate_task_list(level)):
+	for placeholder in flatten_placeholders(InstanceManager.tasks.generate_active_pool(level)):
 		
 		# find start tile
 		rng.randomize()
@@ -240,7 +214,7 @@ func a_instance_gridmap():
 			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			
 
-	for task in TaskManager.get_active_tasks():
+	for task in InstanceManager.tasks.active_pool:
 
 		
 		for placeholder in task.placeholders:
@@ -255,6 +229,6 @@ func a_instance_gridmap():
 			# Delete placeholders
 			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
 	
-	UI.set_tasks(TaskManager.get_active_tasks())
+	#UI.set_tasks(TaskManager.get_active_tasks())
 	gridmap.clear()
 	geometry.init_multimeshes()

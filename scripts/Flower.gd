@@ -2,7 +2,7 @@ extends Pickup
 class_name Flower
 
 func on_pickup():
-	emit_signal("task_completed", task.task_id)
+	emit_signal("task_completed", task)
 	.on_pickup()
 	if interactable_name == "a 52lip":
 		UI.dialog.queue("Congratulations! You've found a 52lip. They are a very special and beautiful little flower.")

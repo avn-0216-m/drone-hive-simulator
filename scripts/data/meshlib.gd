@@ -1,4 +1,3 @@
-extends Resource
 enum Data {
 	FLOOR,
 	WALL,

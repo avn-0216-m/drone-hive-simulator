@@ -34,6 +34,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Friend.gd"
 }, {
+"base": "Node",
+"class": "Instanceable",
+"language": "GDScript",
+"path": "res://scripts/classes/Instanceable.gd"
+}, {
 "base": "KinematicBody",
 "class": "Interactable",
 "language": "GDScript",
@@ -53,6 +58,16 @@ _global_script_classes=[ {
 "class": "Pickup",
 "language": "GDScript",
 "path": "res://scripts/classes/Pickup.gd"
+}, {
+"base": "Node",
+"class": "Placeholder",
+"language": "GDScript",
+"path": "res://scripts/classes/Placeholder.gd"
+}, {
+"base": "Instanceable",
+"class": "Task",
+"language": "GDScript",
+"path": "res://scripts/classes/InstanceableTask.gd"
 } ]
 _global_script_class_icons={
 "Anna": "",
@@ -60,10 +75,13 @@ _global_script_class_icons={
 "Drone": "",
 "Flower": "",
 "Friend": "",
+"Instanceable": "",
 "Interactable": "",
 "KinematicGravity": "",
 "NullPlate": "",
-"Pickup": ""
+"Pickup": "",
+"Placeholder": "",
+"Task": ""
 }
 
 [application]
@@ -79,7 +97,8 @@ output_latency=50
 [autoload]
 
 UI="*res://objects/UI/SingletonUI.tscn"
-TaskManager="*res://scripts/TaskManager.gd"
+TaskManager="res://scripts/TaskManager.gd"
+InstanceManager="*res://objects/InstanceManager.tscn"
 
 [debug]
 

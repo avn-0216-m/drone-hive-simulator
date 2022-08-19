@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scripts/game.gd" type="Script" id=6]
 [ext_resource path="res://objects/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/music.gd" type="Script" id=8]
-[ext_resource path="res://objects/tasks/Washing Machine.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/bonus/Anna.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scripts/debugui/play dialog.gd" type="Script" id=15]
 [ext_resource path="res://scripts/Camera.gd" type="Script" id=16]
@@ -126,9 +125,6 @@ render_target_v_flip = true
 
 [node name="Game" type="Node" parent="Viewport"]
 script = ExtResource( 6 )
-
-[node name="Spatial" parent="Viewport/Game" instance=ExtResource( 9 )]
-transform = Transform( 0.0497901, 0, -0.497515, 0, 0.5, 0, 0.497515, 0, 0.0497901, 3.35436, 5.05881, -6.58095 )
 
 [node name="Player" parent="Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
@@ -249,6 +245,3 @@ margin_right = 124.0
 margin_bottom = 68.0
 text = "dialog"
 script = ExtResource( 15 )
-
-[connection signal="respawn" from="Viewport/Game/Player" to="Viewport/Game" method="respawn_drone"]
-[connection signal="spawn_level_obj" from="Viewport/Game/Level/KinemannaticBody" to="Viewport/Game" method="spawn_level_obj"]
