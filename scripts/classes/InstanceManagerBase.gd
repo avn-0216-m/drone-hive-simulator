@@ -4,20 +4,22 @@ class_name InstanceManagerBase
 export var source_class: GDScript
 export var source_data: GDScript
 var source_placeholder: GDScript = load("res://scripts/classes/Placeholder.gd")
-export var objects_per_level: int = 1 # Amount of objects added to active pool for current level.
+export var objects_per_level: float = 0.3 # Amount of objects added to active pool for current level.
 var source_pool: Array = [] # Represents unique list of all possible instancable objects.
 var active_pool: Array = [] # Contains objects chosen to be instanced for a given level.
 
 func _ready():
 	if source_data != null:
 		source_pool = load_source_data()
-	print("source data loaded")
-	print(source_pool)
 
 func clone(orig: Node, cls: GDScript) -> Node:
 	var clone = cls.new()
 	for property in orig.get_script().get_script_property_list():
-		clone[property.name] = orig[property.name] if property.name != "placeholders" else clone_placeholders(orig[property.name])
+		match(property.name):
+			"placeholders":
+				clone[property.name] = clone_placeholders(orig[property.name])
+			_:
+				clone[property.name] = orig[property.name]
 	return clone
 
 func generate_active_pool(level_count: int) -> Array:
@@ -25,7 +27,7 @@ func generate_active_pool(level_count: int) -> Array:
 	if len(source_pool) == 0: return []
 	
 	active_pool.clear()
-	for i in range(0,objects_per_level * level_count):
+	for i in range(0,ceil(objects_per_level * float(level_count))):
 		active_pool.append(clone(source_pool[randi() % len(source_pool)], source_class))
 	return active_pool
 

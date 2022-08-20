@@ -3,7 +3,6 @@ class_name Interactable
 
 var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
 var task = Task.new() # Corresponds to a relevant task if applicable.
-var variant: int = 0
 onready var nearby_area = get_node("Nearby")
 export var variant_max = 10
 enum Type {
@@ -19,7 +18,9 @@ signal task_completed(task)
 
 func _ready():
 	#connect("task_completed",TaskManager,"on_task_completion")
-	task.variant = set_variant_within_range(variant_max)
+	if task.variant == -1:
+		randomize()
+		task.variant = randi() % variant_max
 	if nearby_area:
 		nearby_area.connect("body_entered",self,"body_nearby")
 		nearby_area.connect("body_exited",self,"body_left")
@@ -31,6 +32,9 @@ func body_left(body):
 	print(name + ": default body left func.")
 
 func set_variant_within_range(maximum: int) -> int:
+	print("setting variant range")
+	print(name)
+	print(task.variant)
 	if task.variant <= maximum:
 		return task.variant
 	return int(lerp(0, maximum, float(task.variant) / 10.0))

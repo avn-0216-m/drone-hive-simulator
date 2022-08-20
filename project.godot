@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "KinematicGravity",
 "class": "Drone",
 "language": "GDScript",
-"path": "res://scripts/Drone.gd"
+"path": "res://scripts/player/PlayerDrone.gd"
 }, {
 "base": "Pickup",
 "class": "Flower",

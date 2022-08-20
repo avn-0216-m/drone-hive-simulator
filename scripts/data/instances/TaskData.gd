@@ -20,5 +20,15 @@ var data: Array = [
 				"index": meshlib.Data.HYPNOSCREEN
 			}
 		]
+	},
+	{
+		"title": "Wash clothes.",
+		"placeholders": [
+			{
+				"source": "res://objects/tasks/WashingMachine.tscn",
+				"area": Vector2(5,5),
+				"index": meshlib.Data.WASHINGMACHINE,
+			}
+		]
 	}
 ]

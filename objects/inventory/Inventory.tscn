@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scripts/inventory/Inventory.gd" type="Script" id=1]
+[ext_resource path="res://scripts/player/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=2]
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=3]
 
