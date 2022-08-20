@@ -17,56 +17,59 @@ margin_right = 99.0
 margin_bottom = 20.0
 text = "recharge 10%"
 script = ExtResource( 1 )
-function = "Recharge drone"
 
 [node name="Level" type="VBoxContainer" parent="."]
 margin_left = 103.0
 margin_right = 209.0
 margin_bottom = 1080.0
 
-[node name="Respawn" type="Button" parent="Level"]
+[node name="Respawn drone" type="Button" parent="Level"]
 margin_right = 106.0
 margin_bottom = 20.0
 text = "respawn drone"
 script = ExtResource( 1 )
-function = "Respawn drone"
 
-[node name="Button5" type="Button" parent="Level"]
+[node name="Reset Level" type="Button" parent="Level"]
 margin_top = 24.0
 margin_right = 106.0
 margin_bottom = 44.0
 text = "reset level"
+script = ExtResource( 1 )
 
-[node name="Button2" type="Button" parent="Level"]
+[node name="Generate floor" type="Button" parent="Level"]
 margin_top = 48.0
 margin_right = 106.0
 margin_bottom = 68.0
 text = "generate floor"
+script = ExtResource( 1 )
 
-[node name="Button4" type="Button" parent="Level"]
+[node name="Add tasks" type="Button" parent="Level"]
 margin_top = 72.0
 margin_right = 106.0
 margin_bottom = 92.0
 text = "add tasks"
+script = ExtResource( 1 )
 
-[node name="Button3" type="Button" parent="Level"]
+[node name="Generate walls" type="Button" parent="Level"]
 margin_top = 96.0
 margin_right = 106.0
 margin_bottom = 116.0
 text = "generate walls"
+script = ExtResource( 1 )
 
-[node name="Button6" type="Button" parent="Level"]
+[node name="Instance level" type="Button" parent="Level"]
 margin_top = 120.0
 margin_right = 106.0
 margin_bottom = 140.0
 text = "instance!"
+script = ExtResource( 1 )
 
 [node name="Other" type="VBoxContainer" parent="."]
 margin_left = 213.0
 margin_right = 337.0
 margin_bottom = 1080.0
 
-[node name="hide debug menu" type="Button" parent="Other"]
+[node name="Hide debug menu" type="Button" parent="Other"]
 margin_right = 124.0
 margin_bottom = 20.0
 text = "hide debug menu"
@@ -74,18 +77,17 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-function = "Hide debug menu"
 
-[node name="Button" type="Button" parent="Other"]
+[node name="Random music" type="Button" parent="Other"]
 margin_top = 24.0
 margin_right = 124.0
 margin_bottom = 44.0
 text = "random music"
+script = ExtResource( 1 )
 
-[node name="play dialog" type="Button" parent="Other"]
+[node name="Test dialog" type="Button" parent="Other"]
 margin_top = 48.0
 margin_right = 124.0
 margin_bottom = 68.0
 text = "dialog"
 script = ExtResource( 1 )
-function = "Test dialog"

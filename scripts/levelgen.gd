@@ -113,10 +113,12 @@ func placeholder_in_valid_position(origin, area) -> bool:
 				return false
 	return true
 	
-func flatten_placeholders(tasks: Array) -> Array:
+func flatten(items: Array) -> Array:
+	# Returns an array of all placeholders from an array of instanceable items.
+	
 	var flattened = []
-	for task in tasks:
-		for placeholder in task.placeholders:
+	for item in items:
+		for placeholder in item.placeholders:
 			flattened.append(placeholder)
 	
 	randomize()
@@ -126,41 +128,44 @@ func flatten_placeholders(tasks: Array) -> Array:
 func a_add_tasks_to_gridmap():
 	print("Adding tasks to gridmap")
 	
-	for placeholder in flatten_placeholders(InstanceManager.tasks.generate_active_pool(level)):
+	InstanceManager.generate_all_active_pools(level)
+	
+	for manager in InstanceManager.managers:
+		for placeholder in flatten(manager.active_pool):
 		
-		# find start tile
-		rng.randomize()
-		known_tiles.shuffle()
-		
-		var origin: Vector3 = Vector3(0,0,0)
-		
-		# Error prevention when debugging if I forget to generate floor tiles
-		# manually.
-		if known_tiles != []:
-			origin = known_tiles[0]
-		
-		while !placeholder_in_valid_position(origin, placeholder.area):
+			# find start tile
 			rng.randomize()
-			if rng.randi() % 2 == 0:
-				origin.x += 1
-			else:
-				origin.z += 1
-			# If a "do not place" is found, travel right
-			# until a gap is found, then place the object placeholder there.
-			# Allows for dynamic levels that extend beyond the original level size
-			# based on level.
-			# "bump" the object right until it fits in place.
-		
-		#Add additional tiles
-		for x in range(origin.x, origin.x + placeholder.area.x + 1):
-			for z in range(origin.z, origin.z + placeholder.area.y + 1):
-				set_floor_tile(x,0,z) # set tile
-				gridmap.set_cell_item(x,2,z,3) # set "do not place" signs to prevent overlapping task objects
-		
-		#Add object placeholder
-		gridmap.set_cell_item(origin.x,1,origin.z,placeholder.index)
-		# Update placeholder position.
-		placeholder.pos = Vector3(origin.x, 1, origin.z)
+			known_tiles.shuffle()
+			
+			var origin: Vector3 = Vector3(0,0,0)
+			
+			# Error prevention when debugging if I forget to generate floor tiles
+			# manually.
+			if known_tiles != []:
+				origin = known_tiles[0]
+			
+			while !placeholder_in_valid_position(origin, placeholder.area):
+				rng.randomize()
+				if rng.randi() % 2 == 0:
+					origin.x += 1
+				else:
+					origin.z += 1
+				# If a "do not place" is found, travel right
+				# until a gap is found, then place the object placeholder there.
+				# Allows for dynamic levels that extend beyond the original level size
+				# based on level.
+				# "bump" the object right until it fits in place.
+			
+			#Add additional tiles
+			for x in range(origin.x, origin.x + placeholder.area.x + 1):
+				for z in range(origin.z, origin.z + placeholder.area.y + 1):
+					set_floor_tile(x,0,z) # set tile
+					gridmap.set_cell_item(x,2,z,3) # set "do not place" signs to prevent overlapping task objects
+			
+			#Add object placeholder
+			gridmap.set_cell_item(origin.x,1,origin.z,placeholder.index)
+			# Update placeholder position.
+			placeholder.pos = Vector3(origin.x, 1, origin.z)
 	
 func a_add_walls_to_gridmap():
 
@@ -214,21 +219,20 @@ func a_instance_gridmap():
 			geometry.add_collider(gridmap.map_to_world(cell.x, cell.y, cell.z), item, rot)
 			
 
-	for task in InstanceManager.tasks.active_pool:
+	for manager in InstanceManager.managers:
+		for item in manager.active_pool:
+			for placeholder in item.placeholders:
+				var instance = load(placeholder.source).instance()
+				instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
+				
+				if item is Task:
+					recursively_assign(instance, item)
+						
+				objects.add_child(instance)
+				item.objects.append(instance)
+				# Delete placeholders
+				gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
 
-		
-		for placeholder in task.placeholders:
-			var instance = load(placeholder.source).instance()
-			instance.translation = gridmap.map_to_world(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z)
-			# Add instance
-			
-			recursively_assign(instance, task)
-					
-			objects.add_child(instance)
-			task.objects.append(instance)
-			# Delete placeholders
-			gridmap.set_cell_item(placeholder.pos.x, placeholder.pos.y, placeholder.pos.z, -1)
-	
 	#UI.set_tasks(TaskManager.get_active_tasks())
 	gridmap.clear()
 	geometry.init_multimeshes()

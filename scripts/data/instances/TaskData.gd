@@ -1,5 +1,6 @@
-var meshlib = load("res://scripts/data/MeshLib.gd").new()
-var data = [
+
+var meshlib: Reference = load("res://scripts/data/MeshLib.gd").new()
+var data: Array = [
 	{
 		"title": "Pick a flower from the garden.",
 		"placeholders": [

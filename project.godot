@@ -19,6 +19,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Battery.gd"
 }, {
+"base": "InstanceManagerBase",
+"class": "BonusManager",
+"language": "GDScript",
+"path": "res://scripts/BonusManager.gd"
+}, {
 "base": "KinematicGravity",
 "class": "Drone",
 "language": "GDScript",
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "Friend",
 "language": "GDScript",
 "path": "res://scripts/Friend.gd"
+}, {
+"base": "Node",
+"class": "InstanceManagerBase",
+"language": "GDScript",
+"path": "res://scripts/classes/InstanceManagerBase.gd"
 }, {
 "base": "Node",
 "class": "Instanceable",
@@ -72,9 +82,11 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Anna": "",
 "Battery": "",
+"BonusManager": "",
 "Drone": "",
 "Flower": "",
 "Friend": "",
+"InstanceManagerBase": "",
 "Instanceable": "",
 "Interactable": "",
 "KinematicGravity": "",
@@ -97,7 +109,6 @@ output_latency=50
 [autoload]
 
 UI="*res://objects/UI/SingletonUI.tscn"
-TaskManager="res://scripts/TaskManager.gd"
 InstanceManager="*res://objects/InstanceManager.tscn"
 
 [debug]

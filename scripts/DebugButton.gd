@@ -1,38 +1,25 @@
 extends Button
 
 signal respawn
-
-export(
-	String,
-	"Select option",
-	"Respawn drone",
-	"Reset level",
-	"Generate floor",
-	"Add tasks",
-	"Generate walls",
-	"Instance level",
-	"Hide debug menu",
-	"Random music",
-	"Test dialog",
-	"Recharge drone"
-	) var function
+signal instance_level
+signal add_tasks
+signal generate_floor
 
 func _ready():
 	connect("pressed",self,"on_click")
 	
 func on_click():
-	match(function):
+	match(name):
 		"Respawn drone":
-			print("Respawning drone.")
 			emit_signal("respawn")
 		"Reset level":
 			continue
 		"Generate floor":
 			continue
 		"Add tasks":
-			continue
+			emit_signal("add_tasks")
 		"Instance level":
-			continue
+			emit_signal("instance_level")
 		"Hide debug menu":
 			get_parent().get_parent().visible = false
 		"Random music":
@@ -42,4 +29,4 @@ func on_click():
 		"Recharge drone":
 			continue
 		_:
-			print("Debug command not recognized.")
+			print("Debug command not recognized/implemented.")
