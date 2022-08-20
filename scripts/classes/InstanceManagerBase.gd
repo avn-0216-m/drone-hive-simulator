@@ -44,10 +44,10 @@ func load_source_data() -> Array:
 	return loaded
 
 func load_placeholders(arr) -> Array:
-	var new: Placeholder = source_placeholder.new()
 	var placeholders: Array = []
 	
 	for placeholder in arr:
+		var new: Placeholder = source_placeholder.new()
 		for key in placeholder.keys():
 			new[key] = placeholder[key]
 		placeholders.append(new)
@@ -55,10 +55,10 @@ func load_placeholders(arr) -> Array:
 	return placeholders
 	
 func clone_placeholders(arr) -> Array:
-	var new: Placeholder = source_placeholder.new()
 	var placeholders: Array = []
 	
 	for placeholder in arr:
+		var new: Placeholder = source_placeholder.new()
 		for property in placeholder.get_script().get_script_property_list():
 			new[property.name] = placeholder[property.name]
 		placeholders.append(new)

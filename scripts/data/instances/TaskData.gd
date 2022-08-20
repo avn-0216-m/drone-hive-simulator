@@ -28,6 +28,16 @@ var data: Array = [
 				"source": "res://objects/tasks/WashingMachine.tscn",
 				"area": Vector2(5,5),
 				"index": meshlib.Data.WASHINGMACHINE,
+			},
+			{
+				"source": "res://objects/tasks/Clothing.tscn",
+				"area": Vector2(2,2),
+				"index": meshlib.Data.CLOTHING
+			},
+			{
+				"source": "res://objects/tasks/Clothing.tscn",
+				"area": Vector2(2,2),
+				"index": meshlib.Data.CLOTHING
 			}
 		]
 	}
