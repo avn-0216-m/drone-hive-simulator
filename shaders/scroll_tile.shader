@@ -12,6 +12,7 @@ uniform float cutoff_bottom_diff_multiplier : hint_range(0,1);
 uniform int slices : hint_range(0,100);
 uniform vec4 slice_start_color : hint_color;
 uniform float slice_distance_multiplier = 0;
+uniform float alternate_line_offset = 0.5;
 
 void fragment(){
 	ivec2 texture_size = textureSize(texture_src, 0);
@@ -19,8 +20,12 @@ void fragment(){
 	
 	vec2 tile_uv;
 	
-	tile_uv.x = UV.x*((screen_size.x/float(texture_size.x) * tile_count)) - TIME * scroll.x;
-	tile_uv.y = UV.y*((screen_size.y/float(texture_size.y) * tile_count)) - TIME * scroll.y;
+	float modulate = 2.0;
+	
+	tile_uv.x = UV.x*((screen_size.x/float(texture_size.x) * tile_count )) - TIME * scroll.x;
+	tile_uv.y = UV.y*((screen_size.y/float(texture_size.y) * tile_count )) - TIME * scroll.y;
+	
+	tile_uv.x += (mod(floor(tile_uv.y), modulate) * alternate_line_offset);
 	
 	// Load tiling texture
 	vec4 texture = texture(texture_src, tile_uv);

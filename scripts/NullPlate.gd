@@ -17,9 +17,9 @@ func _ready():
 	variant_max = len(numbers) - 1
 	._ready()
 	type = Type.ITEMS
-	$Pressure/Texture/Number.frame = variant
+	$Pressure/Texture/Number.frame = task.variant
 	
-	var step: float = float(variant)/float(variant_max + 1)
+	var step: float = float(task.variant)/float(variant_max + 1)
 	number.modulate.r = color_curve.interpolate(fmod(step, 1))
 	number.modulate.g = color_curve.interpolate(fmod(step+0.75, 1))
 	number.modulate.b = color_curve.interpolate(fmod(step+0.5, 1))

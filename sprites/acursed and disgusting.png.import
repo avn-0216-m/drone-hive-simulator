@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hexcorp.png-5202a6aa600dfbe346fc8e274561537e.stex"
+path="res://.import/acursed and disgusting.png-2b6bb08551bed7de7aca03da1cffa200.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/hexcorp.png"
-dest_files=[ "res://.import/hexcorp.png-5202a6aa600dfbe346fc8e274561537e.stex" ]
+source_file="res://sprites/acursed and disgusting.png"
+dest_files=[ "res://.import/acursed and disgusting.png-2b6bb08551bed7de7aca03da1cffa200.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=true

@@ -40,5 +40,20 @@ var data: Array = [
 				"index": meshlib.Data.CLOTHING
 			}
 		]
+	},
+	{
+		"title": "Put the NullCube on the matching NullPlate.",
+		"placeholders": [
+			{
+				"source": "res://objects/tasks/NullPlate.tscn",
+				"area": Vector2(2,2),
+				"index": meshlib.Data.WEIGHTEDBUTTON
+			},
+			{
+				"source": "res://objects/tasks/NullCube.tscn",
+				"area": Vector2(2,2),
+				"index": meshlib.Data.WEIGHTEDCUBE
+			}
+		]
 	}
 ]
