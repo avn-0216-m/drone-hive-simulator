@@ -4,7 +4,7 @@ extends Spatial
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
-var level: int = 10
+var level: int = 3
 
 var known_tiles: Array = []
 

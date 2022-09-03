@@ -168,6 +168,7 @@ func _process(delta):
 	#	display_container.visible = false
 	#else:
 	#	display_container.visible = true
+
 	
 func interact():
 	if nearby == null:
@@ -176,14 +177,14 @@ func interact():
 			if item.parent.has_method("to_local"):
 				item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
 			item.parent.add_child(item)
+			item.emit_signal("dropped")
 		else:
 			# select inventory item
 			inventory.select_item()
 	elif nearby is Pickup:
 		if inventory.current_slot_empty():
 			var item = nearby.interact(self)
-			if item != null:
-				inventory.set_item(item)
+			inventory.set_item(item)
 		else:
 			UI.log("You're already holding something.")
 	elif nearby is Interactable and not nearby is Pickup:

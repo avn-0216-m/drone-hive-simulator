@@ -2,7 +2,7 @@
 
 [ext_resource path="res://shaders/scroll_tile.shader" type="Shader" id=1]
 [ext_resource path="res://textures/hardermaskrgb.png" type="Texture" id=2]
-[ext_resource path="res://textures/all beep and no boop.png" type="Texture" id=3]
+[ext_resource path="res://sprites/background/demonstration2.png" type="Texture" id=3]
 [ext_resource path="res://scripts/Background.gd" type="Script" id=4]
 [ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=6]
@@ -16,18 +16,18 @@
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 1 )
-shader_param/scroll = Vector2( 0.184, 0.112 )
+shader_param/scroll = Vector2( 0.021, 0.011 )
 shader_param/screen_size = Vector2( 1024, 600 )
-shader_param/tile_count = 0.521
+shader_param/tile_count = 0.303
 shader_param/mask_intensity = 0.0
 shader_param/tile_darkness = 0.0
-shader_param/cutoff = 1.0
+shader_param/cutoff = -1.0
 shader_param/slices_start_offset = 1.0
 shader_param/cutoff_bottom_diff_multiplier = 0.0
 shader_param/slices = 10
 shader_param/slice_start_color = Color( 0, 1, 1, 1 )
 shader_param/slice_distance_multiplier = 1.0
-shader_param/alternate_line_offset = -3.873
+shader_param/alternate_line_offset = 0.5
 shader_param/texture_src = ExtResource( 3 )
 shader_param/mask_src = ExtResource( 2 )
 

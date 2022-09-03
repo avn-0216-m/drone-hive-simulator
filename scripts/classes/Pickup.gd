@@ -10,9 +10,10 @@ export var icon: Texture
 export var icon_size: float = 0.01
 
 # Determines if an object is deleted on pickup.
-var infinite: bool = false 
+export var infinite: bool = false 
 
 signal picked_up
+signal dropped
 
 export var pickup_text = "Picked up"
 export var drop_text = "Dropped"
@@ -29,23 +30,28 @@ var source: Node = null
 
 func _ready():
 	._ready()
-	connect("tree_entered", self, "on_drop")
+	connect("dropped", self, "on_drop")
 	connect("picked_up", self, "on_pickup")
 
 func interact(interactor):
-	if !infinite:
+	if infinite:
+		emit_signal("picked_up")
+		return source
+	else:
 		parent.remove_child(self)
 		emit_signal("picked_up")
 		return self
-	else:
-		return source
+
 	
 func on_drop():
 	UI.log(drop_text + " " + interactable_name + ".")
 
 func on_pickup():
-	UI.log(pickup_text + " " + interactable_name + ".")
-	
+	if infinite:
+		UI.log(pickup_text + " " + source.interactable_name + ".")
+	else:
+		UI.log(pickup_text + " " + interactable_name + ".")
+		
 func use_on(target):
 	# Extend out custom behaviour for using on items.
 	return Result.FAIL

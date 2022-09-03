@@ -8,5 +8,14 @@ var data = [
 				"index": meshlib.Data.ANNA
 			}
 		]
+	},
+	{
+		"placeholders": [
+			{
+				"source": "res://objects/bonus/Roomba.tscn",
+				"area": Vector2(1,1),
+				"index": meshlib.Data.ROOMBA
+			}
+		]
 	}
 ]

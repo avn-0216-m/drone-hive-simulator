@@ -29,7 +29,7 @@ margin_bottom = 20.0
 text = "respawn drone"
 script = ExtResource( 1 )
 
-[node name="Reset Level" type="Button" parent="Level"]
+[node name="Reset level" type="Button" parent="Level"]
 margin_top = 24.0
 margin_right = 106.0
 margin_bottom = 44.0

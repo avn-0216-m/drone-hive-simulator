@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/inventoryslot.png-954ac67803098449775aef1aaaafc23f.stex"
+path="res://.import/power button.png-53ca95cbb408b4fed56de8678ba15bac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/inventoryslot.png"
-dest_files=[ "res://.import/inventoryslot.png-954ac67803098449775aef1aaaafc23f.stex" ]
+source_file="res://blender/source/roomba/power button.png"
+dest_files=[ "res://.import/power button.png-53ca95cbb408b4fed56de8678ba15bac.stex" ]
 
 [params]
 
@@ -23,7 +23,7 @@ flags/repeat=1
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=0
 process/fix_alpha_border=false
 process/premult_alpha=false
 process/HDR_as_SRGB=false

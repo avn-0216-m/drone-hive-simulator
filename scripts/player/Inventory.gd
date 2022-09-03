@@ -134,6 +134,11 @@ func inventory_timeout():
 	slots.visible = false
 
 func set_item(object: Node) -> bool:
+	
+	if object == null:
+		play_sfx(Sfx.LOW)
+		return false
+	
 	show_slots()
 	if current_slot_empty():
 		current_slot.set_item(object)
