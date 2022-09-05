@@ -1,0 +1,25 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+float test(float input){
+	return (exp((2.0 * input - 1.0)) + 1.0) * - 1.0;
+}
+
+void fragment(){
+	COLOR.rgb = vec3(0.0,0.0,0.0);
+	
+	vec2 uv = UV;
+	if(uv.y <= 0.5){
+		uv.y /= abs(UV.x - 0.5 * 2.0);
+		uv.y *= 0.3;
+	} else {
+		uv.y /= abs(UV.x - 0.5 * 2.0);
+		uv.y *= 0.3;
+	}
+
+	uv.x += -0.3;
+	
+	COLOR.g = texture(TEXTURE, uv).g;
+}"

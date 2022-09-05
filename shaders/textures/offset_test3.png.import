@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/demonstration2.png-47166c51ac4702a78a19976cbd9a4458.stex"
+path="res://.import/offset_test3.png-72e671fcf6d74fb860d8ceb25a4fe088.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/background/demonstration2.png"
-dest_files=[ "res://.import/demonstration2.png-47166c51ac4702a78a19976cbd9a4458.stex" ]
+source_file="res://shaders/textures/offset_test3.png"
+dest_files=[ "res://.import/offset_test3.png-72e671fcf6d74fb860d8ceb25a4fe088.stex" ]
 
 [params]
 
@@ -23,10 +23,10 @@ flags/repeat=1
 flags/filter=false
 flags/mipmaps=true
 flags/anisotropic=false
-flags/srgb=1
+flags/srgb=0
 process/fix_alpha_border=false
 process/premult_alpha=false
-process/HDR_as_SRGB=true
+process/HDR_as_SRGB=false
 process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
