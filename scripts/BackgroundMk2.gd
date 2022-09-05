@@ -1,4 +1,4 @@
 extends TextureRect
 
 func _process(delta):
-	texture = get_node("../../BackgroundViewport").get_texture()
+	texture = get_node("BackgroundViewport").get_texture()

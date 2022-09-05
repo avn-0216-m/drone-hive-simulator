@@ -111,8 +111,15 @@ __meta__ = {
 margin_right = 1920.0
 margin_bottom = 1080.0
 stretch_mode = 1
+flip_h = true
 flip_v = true
 script = ExtResource( 2 )
+
+[node name="BackgroundViewport" type="Viewport" parent="Composite/BackgroundMk2"]
+size = Vector2( 1920, 1080 )
+
+[node name="Spatial" parent="Composite/BackgroundMk2/BackgroundViewport" instance=ExtResource( 11 )]
+transform = Transform( -1, 7.64274e-15, 8.74228e-08, 0, -1, 8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 0, 500, 0 )
 
 [node name="Background" type="ColorRect" parent="Composite"]
 visible = false
@@ -161,11 +168,5 @@ script = ExtResource( 8 )
 playback_speed = 64.0
 anims/empty = SubResource( 7 )
 anims/new_level = SubResource( 8 )
-
-[node name="BackgroundViewport" type="Viewport" parent="."]
-size = Vector2( 1920, 1080 )
-
-[node name="Spatial" parent="BackgroundViewport" instance=ExtResource( 11 )]
-transform = Transform( -1, 7.64274e-15, 8.74228e-08, 0, -1, 8.74228e-08, 8.74228e-08, 8.74228e-08, 1, 0, 500, 0 )
 
 [node name="DebugUI" parent="." instance=ExtResource( 9 )]
