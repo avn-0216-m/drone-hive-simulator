@@ -10,7 +10,6 @@ var current_state = State.PLAYING
 onready var music = get_node("Music")
 onready var level = get_node("Level")
 onready var storage_box_src = preload("res://objects/StorageBox.tscn")
-onready var background = get_tree().get_root().get_node("Root/Composite/Background")
 onready var camera = get_node("Camera")
 onready var player: KinematicBody = get_node("Player")
 var difficulty: int = 0
@@ -18,7 +17,6 @@ var difficulty: int = 0
 func _ready():
 	$AnimationPlayer.connect("animation_finished",self,"animation_finished")
 	player.show_id()
-	background.wipe_in()
 	
 	# Assign multimesh ref to camera obj
 	get_node("Camera").materials = (get_node("Level/Geometry").get_wall_materials())
@@ -26,12 +24,6 @@ func _ready():
 	#level.new_level()
 	
 	#music.change_music()
-	
-func wipe_out():
-	background.wipe_out()
-	
-func wipe_in():
-	background.wipe_in()
 
 func new_level():
 	difficulty += 1
