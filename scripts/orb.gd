@@ -1,6 +1,9 @@
 extends Spatial
 
-
 func _ready():
-	$Tween.interpolate_property($MeshInstance, "rotation_degrees:y", 0, 360, 120)
-	$Tween.start()
+	
+	$TweenUVX.interpolate_property($MeshInstance.material_override, "uv1_offset:x", 0, 1, 60)
+	$TweenUVX.start()
+	
+	$TweenUVY.interpolate_property($MeshInstance.material_override, "uv1_offset:y", 0, 1, 120)
+	$TweenUVY.start()
