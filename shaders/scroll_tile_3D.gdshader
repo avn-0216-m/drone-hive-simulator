@@ -3,6 +3,7 @@ uniform sampler2D tile_source : hint_albedo;
 uniform float tile_density;
 uniform float alternate_line_offset;
 uniform vec2 scroll;
+uniform float height_correction;
 
 void fragment() {
 	
@@ -11,7 +12,7 @@ void fragment() {
 	
 	vec2 tile_uv = vec2(
 		UV.x * tile_density * ratio + TIME * scroll.x,
-		UV.y * tile_density + TIME * scroll.y
+		UV.y * tile_density * height_correction + TIME * scroll.y
 	);
 	
 	tile_uv.x += alternate_line_offset * mod(round(tile_uv.y + 0.5), 2.0);
