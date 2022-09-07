@@ -1,7 +1,5 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://scripts/BackgroundMk2.gd" type="Script" id=2]
-[ext_resource path="res://scripts/ViewportView.gd" type="Script" id=5]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=6]
 [ext_resource path="res://objects/player/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/Music.gd" type="Script" id=8]
@@ -76,62 +74,53 @@ __meta__ = {
 "_editor_description_": "This node is used to put the 3D render and background behind the singleton UIs. "
 }
 
-[node name="Background" type="TextureRect" parent="Composite"]
+[node name="BackgroundTexture" type="ViewportContainer" parent="Composite"]
 margin_right = 1920.0
 margin_bottom = 1080.0
-stretch_mode = 1
-flip_h = true
-flip_v = true
-script = ExtResource( 2 )
 
-[node name="BackgroundViewport" type="Viewport" parent="Composite/Background"]
+[node name="Viewport" type="Viewport" parent="Composite/BackgroundTexture"]
 size = Vector2( 1920, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="Spatial" parent="Composite/Background/BackgroundViewport" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
+[node name="BackgroundCylinder" parent="Composite/BackgroundTexture/Viewport" instance=ExtResource( 11 )]
 
-[node name="Game" type="TextureRect" parent="Composite"]
+[node name="GameTexture" type="ViewportContainer" parent="Composite"]
 material = SubResource( 2 )
 margin_right = 1920.0
 margin_bottom = 1080.0
-script = ExtResource( 5 )
 
-[node name="Viewport" type="Viewport" parent="."]
+[node name="Viewport" type="Viewport" parent="Composite/GameTexture"]
 size = Vector2( 1920, 1080 )
 transparent_bg = true
-render_target_v_flip = true
+handle_input_locally = false
+render_target_update_mode = 3
 
-[node name="Game" type="Node" parent="Viewport"]
+[node name="Game" type="Node" parent="Composite/GameTexture/Viewport"]
 script = ExtResource( 6 )
 
-[node name="Player" parent="Viewport/Game" instance=ExtResource( 7 )]
+[node name="Player" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )
 
-[node name="RemoteTransform" type="RemoteTransform" parent="Viewport/Game"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
-remote_path = NodePath("../../../Composite/Background/BackgroundViewport/Spatial")
-use_global_coordinates = false
+[node name="Music" type="AudioStreamPlayer" parent="Composite/GameTexture/Viewport/Game"]
+stream = ExtResource( 19 )
+bus = "Music"
+script = ExtResource( 8 )
 
-[node name="Camera" type="Camera" parent="Viewport/Game"]
+[node name="Level" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 17 )]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Composite/GameTexture/Viewport/Game"]
+playback_speed = 64.0
+anims/empty = SubResource( 7 )
+anims/new_level = SubResource( 8 )
+
+[node name="Camera" type="Camera" parent="Composite/GameTexture/Viewport/Game"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
 cull_mask = 7
 current = true
 far = 1000.0
 script = ExtResource( 16 )
-game_over_rotation_y = 10.0
 
-[node name="PeepholeTween" type="Tween" parent="Viewport/Game/Camera"]
-
-[node name="Music" type="AudioStreamPlayer" parent="Viewport/Game"]
-stream = ExtResource( 19 )
-bus = "Music"
-script = ExtResource( 8 )
-
-[node name="Level" parent="Viewport/Game" instance=ExtResource( 17 )]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Viewport/Game"]
-playback_speed = 64.0
-anims/empty = SubResource( 7 )
-anims/new_level = SubResource( 8 )
+[node name="PeepholeTween" type="Tween" parent="Composite/GameTexture/Viewport/Game/Camera"]
 
 [node name="DebugUI" parent="." instance=ExtResource( 9 )]

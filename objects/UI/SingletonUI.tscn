@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://themes/theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/UI.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://sfx/talk final.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scripts/ui/Dialog.gd" type="Script" id=7]
 [ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=8]
+[ext_resource path="res://sprites/testbat2.png" type="Texture" id=9]
+[ext_resource path="res://sprites/testbat1.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -63,6 +65,8 @@ gradient = SubResource( 1 )
 [sub_resource type="StyleBoxTexture" id=3]
 texture = SubResource( 2 )
 region_rect = Rect2( 0, 0, 2048, 1 )
+
+[sub_resource type="StyleBoxEmpty" id=7]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
@@ -215,11 +219,31 @@ bus = "Dialog"
 [node name="TextureProgress" type="ProgressBar" parent="Anchor"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -396.0
-margin_right = 397.0
+margin_left = -405.5
+margin_right = 405.5
 margin_bottom = 27.0
+grow_vertical = 0
+custom_styles/bg = SubResource( 7 )
 value = 50.0
 allow_greater = true
+
+[node name="TextureRect" type="TextureRect" parent="Anchor/TextureProgress"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -32.0
+margin_right = 64.0
+margin_bottom = 32.0
+texture = ExtResource( 10 )
+
+[node name="TextureRect2" type="TextureRect" parent="Anchor/TextureProgress"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -32.0
+margin_bottom = 32.0
+texture = ExtResource( 9 )
 
 [connection signal="timeout" from="Anchor/Dialog/CharacterWaitTime" to="Anchor/Dialog" method="push_character"]
 [connection signal="timeout" from="Anchor/Dialog/BoxWaitTime" to="Anchor/Dialog" method="read_dialog"]
