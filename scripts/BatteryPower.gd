@@ -7,6 +7,7 @@ class_name BatteryPower
 var maximum_charge: int = 500
 var drain_per_tick: int = 1
 var overcharge: bool = false
+var current_charge: int = maximum_charge
 
 enum Level {
 	EMPTY = 0, 
@@ -15,9 +16,7 @@ enum Level {
 	HIGH = 3,
 	FULL = 4
 }
-
-var current_charge: int = maximum_charge
-var current_level = 0
+var current_level = 4
 
 signal battery_empty
 signal battery_low

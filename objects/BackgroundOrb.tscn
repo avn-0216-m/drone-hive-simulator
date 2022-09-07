@@ -2,7 +2,7 @@
 
 [ext_resource path="res://shaders/scroll_tile_3D.gdshader" type="Shader" id=1]
 [ext_resource path="res://scripts/orb.gd" type="Script" id=2]
-[ext_resource path="res://textures/dialog background.png" type="Texture" id=3]
+[ext_resource path="res://sprites/background/demonstration2.png" type="Texture" id=3]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 1 )
