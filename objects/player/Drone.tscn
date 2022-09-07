@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/player/PlayerDrone.gd" type="Script" id=1]
 [ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sprites/face/numergrid.png" type="Texture" id=6]
 [ext_resource path="res://sprites/zap.png" type="Texture" id=7]
 [ext_resource path="res://objects/player/Inventory.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/BatteryPower.gd" type="Script" id=9]
 [ext_resource path="res://sfx/sprint2.ogg" type="AudioStream" id=11]
 [ext_resource path="res://sfx/sprint1.ogg" type="AudioStream" id=12]
 
@@ -15,13 +16,13 @@
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "backward",
-"speed": 4.0
+"name": "forward",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
 "loop": true,
-"name": "forward",
-"speed": 5.0
+"name": "backward",
+"speed": 4.0
 } ]
 
 [sub_resource type="CapsuleShape" id=2]
@@ -168,5 +169,12 @@ bus = "Footsteps"
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.44816, 0 )
 light_energy = 0.3
 spot_range = 24.121
+
+[node name="BatteryPower" type="Spatial" parent="."]
+script = ExtResource( 9 )
+
+[node name="BatteryTick" type="Timer" parent="BatteryPower"]
+wait_time = 3.0
+autostart = true
 
 [connection signal="frame_changed" from="Body" to="." method="frame_changed"]

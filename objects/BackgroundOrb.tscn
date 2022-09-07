@@ -35,6 +35,6 @@ size = 0.1
 far = 8192.0
 
 [node name="OmniLight" type="OmniLight" parent="Camera"]
-transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, -1.12756, -0.4104 )
-light_energy = 4.924
-omni_range = 17.402
+transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, -0.762, -0.41 )
+light_energy = 3.122
+omni_range = 21.76
