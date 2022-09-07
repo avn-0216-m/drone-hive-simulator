@@ -95,9 +95,6 @@ margin_right = 800.0
 grow_vertical = 0
 mouse_filter = 2
 alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TaskList" type="ItemList" parent="Anchor"]
 margin_right = 800.0
@@ -106,14 +103,14 @@ theme = ExtResource( 1 )
 auto_height = true
 
 [node name="Dialog" type="Control" parent="Anchor"]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 345.0
-margin_top = 700.0
-margin_right = 1495.0
-margin_bottom = 1000.0
+margin_left = -575.0
+margin_top = -300.0
+margin_right = 575.0
 script = ExtResource( 7 )
 
 [node name="CharacterWaitTime" type="Timer" parent="Anchor/Dialog"]
@@ -214,6 +211,15 @@ bus = "Dialog"
 stream = ExtResource( 6 )
 pitch_scale = 1.15
 bus = "Dialog"
+
+[node name="TextureProgress" type="ProgressBar" parent="Anchor"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -396.0
+margin_right = 397.0
+margin_bottom = 27.0
+value = 50.0
+allow_greater = true
 
 [connection signal="timeout" from="Anchor/Dialog/CharacterWaitTime" to="Anchor/Dialog" method="push_character"]
 [connection signal="timeout" from="Anchor/Dialog/BoxWaitTime" to="Anchor/Dialog" method="read_dialog"]
