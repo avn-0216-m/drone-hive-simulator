@@ -1,5 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
+[ext_resource path="res://shaders/edge_blur.gdshader" type="Shader" id=1]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=6]
 [ext_resource path="res://objects/player/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/Music.gd" type="Script" id=8]
@@ -10,40 +11,10 @@
 [ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
 [ext_resource path="res://mus/clicker training.ogg" type="AudioStream" id=19]
 
-[sub_resource type="Shader" id=9]
-code = "shader_type canvas_item;
-
-// (x - 0.5) * 2
-// f(1) = 1
-// f(0) = -1
-
-uniform float blur_amount = 0.001;
-
-void fragment(){
-	float edge = round(UV.x);
-	float distance_to_center = distance(vec2(0.5, UV.y), UV);
-	vec4 blurred = texture(TEXTURE, UV);
-	
-	float radius = distance_to_center * 10.0 * blur_amount;
-	
-	blurred += texture(TEXTURE, UV + vec2(0.0, radius) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(0.0, -radius) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(radius, 0.0) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(-radius, 0.0) * TEXTURE_PIXEL_SIZE);
-	
-	blurred += texture(TEXTURE, UV + vec2(-radius, -radius) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(radius, radius) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(-radius, radius) * TEXTURE_PIXEL_SIZE);
-	blurred += texture(TEXTURE, UV + vec2(radius, -radius) * TEXTURE_PIXEL_SIZE);
-
-	blurred /= 9.0;
-
-	COLOR = blurred;
-}"
-
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
-shader_param/blur_amount = 1.0
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 1 )
+shader_param/blur_quality = 50.0
+shader_param/radius = -0.081
 
 [sub_resource type="ShaderMaterial" id=2]
 
@@ -110,13 +81,14 @@ __meta__ = {
 }
 
 [node name="BackgroundTexture" type="ViewportContainer" parent="Composite"]
-material = SubResource( 10 )
+material = SubResource( 9 )
 margin_right = 1920.0
 margin_bottom = 1080.0
 
 [node name="Viewport" type="Viewport" parent="Composite/BackgroundTexture"]
 size = Vector2( 1920, 1080 )
 handle_input_locally = false
+hdr = false
 render_target_update_mode = 3
 
 [node name="BackgroundCylinder" parent="Composite/BackgroundTexture/Viewport" instance=ExtResource( 11 )]

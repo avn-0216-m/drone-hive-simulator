@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://shaders/scroll_tile_3D.gdshader" type="Shader" id=1]
 [ext_resource path="res://scripts/orb.gd" type="Script" id=2]
-[ext_resource path="res://sprites/background/demonstration2.png" type="Texture" id=3]
+[ext_resource path="res://textures/dialog background.png" type="Texture" id=3]
 
 [sub_resource type="ShaderMaterial" id=5]
 shader = ExtResource( 1 )
@@ -10,12 +10,29 @@ shader_param/tile_density = 20.0
 shader_param/alternate_line_offset = 0.0
 shader_param/scroll = Vector2( -0.06, 0 )
 shader_param/height_correction = 3.5
+shader_param/flip_x = false
+shader_param/flip_y = true
 shader_param/tile_source = ExtResource( 3 )
 
 [sub_resource type="CylinderMesh" id=6]
 flip_faces = true
 height = 10.0
 rings = 5
+
+[sub_resource type="Environment" id=7]
+ambient_light_color = Color( 1, 1, 1, 1 )
+fog_enabled = true
+fog_color = Color( 0, 0, 0, 1 )
+fog_depth_end = 93.5
+fog_depth_curve = 1.27456
+ssao_radius = 38.36
+ssao_intensity = 0.0
+dof_blur_far_distance = 0.01
+dof_blur_near_distance = 21.6
+dof_blur_near_transition = 19.21
+dof_blur_near_amount = 0.28
+dof_blur_near_quality = 2
+glow_enabled = true
 
 [node name="BackgroundCylinder" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 500, 0 )
@@ -30,9 +47,9 @@ material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 519.18, 0.693637 )
+environment = SubResource( 7 )
 fov = 73.1
 size = 0.1
-far = 8192.0
 
 [node name="OmniLight" type="OmniLight" parent="Camera"]
 transform = Transform( 1, 0, 0, 0, 0.939693, -0.34202, 0, 0.34202, 0.939693, 0, -0.762, -0.41 )

@@ -5,6 +5,9 @@ uniform float alternate_line_offset;
 uniform vec2 scroll;
 uniform float height_correction;
 
+uniform bool flip_x = false;
+uniform bool flip_y = false;
+
 void fragment() {
 	
 	ivec2 tile_pixel_size = textureSize(tile_source, 1);
@@ -14,6 +17,9 @@ void fragment() {
 		UV.x * tile_density * ratio + TIME * scroll.x,
 		UV.y * tile_density * height_correction + TIME * scroll.y
 	);
+	
+	tile_uv.x *= ((float(flip_x) - 0.5) * 2.0);
+	tile_uv.y *= ((float(flip_y) - 0.5) * 2.0);
 	
 	tile_uv.x += alternate_line_offset * mod(round(tile_uv.y + 0.5), 2.0);
 	

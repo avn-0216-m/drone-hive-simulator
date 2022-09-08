@@ -36,7 +36,7 @@ resource_local_to_scene = true
 transform_format = 1
 mesh = SubResource( 2 )
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="ShaderMaterial" id=13]
 shader = ExtResource( 6 )
 shader_param/wall_uv = Vector2( 2, 2 )
 shader_param/wall_offset = null
@@ -56,7 +56,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 97559,
 "index_count": 24,
-"material": SubResource( 4 ),
+"material": SubResource( 13 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 18
