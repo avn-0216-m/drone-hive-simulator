@@ -60,7 +60,7 @@ frames = SubResource( 1 )
 animation = "forward"
 
 [node name="Display" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 2.4, 0.15 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 2.44957, 0.15 )
 
 [node name="Icon" type="Sprite3D" parent="Display"]
 transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.249127, 0.178315, 0 )
@@ -79,7 +79,6 @@ modulate = Color( 0, 1, 1, 1 )
 double_sided = false
 texture = ExtResource( 6 )
 hframes = 10
-frame = 5
 
 [node name="ID2" type="Sprite3D" parent="Display/ID"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0 )
@@ -88,7 +87,7 @@ modulate = Color( 0, 1, 1, 1 )
 double_sided = false
 texture = ExtResource( 6 )
 hframes = 10
-frame = 8
+frame = 2
 
 [node name="ID3" type="Sprite3D" parent="Display/ID"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0 )
@@ -97,7 +96,7 @@ modulate = Color( 0, 1, 1, 1 )
 double_sided = false
 texture = ExtResource( 6 )
 hframes = 10
-frame = 9
+frame = 1
 
 [node name="ID4" type="Sprite3D" parent="Display/ID"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0 )
@@ -106,9 +105,11 @@ modulate = Color( 0, 1, 1, 1 )
 double_sided = false
 texture = ExtResource( 6 )
 hframes = 10
+frame = 6
 
 [node name="Collision" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0 )
+visible = false
 shape = SubResource( 2 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
@@ -116,6 +117,7 @@ volume_db = 2.0
 
 [node name="InteractArea" type="Area" parent="."]
 transform = Transform( -1.62921e-07, 0, -1, 0, 1, 0, 1, 0, -1.62921e-07, 0, 0, 0 )
+visible = false
 
 [node name="CollisionShape" type="CollisionShape" parent="InteractArea"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42757, 0, 1.40259e-07 )
@@ -143,6 +145,7 @@ wait_time = 3.0
 
 [node name="ItemDrop" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0 )
+visible = false
 
 [node name="SouthRaycast" type="RayCast" parent="."]
 enabled = true
@@ -153,7 +156,7 @@ enabled = true
 cast_to = Vector3( 0, 0, -4 )
 
 [node name="Inventory" parent="." instance=ExtResource( 8 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5, 0 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.05297, 0 )
 
 [node name="SFXs" type="Node" parent="."]
 
@@ -171,5 +174,6 @@ light_energy = 0.3
 spot_range = 24.121
 
 [node name="BatteryPower" parent="." instance=ExtResource( 9 )]
+visible = false
 
 [connection signal="frame_changed" from="Body" to="." method="frame_changed"]

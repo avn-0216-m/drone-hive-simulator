@@ -3,6 +3,7 @@ extends Spatial
 onready var parent: Drone = get_parent()
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
+onready var battery = get_node("Battery")
 var distance_between_slots: float = 1.1
 
 var cursor_target: Vector3 = Vector3(0,0,0)
@@ -123,6 +124,11 @@ func pop_item() -> Node:
 	
 func select_item():
 	show_slots()
+	
+	if current_slot is BatterySlot:
+		current_slot.output()
+		return
+	
 	if current_slot_empty():
 		play_sfx(Sfx.LOW)
 	else:
@@ -149,6 +155,7 @@ func set_item(object: Node) -> bool:
 		play_sfx(Sfx.LOW)
 		return false
 
+
 func get_item() -> Node:
 	return current_slot.item
 	
@@ -160,7 +167,7 @@ func delete_item() -> void:
 func duplicate_item(item: Node):
 	var next_available_slot = null
 	for slot in slots.get_children():
-		if slot.item == null:
+		if slot is InventorySlot and slot.item == null:
 			next_available_slot = slot
 			break
 	if next_available_slot == null:

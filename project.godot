@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/BatteryPower.gd"
 }, {
+"base": "Sprite3D",
+"class": "BatterySlot",
+"language": "GDScript",
+"path": "res://scripts/player/BatterySlot.gd"
+}, {
 "base": "InstanceManagerBase",
 "class": "BonusManager",
 "language": "GDScript",
@@ -59,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/classes/Interactable.gd"
 }, {
+"base": "Sprite3D",
+"class": "InventorySlot",
+"language": "GDScript",
+"path": "res://scripts/player/InventorySlot.gd"
+}, {
 "base": "KinematicBody",
 "class": "KinematicGravity",
 "language": "GDScript",
@@ -88,6 +98,7 @@ _global_script_class_icons={
 "Anna": "",
 "Battery": "",
 "BatteryPower": "",
+"BatterySlot": "",
 "BonusManager": "",
 "Drone": "",
 "Flower": "",
@@ -95,6 +106,7 @@ _global_script_class_icons={
 "InstanceManagerBase": "",
 "Instanceable": "",
 "Interactable": "",
+"InventorySlot": "",
 "KinematicGravity": "",
 "NullPlate": "",
 "Pickup": "",

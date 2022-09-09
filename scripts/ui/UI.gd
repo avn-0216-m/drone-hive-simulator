@@ -10,6 +10,7 @@ export var cross: Texture
 export var treasure: Texture
 
 onready var dialog = get_node("Anchor/Dialog")
+onready var battery = get_node("Anchor/Battery")
 
 func log(text: String):
 	var label = label_src.instance()

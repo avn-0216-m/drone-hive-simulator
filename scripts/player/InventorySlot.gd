@@ -1,4 +1,5 @@
 extends Sprite3D
+class_name InventorySlot
 
 var color_dampening: Color = Color(0.3,0.3,0.3,0)
 var goopy_color: Color = Color(1,0.5,1,1) # bawk bawk :3c

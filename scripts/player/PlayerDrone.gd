@@ -48,7 +48,9 @@ var interact = 64
 func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
 	set_id("0546")
-	gravity = 9.8
+	UI.battery.track(self)
+	
+	
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:

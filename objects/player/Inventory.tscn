@@ -1,10 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/player/Inventory.gd" type="Script" id=1]
 [ext_resource path="res://sfx/inventory/inventorymid.ogg" type="AudioStream" id=2]
+[ext_resource path="res://sprites/batteryui/inv battery.png" type="Texture" id=3]
 [ext_resource path="res://objects/inventory/Slot.tscn" type="PackedScene" id=4]
 [ext_resource path="res://sprites/inventoryslot.png" type="Texture" id=5]
 [ext_resource path="res://sprites/cursor.png" type="Texture" id=6]
+[ext_resource path="res://scripts/player/BatterySlot.gd" type="Script" id=7]
+[ext_resource path="res://sprites/batteryui/pip2.png" type="Texture" id=8]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
@@ -36,6 +39,30 @@ flags_no_depth_test = true
 albedo_color = Color( 0, 0.219608, 0.658824, 1 )
 albedo_texture = ExtResource( 5 )
 
+[sub_resource type="SpatialMaterial" id=7]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0.25098, 0.25098, 0.25098, 1 )
+albedo_texture = ExtResource( 3 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "wiggle"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:translation:y")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.1, -0.1 ]
+}
+
 [node name="Inventory" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -45,6 +72,7 @@ material_override = SubResource( 3 )
 texture = ExtResource( 6 )
 
 [node name="Slots" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.371107, 0, 0 )
 
 [node name="Slot1" parent="Slots" instance=ExtResource( 4 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -1.04975, 0.116518, 0 )
@@ -52,15 +80,40 @@ material_override = SubResource( 4 )
 modulate = Color( 1, 0.6, 1, 1 )
 
 [node name="Slot2" parent="Slots" instance=ExtResource( 4 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 1.13707, 0.0999999, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0.030953, 0.0999999, 0 )
 material_override = SubResource( 5 )
 
 [node name="Slot3" parent="Slots" instance=ExtResource( 4 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0517528, 0.0999999, 0 )
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 1.13341, 0.0999999, 0 )
 material_override = SubResource( 6 )
 
+[node name="Battery" type="Sprite3D" parent="Slots"]
+transform = Transform( -1.31134e-07, 3, 0, -3, -1.31134e-07, 0, 0, 0, 3, 2.21641, 0.1, 0 )
+material_override = SubResource( 7 )
+texture = ExtResource( 3 )
+script = ExtResource( 7 )
+
+[node name="Pip" type="Sprite3D" parent="Slots/Battery"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3.72529e-09, -0.0803245, 0 )
+texture = ExtResource( 8 )
+
+[node name="Pip2" type="Sprite3D" parent="Slots/Battery"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, -0.0292863, 0 )
+texture = ExtResource( 8 )
+
+[node name="Pip3" type="Sprite3D" parent="Slots/Battery"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.0188719, 0 )
+texture = ExtResource( 8 )
+
+[node name="Pip4" type="Sprite3D" parent="Slots/Battery"]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3.72529e-09, 0.0695758, 0 )
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Slots/Battery"]
+anims/wiggle = SubResource( 8 )
+
 [node name="VisibilityTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 100.0
 one_shot = true
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
