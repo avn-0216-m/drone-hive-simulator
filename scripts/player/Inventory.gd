@@ -3,7 +3,7 @@ extends Spatial
 onready var parent: Drone = get_parent()
 onready var slots = get_node("Slots")
 onready var cursor = get_node("Cursor")
-onready var battery = get_node("Battery")
+onready var battery = get_node("Slots/Battery")
 var distance_between_slots: float = 1.1
 
 var cursor_target: Vector3 = Vector3(0,0,0)

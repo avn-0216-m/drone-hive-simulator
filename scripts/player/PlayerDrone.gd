@@ -20,6 +20,8 @@ onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
 onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
+onready var battery = get_node("BatteryPower")
+
 onready var inventory = get_node("Inventory")
 
 onready var south_ray = get_node("SouthRaycast")
@@ -48,9 +50,8 @@ var interact = 64
 func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
 	set_id("0546")
-	UI.battery.track(self)
-	
-	
+	battery.connect("battery_charge_changed", inventory.battery, "on_battery_change")
+	inventory.battery.maximum_charge = battery.maximum_charge
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
