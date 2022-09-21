@@ -8,8 +8,8 @@ var level_songs: Array = [
 	preload("res://mus/victory lap.ogg"),
 	preload("res://mus/stories of stardomme.ogg"),
 	preload("res://mus/phoenix.ogg"),
-	preload("res://mus/welcome2hive.ogg")
-	
+	preload("res://mus/welcome2hive.ogg"),
+	preload("res://mus/respite.ogg")
 	]
 
 onready var game_over = preload("res://mus/bawk.ogg")

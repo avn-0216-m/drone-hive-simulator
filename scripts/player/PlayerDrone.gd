@@ -49,9 +49,8 @@ var interact = 64
 
 func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
-	set_id("0546")
-	battery.connect("battery_charge_changed", inventory.battery, "on_battery_change")
-	inventory.battery.maximum_charge = battery.maximum_charge
+	set_id("3043")
+	inventory.battery.track(battery)
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -226,16 +225,6 @@ func interact():
 			inventory.play_sfx(inventory.Sfx.LOW)
 	else:
 		inventory.play_sfx(inventory.Sfx.LOW)
-	
-		
-func recharge(amount: int = 100):
-	sfx.stream = sfx_battery
-	sfx.play()
-	$BatteryParticles.one_shot = false
-	$BatteryParticles.emitting = true
-	$BatteryParticles.one_shot = true
-	show_icon()
-	$FaceTimer.start()	
 
 
 func frame_changed():

@@ -1,6 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://shaders/edge_blur.gdshader" type="Shader" id=1]
+[ext_resource path="res://objects/Battery.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/geometry/RoomFloor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=6]
 [ext_resource path="res://objects/player/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/Music.gd" type="Script" id=8]
@@ -103,6 +105,11 @@ render_target_update_mode = 3
 
 [node name="Game" type="Node" parent="Composite/GameTexture/Viewport"]
 script = ExtResource( 6 )
+
+[node name="RoomBase" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 3 )]
+
+[node name="Battery" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 2 )]
+transform = Transform( 0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.81133, -4.26763 )
 
 [node name="Player" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 5.69946, 3.85447, 4.22727 )

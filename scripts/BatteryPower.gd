@@ -9,35 +9,12 @@ var drain_per_tick: int = 5
 var overcharge: bool = false
 var current_charge: int = maximum_charge
 
-enum Level {
-	EMPTY = 0, 
-	LOW = 1,
-	MID = 2,
-	HIGH = 3,
-	FULL = 4
-}
-var current_level = 4
-
-signal battery_empty
-signal battery_low
-signal battery_mid
-signal battery_high
-signal battery_full
-
+signal battery_recharged(new_charge)
 signal battery_charge_changed(new_charge)
-signal battery_level_changed
 
-func recharge(amount: int) -> int:
-	# Adds given units to the total current charge.
-	# Returns the current level.
+func recharge(amount: int):
 	current_charge = current_charge + amount if overcharge else min(maximum_charge, current_charge + amount)
-	return 0
-	
-func get_current_charge():
-	return current_charge
-	
-func get_current_level():
-	return current_level
+	emit_signal("battery_recharged", current_charge)
 
 func drain():
 	current_charge = max(current_charge - drain_per_tick, 0)

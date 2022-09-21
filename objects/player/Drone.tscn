@@ -41,6 +41,7 @@ params_alpha_scissor_threshold = 1.0
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
+albedo_color = Color( 0, 0.905882, 1, 1 )
 albedo_texture = ExtResource( 7 )
 
 [sub_resource type="QuadMesh" id=5]
@@ -128,7 +129,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21892 )
 material_override = SubResource( 4 )
 emitting = false
 amount = 4
-one_shot = true
 explosiveness = 1.0
 mesh = SubResource( 5 )
 emission_shape = 2

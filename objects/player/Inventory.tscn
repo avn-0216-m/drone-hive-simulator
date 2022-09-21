@@ -113,7 +113,7 @@ texture = ExtResource( 8 )
 anims/wiggle = SubResource( 8 )
 
 [node name="VisibilityTimer" type="Timer" parent="."]
-wait_time = 100.0
+wait_time = 3.0
 one_shot = true
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]

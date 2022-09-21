@@ -18,5 +18,6 @@ func _ready():
 	max_fall_speed = 15
 
 func interact(interactor):
-	interactor.recharge()
+	if interactor is Drone:
+		interactor.battery.recharge(50)
 	queue_free()

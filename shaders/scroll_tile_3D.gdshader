@@ -10,12 +10,12 @@ uniform bool flip_y = false;
 
 void fragment() {
 	
-	ivec2 tile_pixel_size = textureSize(tile_source, 1);
+	ivec2 tile_pixel_size = textureSize(tile_source, 0);
 	float ratio = (float(tile_pixel_size.y) / float(tile_pixel_size.x));
 	
 	vec2 tile_uv = vec2(
 		UV.x * tile_density * ratio + TIME * scroll.x,
-		UV.y * tile_density * height_correction + TIME * scroll.y
+		UV.y * tile_density * height_correction	 + TIME * scroll.y
 	);
 	
 	tile_uv.x *= ((float(flip_x) - 0.5) * 2.0);
