@@ -143,6 +143,7 @@ window/stretch/aspect="keep"
 [global]
 
 audio=false
+msaa=true
 
 [importer_defaults]
 

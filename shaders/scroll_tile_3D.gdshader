@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode specular_disabled;
 uniform sampler2D tile_source : hint_albedo;
 uniform float tile_density;
 uniform float alternate_line_offset;
@@ -20,6 +21,10 @@ void fragment() {
 	
 	tile_uv.x *= ((float(flip_x) - 0.5) * 2.0);
 	tile_uv.y *= ((float(flip_y) - 0.5) * 2.0);
+	
+	if(mod(floor(tile_uv.y), 2.0) == 0.0){
+		tile_uv.x += alternate_line_offset;
+	}
 	
 	tile_uv.x += alternate_line_offset * mod(round(tile_uv.y + 0.5), 2.0);
 	

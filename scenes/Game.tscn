@@ -16,7 +16,7 @@
 [sub_resource type="ShaderMaterial" id=9]
 shader = ExtResource( 1 )
 shader_param/blur_quality = 50.0
-shader_param/radius = -0.081
+shader_param/radius = -0.06
 
 [sub_resource type="Animation" id=7]
 
