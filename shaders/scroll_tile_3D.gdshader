@@ -22,11 +22,10 @@ void fragment() {
 	tile_uv.x *= ((float(flip_x) - 0.5) * 2.0);
 	tile_uv.y *= ((float(flip_y) - 0.5) * 2.0);
 	
-	if(mod(floor(tile_uv.y), 2.0) == 0.0){
+	// Currently adds an annoying seam.
+	if(mod(floor(tile_uv.y), 2.0) != 0.0){
 		tile_uv.x += alternate_line_offset;
 	}
-	
-	tile_uv.x += alternate_line_offset * mod(round(tile_uv.y + 0.5), 2.0);
 	
 	ALBEDO = texture(tile_source, tile_uv).rgb;
 }
