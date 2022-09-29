@@ -48,8 +48,8 @@ void fragment(){
 	float modulate = 2.0;
 	float modulate2 = 1.0;
 	
-	tile_uv.x = mod((UV.x)*((screen_size.x/float(texture_size.x) * tile_count )) - TIME * scroll.x, modulate2);
-	tile_uv.y = mod((UV.y)*((screen_size.y/float(texture_size.y) * tile_count )) - TIME * scroll.y, modulate2);
+	tile_uv.x = (UV.x)*((screen_size.x/float(texture_size.x) * tile_count )) - TIME * scroll.x;
+	tile_uv.y = (UV.y)*((screen_size.y/float(texture_size.y) * tile_count )) - TIME * scroll.y;
 	
 	//tile_uv.x = tile_uv.x * UV.y;
 	
@@ -81,7 +81,7 @@ void fragment(){
 
 
 	
-	tile_uv.x += (mod(floor(tile_uv.y), modulate) * alternate_line_offset);
+	tile_uv.x += mod(floor(tile_uv.y), modulate) * alternate_line_offset;
 	
 	// Load tiling texture
 	vec4 texture = texture(texture_src, tile_uv);

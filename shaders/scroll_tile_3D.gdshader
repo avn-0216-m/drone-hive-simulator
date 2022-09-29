@@ -1,5 +1,4 @@
 shader_type spatial;
-render_mode specular_disabled;
 uniform sampler2D tile_source : hint_albedo;
 uniform float tile_density;
 uniform float alternate_line_offset;
@@ -22,10 +21,16 @@ void fragment() {
 	tile_uv.x *= ((float(flip_x) - 0.5) * 2.0);
 	tile_uv.y *= ((float(flip_y) - 0.5) * 2.0);
 	
+	float modulate = 2.0;
+	
 	// Currently adds an annoying seam.
-	if(mod(floor(tile_uv.y), 2.0) != 0.0){
-		tile_uv.x += alternate_line_offset;
-	}
+//	if(mod(tile_uv.y, modulate) != 0.0 && mod(floor(tile_uv.y), modulate) == 0.0){
+//		tile_uv.x += 0.5;
+//	}
+
+	tile_uv.x += mod(floor(tile_uv.y), modulate) * alternate_line_offset;
 	
 	ALBEDO = texture(tile_source, tile_uv).rgb;
+	
+
 }
