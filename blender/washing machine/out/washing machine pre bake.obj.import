@@ -1,0 +1,20 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/washing machine pre bake.obj-a73b7f237d96f10f8297ed8b7808567d.mesh"
+
+[deps]
+
+files=[ "res://.import/washing machine pre bake.obj-a73b7f237d96f10f8297ed8b7808567d.mesh" ]
+
+source_file="res://blender/washing machine/out/washing machine pre bake.obj"
+dest_files=[ "res://.import/washing machine pre bake.obj-a73b7f237d96f10f8297ed8b7808567d.mesh", "res://.import/washing machine pre bake.obj-a73b7f237d96f10f8297ed8b7808567d.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+offset_mesh=Vector3( 0, 0, 0 )
+octahedral_compression=true
+optimize_mesh_flags=4286
