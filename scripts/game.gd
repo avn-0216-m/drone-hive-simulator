@@ -9,7 +9,6 @@ var current_state = State.PLAYING
 
 onready var music = get_node("Music")
 onready var level = get_node("Level")
-onready var storage_box_src = preload("res://objects/StorageBox.tscn")
 onready var camera = get_node("Camera")
 onready var player: KinematicBody = get_node("Player")
 var difficulty: int = 0

@@ -126,8 +126,8 @@ output_latency=50
 
 [autoload]
 
-UI="*res://objects/UI/SingletonUI.tscn"
 InstanceManager="*res://objects/InstanceManager.tscn"
+UI="*res://objects/UI/SingletonUI.tscn"
 
 [debug]
 

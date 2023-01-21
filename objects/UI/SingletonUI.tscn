@@ -1,19 +1,12 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://themes/theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/ui/UI.gd" type="Script" id=2]
-[ext_resource path="res://sprites/tasks/cross.png" type="Texture" id=3]
-[ext_resource path="res://sprites/tasks/tick.png" type="Texture" id=4]
-[ext_resource path="res://sprites/tasks/treasure.png" type="Texture" id=5]
+[ext_resource path="res://sprites/ui/cross.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/treasure.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/tick.png" type="Texture" id=5]
 [ext_resource path="res://sfx/talk final.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scripts/ui/Dialog.gd" type="Script" id=7]
-[ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=8]
-[ext_resource path="res://sprites/batteryui/left.png" type="Texture" id=9]
-[ext_resource path="res://sprites/batteryui/right.png" type="Texture" id=10]
-[ext_resource path="res://sprites/batteryui/empty.png" type="Texture" id=11]
-[ext_resource path="res://sprites/batteryui/charge.png" type="Texture" id=12]
-[ext_resource path="res://scripts/ui/BatteryUI.gd" type="Script" id=13]
-[ext_resource path="res://objects/UI/ChargeParent.gd" type="Script" id=14]
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -70,53 +63,6 @@ gradient = SubResource( 1 )
 texture = SubResource( 2 )
 region_rect = Rect2( 0, 0, 2048, 1 )
 
-[sub_resource type="SpatialMaterial" id=12]
-flags_fixed_size = true
-
-[sub_resource type="CanvasItemMaterial" id=13]
-next_pass = SubResource( 12 )
-
-[sub_resource type="Shader" id=9]
-resource_local_to_scene = true
-code = "shader_type canvas_item;
-
-uniform float sine_offset = 0.0;
-uniform float sine_magnitude = 1.0;
-uniform float time_magnitude = 1.0;
-uniform float sine_frequency = 1.0;
-
-uniform float minimum = 0.1;
-uniform float maximum = 0.9;
-
-void fragment(){
-	
-	vec2 wave_uv = UV;
-	wave_uv.y += sin((TIME * time_magnitude + sine_offset) + wave_uv.x * sine_frequency) * sine_magnitude;
-	
-	//Apply constraints
-	wave_uv.y = max(wave_uv.y, minimum);
-	wave_uv.y = min(wave_uv.y, maximum);
-	
-	vec4 modified = texture(TEXTURE, wave_uv);
-
-	// Add blur
-	modified += texture(TEXTURE, wave_uv - vec2(0.25,0.25) * TEXTURE_PIXEL_SIZE);
-	modified += texture(TEXTURE, wave_uv - vec2(0.5,0.5) * TEXTURE_PIXEL_SIZE);
-	modified /= 3.0;
-
-	COLOR = modified;
-	
-}"
-
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 9 )
-shader_param/sine_offset = 0.0
-shader_param/sine_magnitude = 0.0
-shader_param/time_magnitude = 20.0
-shader_param/sine_frequency = 14.142
-shader_param/minimum = 0.1
-shader_param/maximum = 0.9
-
 [node name="MarginContainer" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -126,9 +72,9 @@ custom_constants/margin_top = 40
 custom_constants/margin_left = 40
 custom_constants/margin_bottom = 40
 script = ExtResource( 2 )
-tick = ExtResource( 4 )
-cross = ExtResource( 3 )
-treasure = ExtResource( 5 )
+tick = ExtResource( 3 )
+cross = ExtResource( 5 )
+treasure = ExtResource( 4 )
 
 [node name="Anchor" type="Control" parent="."]
 margin_left = 40.0
@@ -161,10 +107,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 345.0
-margin_top = 700.0
-margin_right = 1495.0
-margin_bottom = 1000.0
+margin_left = -575.0
+margin_top = -300.0
+margin_right = 575.0
 script = ExtResource( 7 )
 
 [node name="CharacterWaitTime" type="Timer" parent="Anchor/Dialog"]
@@ -198,7 +143,6 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 290.0
 margin_bottom = 290.0
-texture = ExtResource( 8 )
 expand = true
 stretch_mode = 6
 
@@ -265,46 +209,6 @@ bus = "Dialog"
 stream = ExtResource( 6 )
 pitch_scale = 1.15
 bus = "Dialog"
-
-[node name="Battery" type="Control" parent="Anchor"]
-visible = false
-anchor_left = 0.5
-anchor_right = 0.5
-rect_scale = Vector2( 2, 2 )
-script = ExtResource( 13 )
-
-[node name="BatteryEmpty" type="Sprite" parent="Anchor/Battery"]
-visible = false
-texture = ExtResource( 11 )
-
-[node name="BatteryLeft" type="Sprite" parent="Anchor/Battery"]
-material = SubResource( 13 )
-position = Vector2( -16, 0 )
-texture = ExtResource( 9 )
-
-[node name="BatteryRight" type="Sprite" parent="Anchor/Battery"]
-position = Vector2( 16, 0 )
-texture = ExtResource( 10 )
-
-[node name="ChargeParent" type="Node2D" parent="Anchor/Battery"]
-script = ExtResource( 14 )
-
-[node name="BatteryCharge" type="Sprite" parent="Anchor/Battery/ChargeParent"]
-material = SubResource( 11 )
-scale = Vector2( 1, 0.5 )
-z_index = -1
-texture = ExtResource( 12 )
-
-[node name="BatteryChargeShadow" type="Sprite" parent="Anchor/Battery/ChargeParent"]
-visible = false
-modulate = Color( 0, 0, 0, 0.258824 )
-material = SubResource( 11 )
-position = Vector2( -1.874, 1.827 )
-scale = Vector2( 0.8, 1 )
-z_index = -2
-texture = ExtResource( 12 )
-
-[node name="Tween" type="Tween" parent="Anchor/Battery"]
 
 [connection signal="timeout" from="Anchor/Dialog/CharacterWaitTime" to="Anchor/Dialog" method="push_character"]
 [connection signal="timeout" from="Anchor/Dialog/BoxWaitTime" to="Anchor/Dialog" method="read_dialog"]

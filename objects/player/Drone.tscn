@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/player/PlayerDrone.gd" type="Script" id=1]
-[ext_resource path="res://sprites/maiden/front/maiden1.png" type="Texture" id=2]
-[ext_resource path="res://sprites/maiden/front/maiden2.png" type="Texture" id=3]
-[ext_resource path="res://sprites/maiden/front/maiden3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/maiden/maiden3.png" type="Texture" id=2]
+[ext_resource path="res://sprites/maiden/maiden1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/maiden/maiden2.png" type="Texture" id=4]
 [ext_resource path="res://sprites/drone/icons/battery full.png" type="Texture" id=5]
 [ext_resource path="res://sprites/face/numergrid.png" type="Texture" id=6]
 [ext_resource path="res://sprites/zap.png" type="Texture" id=7]
@@ -14,12 +14,12 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "forward",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "backward",
 "speed": 4.0
