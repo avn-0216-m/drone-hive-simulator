@@ -1,7 +1,7 @@
 extends "res://scripts/classes/KinematicGravity.gd"
 class_name Interactable
 
-var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
+export(Vector3) var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
 var task = Task.new() # Corresponds to a relevant task if applicable.
 onready var nearby_area = get_node("Nearby")
 export var variant_max = 10
@@ -10,7 +10,7 @@ enum Type {
 	ITEMS, # Only interactable by using an item on it
 	DIRECT, # Only interactable directly
 	BOTH} # Interactable directly and with items.
-var type = Type.BOTH
+export(Type) var type = Type.BOTH
 
 export var interactable_name = "UNNAMED INTERACTABLE PLEASE CHANGE"
 

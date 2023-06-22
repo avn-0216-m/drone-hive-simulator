@@ -18,7 +18,7 @@ func _ready():
 	player.show_id()
 	
 	# Assign multimesh ref to camera obj
-	get_node("Camera").materials = (get_node("Level/Geometry").get_wall_materials())
+	#get_node("Camera").materials = (get_node("Level/Geometry").get_wall_materials())
 	
 	#level.new_level()
 	

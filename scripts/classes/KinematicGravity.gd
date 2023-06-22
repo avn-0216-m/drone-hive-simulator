@@ -5,7 +5,7 @@ class_name KinematicGravity
 var velocity = Vector3(0,0,0)
 var gravity = 9.8 # How fast the max fall speed is reached.
 var max_fall_speed = 30
-var skip_process = false
+export var skip_process = false
 
 func apply_gravity(velocity) -> float:
 	
