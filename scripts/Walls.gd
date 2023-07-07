@@ -10,8 +10,9 @@ signal doorway_added(pos)
 
 var door_src: PackedScene = preload("res://objects/Door.tscn")
 var door_obj = null
+var doors = []
 
-func _ready():
+func add_doorways() -> Array:
 	for cell in get_used_cells():
 		if get_cell_item(cell.x, cell.y, cell.z) == Geo.POTENTIAL:
 			randomize()
@@ -20,7 +21,7 @@ func _ready():
 				potential = max(0, potential - potential_decay)
 				door_obj = door_src.instance()
 				door_obj.translation = map_to_world(cell.x, cell.y, cell.z)
-				emit_signal("doorway_added", to_global(door_obj.translation))
+				doors.append(Vector3(cell.x, cell.y, cell.z))
 				match get_cell_item_orientation(cell.x, cell.y, cell.z):
 					0: # eastern
 						door_obj.rotation_degrees.y = 0
@@ -36,3 +37,4 @@ func _ready():
 				-1 if door_obj != null else Geo.WALL, 
 				get_cell_item_orientation(cell.x, cell.y, cell.z))
 			door_obj = null
+	return doors

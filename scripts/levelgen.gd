@@ -9,6 +9,7 @@ var level: int = 3
 var known_tiles: Array = []
 
 onready var placeholders = get_node("Placeholders")
+onready var hallway = get_node("Hallway")
 
 var TileData = preload("res://scripts/data/TileData.gd")
 export(GDScript) var MeshLib
@@ -68,10 +69,12 @@ func a_reset_level():
 func spawn_rooms():
 	for i in range (0,3):
 		var room = room_pool[0].instance()
-		room.walls.connect("doorway_added", $Hallway, "add_junction")
 		add_child(room)
 		var offset = position_room(room)
 		placeholders.add(room)
+		hallway.mark_doors(room.get_door_positions())
+		
+	hallway.add_hallway()
 
 func position_room(room):
 	var safe_spot = false
