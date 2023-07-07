@@ -80,98 +80,11 @@ func snake_to(to, from):
 		# when in doubt, it's probably because you're passing by reference.
 		to = to.duplicate(true)
 		from = from.duplicate(true)
-	
-		visited.clear()
-	
-		print("beginning snakery")
-	
-		var maximum_moves = 100
-	
-		turtle = world_to_map(from["pos"])
-		var target = world_to_map(to["pos"])
 		
-		
-		match to["orientation"]:
-				0: # eastern
-					to["pos"].x -= sticky_outy
-				10: # western
-					to["pos"].x += sticky_outy
-				16: # southern
-					to["pos"].z += sticky_outy
-				22: # northern
-					to["pos"].z -= sticky_outy
-					
-		print(to["pos"])
-		print(from["pos"])
-		
-		# the TURTLE uses CELL position, NOT global position!
-		# 1 unit of distance = 1 cell moved.
-		move(Move.NONE, true)
-		
-		# start by creating a path in the direction of egress.
-		# because it looks nice and is less cramped.
-		match from["orientation"]:
-			0: # eastern
-				direction = Move.EAST
-			10: # western
-				direction = Move.WEST
-			16: # southern
-				direction = Move.SOUTH
-			22: # northern
-				direction = Move.NORTH
-		
-		for i in range(0,sticky_outy):
-			move(direction, true)
-				
-		var moves = 0
-		var stored = []
-		
-		# some kind of array where you store blocked directions
-		# then pop them off as you find alternatives and go back to moving in them??
-		var prev_result = 0
-		while turtle != to["pos"] and moves < maximum_moves and direction != Move.NONE:
-			match prev_result:
-				0:
-					print("good")
-					direction = get_direction(to, turtle)
-				1: # blocked
-					print("blocked")
-					direction = right_turns[direction]
-				2: # bonked
-					print("bonked")
-					direction = reversed[direction]
-			prev_result = move(direction)
-			moves += 1
-				
-		# clear your visited tiles when done with your snakery
-		visited.clear()
-		
-func get_direction(to, turtle) -> int:
-	
-	# if the target door is facing east or west, prioritize getting horizontal
-	# if the target door is north or south, prioritize getting vertical
-	
-	match to["orientation"]:
-		0, 10: # east and west
-			if turtle.z < to["pos"].z:
-				return Move.NORTH
-			elif turtle.z > to["pos"].z:
-				return Move.SOUTH
-			else:
-				print("aligned 1")
-				if turtle.x < to["pos"].x:
-					return Move.EAST
-				else:
-					return Move.WEST
-		16, 22: # north and south
-			if turtle.x < to["pos"].x:
-				return Move.EAST
-			elif turtle.x > to["pos"].x:
-				return Move.WEST
-			else:
-				print("aligned 2")
-				if turtle.z < to["pos"].z:
-					return Move.SOUTH
-				else:
-					return Move.NORTH
-	return Move.NONE
+		# fuck all this noise
+		# dont do this one tile at a time
+		# draw nodes representing corners
+		# pair them up to make edges
+		# adjust edges as necessary to avoid colliding with shit
+		# also makes it a lot easier to find junctions
+		# you got this
