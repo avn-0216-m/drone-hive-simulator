@@ -1,6 +1,6 @@
 extends Spatial
 
-
+export var maximum_bump = 6
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
@@ -8,19 +8,14 @@ var level: int = 3
 
 var known_tiles: Array = []
 
+onready var placeholders = get_node("Placeholders")
+
 var TileData = preload("res://scripts/data/TileData.gd")
 export(GDScript) var MeshLib
 
-var adjacent_transforms: Array = [ # Transforms for all 8 adjacent tiles
-		Vector3(-1,0,-1), # Top left
-		Vector3(0,0,-1),  # Top mid
-		Vector3(1,0,-1), # Top right
-		Vector3(-1,0,0), # Mid left
-		Vector3(1,0,0), # Mid right
-		Vector3(-1,0,1), # Bottom left
-		Vector3(0,0,1), # Bottom mid
-		Vector3(1,0,1) # Bottom right
-	]
+var room_pool = [
+	preload("res://objects/rooms/test1.tscn")
+]
 
 var level_size = Vector2(0,0)
 var entry_tile_pos: Vector3
@@ -45,29 +40,14 @@ func recursively_assign(root: Node, task):
 
 func _ready():
 	
-	var camera = get_node("../Camera")
+	spawn_rooms()
 	
-#	camera.wall_mat = multimeshes.walls.multimesh.mesh.surface_get_material(0)
-#	camera.extern_mat = multimeshes.extern_corners.multimesh.mesh.surface_get_material(0)
-#	camera.intern_mat = multimeshes.intern_corners.multimesh.mesh.surface_get_material(0)
-	
-	#return # return early, use debug buttons to generate level
+	return
 	
 	# new_level()
 	# when instanced, grab the camera and point it to your wall materials
 	# that way, every new level will replace the old levels material references
 	# in the camera. very beautiful, very powerful.
-
-func get_adjacent_tiles(origin: Vector3, floor_tiles) -> int:
-	var tiles = 0
-	var addition = 1
-	
-	for adjacent in adjacent_transforms:
-		if (origin + adjacent) in floor_tiles:
-			tiles += addition
-		addition *= 2
-
-	return tiles
 
 func new_level():
 	
@@ -85,16 +65,36 @@ func a_reset_level():
 	randomize()
 	gridmap.clear()
 
-func generate_floor_size():
-	return 3
-
 func spawn_rooms():
+	for i in range (0,3):
+		var room = room_pool[0].instance()
+		room.walls.connect("doorway_added", $Hallway, "add_junction")
+		add_child(room)
+		var offset = position_room(room)
+		placeholders.add(room)
+
+func position_room(room):
+	var safe_spot = false
+	var walls = room.walls.get_used_cells()
+	while safe_spot != true:
+		randomize()
+		safe_spot = true
+		for w in walls:
+			# get tile world position
+			# map world position to placeholder gridmap
+			# check if tile item id = -1
+			var world_pos = placeholders.map_to_world(w.x, w.y, w.z)
+			world_pos = room.walls.to_global(world_pos)
+			var ph = placeholders.world_to_map(world_pos)
+			if placeholders.get_cell_item(ph.x, ph.y, ph.z) != -1:
+				if randi() % 2 == 0:
+					room.translation.x += min((randi() % 10) * 2, 6)
+				else:
+					room.translation.z += min((randi() % 10) * 2, 6)
+				safe_spot = false
+				break
+	return room.translation
+
+func spawn_hallways():
 	return
 	
-func spawn_hallway():
-	# hallways should be able to go from room to room in two lines, with a
-	# maximum of one 90-degree angle.
-	# hallways should find a node, then find the next closest valid node.
-	# in this case. valid nodes include doorways and junctions (90-degree
-	# angles in hallways).
-	return

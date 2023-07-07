@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/Room.gd" type="Script" id=1]
+[ext_resource path="res://meshlibraries/geometry_floor.tres" type="MeshLibrary" id=2]
+[ext_resource path="res://meshlibraries/geometry_walls.tres" type="MeshLibrary" id=3]
+
+[node name="Room" type="GridMap"]
+data = {
+"cells": PoolIntArray(  )
+}
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Static" type="GridMap" parent="."]
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Tasks" type="GridMap" parent="."]
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Geometry" type="Spatial" parent="."]
+
+[node name="Floor" type="GridMap" parent="Geometry"]
+mesh_library = ExtResource( 2 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
+
+[node name="Walls" type="GridMap" parent="Geometry"]
+mesh_library = ExtResource( 3 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}

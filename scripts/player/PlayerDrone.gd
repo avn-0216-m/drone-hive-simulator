@@ -51,6 +51,7 @@ func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
 	set_id("3043")
 	inventory.battery.track(battery)
+	gravity = 0
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:

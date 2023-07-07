@@ -1,17 +1,17 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://blender/bed/export/Covers.material" type="Material" id=1]
-[ext_resource path="res://blender/bedside table/export/Material.material" type="Material" id=2]
-[ext_resource path="res://blender/bed/export/Wood.material" type="Material" id=3]
-[ext_resource path="res://blender/bed/export/Mattress.material" type="Material" id=4]
-[ext_resource path="res://blender/bedside table/export/Handle.material" type="Material" id=5]
-[ext_resource path="res://blender/bookcase/export/Bookcase.material" type="Material" id=6]
-[ext_resource path="res://blender/record player/export/Record.material" type="Material" id=7]
+[ext_resource path="res://blender/bedside table/export/Handle.material" type="Material" id=1]
+[ext_resource path="res://blender/record player/export/Record.material" type="Material" id=2]
+[ext_resource path="res://blender/record player/export/Wooden.material" type="Material" id=3]
+[ext_resource path="res://blender/record player/export/Lid.material" type="Material" id=4]
+[ext_resource path="res://blender/bookcase/export/Bookcase.material" type="Material" id=5]
+[ext_resource path="res://blender/record player/export/Metal Strip.material" type="Material" id=6]
+[ext_resource path="res://blender/bed/export/Mattress.material" type="Material" id=7]
 [ext_resource path="res://blender/record player/export/Knob.material" type="Material" id=8]
-[ext_resource path="res://blender/record player/export/Player Body.material" type="Material" id=9]
-[ext_resource path="res://blender/record player/export/Wooden.material" type="Material" id=10]
-[ext_resource path="res://blender/record player/export/Lid.material" type="Material" id=11]
-[ext_resource path="res://blender/record player/export/Metal Strip.material" type="Material" id=12]
+[ext_resource path="res://blender/bed/export/Wood.material" type="Material" id=9]
+[ext_resource path="res://blender/bedside table/export/Material.material" type="Material" id=10]
+[ext_resource path="res://blender/record player/export/Player Body.material" type="Material" id=11]
+[ext_resource path="res://blender/bed/export/Covers.material" type="Material" id=12]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "bed_Cube"
@@ -22,7 +22,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 1416,
-"material": ExtResource( 3 ),
+"material": ExtResource( 9 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 715
@@ -34,7 +34,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 222,
-"material": ExtResource( 4 ),
+"material": ExtResource( 7 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 160
@@ -46,7 +46,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 204,
-"material": ExtResource( 1 ),
+"material": ExtResource( 12 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 142
@@ -61,7 +61,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 204,
-"material": ExtResource( 2 ),
+"material": ExtResource( 10 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 118
@@ -73,7 +73,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 396,
-"material": ExtResource( 5 ),
+"material": ExtResource( 1 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 208
@@ -88,7 +88,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 426,
-"material": ExtResource( 6 ),
+"material": ExtResource( 5 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 222
@@ -103,7 +103,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 1770,
-"material": ExtResource( 9 ),
+"material": ExtResource( 11 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 752
@@ -115,7 +115,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 60,
-"material": ExtResource( 11 ),
+"material": ExtResource( 4 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 38
@@ -127,7 +127,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 372,
-"material": ExtResource( 7 ),
+"material": ExtResource( 2 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 192
@@ -139,7 +139,7 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 258,
-"material": ExtResource( 10 ),
+"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 184
@@ -163,7 +163,7 @@ surfaces/5 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 24,
-"material": ExtResource( 12 ),
+"material": ExtResource( 6 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 12
@@ -178,7 +178,7 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 1134,
-"material": ExtResource( 9 ),
+"material": ExtResource( 11 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 348
@@ -190,7 +190,7 @@ surfaces/1 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 60,
-"material": ExtResource( 11 ),
+"material": ExtResource( 4 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 34
@@ -202,7 +202,7 @@ surfaces/2 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 372,
-"material": ExtResource( 7 ),
+"material": ExtResource( 2 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 192
@@ -214,7 +214,7 @@ surfaces/3 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 30,
-"material": ExtResource( 10 ),
+"material": ExtResource( 3 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 20
