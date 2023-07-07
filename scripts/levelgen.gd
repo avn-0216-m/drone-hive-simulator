@@ -72,8 +72,10 @@ func spawn_rooms():
 		add_child(room)
 		var offset = position_room(room)
 		placeholders.add(room)
-		hallway.mark_doors(room.get_door_positions())
+		hallway.mark_doors(room.get_doors())
+		placeholders.clear_doorways(room.get_doors())
 		
+	hallway.placeholders = placeholders
 	hallway.add_hallway()
 
 func position_room(room):
@@ -90,10 +92,11 @@ func position_room(room):
 			world_pos = room.walls.to_global(world_pos)
 			var ph = placeholders.world_to_map(world_pos)
 			if placeholders.get_cell_item(ph.x, ph.y, ph.z) != -1:
+				randomize()
 				if randi() % 2 == 0:
-					room.translation.x += min((randi() % 10) * 2, 6)
+					room.translation.x += min((randi() % 100) * 2, maximum_bump)
 				else:
-					room.translation.z += min((randi() % 10) * 2, 6)
+					room.translation.z += min((randi() % 100) * 2, maximum_bump)
 				safe_spot = false
 				break
 	return room.translation

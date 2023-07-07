@@ -30,3 +30,19 @@ func add(room: Node):
 			for a in adjacent:
 				set_cell_item(p.x + a.x, p.y + a.y, p.z + a.z, 0)
 				pad_these_too.append(Vector3(p.x + a.x, p.y + a.y, p.z + a.z))
+				
+func clear_doorways(doors):
+	for door in doors:
+		var cell = door["pos"]
+		cell = world_to_map(cell)
+		for i in range(0, padding + 2):
+			set_cell_item(cell.x, 0, cell.z, -1)
+			match door["orientation"]:
+				0: # eastern
+					cell.x -= 1
+				10: # western
+					cell.x += 1
+				16: # southern
+					cell.z += 1
+				22: # northern
+					cell.z -= 1
