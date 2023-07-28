@@ -9,7 +9,7 @@
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 2 )
-maximum_bump = 30
+maximum_bump = 40
 MeshLib = ExtResource( 8 )
 
 [node name="Hallway" type="GridMap" parent="."]
@@ -21,7 +21,6 @@ script = ExtResource( 4 )
 __meta__ = {
 "_editor_clip_": 0
 }
-sticky_outy = 3
 
 [node name="Placeholders" type="GridMap" parent="."]
 mesh_library = ExtResource( 1 )

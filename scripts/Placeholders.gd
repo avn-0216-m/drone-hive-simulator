@@ -1,6 +1,7 @@
 extends GridMap
 
 export var padding = 3
+var strip_these: Array = []
 
 var adjacent: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(-1,0,-1), # Top left
@@ -28,6 +29,9 @@ func add(room: Node):
 		pad_these.append_array(pad_these_too)
 		for p in pad_these:
 			for a in adjacent:
+				if i == padding and get_cell_item(p.x + a.x, p.y + a.y, p.z + a.z) == -1:
+					# done to remove the outermost padding layer for easier hallways
+					strip_these.append(Vector3(p.x + a.x, p.y + a.y, p.z + a.z))
 				set_cell_item(p.x + a.x, p.y + a.y, p.z + a.z, 0)
 				pad_these_too.append(Vector3(p.x + a.x, p.y + a.y, p.z + a.z))
 				
@@ -46,3 +50,7 @@ func clear_doorways(doors):
 					cell.z += 1
 				22: # northern
 					cell.z -= 1
+
+func strip():
+	for tile in strip_these:
+		set_cell_item(tile.x, tile.y, tile.z, -1)

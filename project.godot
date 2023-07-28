@@ -89,6 +89,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/classes/Placeholder.gd"
 }, {
+"base": "Node",
+"class": "Step",
+"language": "GDScript",
+"path": "res://scripts/Step.gd"
+}, {
 "base": "Instanceable",
 "class": "Task",
 "language": "GDScript",
@@ -111,6 +116,7 @@ _global_script_class_icons={
 "NullPlate": "",
 "Pickup": "",
 "Placeholder": "",
+"Step": "",
 "Task": ""
 }
 
