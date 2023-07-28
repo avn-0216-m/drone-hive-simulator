@@ -82,7 +82,7 @@ func trundle():
 	add_step(goal_tile)
 	
 	var test_result = test_route()
-	if test_route() is Step:
+	if test_full_route() is Step:
 		print("Collision found on route. :(")
 		print(test_result)
 		print(test_result.pos)
@@ -93,6 +93,14 @@ func trundle():
 	return first_step
 	
 func test_route():
+	# tests the route between two steps.
+	# returns false if there are collisions on the placeholder gridmap.
+	# returns true otherwise.
+	# TODO: make test_full_route call this iteratively
+	# code re-use baby
+	return true
+	
+func test_full_route():
 	# tests whole route, returns a step if a collision is detected there.
 	# otherwise returns true
 	
