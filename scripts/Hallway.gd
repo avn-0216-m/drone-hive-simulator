@@ -37,6 +37,5 @@ func add_hallway():
 		turtle_obj.placeholders = placeholders
 		turtle_obj.egress = egress
 		add_child(turtle_obj)
-		var st = turtle_obj.trundle()
-		#hallway_from_steps(st)
-		#return
+		for tile in turtle_obj.trundle():
+			set_cell_item(tile.x, 0, tile.z, 0)

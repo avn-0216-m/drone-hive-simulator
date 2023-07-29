@@ -6,10 +6,9 @@ signal respawn(drone)
 
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
-var speed: float = 5.0 # Base speed
-var sprint: float = 2 # How much faster sprinting makes you
+var speed: float = 20.0 # Base speed
+var sprint: float = 6 # How much faster sprinting makes you
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
-
 
 onready var icon_display: Sprite3D = get_node("Display/Icon")
 onready var id_display: Spatial = get_node("Display/ID")

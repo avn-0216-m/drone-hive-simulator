@@ -42,6 +42,25 @@ func add_step(pos: Vector3):
 	while traversed.next != null:
 		traversed = traversed.next
 	traversed.next = Step.new(pos)
+	
+func get_all_steps():
+	var max_tries = 100 # to prevent while-loop locking.
+	var tries = 0
+	
+	var step = first_step
+	
+	while step.next != null and step.pos != step.next.pos and tries < max_tries:
+		tries += 1
+		if step.pos.x > step.next.pos.x:
+			step.pos.x -= 1
+		elif step.pos.x < step.next.pos.x:
+			step.pos.x += 1
+		
+		if step.pos.z > step.next.pos.z:
+			step.pos.z -= 1
+		elif step.pos.z < step.next.pos.z:
+			step.pos.z += 1
+	return true
 
 func trundle():
 	# path directly to target (should be 3 steps max) by aligning on an axis
@@ -56,7 +75,7 @@ func trundle():
 	# probably yes, so i can adjust it later, as there's a 50/50 chance of it
 	# doubling back on itself in that case. which is obv bad.
 	
-			#setup first step using egress (so the hallway sticks out from the door)
+	#setup first step using egress (so the hallway sticks out from the door)
 	if first_step == null:
 		first_step = Step.new(start_tile)
 		match start["orientation"]:
@@ -81,52 +100,115 @@ func trundle():
 	# go directly to goal
 	add_step(goal_tile)
 	
-	var test_result = test_route()
-	if test_full_route() is Step:
-		print("Collision found on route. :(")
-		print(test_result)
-		print(test_result.pos)
-	else:
-		print("No collisions found! :)")
+	refine_route()
 	
 	debug()
-	return first_step
+	return get_all_tiles(first_step)
 	
-func test_route():
+func get_all_tiles(start: Step):
+	var tiles = []
+	var tile_collector = Step.new(start.pos)
+	var target = start.next
+	while target != null:
+		while tile_collector.pos != target.pos:
+			tiles.append(tile_collector.pos)
+			approach_menacingly(tile_collector, target)
+		target = target.next
+	return tiles
+		
+func refine_route():
+	# goes step by step, nudging paths out of the way of collisions
+	# remember: when modifying a step's position, modify the next step's position as well
+	# in this way, you are modifying an "edge"........ woag....
+	
+	# ok so probably the reason this isnt working is because im not inserting new nodes
+	# so
+	# TODO: that.
+	
+	var result = test_full_route()
+	while result is Step:
+		print("baba")
+		if result is Step:
+			print("booey")
+			print("collision found, nudging")
+			var nudge = Vector3(0,0,0)
+			# determine vector
+			# TODO: consider implementing a "flip flop" algorithm that tests
+			# both perpendicular nudge directions until a safe route is found
+			# would probably result in tidier hallways
+			if result.pos.x < result.next.pos.x:
+				nudge = Vector3(0,0,1) # travelling east, nudge south
+			elif result.pos.x > result.next.pos.x:
+				nudge = Vector3(0,0,-1) # travelling west, nudge north
+			elif result.pos.z < result.next.pos.z:
+				nudge = Vector3(1,0,0) # travelling south, nudge east
+			elif result.pos.z > result.next.pos.z:
+				nudge = Vector3(-1,0,0) # travelling north, nudge west
+			else:
+				print("going nowhere in a hurry. how tf did you detect a collision here")
+			while test_route(result) != true:
+				result.pos += nudge
+				result.next.pos += nudge
+		result = test_full_route()
+	return
+	
+func test_route(start: Step):
+	print("testing")
 	# tests the route between two steps.
-	# returns false if there are collisions on the placeholder gridmap.
-	# returns true otherwise.
-	# TODO: make test_full_route call this iteratively
-	# code re-use baby
+	# returns false if a collision is found. otherwise returns true
+	var max_tries = 100 # to prevent while-loop locking.
+	var tries = 0
+	
+	# if it's the last step then there's no possible collision
+	if start.next == null:
+		print("returning early")
+		return true
+	
+	# gotta DUPLICATE THAT SHIT when you're PASSING BY REFERENCE FFSSSSSSS
+	var step = Step.new(start.pos)
+	var target = start.next
+	
+	while step.pos != target.pos and tries < max_tries:
+		tries += 1
+		if placeholders.get_cell_item(step.pos.x, 0, step.pos.z) != -1:
+			print("COLLISION DETECTEDDDD")
+			return false
+		approach_menacingly(step, target)
 	return true
+	
+func approach_menacingly(step: Step, target: Step):
+	# moves the current step towards the target by one tile (x or z).
+	
+	# prioritizing x axis over z axis here SHOULD be fine because
+	# steps are supposed to be axis aligned anyway.
+	if step.pos.x > target.pos.x:
+		step.pos.x -= 1
+	elif step.pos.x < target.pos.x:
+		step.pos.x += 1
+		
+	if step.pos.z > target.pos.z:
+		step.pos.z -= 1
+	elif step.pos.z < target.pos.z:
+		step.pos.z += 1
+	# modifies the value by ref so no need to return anything
 	
 func test_full_route():
 	# tests whole route, returns a step if a collision is detected there.
-	# otherwise returns true
+	# otherwise returns false
+	if first_step == null: # just in case, ye fearsome ducks.
+		return true
 	
-	var max_tries = 100
-	var tries = 0
+	var step = first_step
 	
-	var current_step = first_step
-	var current_tile = current_step.pos
-	while current_step.next != null:
-		while current_tile != current_step.next.pos and tries < max_tries:
-			tries += 1
-			if placeholders.get_cell_item(current_tile.x, 0, current_tile.z) != -1:
-				print(placeholders.get_cell_item(current_tile.x, 0, current_tile.z))
-				return current_step
-			if current_tile.x > current_step.next.pos.x:
-				current_tile.x -= 1
-			elif current_tile.x < current_step.next.pos.x:
-				current_tile.x += 1
-			
-			if current_tile.z > current_step.next.pos.z:
-				current_tile.z -= 1
-			elif current_tile.z < current_step.next.pos.z:
-				current_tile.z += 1
-		current_step = current_step.next
+	while step != null:
+		if not test_route(step):
+			print("all BAD in the hellhood")
+			return step
+		step = step.next
+		
+	print("all good in da hood")
 	
-	return null
+	return false
 	
 func debug():
 	# prints all step positions to gridmap for visual clarity.

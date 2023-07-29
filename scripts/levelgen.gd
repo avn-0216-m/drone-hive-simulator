@@ -67,7 +67,7 @@ func a_reset_level():
 	gridmap.clear()
 
 func spawn_rooms():
-	for i in range (0,2):
+	for i in range (0,4):
 		var room = room_pool[0].instance()
 		add_child(room)
 		var offset = position_room(room)

@@ -29,11 +29,11 @@ func add(room: Node):
 		pad_these.append_array(pad_these_too)
 		for p in pad_these:
 			for a in adjacent:
-				if i == padding and get_cell_item(p.x + a.x, p.y + a.y, p.z + a.z) == -1:
+				if i == padding and get_cell_item(p.x + a.x, 0, p.z + a.z) == -1:
 					# done to remove the outermost padding layer for easier hallways
-					strip_these.append(Vector3(p.x + a.x, p.y + a.y, p.z + a.z))
-				set_cell_item(p.x + a.x, p.y + a.y, p.z + a.z, 0)
-				pad_these_too.append(Vector3(p.x + a.x, p.y + a.y, p.z + a.z))
+					strip_these.append(Vector3(p.x + a.x, 0, p.z + a.z))
+				set_cell_item(p.x + a.x, 0, p.z + a.z, 0)
+				pad_these_too.append(Vector3(p.x + a.x, 0, p.z + a.z))
 				
 func clear_doorways(doors):
 	for door in doors:
