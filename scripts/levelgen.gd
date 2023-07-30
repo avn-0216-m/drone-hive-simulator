@@ -1,6 +1,7 @@
 extends Spatial
 
-export var maximum_bump = 6
+export var bump_min = 6
+export var bump_max = 10
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
@@ -67,15 +68,12 @@ func a_reset_level():
 	gridmap.clear()
 
 func spawn_rooms():
-	for i in range (0,2):
+	for i in range (0,4):
 		var room = room_pool[0].instance()
 		add_child(room)
 		var offset = position_room(room)
 		placeholders.add(room)
 		hallway.mark_doors(room.get_doors())
-		placeholders.clear_doorways(room.get_doors())
-		
-	placeholders.strip()
 		
 	hallway.placeholders = placeholders
 	hallway.add_hallway()
@@ -100,9 +98,9 @@ func position_room(room):
 			if placeholders.get_cell_item(ph.x, ph.y, ph.z) != -1:
 				randomize()
 				if randi() % 2 == 0:
-					room.translation.x += rng.randi_range(3, maximum_bump) * 2
+					room.translation.x += rng.randi_range(3, bump_max) * 2
 				else:
-					room.translation.z += rng.randi_range(3, maximum_bump) * 2
+					room.translation.z += rng.randi_range(3, bump_max) * 2
 				safe_spot = false
 				break
 	return room.translation

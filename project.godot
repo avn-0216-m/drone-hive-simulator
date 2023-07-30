@@ -35,11 +35,6 @@ _global_script_classes=[ {
 "path": "res://scripts/BonusManager.gd"
 }, {
 "base": "Node",
-"class": "Collision",
-"language": "GDScript",
-"path": "res://scripts/TurtleCollision.gd"
-}, {
-"base": "Node",
 "class": "Door",
 "language": "GDScript",
 "path": "res://scripts/classes/Door.gd"
@@ -108,6 +103,11 @@ _global_script_classes=[ {
 "class": "Task",
 "language": "GDScript",
 "path": "res://scripts/classes/InstanceableTask.gd"
+}, {
+"base": "Node",
+"class": "TestResult",
+"language": "GDScript",
+"path": "res://scripts/classes/TestResult.gd"
 } ]
 _global_script_class_icons={
 "Anna": "",
@@ -115,7 +115,6 @@ _global_script_class_icons={
 "BatteryPower": "",
 "BatterySlot": "",
 "BonusManager": "",
-"Collision": "",
 "Door": "",
 "Drone": "",
 "Flower": "",
@@ -129,7 +128,8 @@ _global_script_class_icons={
 "Pickup": "",
 "Placeholder": "",
 "Step": "",
-"Task": ""
+"Task": "",
+"TestResult": ""
 }
 
 [application]

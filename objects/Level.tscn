@@ -9,7 +9,6 @@
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 2 )
-maximum_bump = 5
 MeshLib = ExtResource( 8 )
 
 [node name="Hallway" type="GridMap" parent="."]

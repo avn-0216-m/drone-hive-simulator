@@ -10,6 +10,8 @@ var goal: Door
 var placeholders: GridMap
 var egress: int = 2
 
+export var max_tries = 100 
+
 func _ready():
 	
 	# start by converting the start/goal global pos data
@@ -42,72 +44,42 @@ func add_step(pos: Vector3):
 	while traversed.next != null:
 		traversed = traversed.next
 	traversed.next = Step.new(pos)
-	
-func get_all_steps():
-	var max_tries = 100 # to prevent while-loop locking.
-	var tries = 0
-	
-	var step = first_step
-	
-	while step.next != null and step.pos != step.next.pos and tries < max_tries:
-		tries += 1
-		if step.pos.x > step.next.pos.x:
-			step.pos.x -= 1
-		elif step.pos.x < step.next.pos.x:
-			step.pos.x += 1
-		
-		if step.pos.z > step.next.pos.z:
-			step.pos.z -= 1
-		elif step.pos.z < step.next.pos.z:
-			step.pos.z += 1
-	return true
 
 func trundle():
-	# path directly to target (should be 3 steps max) by aligning on an axis
-	# then going directly towards it.
-	# after that, find collisions between steps and nudge them out of the way
-	# in order to make a clean non-collision-y path. 
-	
-	# questions:
-	# if start already axis-aligned with goal, should a new node be placed
-	# (likely overlapping with prev node?)
-	# answer:
-	# probably yes, so i can adjust it later, as there's a 50/50 chance of it
-	# doubling back on itself in that case. which is obv bad.
+	# 0) Set first step (same position as door).
+	# 1) Move outwards in the direction of the door.
+	# 2) Path directly to target (1-2 nodes maximum)
+	# 3) Refine the route (placing new nodes and creating diversions by nudging
+	# the path off of collisions with rooms) - refine_route()
 	
 	#setup first step using egress (so the hallway sticks out from the door)
 	if first_step == null:
-		first_step = Step.new(start_tile)
 		match start.orientation:
-			0: # eastern
-				first_step.next = Step.new(start_tile - Vector3(egress, 0, 0))
-			10: # western
-				first_step.next = Step.new(start_tile + Vector3(egress, 0, 0))
-			16: # southern
-				first_step.next = Step.new(start_tile + Vector3(0, 0, egress))
-			22: # northern
-				first_step.next = Step.new(start_tile - Vector3(0, 0, egress))
+			0: # East
+				first_step = Step.new(start_tile - Vector3(egress, 0, 0))
+			10: # West
+				first_step = Step.new(start_tile + Vector3(egress, 0, 0))
+			16: # South
+				first_step = Step.new(start_tile + Vector3(0, 0, egress))
+			22: # North
+				first_step = Step.new(start_tile - Vector3(0, 0, egress))
 		
-	# now, align with goal.
-	var alignment: Vector3 = Vector3(0,0,0)
+	# Align with goal either:
 	match start.orientation:
-		0, 10: # align vertically
-			alignment = Vector3(goal_tile.x, 0, start_tile.z)
-		16, 22: # align horizontally
-			alignment = Vector3(start_tile.x, 0, goal_tile.z)
-	add_step(alignment)
+		0, 10: # Vertically,
+			add_step(Vector3(goal_tile.x, 0, start_tile.z))
+		16, 22: # Or horizontally.
+			add_step(Vector3(start_tile.x, 0, goal_tile.z))
 	
-	# go directly to goal
+	# Go directly to goal, do not collect $200.
 	add_step(goal_tile)
 	
 	refine_route()
 	
 	debug()
-	
-	print("turtle done")
 	return get_all_tiles(first_step)
 	
-func get_all_tiles(start: Step):
+func get_all_tiles(start: Step) -> Array:
 	var tiles = []
 	var tile_collector = Step.new(start.pos)
 	var target = start.next
@@ -117,108 +89,125 @@ func get_all_tiles(start: Step):
 			approach_menacingly(tile_collector, target)
 		target = target.next
 	return tiles
+	
 		
-func insert_edge(step: Step):
-	# the shadow the hedgehog function, or something.
-	# modifies a linked list to insert two step nodes after the specified step
-	# the new steps have the same positions as the original and its next step
+func insert_edge(at: Step):
+	# Inserts two step nodes, forming an edge, into the linked list after the
+	# provided node.
+	# The new nodes have the same position as the provided node and it's next
+	# step.
 	
-	print("inserting a new edge")
-	
-	var new_step = Step.new(step.pos)
-	var new_step2 = Step.new(step.next.pos)
+	var new_step = Step.new(at.pos)
+	var new_step2 = Step.new(at.next.pos)
 	
 	new_step.next = new_step2
-	new_step2.next = step.next
-	step.next = new_step
+	new_step2.next = at.next
+	at.next = new_step
 	
 	return new_step
+	
+func get_path_length():
+	var points = []
+	var step = first_step
+	var count = 0
+	while step.next != null:
+		points.append(step.pos)
+		count += 1
+		step = step.next
+	print("Length: " + str(count))
+	print(points)
+	return count
 
 func refine_route():
-	# goes step by step, nudging paths out of the way of collisions
-	# remember: when modifying a step's position, modify the next step's position as well
-	# in this way, you are modifying an "edge"........ woag....
-	
-	# TODO: get collision point information, similar to raycasting
-	# insert new step node at (or just before) point of collision
-	# then nudge from there
-	# it will essentially "shrink wrap" around any collisions
-	# and should IDEALLY be able to handle complexities
-	
-	var max_tries = 100
-	var tries = 0
-	var nudge_start_pos = Vector3(0,0,0)
-	var nudge_next_start_pos = Vector3(0,0,0)
-	var nudge_amount = 1
-	var nudge_flip = false
-	
-	print("refining turtle route")
-	
-	var result = test_full_route()
-	while result is Step:
-		if result is Step:
-			result = insert_edge(result)
-			var nudge = Vector3(0,0,0)
-			nudge_start_pos = result.pos
-			nudge_next_start_pos = result.next.pos
-			# determine vector
-			# TODO: consider implementing a "flip flop" algorithm that tests
-			# both perpendicular nudge directions until a safe route is found
-			# would probably result in tidier hallways
-			while test_route(result) != true:
-				print("applying nudge...")
-				
-				if result.pos.x != result.next.pos.x:
-					result.pos.z = nudge_start_pos.z + abs(nudge_amount) if nudge_flip else nudge_amount
-					result.next.pos.z = nudge_next_start_pos.z + abs(nudge_amount) if nudge_flip else nudge_amount
-				else:
-					result.pos.x = nudge_start_pos.x + abs(nudge_amount) if nudge_flip else nudge_amount
-					result.next.pos.x = nudge_next_start_pos.x + abs(nudge_amount) if nudge_flip else nudge_amount
-				
-				print(nudge_amount)
-				
-				nudge_amount -= 1
-				nudge_flip = !nudge_flip
-
-			print("nudge successful.")
-			tries += 1
-			if tries > max_tries:
-				print("TERMINATED")
-				break
+	var result = TestResult.new(first_step)
+	result.successful = false
+	while result.successful != true:
 		result = test_full_route()
+		if result.successful == true:
+			print("Successful route found.")
+		else:
+			poking_stick(insert_edge(insert_step(result.step, result.collision)))
+
+func poking_stick(step: Step):
+	var original_pos = step.pos
+	var next_original_pos = step.next.pos
+	var flip = false
+	var nudge_amount = 1
+	var nudging_horizontally = (step.pos.x == step.next.pos.x)
+	# TODO: I think the pathfinding is getting stuck forever in a 1x1 space
+	# because it reverses back into the doorway from its egress point
+	# need to figure that out.
+	# idea:
+	# ignore starting from the door, start from the egress point
+	# THEN start from the door in the get_tiles func so the hallway properly connects
+	# to the room.
+	# and get rid of the function that clears placeholders in the way of doorways
+	# also, maybe add a special case in the test route func that checks if 3
+	# surrounding tiles (forwards, left and right) are all blocked, so i can reverse
+	# nodes backwards as needed.
+	
+	print("Iterating on:")
+	print("Pos1: " + str(original_pos))
+	print("Pos2: " + str(next_original_pos))
+	print("Now testing:")
+	print("Pos1: " + str(step.pos))
+	print("Pos2: " + str(step.next.pos))
+	
+	# Test and nudge until a successful route is found.
+	while test_route(step).successful != true:
+		if nudging_horizontally:
+			step.pos.x = original_pos.x + nudge_amount if flip else nudge_amount * -1
+			step.next.pos.x = next_original_pos.x + nudge_amount if flip else nudge_amount * -1
+		else:
+			step.pos.z = original_pos.z + nudge_amount if flip else nudge_amount * -1
+			step.next.pos.z = next_original_pos.z + nudge_amount if flip else nudge_amount * -1
+		if flip:
+			flip = false
+			nudge_amount += 1
+		else:
+			flip = true
 		
-	if tries >= 100:
-		print("TERMINATED")
-	return
+
+		
+	print("SUCCESSFUL PARTIAL ROUTE")
+	print("lookie")
+	print(test_route(step).successful)
+
+func insert_step(after: Step, position: Vector3) -> Step:
+	var new = Step.new(position)
+	new.next = after.next
+	after.next = new
+	return new
 	
-func test_route(start: Step):
-	# tests the route between two steps.
-	# returns false if a collision is found. otherwise returns true
-	var max_tries = 100 # to prevent while-loop locking.
-	var tries = 0
+func test_route(start: Step) -> TestResult:
+	var result = TestResult.new(start)
 	
-	# if it's the last step then there's no possible collision
-	if start.next == null:
-		return true
+	print("TESTING: " + str(start.pos))
 	
-	# gotta DUPLICATE THAT SHIT when you're PASSING BY REFERENCE FFSSSSSSS
+	var last_checked_tile = result.step.pos
+	
+	if result.next == null:
+		print("returning early")
+		return result
+		
 	var step = Step.new(start.pos)
-	var target = start.next
 	
-	while step.pos != target.pos and tries < max_tries:
-		tries += 1
+	while step.pos != result.next.pos:
 		if placeholders.get_cell_item(step.pos.x, 0, step.pos.z) != -1:
-			return false
-		approach_menacingly(step, target)
-	return true
-	
-	# TODO: needs to return a TurtleCollision object.
+			result.collision = last_checked_tile
+			result.successful = false
+			print("Collision found at: " + str(result.collision))
+			return result
+		last_checked_tile = step.pos
+		approach_menacingly(step, result.next)
+	return result
 	
 func approach_menacingly(step: Step, target: Step):
-	# moves the current step towards the target by one tile (x or z).
+	# WARNING: This machine does not know the difference between val and ref
+	# nor does it care.
 	
+	# moves the current step towards the target by one tile (x or z).
 	# prioritizing x axis over z axis here SHOULD be fine because
-	# steps are supposed to be axis aligned anyway.
 	if step.pos.x > target.pos.x:
 		step.pos.x -= 1
 	elif step.pos.x < target.pos.x:
@@ -230,20 +219,20 @@ func approach_menacingly(step: Step, target: Step):
 		step.pos.z += 1
 	# modifies the value by ref so no need to return anything
 	
-func test_full_route():
-	# tests whole route, returns a step if a collision is detected there.
-	# otherwise returns false
-	if first_step == null: # just in case, ye fearsome ducks.
-		return true
+func test_full_route() -> TestResult:
+	
+	print("TESTING FULL ROUTE")
+	get_path_length()
 	
 	var step = first_step
-	
-	while step != null:
-		if not test_route(step):
-			print("full route has collisions.")
-			return step
-		step = step.next
-	return false
+	while step.next != null:
+		var result = test_route(step)
+		if result.successful == false:
+			print("Full route invalid.")
+			return result
+		else:
+			step = step.next
+	return TestResult.new()
 	
 func debug():
 	# prints all step positions to gridmap for visual clarity.

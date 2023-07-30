@@ -26,5 +26,6 @@ func get_doors() -> Array:
 		
 		door_data.pos = to_global(walls.map_to_world(door.cell.x, 0, door.cell.z))
 		door_data.room = self
+		door_data.orientation = door.orientation
 		doors.append(door_data)
 	return doors

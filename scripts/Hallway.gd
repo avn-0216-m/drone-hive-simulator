@@ -39,3 +39,4 @@ func add_hallway():
 		add_child(turtle_obj)
 		for tile in turtle_obj.trundle():
 			set_cell_item(tile.x, 0, tile.z, 0)
+		return
