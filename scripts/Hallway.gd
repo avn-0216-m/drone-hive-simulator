@@ -18,7 +18,7 @@ func add_hallway():
 	for door in doors:
 		var eligible = []
 		for door2 in doors:
-			if door["room_name"] != door2["room_name"]: 
+			if door.room != door2.room: 
 				eligible.append(door2)
 		eligible.append_array(junctions)
 				
@@ -26,8 +26,8 @@ func add_hallway():
 		var shortest_distance = INF
 		var target
 		for e in eligible:
-			if door["pos"].distance_to(e["pos"]) < shortest_distance:
-				shortest_distance = door["pos"].distance_to(e["pos"])
+			if door.pos.distance_to(e.pos) < shortest_distance:
+				shortest_distance = door.pos.distance_to(e.pos)
 				target = e
 		
 		# instance turtles to find the best path to goal.

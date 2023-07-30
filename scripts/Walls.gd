@@ -25,13 +25,13 @@ func add_doorways() -> Array:
 				potential = max(0, potential - potential_decay)
 				door_obj = door_src.instance()
 				door_obj.translation = map_to_world(cell.x, cell.y, cell.z)
-				var door_data = {}
-				door_data["cell"] = Vector3(cell.x, cell.y, cell.z)
-				door_data["orientation"] = get_cell_item_orientation(cell.x, cell.y, cell.z)
+				var door_data = Door.new()
+				door_data.cell = Vector3(cell.x, cell.y, cell.z)
+				door_data.orientation = get_cell_item_orientation(cell.x, cell.y, cell.z)
 				# gotta grab the orientation now because it's not preserved if you delete
 				# the cell.
 				doors.append(door_data)
-				match get_cell_item_orientation(cell.x, cell.y, cell.z):
+				match door_data.orientation:
 					0: # eastern
 						door_obj.rotation_degrees.y = 0
 					10: # western

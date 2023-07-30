@@ -14,8 +14,6 @@ func _ready():
 func get_doors() -> Array:
 	var doors = []
 	for door in walls.doors:
-		var data = {}
-		
 		# positions given here are converted into global co-ords
 		# because rooms aren't all at (0,0,0)
 		# you'll need to convert them back to gridmap co-ords as and when you
@@ -24,8 +22,9 @@ func get_doors() -> Array:
 		# it's at 0,0,0.
 		# e.g: placeholder, hallway gridmaps.
 		
-		data["pos"] = to_global(walls.map_to_world(door["cell"].x, door["cell"].y, door["cell"].z))
-		data["orientation"] = door["orientation"]
-		data["room_name"] = self.name
-		doors.append(data)
+		var door_data = Door.new()
+		
+		door_data.pos = to_global(walls.map_to_world(door.cell.x, 0, door.cell.z))
+		door_data.room = self
+		doors.append(door_data)
 	return doors

@@ -5,8 +5,8 @@ var start_tile: Vector3
 var goal_tile: Vector3
 
 # inherited from Hallway parent object.
-var start: Dictionary
-var goal: Dictionary
+var start: Door
+var goal: Door
 var placeholders: GridMap
 var egress: int = 2
 
@@ -15,12 +15,12 @@ func _ready():
 	# start by converting the start/goal global pos data
 	# into gridmap co-ords
 	start_tile = placeholders.world_to_map(
-		Vector3(start["pos"].x, start["pos"].y, start["pos"].z))
-	goal_tile = placeholders.world_to_map(goal["pos"])
+		Vector3(start.pos.x, 0, start.pos.z))
+	goal_tile = placeholders.world_to_map(goal.pos)
 
 
 	# ensure the goal tile also has egress applied to it
-	match goal["orientation"]:
+	match goal.orientation:
 		0: # eastern
 			goal_tile.x -= egress 
 		10: # western
@@ -78,7 +78,7 @@ func trundle():
 	#setup first step using egress (so the hallway sticks out from the door)
 	if first_step == null:
 		first_step = Step.new(start_tile)
-		match start["orientation"]:
+		match start.orientation:
 			0: # eastern
 				first_step.next = Step.new(start_tile - Vector3(egress, 0, 0))
 			10: # western
@@ -90,7 +90,7 @@ func trundle():
 		
 	# now, align with goal.
 	var alignment: Vector3 = Vector3(0,0,0)
-	match start["orientation"]:
+	match start.orientation:
 		0, 10: # align vertically
 			alignment = Vector3(goal_tile.x, 0, start_tile.z)
 		16, 22: # align horizontally
