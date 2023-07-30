@@ -48,4 +48,3 @@ script = ExtResource( 5 )
 __meta__ = {
 "_editor_clip_": 0
 }
-potential_decay = 10.0

@@ -6,8 +6,8 @@ signal respawn(drone)
 
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
-var speed: float = 20.0 # Base speed
-var sprint: float = 6 # How much faster sprinting makes you
+var speed: float = 5.0 # Base speed
+var sprint: float = 7.0 # Sprinting speed
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 
 onready var icon_display: Sprite3D = get_node("Display/Icon")
@@ -78,6 +78,12 @@ func show_icon():
 func toggle_display():
 	display_container.visible = !display_container.visible
 	
+func get_move_speed():
+	if Input.is_action_pressed("move_sprint"):
+		return sprint
+	else:
+		return speed
+	
 func get_inputs() -> int:
 	
 	if immobile:
@@ -132,22 +138,22 @@ func _process(delta):
 	var inputs = get_inputs()
 	
 	if inputs & move_right:
-		velocity.x = 1 * speed
+		velocity.x = 1 * get_move_speed()
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.15)
 		interact_area.rotation_degrees.y = 0
 		drop_location.translation.x = 3
 	if inputs & move_left:
-		velocity.x = -1 * speed
+		velocity.x = -1 * get_move_speed()
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.15)
 		interact_area.rotation_degrees.y = 180
 		drop_location.translation.x = -3
 	if inputs & move_down:
-		velocity.z = 1 * speed
+		velocity.z = 1 * get_move_speed()
 		interact_area.rotation_degrees.y = 270
 	if inputs & move_up:
-		velocity.z = -1 * speed
+		velocity.z = -1 * get_move_speed()
 		interact_area.rotation_degrees.y = 90
 
 	# Check if drone should keep walking.

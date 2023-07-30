@@ -67,7 +67,7 @@ func a_reset_level():
 	gridmap.clear()
 
 func spawn_rooms():
-	for i in range (0,4):
+	for i in range (0,2):
 		var room = room_pool[0].instance()
 		add_child(room)
 		var offset = position_room(room)
@@ -75,10 +75,16 @@ func spawn_rooms():
 		hallway.mark_doors(room.get_doors())
 		placeholders.clear_doorways(room.get_doors())
 		
+	placeholders.strip()
+		
 	hallway.placeholders = placeholders
 	hallway.add_hallway()
 
 func position_room(room):
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
 	var safe_spot = false
 	var walls = room.walls.get_used_cells()
 	while safe_spot != true:
@@ -94,9 +100,9 @@ func position_room(room):
 			if placeholders.get_cell_item(ph.x, ph.y, ph.z) != -1:
 				randomize()
 				if randi() % 2 == 0:
-					room.translation.x += min((randi() % 100) * 2, maximum_bump)
+					room.translation.x += rng.randi_range(3, maximum_bump) * 2
 				else:
-					room.translation.z += min((randi() % 100) * 2, maximum_bump)
+					room.translation.z += rng.randi_range(3, maximum_bump) * 2
 				safe_spot = false
 				break
 	return room.translation

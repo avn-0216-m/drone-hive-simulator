@@ -29,7 +29,8 @@ func add(room: Node):
 		pad_these.append_array(pad_these_too)
 		for p in pad_these:
 			for a in adjacent:
-				if i == padding and get_cell_item(p.x + a.x, 0, p.z + a.z) == -1:
+				if i == padding - 1 and get_cell_item(p.x + a.x, 0, p.z + a.z) == -1:
+					print("strippable found")
 					# done to remove the outermost padding layer for easier hallways
 					strip_these.append(Vector3(p.x + a.x, 0, p.z + a.z))
 				set_cell_item(p.x + a.x, 0, p.z + a.z, 0)
@@ -52,5 +53,7 @@ func clear_doorways(doors):
 					cell.z -= 1
 
 func strip():
+	print("stripping")
 	for tile in strip_these:
 		set_cell_item(tile.x, tile.y, tile.z, -1)
+	print("stripped")

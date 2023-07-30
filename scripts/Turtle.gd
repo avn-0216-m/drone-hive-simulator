@@ -103,6 +103,8 @@ func trundle():
 	refine_route()
 	
 	debug()
+	
+	print("turtle done")
 	return get_all_tiles(first_step)
 	
 func get_all_tiles(start: Step):
@@ -116,44 +118,80 @@ func get_all_tiles(start: Step):
 		target = target.next
 	return tiles
 		
+func insert_edge(step: Step):
+	# the shadow the hedgehog function, or something.
+	# modifies a linked list to insert two step nodes after the specified step
+	# the new steps have the same positions as the original and its next step
+	
+	print("inserting a new edge")
+	
+	var new_step = Step.new(step.pos)
+	var new_step2 = Step.new(step.next.pos)
+	
+	new_step.next = new_step2
+	new_step2.next = step.next
+	step.next = new_step
+	
+	return new_step
+
 func refine_route():
 	# goes step by step, nudging paths out of the way of collisions
 	# remember: when modifying a step's position, modify the next step's position as well
 	# in this way, you are modifying an "edge"........ woag....
 	
-	# ok so probably the reason this isnt working is because im not inserting new nodes
-	# so
-	# TODO: that.
+	# TODO: get collision point information, similar to raycasting
+	# insert new step node at (or just before) point of collision
+	# then nudge from there
+	# it will essentially "shrink wrap" around any collisions
+	# and should IDEALLY be able to handle complexities
+	
+	var max_tries = 100
+	var tries = 0
+	var nudge_start_pos = Vector3(0,0,0)
+	var nudge_next_start_pos = Vector3(0,0,0)
+	var nudge_amount = 1
+	var nudge_flip = false
+	
+	print("refining turtle route")
 	
 	var result = test_full_route()
 	while result is Step:
-		print("baba")
 		if result is Step:
-			print("booey")
-			print("collision found, nudging")
+			result = insert_edge(result)
 			var nudge = Vector3(0,0,0)
+			nudge_start_pos = result.pos
+			nudge_next_start_pos = result.next.pos
 			# determine vector
 			# TODO: consider implementing a "flip flop" algorithm that tests
 			# both perpendicular nudge directions until a safe route is found
 			# would probably result in tidier hallways
-			if result.pos.x < result.next.pos.x:
-				nudge = Vector3(0,0,1) # travelling east, nudge south
-			elif result.pos.x > result.next.pos.x:
-				nudge = Vector3(0,0,-1) # travelling west, nudge north
-			elif result.pos.z < result.next.pos.z:
-				nudge = Vector3(1,0,0) # travelling south, nudge east
-			elif result.pos.z > result.next.pos.z:
-				nudge = Vector3(-1,0,0) # travelling north, nudge west
-			else:
-				print("going nowhere in a hurry. how tf did you detect a collision here")
 			while test_route(result) != true:
-				result.pos += nudge
-				result.next.pos += nudge
+				print("applying nudge...")
+				
+				if result.pos.x != result.next.pos.x:
+					result.pos.z = nudge_start_pos.z + abs(nudge_amount) if nudge_flip else nudge_amount
+					result.next.pos.z = nudge_next_start_pos.z + abs(nudge_amount) if nudge_flip else nudge_amount
+				else:
+					result.pos.x = nudge_start_pos.x + abs(nudge_amount) if nudge_flip else nudge_amount
+					result.next.pos.x = nudge_next_start_pos.x + abs(nudge_amount) if nudge_flip else nudge_amount
+				
+				print(nudge_amount)
+				
+				nudge_amount -= 1
+				nudge_flip = !nudge_flip
+
+			print("nudge successful.")
+			tries += 1
+			if tries > max_tries:
+				print("TERMINATED")
+				break
 		result = test_full_route()
+		
+	if tries >= 100:
+		print("TERMINATED")
 	return
 	
 func test_route(start: Step):
-	print("testing")
 	# tests the route between two steps.
 	# returns false if a collision is found. otherwise returns true
 	var max_tries = 100 # to prevent while-loop locking.
@@ -161,7 +199,6 @@ func test_route(start: Step):
 	
 	# if it's the last step then there's no possible collision
 	if start.next == null:
-		print("returning early")
 		return true
 	
 	# gotta DUPLICATE THAT SHIT when you're PASSING BY REFERENCE FFSSSSSSS
@@ -171,10 +208,11 @@ func test_route(start: Step):
 	while step.pos != target.pos and tries < max_tries:
 		tries += 1
 		if placeholders.get_cell_item(step.pos.x, 0, step.pos.z) != -1:
-			print("COLLISION DETECTEDDDD")
 			return false
 		approach_menacingly(step, target)
 	return true
+	
+	# TODO: needs to return a TurtleCollision object.
 	
 func approach_menacingly(step: Step, target: Step):
 	# moves the current step towards the target by one tile (x or z).
@@ -202,12 +240,9 @@ func test_full_route():
 	
 	while step != null:
 		if not test_route(step):
-			print("all BAD in the hellhood")
+			print("full route has collisions.")
 			return step
 		step = step.next
-		
-	print("all good in da hood")
-	
 	return false
 	
 func debug():

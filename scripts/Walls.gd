@@ -13,7 +13,11 @@ var door_obj = null
 var doors = []
 
 func add_doorways() -> Array:
-	for cell in get_used_cells():
+	
+	var cells = get_used_cells()
+	cells.shuffle() # randomizes doorway placement.
+	
+	for cell in cells:
 		if get_cell_item(cell.x, cell.y, cell.z) == Geo.POTENTIAL:
 			randomize()
 			var roll = randi() % 10
