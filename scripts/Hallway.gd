@@ -5,7 +5,7 @@ var junctions = []
 var visited = []
 var placeholders: GridMap
 
-export var egress = 2
+export var egress = 3
 
 onready var turtle_src = load("res://objects/Turtle.tscn")
 
@@ -32,11 +32,6 @@ func add_hallway():
 		
 		# instance turtles to find the best path to goal.
 		var turtle_obj = turtle_src.instance()
-		turtle_obj.start = door
-		turtle_obj.goal = target
 		turtle_obj.placeholders = placeholders
 		turtle_obj.egress = egress
-		add_child(turtle_obj)
-		for tile in turtle_obj.trundle():
-			set_cell_item(tile.x, 0, tile.z, 0)
-		return
+		turtle_obj.pathfind(door, target)

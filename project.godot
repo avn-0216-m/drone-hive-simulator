@@ -97,17 +97,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Step",
 "language": "GDScript",
-"path": "res://scripts/Step.gd"
+"path": "res://scripts/classes/Step.gd"
 }, {
 "base": "Instanceable",
 "class": "Task",
 "language": "GDScript",
 "path": "res://scripts/classes/InstanceableTask.gd"
-}, {
-"base": "Node",
-"class": "TestResult",
-"language": "GDScript",
-"path": "res://scripts/classes/TestResult.gd"
 } ]
 _global_script_class_icons={
 "Anna": "",
@@ -128,8 +123,7 @@ _global_script_class_icons={
 "Pickup": "",
 "Placeholder": "",
 "Step": "",
-"Task": "",
-"TestResult": ""
+"Task": ""
 }
 
 [application]
