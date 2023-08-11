@@ -30,47 +30,6 @@ var offsets: Array = [
 		Vector3(1,0,0)   # Right
 	]
 	
-func charge(step: Step):
-	# Turtle will continue in a single direction until:
-	# - the next step has a higher cost.
-	# - the next space is occupied.
-	# - it's lookahead limit is reached.
-	# It does not explore adjacent step nodes as it charges.
-	# Once it stops, it then explores adjacent step nodes.
-	# Steps traversed during the charge are saved as open.
-	
-	# Acquire direction by comparing position relative to parent.
-	print("Charrrge!")
-	
-	var prev = step
-	
-	# Move the step from open to closed (unexplored to explored).
-	open.erase(step)
-	closed.append(step)
-	
-	
-	var dir = step.cell - step.parent.cell
-	
-	for i in range(1,lookahead):
-		print("Raaaagh!")
-		print(step.cell + (dir * i))
-		if placeholders.get_cell_item(
-			step.cell.x + (dir.x * i),
-			0,
-			step.cell.z + (dir.z * i)) != -1 or already_explored(step.cell + (dir*i)):
-				print("Collision! Argh!!!")
-				break
-		var new = Step.new(step.cell + (dir * i))
-		new.parent = prev
-		new.calc(start, end)
-		if new.get_f() > prev.get_f():
-			print("We've gone astray, boys!")
-			break
-		closed.append(new)
-		prev = new
-	
-	return
-	
 func explore(step: Step):
 	# Explores all neighbors (+ lookahead) of a given Step node, 
 	# creates Step nodes for each, calculates costs, and returns an array of 
@@ -87,7 +46,7 @@ func explore(step: Step):
 		var new = Step.new(step.cell + offset)
 		new.parent = step
 		new.calc(start, end)
-		if not already_explored(new.cell):
+		if not already_explored(new.cell) and placeholders.get_cell_item(new.cell.x, 0, new.cell.z) == -1:
 			found.append(new)
 	print("Found this many new nodes: " + str(len(found)))
 	return found
@@ -132,29 +91,49 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 	start_step = Step.new(start)
 	open.append(start_step)
 	
-	while len(open) < maximum_explored_tiles:
+	while len(open) < maximum_explored_tiles and len(open) != 0:
 		var best_step: Step
-			
-#		print("Explored cells:")
-#		print(debug2)
-		
-		
 		best_step = find_best_step(open, end)
+		
+		print("Open steps:")
+		print(open)
 				
 		if best_step == null:
 			print("ERRORRRR")
-			
-		# standard loop is:
-		# explore best open node
-		# then charge from the best node (of 1-4) from the found nodes.
+		elif best_step.cell == end:
+			print("WOAWWWWW")
+			break
 
 		var found = explore(best_step)
-		open += found
-		charge(find_best_step(found, end))
-		debug()
+		for step in found:
+			add_step(step)
 			
 	print("Pathfinding complete.")
+	debug()
+	var end_step = get_step_at(end)
+	if end_step:
+		print("End step.")
+		var backwards = end_step
+		var cells = []
+		while backwards != null:
+			cells.append(backwards.cell)
+			print(backwards.cell)
+			backwards = backwards.parent
+		return cells
 	return []
+	
+func get_step_at(cell: Vector3):
+	for step in open:
+		if step.cell == cell:
+			return step
+	return null
+	
+func add_step(step: Step):
+	# Add new step. 
+	# If step already exists but fcost is lower, update the parent to reflect
+	# better path.
+	open.append(step)
+	return
 	
 func find_best_step(steps: Array, end: Vector3):
 	var best_step: Step
@@ -163,7 +142,7 @@ func find_best_step(steps: Array, end: Vector3):
 	for step in steps:
 		if step.cell == end:
 			print("End cell found!")
-			return []
+			return step
 		if step.get_f() < lowest_cost:
 			best_step = step
 			lowest_cost = best_step.get_f()

@@ -35,4 +35,6 @@ func add_hallway():
 		turtle_obj.placeholders = placeholders
 		turtle_obj.egress = egress
 		add_child(turtle_obj)
-		turtle_obj.pathfind(door, target)
+		var tiles = turtle_obj.pathfind(door, target)
+		for tile in tiles:
+			set_cell_item(tile.x, 0, tile.z, 0)
