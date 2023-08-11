@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://sprites/paws.png" type="Texture" id=1]
+[ext_resource path="res://sprites/placeholder.png" type="Texture" id=2]
+
+[sub_resource type="QuadMesh" id=1]
+
+[sub_resource type="SpatialMaterial" id=2]
+params_billboard_mode = 1
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="PlaneMesh" id=3]
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_texture = ExtResource( 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SphereMesh" id=6]
+material = SubResource( 5 )
+
+[sub_resource type="SpatialMaterial" id=7]
+albedo_color = Color( 0, 1, 0.0862745, 1 )
+
+[sub_resource type="SphereMesh" id=8]
+material = SubResource( 7 )
+
+[node name="Debug" type="Spatial"]
+
+[node name="Placeholder" type="Spatial" parent="."]
+visible = false
+
+[node name="Placeholder" type="MeshInstance" parent="Placeholder"]
+mesh = SubResource( 1 )
+material/0 = SubResource( 2 )
+
+[node name="Step" type="Spatial" parent="."]
+
+[node name="Step" type="MeshInstance" parent="Step"]
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="Red" type="Spatial" parent="."]
+
+[node name="Red" type="MeshInstance" parent="Red"]
+mesh = SubResource( 6 )
+material/0 = null
+
+[node name="Green" type="Spatial" parent="."]
+
+[node name="Green" type="MeshInstance" parent="Green"]
+mesh = SubResource( 8 )
+material/0 = null
