@@ -27,7 +27,11 @@ var offsets: Array = [
 		Vector3(0,0,-1), # Up
 		Vector3(0,0,1),  # Down
 		Vector3(-1,0,0), # Left
-		Vector3(1,0,0)   # Right
+		Vector3(1,0,0),  # Right
+		Vector3(1,0,-1), # Up-Right
+		Vector3(-1,0,-1),# Up-left
+		Vector3(1,0,1),  # Down-right
+		Vector3(-1,0,1)  # Down-left 
 	]
 	
 func explore(step: Step):
@@ -35,7 +39,7 @@ func explore(step: Step):
 	# creates Step nodes for each, calculates costs, and returns an array of 
 	# all found nodes.
 	
-	print("Exploring: " + str(step.cell))
+	#print("Exploring: " + str(step.cell))
 	
 	var found: Array = []
 	
@@ -48,7 +52,7 @@ func explore(step: Step):
 		new.calc(start, end)
 		if not already_explored(new.cell) and placeholders.get_cell_item(new.cell.x, 0, new.cell.z) == -1:
 			found.append(new)
-	print("Found this many new nodes: " + str(len(found)))
+	#print("Found this many new nodes: " + str(len(found)))
 	return found
 	
 func already_explored(cell: Vector3):
@@ -85,8 +89,8 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 			end.z -= egress
 	
 	
-	print("Start: " + str(start))
-	print("End: " + str(end))
+	#print("Start: " + str(start))
+	#print("End: " + str(end))
 	
 	start_step = Step.new(start)
 	open.append(start_step)
@@ -95,13 +99,11 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 		var best_step: Step
 		best_step = find_best_step(open, end)
 		
-		print("Open steps:")
-		print(open)
+		#print("Open steps:")
+		#print(open)
 				
-		if best_step == null:
-			print("ERRORRRR")
-		elif best_step.cell == end:
-			print("WOAWWWWW")
+		if best_step.cell == end:
+			#print("WOAWWWWW")
 			break
 
 		var found = explore(best_step)
@@ -112,7 +114,7 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 	debug()
 	var end_step = get_step_at(end)
 	if end_step:
-		print("End step.")
+		#print("End step.")
 		var backwards = end_step
 		var cells = []
 		while backwards != null:
