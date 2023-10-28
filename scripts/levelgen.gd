@@ -1,13 +1,13 @@
 extends Spatial
 
-export var bump_min = 6
-export var bump_max = 10
-
 var respawn_point: Vector3 = Vector3(0,5,0)
 
-var level: int = 3
+var extra_rooms: int = 3
+var level: int = 1 # rooms per floor = level + extra_rooms
 
-var known_tiles: Array = []
+var rooms = [] # Array of all room objects on current floor.
+
+export var minimum_hallway_length: int = 3
 
 onready var placeholders = get_node("Placeholders")
 onready var hallway = get_node("Hallway")
@@ -15,9 +15,18 @@ onready var hallway = get_node("Hallway")
 var TileData = preload("res://scripts/data/TileData.gd")
 export(GDScript) var MeshLib
 
-var room_pool = [
-	preload("res://objects/rooms/test1.tscn")
-]
+
+# Room pool
+# Key: The floor at which a room is introduced
+# Value: The rooms
+var unlockable_rooms: Dictionary = {
+	0: [preload("res://objects/rooms/test1.tscn")]
+}
+var pool_north: Array = []
+var pool_south: Array = []
+var pool_east: Array = []
+var pool_west: Array = []
+export var start_room: PackedScene
 
 var level_size = Vector2(0,0)
 var entry_tile_pos: Vector3
@@ -40,8 +49,40 @@ func recursively_assign(root: Node, task):
 				child.task = task
 			recursively_assign(child, task)
 
+func reload_pool():
+	# Sorts the pool based on if they have NSEW doors.
+	
+	pool_north = []
+	pool_south = []
+	pool_east = []
+	pool_west = []
+	
+	var unlocked_rooms = []
+	# Get all unlocked rooms
+	for i in range(0,level):
+		var unlocked = unlockable_rooms.get(i)
+		for room in unlocked:
+			unlocked_rooms.append(room)
+	
+	for src in unlocked_rooms:
+		var obj = src.instance()
+		if obj.north:
+			pool_north.append(src)
+		if obj.south:
+			pool_south.append(src)
+		if obj.west:
+			pool_west.append(src)
+		if obj.east:
+			pool_east.append(src)
+		obj.queue_free()
+	
+	
+	print("Loaded " + str(len(unlocked_rooms)) + " room(s).")
+	return unlocked_rooms
+
 func _ready():
 	
+	reload_pool()
 	spawn_rooms()
 	
 	return
@@ -68,43 +109,34 @@ func a_reset_level():
 	gridmap.clear()
 
 func spawn_rooms():
-	for i in range (0,4):
-		var room = room_pool[0].instance()
-		add_child(room)
-		var offset = position_room(room)
-		placeholders.add(room)
-		hallway.mark_doors(room.get_doors())
+	
+	var potentials = []
+	
+	# spawn start room
+	# loop and add rooms until you hit the room limit for this floor
+	# or until you run out of usable doorways
+	
+	# as rooms are added, grab each potential, add it to an array.
+	# each loop, pick a new potential and attempt to add a room to it.
+	# if the hallway is obstructed (check placeholder gridmap) then that means
+	# there is a room in the way.
+	# mark the potential for deletion.
+	# otherwise, mark the potential for creation (turning it into a doorway)
+	
+	# do not instance doors until this loop is complete.
+	# once loop is complete, loop through all rooms and instance a doorway or
+	# a wall.
+	
+	var start_obj = start_room.instance()
+	add_child(start_obj)
+	
+	potentials += start_obj.get_potentials()
+	placeholders.add(start_obj)
+	
+	while(len(potentials) != 0 and len(rooms) != level):
+		potentials = []
 		
-	hallway.placeholders = placeholders
-	hallway.add_hallway()
+	print("Floor generated")
 
-func position_room(room):
 	
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	
-	var safe_spot = false
-	var walls = room.walls.get_used_cells()
-	while safe_spot != true:
-		randomize()
-		safe_spot = true
-		for w in walls:
-			# get tile world position
-			# map world position to placeholder gridmap
-			# check if tile item id = -1
-			var world_pos = placeholders.map_to_world(w.x, w.y, w.z)
-			world_pos = room.walls.to_global(world_pos)
-			var ph = placeholders.world_to_map(world_pos)
-			if placeholders.get_cell_item(ph.x, ph.y, ph.z) != -1:
-				randomize()
-				if randi() % 2 == 0:
-					room.translation.x += rng.randi_range(3, bump_max) * 2
-				else:
-					room.translation.z += rng.randi_range(3, bump_max) * 2
-				safe_spot = false
-				break
-	return room.translation
-
-func spawn_hallways():
 	return
-	

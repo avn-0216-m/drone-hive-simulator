@@ -69,6 +69,8 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 	start = placeholders.world_to_map(start_door.pos)
 	end = placeholders.world_to_map(end_door.pos)
 	
+	var iterations = 0
+	
 	match start_door.orientation:
 		0: # eastern
 			start.x -= egress 
@@ -96,6 +98,7 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 	open.append(start_step)
 	
 	while len(open) < maximum_explored_tiles and len(open) != 0:
+		print("Iterations: " + str(iterations))
 		var best_step: Step
 		best_step = find_best_step(open, end)
 		
@@ -110,6 +113,8 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 		for step in found:
 			add_step(step)
 			
+		iterations += 1
+			
 	print("Pathfinding complete.")
 	debug()
 	var end_step = get_step_at(end)
@@ -119,7 +124,7 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 		var cells = []
 		while backwards != null:
 			cells.append(backwards.cell)
-			print(backwards.cell)
+			#print(backwards.cell)
 			backwards = backwards.parent
 		return cells
 	return []
@@ -132,7 +137,7 @@ func get_step_at(cell: Vector3):
 	
 func add_step(step: Step):
 	# Add new step. 
-	# If step already exists but fcost is lower, update the parent to reflect
+	# TODO: If step already exists but fcost is lower, update the parent to reflect
 	# better path.
 	open.append(step)
 	return

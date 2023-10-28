@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://meshlibraries/placeholder.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://scripts/LevelGen.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Placeholders.gd" type="Script" id=3]
 [ext_resource path="res://scripts/Hallway.gd" type="Script" id=4]
 [ext_resource path="res://meshlibraries/geometry_floor.tres" type="MeshLibrary" id=5]
+[ext_resource path="res://objects/rooms/start.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/data/MeshLib.gd" type="Script" id=8]
 
 [node name="Level" type="Spatial"]
 script = ExtResource( 2 )
 MeshLib = ExtResource( 8 )
+start_room = ExtResource( 6 )
 
 [node name="Hallway" type="GridMap" parent="."]
 mesh_library = ExtResource( 5 )

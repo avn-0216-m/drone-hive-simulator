@@ -6,21 +6,35 @@ export(Style) var style = Style.BASIC
 onready var walls = get_node("Geometry/Walls")
 onready var floors = get_node("Geometry/Floor")
 
+# This is gonna be a real headache if I ever add multiple doors with the same orientation.
+export var north: bool
+export var south: bool
+export var east: bool
+export var west: bool
+
+var doors = []
+
 signal doorway_added(pos)
 
-func _ready():
-	var doors = walls.add_doorways()
+func get_potentials() -> Array:
+	# Returns an array of Potential data.
+	var potentials = []
+	for cell in walls.get_used_cells():
+		if walls.get_cell_item(cell.x, 0, cell.z) == 6: # 6 = potential
+			var potential_data = Potential.new()
+			potential_data.cell_local = cell
+			potential_data.orientation = walls.get_cell_item_orientation(cell.x, 0, cell.z)
+			potential_data.pos = walls.map_to_world(cell.x, 0, cell.z)
+			potentials.append(potential_data)
+	return potentials
 
 func get_doors() -> Array:
+	# deprecated
 	var doors = []
 	for door in walls.doors:
-		# positions given here are converted into global co-ords
-		# because rooms aren't all at (0,0,0)
-		# you'll need to convert them back to gridmap co-ords as and when you
-		# need them.
-		# you can use any gridmap to convert to accurate co-ords SO LONG AS
-		# it's at 0,0,0.
-		# e.g: placeholder, hallway gridmaps.
+		# position here is given as a global.
+		# position != cell
+		# use a gridmap at 0,0,0 to convert global positions to gridmap cell co-ords
 		
 		var door_data = Door.new()
 		
