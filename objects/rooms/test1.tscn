@@ -8,10 +8,6 @@
 
 [node name="Room" type="Spatial"]
 script = ExtResource( 2 )
-north = true
-south = true
-east = true
-west = true
 
 [node name="Static" type="GridMap" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0 )

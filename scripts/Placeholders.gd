@@ -14,6 +14,11 @@ var adjacent: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(1,0,1) # Bottom right
 	]
 
+func compare(room: Node, cell: Vector3):
+	# Compares if space is already in use by other rooms via placeholder tiles
+	# Returns true if not, false if it is.
+	return true
+
 func add(room: Node):
 	var tiles = room.walls.get_wall_cells() # does not get placeholders, to prevent accidental self collisions.
 	for tile in tiles:
