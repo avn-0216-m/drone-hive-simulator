@@ -7,7 +7,7 @@ var level: int = 1 # rooms per floor = level + extra_rooms
 
 var rooms = [] # Array of all room objects on current floor.
 
-export var minimum_hallway: int = 12
+export var minimum_hallway: int = 6
 
 onready var placeholders = get_node("Placeholders")
 onready var hallway = get_node("Hallway")
@@ -23,7 +23,9 @@ export(GDScript) var MeshLib
 var unlockable_rooms: Dictionary = {
 	0: [
 		preload("res://objects/rooms/test1.tscn"),
-		preload("res://objects/rooms/test2.tscn")]
+		preload("res://objects/rooms/test4.tscn"),
+		preload("res://objects/rooms/test5.tscn"),
+		preload("res://objects/rooms/test6.tscn")]
 }
 var pool_north: Array = []
 var pool_south: Array = []
@@ -82,6 +84,10 @@ func reload_pool():
 	
 	
 	print("Loaded " + str(len(unlocked_rooms)) + " room(s).")
+	print("North: " + str(len(pool_north)) + " room(s).")
+	print("South: " + str(len(pool_south)) + " room(s).")
+	print("East: " + str(len(pool_east)) + " room(s).")
+	print("West: " + str(len(pool_west)) + " room(s).")
 	return unlocked_rooms
 
 func _ready():
@@ -136,8 +142,12 @@ func spawn_rooms():
 	
 	potentials += start_obj.get_potentials()
 	placeholders.add(start_obj)
+	rooms.append(start_obj)
 	
 	while(len(potentials) != 0 and len(rooms) != level + extra_rooms):
+		
+		print("Potentials: " + str(len(potentials)))
+		print("Rooms: " + str(len(rooms)))
 		
 		# 10: East, needs west.
 		# ??? Unconfirmed ???
@@ -147,20 +157,24 @@ func spawn_rooms():
 		
 		# Get a potential
 		rng = RandomNumberGenerator.new() # < TODO: Seed this with drone ID + level
+		rng.randomize()
 		var p_start = potentials.pop_at(rng.randi() % len(potentials))
 		var source_array = []
 		match(p_start.orientation): 
 			10:
+				print("Potential: East")
 				source_array = pool_west
 			0:
+				print("Potential: West")
 				source_array = pool_east
 			16:
+				print("Potential: North")
 				source_array = pool_south
 			22:
+				print("Potential: South")
 				source_array = pool_north
 		
 		var next_room = source_array[rng.randi() % len(source_array)]
-		print(next_room)
 		
 		var nr_obj = next_room.instance()
 		add_child(nr_obj)
@@ -180,17 +194,55 @@ func spawn_rooms():
 			22:
 				p_end = nr_obj.north
 		
+		# if desired orientation is horizontal (east/west)
+		# if the next potential has a greater z value than the current potential, 
+		# subtract the difference from the next rooms translation
+		# otherwise, add it.
+		# presumably, you can do the same thing for vertical but with x instead of z
 		
-		print(p_start.offset)
 		nr_obj.translation = p_start.room.translation
-		nr_obj.translation.z = p_start.offset.z - p_end.offset.z # there's no fuckin way this works
-		nr_obj.translation.x += minimum_hallway
 		
-		rooms.append(nr_obj)
-		potentials += nr_obj.get_potentials()
+
+		var dif = Vector3(0,0,0)
+		# Horizontal alignment
+		dif.z = p_start.offset.z - p_end.offset.z
+		dif.z = neg(dif.z) if p_end.offset.z > p_start.offset.z else abs(dif.z)
+		# Vertical alignment
+		dif.x = p_start.offset.x - p_end.offset.x
+		dif.x = neg(dif.x) if p_end.offset.x > p_start.offset.x else abs(dif.x)
+		
+		nr_obj.translation += dif
+		# Now we can start pushing away and making a hallway.
+		
+
+		if p_end.orientation in [0,10]:
+			nr_obj.translation.x += neg(minimum_hallway) if p_end.offset.x > p_start.offset.x else abs(minimum_hallway)
+		else:
+			nr_obj.translation.z += neg(minimum_hallway) if p_end.offset.z > p_start.offset.z else abs(minimum_hallway)
+
+		# Check placeholders and nudge if necessary.
+		if placeholders.test(nr_obj):
+			placeholders.add(nr_obj)
+			rooms.append(nr_obj)
+			potentials += nr_obj.get_potentials(p_end.cell)
+			p_start.connected = p_end
+			p_end.connected = p_start
+			p_start.valid = true
+			p_end.valid = true
+		else:
+			nr_obj.queue_free()
+
 		#potentials = [] # THIS IS A DEBUG THING DELETE IT IF YOU WANT THE LOOP TO WORK PROPERLY
 		
 	print("Floor generated")
-
+	print(str(len(rooms)) + " rooms generated.")
 	
-	return
+	# Now delete all invalid potentials
+	for room in rooms:
+		room.collapse()
+	
+func neg(num: int):
+	# Returns the negative version of a number.
+	if num < 0:
+		return num
+	return num * -1

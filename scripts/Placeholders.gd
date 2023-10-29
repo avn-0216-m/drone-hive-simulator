@@ -14,9 +14,17 @@ var adjacent: Array = [ # Transforms for all 8 adjacent tiles
 		Vector3(1,0,1) # Bottom right
 	]
 
-func compare(room: Node, cell: Vector3):
-	# Compares if space is already in use by other rooms via placeholder tiles
+func test(room: Node):
+	# Tests if space is already in use by other rooms via placeholder tiles
 	# Returns true if not, false if it is.
+	
+	print("Testing: " + room.name + " at: " + str(room.translation))
+	
+	for cell in room.walls.get_used_cells():
+		var converted = world_to_map(map_to_world(cell.x, 0, cell.z) + room.translation)
+		if get_cell_item(converted.x, 0, converted.z) != -1:
+				print("!!! Bad room found. !!!")
+				return false
 	return true
 
 func add(room: Node):

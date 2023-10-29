@@ -48,7 +48,7 @@ var interact = 64
 
 func _ready():
 	$FaceTimer.connect("timeout", self, "show_id")
-	set_id("3043")
+	set_id("5159")
 	inventory.battery.track(battery)
 	gravity = 0
 	

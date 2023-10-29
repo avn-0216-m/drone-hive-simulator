@@ -12,17 +12,32 @@ var south: Potential
 var east: Potential
 var west: Potential
 
-var potentials = []
 var doors = []
 
 func _ready():
 	get_potentials()
+	
+func collapse():
+	# Replaces invalid potentials with walls, valid potentials with doors.
+	for cell in walls.get_used_cells():
+		if walls.get_cell_item(cell.x, 0, cell.z) == 6: # 6 = potential
+			for pot in [north, south, east, west]:
+				if pot == null:
+					continue
+				if pot.cell == cell:
+					if pot.valid:
+						walls.set_cell_item(cell.x, 0, cell.z, -1)
+					else:
+						var ori = walls.get_cell_item_orientation(cell.x, 0, cell.z)
+						walls.set_cell_item(cell.x, 0, cell.z, 3, ori)
 
-func get_potentials() -> Array:
+func get_potentials(skip = null) -> Array:
 	# Returns an array of Potential data.
 	var potentials = []
 	for cell in walls.get_used_cells():
 		if walls.get_cell_item(cell.x, 0, cell.z) == 6: # 6 = potential
+			if cell == skip:
+				continue
 			var potential_data = Potential.new()
 			potential_data.cell = cell
 			potential_data.orientation = walls.get_cell_item_orientation(cell.x, 0, cell.z)
