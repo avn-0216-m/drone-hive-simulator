@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/computerdeskwooden.glb-78bb35678e8cfb2fd0a0dca4f5b4a501.scn"
+path="res://.import/sink.glb-59e9990e1103a2551e46d07028334589.scn"
 
 [deps]
 
-source_file="res://blender/computerdesk/computerdeskwooden.glb"
-dest_files=[ "res://.import/computerdeskwooden.glb-78bb35678e8cfb2fd0a0dca4f5b4a501.scn" ]
+source_file="res://blender/sink/export/sink.glb"
+dest_files=[ "res://.import/sink.glb-59e9990e1103a2551e46d07028334589.scn" ]
 
 [params]
 

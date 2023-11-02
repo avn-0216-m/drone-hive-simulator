@@ -25,7 +25,8 @@ var unlockable_rooms: Dictionary = {
 		preload("res://objects/rooms/test1.tscn"),
 		preload("res://objects/rooms/test4.tscn"),
 		preload("res://objects/rooms/test5.tscn"),
-		preload("res://objects/rooms/test6.tscn")]
+		preload("res://objects/rooms/test6.tscn"),
+		preload("res://objects/rooms/testbedroom.tscn")]
 }
 var pool_north: Array = []
 var pool_south: Array = []
