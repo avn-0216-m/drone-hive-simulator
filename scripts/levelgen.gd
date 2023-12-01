@@ -2,7 +2,7 @@ extends Spatial
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
-var extra_rooms: int = 3
+var extra_rooms: int = 10
 var level: int = 1 # rooms per floor = level + extra_rooms
 
 var rooms = [] # Array of all room objects on current floor.
@@ -66,7 +66,7 @@ func reload_pool():
 	var unlocked_rooms = []
 	# Get all unlocked rooms
 	for i in range(0,level):
-		var unlocked = unlockable_rooms.get(i)
+		var unlocked = unlockable_rooms.get(i, [])
 		for room in unlocked:
 			unlocked_rooms.append(room)
 	
