@@ -1,6 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://shaders/edge_blur.gdshader" type="Shader" id=1]
+[ext_resource path="res://objects/bonus/Roomba.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/tasks/NullCube.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/Game.gd" type="Script" id=6]
 [ext_resource path="res://objects/player/Drone.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scripts/Music.gd" type="Script" id=8]
@@ -106,6 +108,11 @@ script = ExtResource( 6 )
 
 [node name="Player" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 7 )]
 transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 3, 3 )
+
+[node name="Roomba" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 2 )]
+
+[node name="NullCube" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 3 )]
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 3.99772, 3.66655, 3.68617 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Composite/GameTexture/Viewport/Game"]
 stream = ExtResource( 19 )

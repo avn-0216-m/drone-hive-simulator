@@ -4,7 +4,7 @@
 [ext_resource path="res://sprites/maiden/maiden3.png" type="Texture" id=2]
 [ext_resource path="res://sprites/maiden/maiden1.png" type="Texture" id=3]
 [ext_resource path="res://sprites/maiden/maiden2.png" type="Texture" id=4]
-[ext_resource path="res://sprites/face/icongrid.png" type="Texture" id=5]
+[ext_resource path="res://sprites/face/droneicons.png" type="Texture" id=5]
 [ext_resource path="res://sprites/face/numergrid.png" type="Texture" id=6]
 [ext_resource path="res://sprites/zap.png" type="Texture" id=7]
 [ext_resource path="res://objects/player/Inventory.tscn" type="PackedScene" id=8]
@@ -64,13 +64,14 @@ animation = "forward"
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 2.44957, 0.15 )
 
 [node name="Icon" type="Sprite3D" parent="Display"]
-transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.249127, 0.261089, -0.0165499 )
+transform = Transform( 8, 0, 0, 0, 8, 0, 0, 0, 1, 0.181865, 0.191398, -0.0165499 )
+visible = false
 layers = 4
 modulate = Color( 0, 1, 1, 1 )
+pixel_size = 0.0075
 double_sided = false
 texture = ExtResource( 5 )
-hframes = 9
-frame = 8
+hframes = 7
 
 [node name="ID" type="Spatial" parent="Display"]
 transform = Transform( 4, 0, 0, 0, 4, 0, 0, 0, 1, -0.322687, 0.0794165, 0 )

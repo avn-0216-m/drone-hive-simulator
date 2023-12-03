@@ -4,6 +4,8 @@ class_name Drone
 signal shutdown_complete
 signal respawn(drone)
 
+enum Icons {DOWN=0, UP=1, NO=2, QUESTION=3, SOUND=4, BATTERY=5, NOBATTERY=6}
+
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
 var speed: float = 5.0 # Base speed
@@ -121,7 +123,7 @@ func get_inputs() -> int:
 			
 		add_child(beepboop_obj)
 		beepboop_obj.translation.z = 0.3
-		show_icon(8)
+		show_icon(Icons.SOUND)
 	
 	return inputs
 	
@@ -201,6 +203,7 @@ func interact():
 				item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
 			item.parent.add_child(item)
 			item.emit_signal("dropped")
+			show_icon(Icons.DOWN)
 		else:
 			# select inventory item
 			inventory.select_item()
@@ -208,8 +211,10 @@ func interact():
 		if inventory.current_slot_empty():
 			var item = nearby.interact(self)
 			inventory.set_item(item)
+			show_icon(Icons.UP)
 		else:
 			UI.log("You're already holding something.")
+			show_icon(Icons.NO)
 	elif nearby is Interactable and not nearby is Pickup:
 		# interact code here. nest additional code for interacting with objects
 		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
@@ -225,6 +230,7 @@ func interact():
 					"."
 				)
 				inventory.play_sfx(inventory.Sfx.LOW)
+				show_icon(Icons.NO)
 			elif result == inv_item.Result.CONSUMED:
 				inventory.play_sfx(inventory.Sfx.HIGH)
 				inventory.delete_item()
