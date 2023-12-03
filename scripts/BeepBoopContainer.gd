@@ -8,7 +8,7 @@ func _ready():
 	height_tw = Tween.new()
 	add_child(height_tw)
 	height_tw.connect("tween_completed", self, "done")
-	height_tw.interpolate_property(self, "translation:y", 4.4, 5, 2, Tween.TRANS_LINEAR, Tween.EASE_OUT)
+	height_tw.interpolate_property(self, "translation:y", 4.4, 5, 1, Tween.TRANS_LINEAR, Tween.EASE_OUT)
 	height_tw.start()
 
 	
