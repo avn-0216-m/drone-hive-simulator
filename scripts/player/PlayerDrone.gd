@@ -31,6 +31,8 @@ onready var interact_area = get_node("InteractArea")
 
 onready var drop_location = get_node("ItemDrop")
 
+onready var beepboop_src = preload("res://objects/Beepboop.tscn")
+
 var nearby: Node # holds the nearest interactable object that the drone is facing
 
 var id: String = "0000"
@@ -71,9 +73,11 @@ func show_id():
 	icon_display.visible = false
 	id_display.visible = true
 	
-func show_icon():
+func show_icon(index: int = 0):
+	icon_display.frame = index
 	icon_display.visible = true
 	id_display.visible = false
+	$FaceTimer.start()
 
 func toggle_display():
 	display_container.visible = !display_container.visible
@@ -108,6 +112,17 @@ func get_inputs() -> int:
 		interact()
 	elif Input.is_action_just_pressed("inventory_cancel"):
 		inventory.change_slot(0)
+	
+	if Input.is_action_just_pressed("beep"):
+		if has_node("Beepboop"):
+			get_node("Beepboop").free()
+		
+		var beepboop_obj = beepboop_src.instance()
+			
+		add_child(beepboop_obj)
+		beepboop_obj.translation.z = 0.3
+		show_icon(8)
+	
 	return inputs
 	
 func get_nearbys() -> Node:

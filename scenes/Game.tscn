@@ -105,7 +105,7 @@ render_target_update_mode = 3
 script = ExtResource( 6 )
 
 [node name="Player" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 7 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 15, 3 )
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 3, 3 )
 
 [node name="Music" type="AudioStreamPlayer" parent="Composite/GameTexture/Viewport/Game"]
 stream = ExtResource( 19 )
