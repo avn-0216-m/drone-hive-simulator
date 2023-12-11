@@ -92,6 +92,9 @@ func show_slots():
 	
 func change_slot(desired_index):
 	
+	if parent.has_node("Beepboop"):
+		parent.get_node("Beepboop").visible = false
+	
 	# reset any item selection
 	set_slot_color(false)
 	item_selected = false

@@ -4,6 +4,8 @@ func _ready():
 	
 	var beep = GLOBAL.get_beep()
 	
+	$SFX.connect("finished", self, "boop")
+	
 	if beep:
 		$Container/EO.frame = 1
 		$Container/EO2.frame = 1
@@ -17,5 +19,4 @@ func _ready():
 		$SFX.pitch_scale = rng.randf_range(0.8,1.3)
 	else:
 		$SFX.pitch_scale = rng.randf_range(0.5,0.7)
-	get_node("SFX").play()
-	
+	$SFX.play()

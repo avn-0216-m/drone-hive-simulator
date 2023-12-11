@@ -124,6 +124,8 @@ func get_inputs() -> int:
 		add_child(beepboop_obj)
 		beepboop_obj.translation.z = 0.3
 		show_icon(Icons.SOUND)
+		inventory.inventory_timeout()
+	
 	
 	return inputs
 	
