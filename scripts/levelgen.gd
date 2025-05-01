@@ -22,11 +22,10 @@ export(GDScript) var MeshLib
 # TODO: Probably make this into a resource for tidiness.
 var unlockable_rooms: Dictionary = {
 	0: [
-		preload("res://objects/rooms/test1.tscn"),
-		preload("res://objects/rooms/test4.tscn"),
 		preload("res://objects/rooms/test5.tscn"),
 		preload("res://objects/rooms/test6.tscn"),
-		preload("res://objects/rooms/testbedroom.tscn")]
+		preload("res://objects/rooms/testbedroom.tscn"),
+		preload("res://objects/rooms/bathroom.tscn")]
 }
 var pool_north: Array = []
 var pool_south: Array = []

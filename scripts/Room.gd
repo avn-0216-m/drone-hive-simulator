@@ -1,4 +1,5 @@
 extends Spatial
+class_name HomeRoom
 
 enum Style { BASIC,KITCHEN,BEDROOM } # defines wall and floor textures.
 export(Style) var style = Style.BASIC
@@ -6,7 +7,22 @@ export(Style) var style = Style.BASIC
 onready var walls = get_node("Geometry/Walls")
 onready var floors = get_node("Geometry/Floor")
 
+# TODO (24/06/2024):
+# I don't want weird semi-hallways between rooms.
+# Room WALLS should overlap. So doors connect rooms DIRECTLY.
+# Find a way to get a collision of the FLOOR tiles to use for collision comparisons.
+# JUST the floor tiles, because, again, we want the walls to overlap.
+# ---
+# Plan (???):
+# Don't render floor tiles via gridmap
+# Use multimesh and build collision shapes from it
+# GridMap is very private about the multimeshes it uses behind-the-scenes
+# One body can have many collision shapes, so make one for every floor tile
+# You can delete them later.
+# No wait, that fucking sucks because the player will fall through the floor.
+
 # This is gonna be a real headache if I ever add multiple doors with the same orientation.
+# (24/06/2024) Yeah, you're tellin' me.
 var north: Potential
 var south: Potential
 var east: Potential

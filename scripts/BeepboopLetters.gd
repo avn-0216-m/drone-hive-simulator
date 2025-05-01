@@ -3,6 +3,9 @@ extends Sprite3D
 export var delay: float = 1
 
 func _ready():
+	
+	modulate = GLOBAL.color
+	
 	var opacity_tw = Tween.new()
 	var height_tw = Tween.new()
 	

@@ -15,7 +15,8 @@ var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 onready var icon_display: Sprite3D = get_node("Display/Icon")
 onready var id_display: Spatial = get_node("Display/ID")
 onready var display_container: Spatial = get_node("Display")
-onready var sprite: AnimatedSprite3D = get_node("Body")
+onready var sprite: AnimatedSprite3D = get_node("BodyOld")
+onready var body: Spatial = get_node("Body")
 
 onready var sfx: AudioStreamPlayer = get_node("SFX")
 onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
@@ -29,7 +30,7 @@ onready var south_ray = get_node("SouthRaycast")
 onready var north_ray = get_node("NorthRaycast")
 
 onready var pickup_area = get_node("PickupArea")
-onready var interact_area = get_node("InteractArea")
+onready var interact_area = get_node("Body/InteractArea")
 
 onready var drop_location = get_node("ItemDrop")
 
@@ -55,6 +56,12 @@ func _ready():
 	set_id("5159")
 	inventory.battery.track(battery)
 	gravity = 0
+	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
+	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
+	
+func set_colour():
+	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
+	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
 	
 func set_id(new_id: String):
 	if int(id) > 9999 or int(id) < 0:
@@ -99,12 +106,40 @@ func get_inputs() -> int:
 	
 	if Input.is_action_pressed("move_left"):
 		inputs += move_left
+		body.rotation_degrees.y = 270
 	if Input.is_action_pressed("move_right"):
 		inputs += move_right
+		body.rotation_degrees.y = 90
 	if Input.is_action_pressed("move_up"):
 		inputs += move_up
+		body.rotation_degrees.y = 180
 	if Input.is_action_pressed("move_down"):
+		body.rotation_degrees.y = 0
 		inputs += move_down
+		
+	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"):
+		body.rotation_degrees.y = 45
+	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):
+		body.rotation_degrees.y = 135
+	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
+		body.rotation_degrees.y = 225
+	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"):
+		body.rotation_degrees.y = 315
+		
+	if Input.is_action_pressed("move_down") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_left"):
+		if not $Body/AnimationPlayer.is_playing():
+			$Body/AnimationPlayer.play("Walk")
+	else:
+		$Body/AnimationPlayer.play("RESET")
+		
+	if Input.is_action_pressed("move_sprint"):
+		$Body/AnimationPlayer.playback_speed = 2
+		$Body/Mesh/Dust.emitting = true
+	else:
+		$Body/AnimationPlayer.playback_speed = 1
+		$Body/Mesh/Dust.emitting = false
+		
+	
 	
 	if Input.is_action_just_pressed("inventory_left"):
 		inventory.change_slot(-1)
@@ -116,6 +151,10 @@ func get_inputs() -> int:
 		inventory.change_slot(0)
 	
 	if Input.is_action_just_pressed("beep"):
+		
+		GLOBAL.color = Color(randf(), randf(), randf())
+		set_colour()
+		
 		if has_node("Beepboop"):
 			get_node("Beepboop").free()
 		
@@ -125,6 +164,9 @@ func get_inputs() -> int:
 		beepboop_obj.translation.z = 0.3
 		show_icon(Icons.SOUND)
 		inventory.inventory_timeout()
+		
+
+
 	
 	
 	return inputs
@@ -160,20 +202,16 @@ func _process(delta):
 		velocity.x = 1 * get_move_speed()
 		sprite.flip_h = false
 		display_container.translation = Vector3(0.05,2.4,0.15)
-		interact_area.rotation_degrees.y = 0
 		drop_location.translation.x = 3
 	if inputs & move_left:
 		velocity.x = -1 * get_move_speed()
 		sprite.flip_h = true
 		display_container.translation = Vector3(-0.5,2.4,0.15)
-		interact_area.rotation_degrees.y = 180
 		drop_location.translation.x = -3
 	if inputs & move_down:
 		velocity.z = 1 * get_move_speed()
-		interact_area.rotation_degrees.y = 270
 	if inputs & move_up:
 		velocity.z = -1 * get_move_speed()
-		interact_area.rotation_degrees.y = 90
 
 	# Check if drone should keep walking.
 	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
@@ -254,12 +292,3 @@ func interact():
 			inventory.play_sfx(inventory.Sfx.LOW)
 	else:
 		inventory.play_sfx(inventory.Sfx.LOW)
-
-
-func frame_changed():
-	match(sprite.frame):
-		1:
-			$SFXs/Sprint.play()
-		3:
-			$SFXs/Sprint2.play()
-		
