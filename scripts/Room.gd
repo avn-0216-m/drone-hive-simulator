@@ -32,6 +32,11 @@ var doors = []
 
 func _ready():
 	get_potentials()
+
+func _process(delta):
+	if Input.is_action_just_pressed("beep"):
+		if get_node("Static") != null and $Static.mesh_library != null:
+			$Static.mesh_library.get_item_mesh(0).surface_get_material(2).albedo_color = GLOBAL.color
 	
 func collapse():
 	# Replaces invalid potentials with walls, valid potentials with doors.
