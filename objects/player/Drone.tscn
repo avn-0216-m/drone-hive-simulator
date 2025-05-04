@@ -619,8 +619,9 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.05297, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.44816, 0)
-light_energy = 0.3
-spot_range = 24.121
+visible = false
+light_energy = 5.526
+spot_range = 213.394
 
 [node name="BatteryPower" parent="." instance=ExtResource("9")]
 visible = false

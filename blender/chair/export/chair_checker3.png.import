@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfya6x030wnfh"
+uid="uid://qs5tf57i6428"
 path.s3tc="res://.godot/imported/chair_checker3.png-43bccd9e73f6c6c5bb52d2a3b9bea9b1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "e89bc150438e33de3a757aa1d85d9c7a"
 }
 
 [deps]

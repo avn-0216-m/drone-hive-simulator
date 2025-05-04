@@ -1,4 +1,4 @@
-extends KinematicGravity
+extends CharacterBody3D
 class_name Drone
 
 signal shutdown_complete
@@ -56,7 +56,7 @@ func _ready():
 	$FaceTimer.connect("timeout", Callable(self, "show_id"))
 	set_id("5159")
 	inventory.battery.track(battery)
-	gravity = 0
+	#gravity = 0
 	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
 	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
 	
@@ -156,6 +156,8 @@ func get_inputs() -> int:
 		GLOBAL.color = Color(randf(), randf(), randf())
 		set_colour()
 		
+		return 1
+		
 		if has_node("Beepboop"):
 			get_node("Beepboop").free()
 		
@@ -198,6 +200,9 @@ func _process(delta):
 	
 	# Get inputs, set velocity
 	var inputs = get_inputs()
+	
+	velocity = Vector3(1,0,0)
+	move_and_slide()
 	
 	if inputs & move_right:
 		velocity.x = 1 * get_move_speed()

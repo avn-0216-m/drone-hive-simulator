@@ -26,5 +26,3 @@ func set_tasks(tasks: Array):
 
 func update_task(id, icon):
 	task_list.set_item_icon(id, icon)
-
-

@@ -2,8 +2,8 @@ extends Control
 
 func _process(delta):
 	# Sync cameras from both viewports
-	get_node("Composite/BackgroundTexture/SubViewport/BackgroundCylinder/Camera3D").rotation_degrees = get_node("Composite/GameTexture/SubViewport/Game/Camera3D").rotation_degrees
-
+	#get_node("Composite/BackgroundTexture/SubViewport/BackgroundCylinder/Camera3D").rotation_degrees = get_node("Composite/GameTexture/SubViewport/Game/Camera3D").rotation_degrees
+	return
 #func _ready():
 	#get_node("DebugUI/Level/Respawn drone").connect(
 		#"respawn",

@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://buuqojp2ydvy6"]
+
+[ext_resource type="PackedScene" uid="uid://dwwl8nomasml1" path="res://objects/maidenclass/maidenclass.gltf" id="1_ftr1v"]
+[ext_resource type="PackedScene" uid="uid://41h2rejh2c68" path="res://objects/rooms/bathroom.tscn" id="2_rsjox"]
+
+[sub_resource type="Environment" id="Environment_ftr1v"]
+background_mode = 1
+background_color = Color(0.224695, 0.506177, 0.578199, 1)
+
+[node name="NewGameRoot" type="Node3D"]
+
+[node name="maidenclass" parent="." instance=ExtResource("1_ftr1v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 2)
+
+[node name="Camera3D" type="Camera3D" parent="maidenclass"]
+transform = Transform3D(0.966815, 0, -0.255479, 0, 1, 0, 0.255479, 0, 0.966815, -1.73775, 1.82758, 4.85227)
+environment = SubResource("Environment_ftr1v")
+
+[node name="Room" parent="." instance=ExtResource("2_rsjox")]

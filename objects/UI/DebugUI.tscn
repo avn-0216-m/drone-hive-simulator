@@ -1,93 +1,69 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://baaduknkc7lck"]
 
-[ext_resource path="res://scripts/DebugButton.gd" type="Script" id=1]
+[ext_resource type="Script" uid="uid://c7dxajooibj6o" path="res://scripts/DebugButton.gd" id="1"]
 
 [node name="DebugUI" type="HBoxContainer"]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -337.0
 offset_bottom = 1080.0
 
 [node name="Drone" type="VBoxContainer" parent="."]
-offset_right = 99.0
-offset_bottom = 1080.0
+layout_mode = 2
 
 [node name="Recharge" type="Button" parent="Drone"]
-offset_right = 99.0
-offset_bottom = 20.0
+layout_mode = 2
 text = "recharge 10%"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Level" type="VBoxContainer" parent="."]
-offset_left = 103.0
-offset_right = 209.0
-offset_bottom = 1080.0
+layout_mode = 2
 
 [node name="Respawn drone" type="Button" parent="Level"]
-offset_right = 106.0
-offset_bottom = 20.0
+layout_mode = 2
 text = "respawn drone"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Reset level" type="Button" parent="Level"]
-offset_top = 24.0
-offset_right = 106.0
-offset_bottom = 44.0
+layout_mode = 2
 text = "reset level"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Generate floor" type="Button" parent="Level"]
-offset_top = 48.0
-offset_right = 106.0
-offset_bottom = 68.0
+layout_mode = 2
 text = "generate floor"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Add tasks" type="Button" parent="Level"]
-offset_top = 72.0
-offset_right = 106.0
-offset_bottom = 92.0
+layout_mode = 2
 text = "add tasks"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Generate walls" type="Button" parent="Level"]
-offset_top = 96.0
-offset_right = 106.0
-offset_bottom = 116.0
+layout_mode = 2
 text = "generate walls"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Instance level" type="Button" parent="Level"]
-offset_top = 120.0
-offset_right = 106.0
-offset_bottom = 140.0
+layout_mode = 2
 text = "instance!"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Other" type="VBoxContainer" parent="."]
-offset_left = 213.0
-offset_right = 337.0
-offset_bottom = 1080.0
+layout_mode = 2
 
 [node name="Hide debug menu" type="Button" parent="Other"]
-offset_right = 124.0
-offset_bottom = 20.0
+layout_mode = 2
 text = "hide debug menu"
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")
 
 [node name="Random music" type="Button" parent="Other"]
-offset_top = 24.0
-offset_right = 124.0
-offset_bottom = 44.0
+layout_mode = 2
 text = "random music"
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Test dialog" type="Button" parent="Other"]
-offset_top = 48.0
-offset_right = 124.0
-offset_bottom = 68.0
+layout_mode = 2
 text = "dialog"
-script = ExtResource( 1 )
+script = ExtResource("1")

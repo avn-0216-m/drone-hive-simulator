@@ -37,8 +37,8 @@ func anim_complete(anim_name):
 	match anim_name:
 		"Bump":
 			$AnimationPlayer.play("Clean")
-			$Tween.interpolate_property(self, "rotation_degrees:y", rotation_degrees.y, rotation_degrees.y + 30, 0.5)
-			$Tween.start()
+			#$Tween.interpolate_property(self, "rotation_degrees:y", rotation_degrees.y, rotation_degrees.y + 30, 0.5)
+			#$Tween.start()
 
 func tween_complete(object, key):
 	moving = true

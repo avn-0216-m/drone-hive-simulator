@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3fbeghpx1s2i"
+uid="uid://px1hlsv8nx4f"
 path.s3tc="res://.godot/imported/washing machine_washing machine front and back sides.png-0cef01e5fcefcfe419a16aabe17f5478.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "764f71e036d6a3a8df590a0ae548c33f"
 }
 
 [deps]
