@@ -3,31 +3,31 @@ class_name Anna
 
 var jump: Vector3 = Vector3(0,0,0) # Jump velocity.
 
-export var jump_force: float = 12
-export var jump_length: float = 15
+@export var jump_force: float = 12
+@export var jump_length: float = 15
 
 var skittishness: int = 10 # How likely you are to grab Anna.
 
 signal spawn_level_obj(inst)
 
-export(float, 0, 5) var jump_time = 1
-export(float, 0, 5) var peck_time = 4
-export(float, 0, 5) var bob_time = 2
-export(float, 0, 5) var idle_time = 1
-export(float, 0, 5) var flap_time = 4
-export(float, 0, 10) var sit_time = 8
-export var jump_interpolate_weight: float = 0.05
-export var jump_length_linear_falloff: float = 0.05
-onready var timer = get_node("Timer")
-onready var sprite = get_node("AnnamatedSprite3D")
-onready var battery_src = load("res://objects/Battery.tscn")
+@export var jump_time = 1 # (float, 0, 5)
+@export var peck_time = 4 # (float, 0, 5)
+@export var bob_time = 2 # (float, 0, 5)
+@export var idle_time = 1 # (float, 0, 5)
+@export var flap_time = 4 # (float, 0, 5)
+@export var sit_time = 8 # (float, 0, 10)
+@export var jump_interpolate_weight: float = 0.05
+@export var jump_length_linear_falloff: float = 0.05
+@onready var timer = get_node("Timer")
+@onready var sprite = get_node("AnnamatedSprite3D")
+@onready var battery_src = load("res://objects/Battery.tscn")
 
 func _ready():
 	gravity = 0.5
 	sprite.animation = "bob"
 	$Particles.emitting = false
-	timer.connect("timeout",self,"new_action")
-	._ready()
+	timer.connect("timeout", Callable(self, "new_action"))
+	super._ready()
 	
 func body_nearby(body):
 	if body is Drone:
@@ -35,13 +35,13 @@ func body_nearby(body):
 		sprite.animation = "fly"
 		gravity = 0
 		var anim = $AnimationPlayer.get_animation("fly away")
-		var idx = anim.find_track(".:translation:y")
-		anim.track_set_key_value(idx, 0, translation.y)
+		var idx = anim.find_track(".:position:y")
+		anim.track_set_key_value(idx, 0, position.y)
 		$AnimationPlayer.play("fly away")
 		
 func drop_battery():
 	UI.log("Anna has left you a gift.")
-	emit_signal("spawn_level_obj", battery_src.instance(), get_global_transform().origin)
+	emit_signal("spawn_level_obj", battery_src.instantiate(), get_global_transform().origin)
 
 func _physics_process(delta):
 	
@@ -49,7 +49,8 @@ func _physics_process(delta):
 		return
 	
 	jump.y = apply_gravity(jump)
-	move_and_slide(jump)
+	set_velocity(jump)
+	move_and_slide()
 	if is_on_floor():
 		jump.x = 0
 		jump.z = 0
@@ -117,7 +118,7 @@ func new_action():
 func interact(interactor):
 	$Chirp.play(0)
 	if randi() % skittishness == 0 or true:
-		return .interact(interactor)
+		return super.interact(interactor)
 	UI.log("Anna slips right out of your hands.")
 	return null
 	
@@ -128,7 +129,7 @@ func on_pickup():
 func on_drop():
 	UI.log("Anna was released. Bye bye Anna!")
 	var anim = $AnimationPlayer.get_animation("fly away")
-	var idx = anim.find_track(".:translation:y")
-	anim.track_set_key_value(idx, 0, translation.y)
+	var idx = anim.find_track(".:position:y")
+	anim.track_set_key_value(idx, 0, position.y)
 	$AnimationPlayer.seek(0.3)
 	$AnimationPlayer.play("fly away")

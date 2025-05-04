@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/bawk.ogg-21171dcde560a7675b639c2037262078.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c2hj0bgrl2850"
+path="res://.godot/imported/bawk.ogg-21171dcde560a7675b639c2037262078.oggvorbisstr"
 
 [deps]
 
 source_file="res://mus/bawk.ogg"
-dest_files=[ "res://.import/bawk.ogg-21171dcde560a7675b639c2037262078.oggstr" ]
+dest_files=["res://.godot/imported/bawk.ogg-21171dcde560a7675b639c2037262078.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,10 +1,10 @@
-extends Spatial
+extends Node3D
 
 func _ready():
 	
 	var beep = GLOBAL.get_beep()
 	
-	$SFX.connect("finished", self, "boop")
+	$SFX.connect("finished", Callable(self, "boop"))
 	
 	if beep:
 		$Container/EO.frame = 1

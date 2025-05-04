@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/step2.ogg-f523a9f040e859c6e57ead494a868f74.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cnibn20uyif63"
+path="res://.godot/imported/step2.ogg-f523a9f040e859c6e57ead494a868f74.oggvorbisstr"
 
 [deps]
 
 source_file="res://sfx/step2.ogg"
-dest_files=[ "res://.import/step2.ogg-f523a9f040e859c6e57ead494a868f74.oggstr" ]
+dest_files=["res://.godot/imported/step2.ogg-f523a9f040e859c6e57ead494a868f74.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

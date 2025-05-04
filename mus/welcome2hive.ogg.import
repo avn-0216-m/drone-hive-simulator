@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/welcome2hive.ogg-660d3cf775f577a0cb2f9ebe2a002aae.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://smd5jhjtufq4"
+path="res://.godot/imported/welcome2hive.ogg-660d3cf775f577a0cb2f9ebe2a002aae.oggvorbisstr"
 
 [deps]
 
 source_file="res://mus/welcome2hive.ogg"
-dest_files=[ "res://.import/welcome2hive.ogg-660d3cf775f577a0cb2f9ebe2a002aae.oggstr" ]
+dest_files=["res://.godot/imported/welcome2hive.ogg-660d3cf775f577a0cb2f9ebe2a002aae.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

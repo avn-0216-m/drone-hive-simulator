@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cu0ynab2hyik4"
+path="res://.godot/imported/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggvorbisstr"
 
 [deps]
 
 source_file="res://mus/task assignment.ogg"
-dest_files=[ "res://.import/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggstr" ]
+dest_files=["res://.godot/imported/task assignment.ogg-10a20951f7a1ef1c2d10d296f02d537a.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,4 +1,4 @@
-extends Camera
+extends Camera3D
 
 # camera offsets
 var normal_offset: Vector3 = Vector3(0,4,6)
@@ -15,14 +15,14 @@ var circle_center: Vector2 = Vector2(0,0)
 var peephole_radius: int = 0
 var peephole_max_radius: int = 400
 
-export var game_over_rotation_y: float = 45
+@export var game_over_rotation_y: float = 45
 var active: bool = true
-export var game_over: bool = false
-onready var player: KinematicBody = get_tree().get_root().get_node("Root/Composite/GameTexture/Viewport/Game/Player")
-onready var south_ray: RayCast = player.south_ray
-onready var north_ray: RayCast = player.north_ray
+@export var game_over: bool = false
+@onready var player: CharacterBody3D = get_tree().get_root().get_node("Root/Composite/GameTexture/SubViewport/Game/Player")
+@onready var south_ray: RayCast3D = player.south_ray
+@onready var north_ray: RayCast3D = player.north_ray
 
-onready var tween: Tween = get_node("PeepholeTween")
+@onready var tween: Tween = get_node("PeepholeTween")
 
 var materials: Array = []
 
@@ -39,7 +39,7 @@ func handle_state_change(new_state: int):
 		tween.start()
 
 func _ready():
-	translation = player.translation + normal_offset
+	position = player.position + normal_offset
 	
 func _process(delta):
 
@@ -71,7 +71,7 @@ func _process(delta):
 	update_shader_params(materials, peephole_radius, circle_center)
 
 
-	translation = lerp(translation, player.get_global_transform().origin + offset, 0.1)
+	position = lerp(position, player.get_global_transform().origin + offset, 0.1)
 	if look_at:
 		look_at(player.get_global_transform().origin, Vector3(0,1,0))
 		
@@ -79,5 +79,5 @@ func _process(delta):
 
 func update_shader_params(materials: Array, radius: float, circle_center: Vector2):
 	for material in materials:
-		material.set_shader_param("radius", radius)
-		material.set_shader_param("circle_center", circle_center)
+		material.set_shader_parameter("radius", radius)
+		material.set_shader_parameter("circle_center", circle_center)

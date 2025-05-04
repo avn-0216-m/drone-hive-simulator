@@ -6,8 +6,8 @@ var start_count = 11
 var count = start_count
 
 func _ready():
-	._ready()
-	$Timer.connect("timeout",self,"count_down")
+	super._ready()
+	$Timer.connect("timeout", Callable(self, "count_down"))
 	
 func body_left(body):
 	if body is Drone:

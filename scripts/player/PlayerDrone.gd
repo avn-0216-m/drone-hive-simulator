@@ -12,29 +12,29 @@ var speed: float = 5.0 # Base speed
 var sprint: float = 7.0 # Sprinting speed
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 
-onready var icon_display: Sprite3D = get_node("Display/Icon")
-onready var id_display: Spatial = get_node("Display/ID")
-onready var display_container: Spatial = get_node("Display")
-onready var sprite: AnimatedSprite3D = get_node("BodyOld")
-onready var body: Spatial = get_node("Body")
+@onready var icon_display: Sprite3D = get_node("Display/Icon")
+@onready var id_display: Node3D = get_node("Display/ID")
+@onready var display_container: Node3D = get_node("Display")
+@onready var sprite: AnimatedSprite3D = get_node("BodyOld")
+@onready var body: Node3D = get_node("Body")
 
-onready var sfx: AudioStreamPlayer = get_node("SFX")
-onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
-onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
+@onready var sfx: AudioStreamPlayer = get_node("SFX")
+@onready var shutdown: AudioStream = load("res:/sfx/shutdown3.ogg")
+@onready var sfx_battery: AudioStream = load("res://sfx/battery.ogg")
 
-onready var battery = get_node("BatteryPower")
+@onready var battery = get_node("BatteryPower")
 
-onready var inventory = get_node("Inventory")
+@onready var inventory = get_node("Inventory")
 
-onready var south_ray = get_node("SouthRaycast")
-onready var north_ray = get_node("NorthRaycast")
+@onready var south_ray = get_node("SouthRaycast")
+@onready var north_ray = get_node("NorthRaycast")
 
-onready var pickup_area = get_node("PickupArea")
-onready var interact_area = get_node("Body/InteractArea")
+@onready var pickup_area = get_node("PickupArea")
+@onready var interact_area = get_node("Body/InteractArea")
 
-onready var drop_location = get_node("ItemDrop")
+@onready var drop_location = get_node("ItemDrop")
 
-onready var beepboop_src = preload("res://objects/Beepboop.tscn")
+@onready var beepboop_src = preload("res://objects/Beepboop.tscn")
 
 var nearby: Node # holds the nearest interactable object that the drone is facing
 
@@ -49,10 +49,11 @@ var move_left = 4
 var move_right = 8
 var inventory_left = 16
 var inventory_right = 32
-var interact = 64
+var interact_btn = 64
 
 func _ready():
-	$FaceTimer.connect("timeout", self, "show_id")
+	print("drone ready???")
+	$FaceTimer.connect("timeout", Callable(self, "show_id"))
 	set_id("5159")
 	inventory.battery.track(battery)
 	gravity = 0
@@ -133,10 +134,10 @@ func get_inputs() -> int:
 		$Body/AnimationPlayer.play("RESET")
 		
 	if Input.is_action_pressed("move_sprint"):
-		$Body/AnimationPlayer.playback_speed = 2
+		$Body/AnimationPlayer.speed_scale = 2
 		$Body/Mesh/Dust.emitting = true
 	else:
-		$Body/AnimationPlayer.playback_speed = 1
+		$Body/AnimationPlayer.speed_scale = 1
 		$Body/Mesh/Dust.emitting = false
 		
 	
@@ -158,10 +159,10 @@ func get_inputs() -> int:
 		if has_node("Beepboop"):
 			get_node("Beepboop").free()
 		
-		var beepboop_obj = beepboop_src.instance()
+		var beepboop_obj = beepboop_src.instantiate()
 			
 		add_child(beepboop_obj)
-		beepboop_obj.translation.z = 0.3
+		beepboop_obj.position.z = 0.3
 		show_icon(Icons.SOUND)
 		inventory.inventory_timeout()
 		
@@ -180,7 +181,7 @@ func get_nearbys() -> Node:
 
 func _process(delta):
 	
-	if translation.y < -3:
+	if position.y < -3:
 		emit_signal("respawn")
 		return
 	
@@ -201,28 +202,25 @@ func _process(delta):
 	if inputs & move_right:
 		velocity.x = 1 * get_move_speed()
 		sprite.flip_h = false
-		display_container.translation = Vector3(0.05,2.4,0.15)
-		drop_location.translation.x = 3
+		display_container.position = Vector3(0.05,2.4,0.15)
+		drop_location.position.x = 3
 	if inputs & move_left:
 		velocity.x = -1 * get_move_speed()
 		sprite.flip_h = true
-		display_container.translation = Vector3(-0.5,2.4,0.15)
-		drop_location.translation.x = -3
+		display_container.position = Vector3(-0.5,2.4,0.15)
+		drop_location.position.x = -3
 	if inputs & move_down:
 		velocity.z = 1 * get_move_speed()
 	if inputs & move_up:
 		velocity.z = -1 * get_move_speed()
-
-	# Check if drone should keep walking.
-	sprite.playing = !(not inputs and (sprite.frame == 0 or sprite.frame == 2))
 	
 	nearby = get_nearbys()
 
 	# Calculate headbob
 	if sprite.frame % 2 != 0:
-		display_container.translation.y = headbob_offset.y
+		display_container.position.y = headbob_offset.y
 	else:
-		display_container.translation.y = headbob_offset.x
+		display_container.position.y = headbob_offset.x
 		
 	#if velocity.z < 0:
 	#	sprite.animation = "backward"
@@ -240,7 +238,7 @@ func interact():
 		if inventory.item_selected:
 			var item = inventory.pop_item()
 			if item.parent.has_method("to_local"):
-				item.translation = item.parent.to_local(drop_location.get_global_transform().origin)
+				item.position = item.parent.to_local(drop_location.get_global_transform().origin)
 			item.parent.add_child(item)
 			item.emit_signal("dropped")
 			show_icon(Icons.DOWN)

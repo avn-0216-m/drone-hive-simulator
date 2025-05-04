@@ -1,9 +1,9 @@
 [gd_resource type="MeshLibrary" load_steps=19 format=2]
 
-[ext_resource path="res://sprites/placeholder.png" type="Texture" id=1]
-[ext_resource path="res://sprites/paws.png" type="Texture" id=2]
+[ext_resource path="res://sprites/placeholder.png" type="Texture2D" id=1]
+[ext_resource path="res://sprites/paws.png" type="Texture2D" id=2]
 
-[sub_resource type="SpatialMaterial" id=2]
+[sub_resource type="StandardMaterial3D" id=2]
 params_billboard_mode = 1
 albedo_texture = ExtResource( 1 )
 
@@ -23,7 +23,7 @@ data = {
 image = SubResource( 20 )
 size = Vector2( 64, 64 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 albedo_texture = ExtResource( 2 )
 
 [sub_resource type="PlaneMesh" id=11]
@@ -42,7 +42,7 @@ data = {
 image = SubResource( 21 )
 size = Vector2( 64, 64 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="StandardMaterial3D" id=5]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SphereMesh" id=14]
@@ -61,7 +61,7 @@ data = {
 image = SubResource( 22 )
 size = Vector2( 64, 64 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="StandardMaterial3D" id=7]
 albedo_color = Color( 0, 1, 0.0862745, 1 )
 
 [sub_resource type="SphereMesh" id=17]
@@ -83,25 +83,25 @@ size = Vector2( 64, 64 )
 [resource]
 item/0/name = "Placeholder"
 item/0/mesh = SubResource( 8 )
-item/0/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/0/mesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/0/shapes = [  ]
-item/0/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/0/navmesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/0/preview = SubResource( 10 )
 item/1/name = "Step"
 item/1/mesh = SubResource( 11 )
-item/1/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/1/mesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/1/shapes = [  ]
-item/1/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/1/navmesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/1/preview = SubResource( 13 )
 item/2/name = "Red"
 item/2/mesh = SubResource( 14 )
-item/2/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/2/mesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/2/shapes = [  ]
-item/2/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/2/navmesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/2/preview = SubResource( 16 )
 item/3/name = "Green"
 item/3/mesh = SubResource( 17 )
-item/3/mesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/3/mesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/3/shapes = [  ]
-item/3/navmesh_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+item/3/navmesh_transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 item/3/preview = SubResource( 19 )

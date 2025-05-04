@@ -14,7 +14,7 @@ operator = 1
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.1, 0.1, 1 ) ]
 operator = 2
 
-[sub_resource type="OpenSimplexNoise" id=5]
+[sub_resource type="FastNoiseLite" id=5]
 octaves = 1
 period = 0.1
 persistence = 0.398
@@ -102,4 +102,4 @@ nodes/fragment/13/node = SubResource( 3 )
 nodes/fragment/13/position = Vector2( 640, 80 )
 nodes/fragment/14/node = SubResource( 4 )
 nodes/fragment/14/position = Vector2( 140, 80 )
-nodes/fragment/connections = PoolIntArray( 7, 0, 12, 1, 12, 0, 10, 1, 8, 0, 14, 0, 14, 0, 10, 0, 10, 0, 3, 0, 3, 0, 13, 0, 13, 0, 0, 0 )
+nodes/fragment/connections = PackedInt32Array( 7, 0, 12, 1, 12, 0, 10, 1, 8, 0, 14, 0, 14, 0, 10, 0, 10, 0, 3, 0, 3, 0, 13, 0, 13, 0, 0, 0 )

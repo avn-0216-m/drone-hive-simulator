@@ -3,13 +3,13 @@
 [ext_resource path="res://objects/rooms/start.tscn" type="PackedScene" id=1]
 [ext_resource path="res://objects/rooms/test1.tscn" type="PackedScene" id=2]
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 
 [node name="Room" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.983694, 0, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.983694, 0, 0 )
 
 [node name="Room2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3822, 0, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3822, 0, 0 )
 
 [node name="Room3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, 0 )

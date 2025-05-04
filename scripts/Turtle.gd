@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 # This is a modified version of A* that only looks in the four cardinal
 # directions and has the capability to "look ahead" multiple tiles at once.
@@ -22,7 +22,7 @@ var closed: Array
 # Used for collision checking.
 var placeholders: GridMap
 
-export var lookahead = 10
+@export var lookahead = 10
 var offsets: Array = [
 		Vector3(0,0,-1), # Up
 		Vector3(0,0,1),  # Down
@@ -50,7 +50,7 @@ func explore(step: Step):
 		var new = Step.new(step.cell + offset)
 		new.parent = step
 		new.calc(start, end)
-		if not already_explored(new.cell) and placeholders.get_cell_item(new.cell.x, 0, new.cell.z) == -1:
+		if not already_explored(new.cell) and placeholders.get_cell_item(Vector3i(new.cell.x, 0, new.cell.z)) == -1:
 			found.append(new)
 	#print("Found this many new nodes: " + str(len(found)))
 	return found
@@ -66,8 +66,8 @@ func pathfind(start_door: Door, end_door: Door) -> Array:
 	# Returns an array of gridmap co-ords.
 	
 	# Convert global positions to gridmap co-ordinates.
-	start = placeholders.world_to_map(start_door.pos)
-	end = placeholders.world_to_map(end_door.pos)
+	start = placeholders.local_to_map(start_door.pos)
+	end = placeholders.local_to_map(end_door.pos)
 	
 	var iterations = 0
 	
@@ -161,6 +161,6 @@ func find_best_step(steps: Array, end: Vector3):
 	
 func debug():
 	for step in open:
-		$Debug.set_cell_item(step.cell.x, 0, step.cell.z, 3)
+		$Debug.set_cell_item(Vector3(step.cell.x, 0, step.cell.z), 3)
 	for step in closed:
-		$Debug.set_cell_item(step.cell.x, 0, step.cell.z, 2)
+		$Debug.set_cell_item(Vector3(step.cell.x, 0, step.cell.z), 2)

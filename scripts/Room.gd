@@ -1,11 +1,11 @@
-extends Spatial
+extends Node3D
 class_name HomeRoom
 
 enum Style { BASIC,KITCHEN,BEDROOM } # defines wall and floor textures.
-export(Style) var style = Style.BASIC
+@export var style: Style = Style.BASIC
 
-onready var walls = get_node("Geometry/Walls")
-onready var floors = get_node("Geometry/Floor")
+@onready var walls = get_node("Geometry/Walls")
+@onready var floors = get_node("Geometry/Floor")
 
 # TODO (24/06/2024):
 # I don't want weird semi-hallways between rooms.
@@ -41,28 +41,28 @@ func _process(delta):
 func collapse():
 	# Replaces invalid potentials with walls, valid potentials with doors.
 	for cell in walls.get_used_cells():
-		if walls.get_cell_item(cell.x, 0, cell.z) == 6: # 6 = potential
+		if walls.get_cell_item(Vector3i(cell.x, 0, cell.z)) == 6: # 6 = potential
 			for pot in [north, south, east, west]:
 				if pot == null:
 					continue
 				if pot.cell == cell:
 					if pot.valid:
-						walls.set_cell_item(cell.x, 0, cell.z, -1)
+						walls.set_cell_item(Vector3(cell.x, 0, cell.z), -1)
 					else:
-						var ori = walls.get_cell_item_orientation(cell.x, 0, cell.z)
-						walls.set_cell_item(cell.x, 0, cell.z, 3, ori)
+						var ori = walls.get_cell_item_orientation(Vector3i(cell.x, 0, cell.z))
+						walls.set_cell_item(Vector3(cell.x, 0, cell.z), 3, ori)
 
 func get_potentials(skip = null) -> Array:
 	# Returns an array of Potential data.
 	var potentials = []
 	for cell in walls.get_used_cells():
-		if walls.get_cell_item(cell.x, 0, cell.z) == 6: # 6 = potential
+		if walls.get_cell_item(Vector3i(cell.x, 0, cell.z)) == 6: # 6 = potential
 			if cell == skip:
 				continue
 			var potential_data = Potential.new()
 			potential_data.cell = cell
-			potential_data.orientation = walls.get_cell_item_orientation(cell.x, 0, cell.z)
-			potential_data.offset = walls.map_to_world(cell.x, 0, cell.z) # distance from local origin
+			potential_data.orientation = walls.get_cell_item_orientation(Vector3i(cell.x, 0, cell.z))
+			potential_data.offset = walls.map_to_local(Vector3i(cell.x, 0, cell.z)) # distance from local origin
 			potential_data.room = self
 			
 			# Set the potential data so the level gen script can access it
@@ -89,7 +89,7 @@ func get_doors() -> Array:
 		
 		var door_data = Door.new()
 		
-		door_data.pos = to_global(walls.map_to_world(door.cell.x, 0, door.cell.z))
+		door_data.pos = to_global(walls.map_to_local(Vector3i(door.cell.x, 0, door.cell.z)))
 		door_data.room = self
 		door_data.orientation = door.orientation
 		doors.append(door_data)

@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 class_name BatteryPower
 
 # Class that handles tracking of battery power.

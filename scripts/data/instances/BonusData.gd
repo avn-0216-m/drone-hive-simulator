@@ -1,4 +1,4 @@
-var meshlib = load("res://scripts/data/MeshLib.gd").new()
+var meshlib = load("res://scripts/data/meshlib.gd").new()
 var data = [
 	{
 		"placeholders": [

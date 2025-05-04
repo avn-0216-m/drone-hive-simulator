@@ -1,5 +1,5 @@
 
-var meshlib: Reference = load("res://scripts/data/MeshLib.gd").new()
+var meshlib: RefCounted = load("res://scripts/data/meshlib.gd").new()
 var data: Array = [
 	{
 		"title": "Pick a flower from the garden.",

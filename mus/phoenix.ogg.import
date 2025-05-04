@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/phoenix.ogg-05653c905d07e498f686f7414ffab6ff.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b8a6a2gamg4ty"
+path="res://.godot/imported/phoenix.ogg-05653c905d07e498f686f7414ffab6ff.oggvorbisstr"
 
 [deps]
 
 source_file="res://mus/phoenix.ogg"
-dest_files=[ "res://.import/phoenix.ogg-05653c905d07e498f686f7414ffab6ff.oggstr" ]
+dest_files=["res://.godot/imported/phoenix.ogg-05653c905d07e498f686f7414ffab6ff.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

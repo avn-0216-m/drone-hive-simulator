@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 func reset():
 	for container in get_children():

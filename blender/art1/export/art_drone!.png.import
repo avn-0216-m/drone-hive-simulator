@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://dcl6prnfcxb7r"
+path.s3tc="res://.godot/imported/art_drone!.png-38cf6dc1c019d98518fc903d3b31da62.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "59280c10a5d11afe806d9479a1fbf4a6"
+}
+
+[deps]
+
+source_file="res://blender/art1/export/art_drone!.png"
+dest_files=["res://.godot/imported/art_drone!.png-38cf6dc1c019d98518fc903d3b31da62.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=false
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

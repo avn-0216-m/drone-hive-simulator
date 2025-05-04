@@ -1,10 +1,10 @@
 extends Node
 class_name InstanceManagerBase
 
-export var source_class: GDScript
-export var source_data: GDScript
+@export var source_class: GDScript
+@export var source_data: GDScript
 var source_placeholder: GDScript = load("res://scripts/classes/Placeholder.gd")
-export var objects_per_level: float = 0.3 # Amount of objects added to active pool for current level.
+@export var objects_per_level: float = 0.3 # Amount of objects added to active pool for current level.
 var source_pool: Array = [] # Represents unique list of all possible instancable objects.
 var active_pool: Array = [] # Contains objects chosen to be instanced for a given level.
 

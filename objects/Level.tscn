@@ -1,37 +1,25 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b8khqqc1wbqqo"]
 
-[ext_resource path="res://meshlibraries/placeholder.tres" type="MeshLibrary" id=1]
-[ext_resource path="res://scripts/LevelGen.gd" type="Script" id=2]
-[ext_resource path="res://scripts/Placeholders.gd" type="Script" id=3]
-[ext_resource path="res://scripts/Hallway.gd" type="Script" id=4]
-[ext_resource path="res://meshlibraries/geometry_floor.tres" type="MeshLibrary" id=5]
-[ext_resource path="res://objects/rooms/start.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/data/MeshLib.gd" type="Script" id=8]
+[ext_resource type="MeshLibrary" uid="uid://bu63tvj83o0lx" path="res://meshlibraries/placeholder.tres" id="1"]
+[ext_resource type="Script" uid="uid://mlg4f1fqhsqt" path="res://scripts/levelgen.gd" id="2"]
+[ext_resource type="Script" uid="uid://c5au1kvh4g0o" path="res://scripts/Placeholders.gd" id="3"]
+[ext_resource type="Script" uid="uid://bdvphp3bog5il" path="res://scripts/Hallway.gd" id="4"]
+[ext_resource type="MeshLibrary" uid="uid://cgjj6iyajmg55" path="res://meshlibraries/geometry_floor.tres" id="5"]
+[ext_resource type="PackedScene" path="res://objects/rooms/start.tscn" id="6"]
+[ext_resource type="Script" uid="uid://wacebb5hptga" path="res://scripts/data/meshlib.gd" id="8"]
 
-[node name="Level" type="Spatial"]
-script = ExtResource( 2 )
-MeshLib = ExtResource( 8 )
-start_room = ExtResource( 6 )
+[node name="Level" type="Node3D"]
+script = ExtResource("2")
+MeshLib = ExtResource("8")
+start_room = ExtResource("6")
 
 [node name="Hallway" type="GridMap" parent="."]
-mesh_library = ExtResource( 5 )
+mesh_library = ExtResource("5")
 cell_scale = 0.452
-data = {
-"cells": PoolIntArray(  )
-}
-script = ExtResource( 4 )
-__meta__ = {
-"_editor_clip_": 0
-}
+script = ExtResource("4")
 
 [node name="Placeholders" type="GridMap" parent="."]
 visible = false
-mesh_library = ExtResource( 1 )
-data = {
-"cells": PoolIntArray(  )
-}
-script = ExtResource( 3 )
-__meta__ = {
-"_editor_clip_": 0
-}
+mesh_library = ExtResource("1")
+script = ExtResource("3")
 padding = 1

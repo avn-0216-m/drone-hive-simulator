@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var respawn_point: Vector3 = Vector3(0,5,0)
 
@@ -7,13 +7,13 @@ var level: int = 1 # rooms per floor = level + extra_rooms
 
 var rooms = [] # Array of all room objects on current floor.
 
-export var minimum_hallway: int = 6
+@export var minimum_hallway: int = 6
 
-onready var placeholders = get_node("Placeholders")
-onready var hallway = get_node("Hallway")
+@onready var placeholders = get_node("Placeholders")
+@onready var hallway = get_node("Hallway")
 
-var TileData = preload("res://scripts/data/TileData.gd")
-export(GDScript) var MeshLib
+var tiledata = preload("res://scripts/data/TileData.gd")
+@export var MeshLib: GDScript
 
 
 # Room pool
@@ -31,16 +31,16 @@ var pool_north: Array = []
 var pool_south: Array = []
 var pool_east: Array = []
 var pool_west: Array = []
-export var start_room: PackedScene
+@export var start_room: PackedScene
 
 var level_size = Vector2(0,0)
 var entry_tile_pos: Vector3
 
 var rng = RandomNumberGenerator.new()
 
-onready var gridmap = get_node("GridMap")
-onready var geometry = get_node("Geometry")
-onready var objects = get_node("Objects")
+@onready var gridmap = get_node("GridMap")
+@onready var geometry = get_node("Geometry")
+@onready var objects = get_node("Objects")
 
 # Objects are mobile complexities with programming and meshes that cannot be
 # represented in the body + multimesh combo.
@@ -70,7 +70,7 @@ func reload_pool():
 			unlocked_rooms.append(room)
 	
 	for src in unlocked_rooms:
-		var obj = src.instance()
+		var obj = src.instantiate()
 		add_child(obj)
 		if obj.north != null:
 			pool_north.append(src)
@@ -95,7 +95,7 @@ func _ready():
 	reload_pool()
 	spawn_rooms()
 	
-	return
+	print("rooms spawned???")
 	
 	# new_level()
 	# when instanced, grab the camera and point it to your wall materials
@@ -137,7 +137,7 @@ func spawn_rooms():
 	# once loop is complete, loop through all rooms and instance a doorway or
 	# a wall.
 	
-	var start_obj = start_room.instance()
+	var start_obj = start_room.instantiate()
 	add_child(start_obj)
 	
 	potentials += start_obj.get_potentials()
@@ -176,7 +176,7 @@ func spawn_rooms():
 		
 		var next_room = source_array[rng.randi() % len(source_array)]
 		
-		var nr_obj = next_room.instance()
+		var nr_obj = next_room.instantiate()
 		add_child(nr_obj)
 		
 		# find where the Potential is relative to local (0,0,0) to obtain an offset
@@ -200,7 +200,7 @@ func spawn_rooms():
 		# otherwise, add it.
 		# presumably, you can do the same thing for vertical but with x instead of z
 		
-		nr_obj.translation = p_start.room.translation
+		nr_obj.position = p_start.room.position
 		
 
 		var dif = Vector3(0,0,0)
@@ -211,14 +211,14 @@ func spawn_rooms():
 		dif.x = p_start.offset.x - p_end.offset.x
 		dif.x = neg(dif.x) if p_end.offset.x > p_start.offset.x else abs(dif.x)
 		
-		nr_obj.translation += dif
+		nr_obj.position += dif
 		# Now we can start pushing away and making a hallway.
 		
 
 		if p_end.orientation in [0,10]:
-			nr_obj.translation.x += neg(minimum_hallway) if p_end.offset.x > p_start.offset.x else abs(minimum_hallway)
+			nr_obj.position.x += neg(minimum_hallway) if p_end.offset.x > p_start.offset.x else abs(minimum_hallway)
 		else:
-			nr_obj.translation.z += neg(minimum_hallway) if p_end.offset.z > p_start.offset.z else abs(minimum_hallway)
+			nr_obj.position.z += neg(minimum_hallway) if p_end.offset.z > p_start.offset.z else abs(minimum_hallway)
 
 		# Check placeholders and nudge if necessary.
 		if placeholders.test(nr_obj):

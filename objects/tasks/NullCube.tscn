@@ -1,54 +1,54 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://textures/cubeplate/nullcubeplate.png" type="Texture" id=1]
+[ext_resource path="res://textures/cubeplate/nullcubeplate.png" type="Texture2D" id=1]
 [ext_resource path="res://resources/curves/color.tres" type="Curve" id=2]
 [ext_resource path="res://scripts/NullCube.gd" type="Script" id=5]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 albedo_texture = ExtResource( 1 )
 uv1_scale = Vector3( 3, 2, 1 )
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="BoxMesh" id=2]
 material = SubResource( 1 )
 
-[sub_resource type="CubeMesh" id=3]
+[sub_resource type="BoxMesh" id=3]
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="StandardMaterial3D" id=4]
 resource_local_to_scene = true
 flags_transparent = true
 flags_unshaded = true
 albedo_color = Color( 0.992157, 0, 1, 1 )
 uv1_scale = Vector3( 3, 2, 1 )
 
-[sub_resource type="BoxShape" id=5]
+[sub_resource type="BoxShape3D" id=5]
 
-[node name="NullCube" type="KinematicBody"]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
+[node name="NullCube" type="CharacterBody3D"]
+transform = Transform3D( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
 script = ExtResource( 5 )
 variant_max = 5
 interactable_name = "NullCube"
 color_curve = ExtResource( 2 )
 
-[node name="Cube" type="MeshInstance" parent="."]
+[node name="Cube" type="MeshInstance3D" parent="."]
 mesh = SubResource( 2 )
 material/0 = null
 
-[node name="Numbers" type="MeshInstance" parent="."]
-transform = Transform( 1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0 )
+[node name="Numbers" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0 )
 visible = false
 mesh = SubResource( 3 )
 material/0 = SubResource( 4 )
 
-[node name="Lock" type="MeshInstance" parent="."]
-transform = Transform( 1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0 )
+[node name="Lock" type="MeshInstance3D" parent="."]
+transform = Transform3D( 1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0 )
 visible = false
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource( 5 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
-[node name="OmniLight" type="OmniLight" parent="."]
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
 visible = false
 light_color = Color( 1, 0.894118, 0.0196078, 1 )
 light_energy = 2.0

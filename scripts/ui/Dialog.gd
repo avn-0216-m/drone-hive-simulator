@@ -10,8 +10,8 @@ var portraits = [
 	load("res://sprites/maiden/front/you should brainwash yourself NOW.png")
 ]
 
-onready var dialog_label = get_node("Panel/Margins/Anchor/Label")
-onready var dialog_counter = get_node("Panel/Margins/Anchor/DialogCounter")
+@onready var dialog_label = get_node("Panel/Margins/Anchor/Label")
+@onready var dialog_counter = get_node("Panel/Margins/Anchor/DialogCounter")
 
 var rng = RandomNumberGenerator.new()
 
@@ -31,7 +31,7 @@ func dialog_anim_complete(anim_name: String):
 			$Portrait/MarginContainer/ColorRect.texture = null
 
 func queue(queue_data):
-	if dialog_queue.empty():
+	if dialog_queue.is_empty():
 		$AnimationPlayer.play("dialog up")
 	dialog_queue.append(queue_data)
 	update_dialog_counter()
@@ -62,7 +62,7 @@ func read_dialog():
 		
 		
 func push_character():
-	if current_dialog.empty():
+	if current_dialog.is_empty():
 		$BoxWaitTime.start()
 		$CharacterWaitTime.stop()
 	

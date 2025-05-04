@@ -1,18 +1,18 @@
-extends "res://scripts/classes/KinematicGravity.gd"
+extends KinematicGravity
 class_name Interactable
 
-export(Vector3) var cursor_offset = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
+@export var cursor_offset: Vector3 = Vector3(0,1.5,0) # Where the cursor should reside relative to the object.
 var task = Task.new() # Corresponds to a relevant task if applicable.
-onready var nearby_area = get_node("Nearby")
-export var variant_max = 10
+@onready var nearby_area = get_node("Nearby")
+@export var variant_max = 10
 enum Type {
 	NONE, # Not interactable 
 	ITEMS, # Only interactable by using an item on it
 	DIRECT, # Only interactable directly
 	BOTH} # Interactable directly and with items.
-export(Type) var type = Type.BOTH
+@export var type: Type = Type.BOTH
 
-export var interactable_name = "UNNAMED INTERACTABLE PLEASE CHANGE"
+@export var interactable_name = "UNNAMED INTERACTABLE PLEASE CHANGE"
 
 signal task_completed(task)
 
@@ -22,8 +22,8 @@ func _ready():
 		randomize()
 		task.variant = randi() % variant_max
 	if nearby_area:
-		nearby_area.connect("body_entered",self,"body_nearby")
-		nearby_area.connect("body_exited",self,"body_left")
+		nearby_area.connect("body_entered", Callable(self, "body_nearby"))
+		nearby_area.connect("body_exited", Callable(self, "body_left"))
 
 func body_nearby(body):
 	print(name + ": default body nearby func.")

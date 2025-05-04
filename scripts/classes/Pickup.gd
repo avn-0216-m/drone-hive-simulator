@@ -2,21 +2,21 @@ extends Interactable
 class_name Pickup
 
 # Record parent so object can be readded in the right place in the scene tree when dropped.
-onready var parent: Node = get_parent()
+@onready var parent: Node = get_parent()
 
 # Static image to use in inventory slot.
-export var icon: Texture
+@export var icon: Texture2D
 
-export var icon_size: float = 0.01
+@export var icon_size: float = 0.01
 
 # Determines if an object is deleted on pickup.
-export var infinite: bool = false 
+@export var infinite: bool = false 
 
 signal picked_up
 signal dropped
 
-export var pickup_text = "Picked up"
-export var drop_text = "Dropped"
+@export var pickup_text = "Picked up"
+@export var drop_text = "Dropped"
 
 enum Result {
 	FAIL, # The item is not compatible with what you're using it on.
@@ -29,9 +29,9 @@ enum Result {
 var source: Node = null
 
 func _ready():
-	._ready()
-	connect("dropped", self, "on_drop")
-	connect("picked_up", self, "on_pickup")
+	super._ready()
+	connect("dropped", Callable(self, "on_drop"))
+	connect("picked_up", Callable(self, "on_pickup"))
 
 func interact(interactor):
 	if infinite:

@@ -1,9 +1,9 @@
-extends Spatial
+extends Node3D
 
-onready var parent: Drone = get_parent()
-onready var slots = get_node("Slots")
-onready var cursor = get_node("Cursor")
-onready var battery = get_node("Slots/Battery")
+@onready var parent: Drone = get_parent()
+@onready var slots = get_node("Slots")
+@onready var cursor = get_node("Cursor")
+@onready var battery = get_node("Slots/Battery")
 var distance_between_slots: float = 1.1
 
 var cursor_target: Vector3 = Vector3(0,0,0)
@@ -35,7 +35,7 @@ func play_sfx(choice: int = 0):
 	$SFX.play()
 	
 func jump():
-	cursor.translation.y += 0.5
+	cursor.position.y += 0.5
 	
 func set_slot_color(selected: bool):
 	show_slots()
@@ -52,9 +52,9 @@ func _physics_process(delta):
 		cursor_target = to_local(current_slot.get_global_transform().origin + Vector3(0,1,0))
 	
 	if visible:	
-		cursor.translation = lerp(cursor.translation, cursor_target, 0.3)
+		cursor.position = lerp(cursor.position, cursor_target, 0.3)
 	else:
-		cursor.translation = cursor_target
+		cursor.position = cursor_target
 		
 	cursor.visible = slots.visible or parent.nearby or item_selected
 		
@@ -62,11 +62,11 @@ func _ready():
 	
 	current_slot = slots.get_child(0)
 	
-	$VisibilityTimer.connect("timeout",self,"inventory_timeout")
+	$VisibilityTimer.connect("timeout", Callable(self, "inventory_timeout"))
 	$VisibilityTimer.start()
 	
 	for slot in slots.get_children():
-		slot.connect("duplicate_item", self, "duplicate_item")
+		slot.connect("duplicate_item", Callable(self, "duplicate_item"))
 	
 	# start slot wiggle animation
 	for i in range (0, slots.get_child_count()):
@@ -82,7 +82,7 @@ func _ready():
 	if total_slots % 2 == 0:
 		slot_translation += (distance_between_slots/2)
 	for slot in slots.get_children():
-		slot.translation = Vector3(slot_translation, 0, 0)
+		slot.position = Vector3(slot_translation, 0, 0)
 		slot_translation += distance_between_slots
 	update_cursor()
 	

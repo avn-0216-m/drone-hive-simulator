@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/sprint1.ogg-2efaa7b9b53c0127e62e6b90069f84da.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dtodmwvb6r65"
+path="res://.godot/imported/sprint1.ogg-2efaa7b9b53c0127e62e6b90069f84da.oggvorbisstr"
 
 [deps]
 
 source_file="res://sfx/sprint1.ogg"
-dest_files=[ "res://.import/sprint1.ogg-2efaa7b9b53c0127e62e6b90069f84da.oggstr" ]
+dest_files=["res://.godot/imported/sprint1.ogg-2efaa7b9b53c0127e62e6b90069f84da.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

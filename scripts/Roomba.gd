@@ -5,10 +5,10 @@ var moving = true
 var searched = false
 
 func _ready():
-	._ready()
+	super._ready()
 	type = Type.DIRECT
 	$AnimationPlayer.play("Clean")
-	source = load("res://objects/bonus/Roomba.tscn").instance()
+	source = load("res://objects/bonus/Roomba.tscn").instantiate()
 	source.scale = Vector3(0.15, 0.15, 0.15)
 	source.parent = parent
 	source.interactable_name = "another, smaller roomba"
@@ -22,11 +22,12 @@ func interact(interactor):
 		return null
 	else:
 		searched = true
-		return .interact(interactor)
+		return super.interact(interactor)
 	
 func _physics_process(delta):
 	if moving:
-		move_and_slide(get_global_transform().basis.z * speed)
+		set_velocity(get_global_transform().basis.z * speed)
+		move_and_slide()
 
 func body_nearby(body):
 	moving = false

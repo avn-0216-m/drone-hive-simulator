@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/beepboop.wav-b219c755438222051336165d10efc9a5.sample"
+type="AudioStreamWAV"
+uid="uid://dgvrxeaqm3es7"
+path="res://.godot/imported/beepboop.wav-b219c755438222051336165d10efc9a5.sample"
 
 [deps]
 
 source_file="res://sfx/beepboop.wav"
-dest_files=[ "res://.import/beepboop.wav-b219c755438222051336165d10efc9a5.sample" ]
+dest_files=["res://.godot/imported/beepboop.wav-b219c755438222051336165d10efc9a5.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

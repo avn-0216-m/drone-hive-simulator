@@ -1,7 +1,7 @@
 extends Interactable
 
 func _ready():
-	._ready()
+	super._ready()
 	$AnimationPlayer.play("New Anim")
 	rotation_degrees.y = -90 + (task.variant*10)
 

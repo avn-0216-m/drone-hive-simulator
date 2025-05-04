@@ -1,0 +1,38 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://kt8yya3rec6c"
+path.s3tc="res://.godot/imported/turntable and speakers_wood grain.jpg-1a9b1f176d33d90c9e3d7e67594c2d87.s3tc.ctex"
+metadata={
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
+}
+generator_parameters={
+"md5": "fa72a3e35cf9c681e1c21bbcd873674b"
+}
+
+[deps]
+
+source_file="res://blender/record player/export/turntable and speakers_wood grain.jpg"
+dest_files=["res://.godot/imported/turntable and speakers_wood grain.jpg-1a9b1f176d33d90c9e3d7e67594c2d87.s3tc.ctex"]
+
+[params]
+
+compress/mode=2
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=true
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=false
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=0

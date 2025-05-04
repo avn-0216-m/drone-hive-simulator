@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/shutdown2.ogg-458b0ff07965224e27e94e9c807264c9.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://deykt4b80rs61"
+path="res://.godot/imported/shutdown2.ogg-458b0ff07965224e27e94e9c807264c9.oggvorbisstr"
 
 [deps]
 
 source_file="res://sfx/shutdown2.ogg"
-dest_files=[ "res://.import/shutdown2.ogg-458b0ff07965224e27e94e9c807264c9.oggstr" ]
+dest_files=["res://.godot/imported/shutdown2.ogg-458b0ff07965224e27e94e9c807264c9.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

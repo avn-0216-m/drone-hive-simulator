@@ -1,5 +1,5 @@
 shader_type spatial;
-uniform sampler2D tile_source : hint_albedo;
+uniform sampler2D tile_source : source_color;
 uniform float tile_density;
 uniform float alternate_line_offset;
 uniform vec2 scroll;

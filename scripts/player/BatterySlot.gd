@@ -5,12 +5,12 @@ var maximum_charge: int = 100
 var current_charge: int = maximum_charge
 var percentage: float = 0.0
 
-onready var particles_src = load("res://objects/OneShotParticles.tscn")
+@onready var particles_src = load("res://objects/OneShotParticles.tscn")
 
 func track(obj: BatteryPower):
 	maximum_charge = obj.maximum_charge
-	obj.connect("battery_recharged", self, "on_battery_recharge")
-	obj.connect("battery_charge_changed", self, "on_battery_change")
+	obj.connect("battery_recharged", Callable(self, "on_battery_recharge"))
+	obj.connect("battery_charge_changed", Callable(self, "on_battery_change"))
 
 func get_color():
 	return material_override.albedo_color
@@ -23,7 +23,7 @@ func select(arg):
 
 func on_battery_recharge(new_charge):
 	on_battery_change(new_charge)
-	var particles_inst = particles_src.instance()
+	var particles_inst = particles_src.instantiate()
 	particles_inst.emitting = true
 	add_child(particles_inst)
 

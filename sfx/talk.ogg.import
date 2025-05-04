@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/talk.ogg-52533b94958f7b2efe67e9013dc7b46b.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c67fxfwjy2bs4"
+path="res://.godot/imported/talk.ogg-52533b94958f7b2efe67e9013dc7b46b.oggvorbisstr"
 
 [deps]
 
 source_file="res://sfx/talk.ogg"
-dest_files=[ "res://.import/talk.ogg-52533b94958f7b2efe67e9013dc7b46b.oggstr" ]
+dest_files=["res://.godot/imported/talk.ogg-52533b94958f7b2efe67e9013dc7b46b.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0.0
+bpm=0
+beat_count=0
+bar_beats=4

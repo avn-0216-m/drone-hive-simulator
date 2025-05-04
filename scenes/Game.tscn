@@ -1,143 +1,145 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://b8mi225mogni6"]
 
-[ext_resource path="res://shaders/edge_blur.gdshader" type="Shader" id=1]
-[ext_resource path="res://objects/bonus/Roomba.tscn" type="PackedScene" id=2]
-[ext_resource path="res://objects/tasks/NullCube.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/maidenclass/maidenclass.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scripts/Game.gd" type="Script" id=6]
-[ext_resource path="res://objects/player/Drone.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scripts/Music.gd" type="Script" id=8]
-[ext_resource path="res://objects/UI/DebugUI.tscn" type="PackedScene" id=9]
-[ext_resource path="res://scripts/Root.gd" type="Script" id=10]
-[ext_resource path="res://objects/BackgroundOrb.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scripts/Camera.gd" type="Script" id=16]
-[ext_resource path="res://objects/Level.tscn" type="PackedScene" id=17]
-[ext_resource path="res://mus/clicker training.ogg" type="AudioStream" id=19]
+[ext_resource type="Shader" uid="uid://q3ef5nu4r4sx" path="res://shaders/edge_blur.gdshader" id="1"]
+[ext_resource type="PackedScene" path="res://objects/bonus/Roomba.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://objects/tasks/NullCube.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://objects/maidenclass/maidenclass.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/player/Drone.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://objects/UI/DebugUI.tscn" id="9"]
+[ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
+[ext_resource type="PackedScene" path="res://objects/BackgroundOrb.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://b8khqqc1wbqqo" path="res://objects/Level.tscn" id="17"]
+[ext_resource type="AudioStream" uid="uid://be7dpvb7isxju" path="res://mus/clicker training.ogg" id="19"]
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = ExtResource( 1 )
-shader_param/blur_quality = 50.0
-shader_param/radius = -0.06
+[sub_resource type="ShaderMaterial" id="9"]
+shader = ExtResource("1")
+shader_parameter/blur_quality = 50.0
+shader_parameter/radius = -0.06
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id="7"]
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id="8"]
 length = 10.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("Level:translation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Level:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 3, 7, 10 ),
-"transitions": PoolRealArray( 2, 0, 0.5, 1 ),
+"times": PackedFloat32Array(0, 3, 7, 10),
+"transitions": PackedFloat32Array(2, 0, 0.5, 1),
 "update": 0,
-"values": [ Vector3( 0, 0, 0 ), Vector3( 0, 15, 0 ), Vector3( 0, -30, 0 ), Vector3( 0, 0, 0 ) ]
+"values": [Vector3(0, 0, 0), Vector3(0, 15, 0), Vector3(0, -30, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Level")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 3 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "new_level"
-} ]
+"times": PackedFloat32Array(3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"new_level"
+}]
 }
 tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 3, 5.6, 7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"values": [ {
-"args": [  ],
-"method": "wipe_out"
+"times": PackedFloat32Array(3, 5.6, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"wipe_out"
 }, {
-"args": [  ],
-"method": "reposition_storage_box"
+"args": [],
+"method": &"reposition_storage_box"
 }, {
-"args": [  ],
-"method": "wipe_in"
-} ]
+"args": [],
+"method": &"wipe_in"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qy1jj"]
+_data = {
+&"empty": SubResource("7"),
+&"new_level": SubResource("8")
 }
 
 [node name="Root" type="Control"]
-margin_right = 1920.0
-margin_bottom = 1080.0
-script = ExtResource( 10 )
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+script = ExtResource("10")
 
 [node name="Composite" type="CanvasLayer" parent="."]
 layer = -1
-__meta__ = {
-"_editor_description_": "This node is used to put the 3D render and background behind the singleton UIs. "
-}
 
-[node name="BackgroundTexture" type="ViewportContainer" parent="Composite"]
-material = SubResource( 9 )
-margin_right = 1920.0
-margin_bottom = 1080.0
+[node name="BackgroundTexture" type="SubViewportContainer" parent="Composite"]
+material = SubResource("9")
+offset_right = 1920.0
+offset_bottom = 1080.0
 
-[node name="Viewport" type="Viewport" parent="Composite/BackgroundTexture"]
-size = Vector2( 1920, 1080 )
+[node name="SubViewport" type="SubViewport" parent="Composite/BackgroundTexture"]
 handle_input_locally = false
-hdr = false
-render_target_update_mode = 3
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
-[node name="BackgroundCylinder" parent="Composite/BackgroundTexture/Viewport" instance=ExtResource( 11 )]
+[node name="BackgroundCylinder" parent="Composite/BackgroundTexture/SubViewport" instance=ExtResource("11")]
 
-[node name="GameTexture" type="ViewportContainer" parent="Composite"]
-margin_right = 1920.0
-margin_bottom = 1080.0
+[node name="GameTexture" type="SubViewportContainer" parent="Composite"]
+offset_right = 1920.0
+offset_bottom = 1080.0
 
-[node name="Viewport" type="Viewport" parent="Composite/GameTexture"]
-size = Vector2( 1920, 1080 )
+[node name="SubViewport" type="SubViewport" parent="Composite/GameTexture"]
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 3
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
 
-[node name="Game" type="Node" parent="Composite/GameTexture/Viewport"]
-script = ExtResource( 6 )
+[node name="Game" type="Node" parent="Composite/GameTexture/SubViewport"]
 
-[node name="Player" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 7 )]
-transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 3, 3 )
+[node name="Player" parent="Composite/GameTexture/SubViewport/Game" instance=ExtResource("7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 3, 3, 3)
 
-[node name="Roomba" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 2 )]
+[node name="Roomba" parent="Composite/GameTexture/SubViewport/Game" instance=ExtResource("2")]
 
-[node name="NullCube" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 3 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 3.99772, 3.66655, 3.68617 )
+[node name="NullCube" parent="Composite/GameTexture/SubViewport/Game" instance=ExtResource("3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 3.99772, 3.66655, 3.68617)
 
-[node name="Music" type="AudioStreamPlayer" parent="Composite/GameTexture/Viewport/Game"]
-stream = ExtResource( 19 )
-bus = "Music"
-script = ExtResource( 8 )
+[node name="Music" type="AudioStreamPlayer" parent="Composite/GameTexture/SubViewport/Game"]
+stream = ExtResource("19")
+bus = &"Music"
 
-[node name="Level" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 17 )]
+[node name="Level" parent="Composite/GameTexture/SubViewport/Game" instance=ExtResource("17")]
+script = null
 
-[node name="Mannequin" parent="Composite/GameTexture/Viewport/Game" instance=ExtResource( 4 )]
-transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.00252, 1.34668, 5.46595 )
+[node name="Mannequin" parent="Composite/GameTexture/SubViewport/Game" instance=ExtResource("4")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.00252, 1.34668, 5.46595)
 visible = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Composite/GameTexture/Viewport/Game"]
-playback_speed = 64.0
-anims/empty = SubResource( 7 )
-anims/new_level = SubResource( 8 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Composite/GameTexture/SubViewport/Game"]
+libraries = {
+&"": SubResource("AnimationLibrary_qy1jj")
+}
 
-[node name="Camera" type="Camera" parent="Composite/GameTexture/Viewport/Game"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0 )
+[node name="Camera3D" type="Camera3D" parent="Composite/GameTexture/SubViewport/Game"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26502, 0)
 cull_mask = 7
 current = true
 far = 1000.0
-script = ExtResource( 16 )
 
-[node name="PeepholeTween" type="Tween" parent="Composite/GameTexture/Viewport/Game/Camera"]
-
-[node name="DebugUI" parent="." instance=ExtResource( 9 )]
+[node name="DebugUI" parent="." instance=ExtResource("9")]
+layout_mode = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 337.0

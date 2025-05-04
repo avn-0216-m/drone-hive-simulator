@@ -1,6 +1,6 @@
-extends Spatial
+extends Node3D
 
-onready var entry_src = load("res://objects/StorageBox.tscn")
+@onready var entry_src = load("res://objects/StorageBox.tscn")
 enum State {INPUT, TRANSIT, OUTPUT}
 # States
 # INPUT
@@ -10,29 +10,29 @@ enum State {INPUT, TRANSIT, OUTPUT}
 # OUTPUT
 # The node has arrived at the next level and is now non-functional.
 var current_state = State.INPUT
-var drone: KinematicBody
+var drone: CharacterBody3D
 var all_tasks_complete: bool = false
-onready var trigger_zone = get_node("TriggerZone")
-onready var trigger_col = get_node("TriggerZone/CollisionShape")
+@onready var trigger_zone = get_node("TriggerZone")
+@onready var trigger_col = get_node("TriggerZone/CollisionShape3D")
 
 func _ready():
 	match(current_state):
 		State.INPUT:
-			$TriggerZone.connect("body_entered",self,"body_entered")
-			$AnimationPlayer.connect("animation_finished",self,"animation_complete")
+			$TriggerZone.connect("body_entered", Callable(self, "body_entered"))
+			$AnimationPlayer.connect("animation_finished", Callable(self, "animation_complete"))
 		State.TRANSIT:
 			drone.immobile = false
-			drone.translation = translation + Vector3(0,2,0)
+			drone.position = position + Vector3(0,2,0)
 		_:
 			print("beep")
 	
 func open():
 	$AnimationPlayer.play("open")
-	$TriggerZone/CollisionShape.disabled = false
+	$TriggerZone/CollisionShape3D.disabled = false
 	
 func close():
 	$AnimationPlayer.play("close")
-	$TriggerZone/CollisionShape.disabled = true
+	$TriggerZone/CollisionShape3D.disabled = true
 	
 func body_entered(body):
 	if body.name == "Drone":
@@ -48,12 +48,12 @@ func animation_complete(anim_name):
 				if all_tasks_complete and $TriggerZone.overlaps_body(drone):
 					print("box spawning new level")
 					# Respawn node outside of level tree.
-					var reparent = entry_src.instance()
+					var reparent = entry_src.instantiate()
 					reparent.current_state = State.TRANSIT
-					reparent.translation = translation
+					reparent.position = position
 					reparent.drone = drone
 					
-					var game_root = get_tree().get_root().get_node("Main/Viewport/Game")
+					var game_root = get_tree().get_root().get_node("Main/SubViewport/Game")
 					game_root.add_child(reparent)
 					game_root.new_level()
 					queue_free()

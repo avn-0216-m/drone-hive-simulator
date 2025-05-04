@@ -9,7 +9,7 @@ signal random_music
 signal reset_level
 
 func _ready():
-	connect("pressed",self,"on_click")
+	connect("pressed", Callable(self, "on_click"))
 	
 func on_click():
 	match(name):
@@ -30,7 +30,7 @@ func on_click():
 		"Test dialog":
 			UI.dialog.queue("beep beep beep boooop... beep!")
 		"Recharge drone":
-			continue
+			return
 		"Generate walls":
 			emit_signal("generate_walls")
 		_:
