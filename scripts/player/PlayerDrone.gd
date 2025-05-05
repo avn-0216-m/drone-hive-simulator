@@ -11,6 +11,7 @@ var burden: float = 0.2 # How much carrying an item slows you.
 var speed: float = 5.0 # Base speed
 var sprint: float = 7.0 # Sprinting speed
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
+var base_velocity: Vector3 = Vector3(0,0,0)
 
 @onready var icon_display: Sprite3D = get_node("Display/Icon")
 @onready var id_display: Node3D = get_node("Display/ID")
@@ -186,38 +187,43 @@ func _process(delta):
 	if position.y < -3:
 		emit_signal("respawn")
 		return
-	
-	if immobile:
-		sprite.animation = "forward"
-		sprite.playing = false
-		sprite.frame = 0
-		#display_container.translation.y = headbob_offset.y
-		display_container.visible = true
-		return
 
+	base_velocity = lerp(base_velocity, Vector3(0,0,0), 0.5)
 	
-	velocity = Vector3(0,0,0)
-	
-	# Get inputs, set velocity
-	var inputs = get_inputs()
-	
-	velocity = Vector3(1,0,0)
+	#TODO: rewrite this with get_axis and get_vector and whut not
+	if Input.is_action_pressed("move_up"):
+		base_velocity.z = -1
+		body.rotation_degrees.y = 180
+	if Input.is_action_pressed("move_down"):
+		base_velocity.z = 1
+		body.rotation_degrees.y = 0
+	if Input.is_action_pressed("move_left"):
+		base_velocity.x = -1
+		body.rotation_degrees.y = 270
+	if Input.is_action_pressed("move_right"):
+		base_velocity.x = 1
+		body.rotation_degrees.y = 90
+		
+	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"):
+		body.rotation_degrees.y = 45
+	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):
+		body.rotation_degrees.y = 135
+	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
+		body.rotation_degrees.y = 225
+	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"):
+		body.rotation_degrees.y = 315
+		
+	#TODO: Only lerp if no movement buttons are pressed
+		
+	# V probably incorrect
+	# keep the base velocity seperate so it can be multiplied without
+	# fucking up the lerp
+	print("---")
+	print(base_velocity)
+	print(base_velocity.normalized())
+	print(base_velocity.normalized() * get_move_speed())
+	velocity = base_velocity.normalized() * get_move_speed()
 	move_and_slide()
-	
-	if inputs & move_right:
-		velocity.x = 1 * get_move_speed()
-		sprite.flip_h = false
-		display_container.position = Vector3(0.05,2.4,0.15)
-		drop_location.position.x = 3
-	if inputs & move_left:
-		velocity.x = -1 * get_move_speed()
-		sprite.flip_h = true
-		display_container.position = Vector3(-0.5,2.4,0.15)
-		drop_location.position.x = -3
-	if inputs & move_down:
-		velocity.z = 1 * get_move_speed()
-	if inputs & move_up:
-		velocity.z = -1 * get_move_speed()
 	
 	nearby = get_nearbys()
 

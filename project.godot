@@ -15,7 +15,7 @@ warnings/check_invalid_track_paths=false
 [application]
 
 config/name="Drone Hive Simulator"
-run/main_scene="uid://buuqojp2ydvy6"
+run/main_scene="uid://b8mi225mogni6"
 config/features=PackedStringArray("4.4")
 config/icon="res://sprites/anna/feather.png"
 
