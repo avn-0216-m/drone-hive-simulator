@@ -188,41 +188,22 @@ func _process(delta):
 		emit_signal("respawn")
 		return
 
-	base_velocity = lerp(base_velocity, Vector3(0,0,0), 0.5)
 	
-	#TODO: rewrite this with get_axis and get_vector and whut not
-	if Input.is_action_pressed("move_up"):
-		base_velocity.z = -1
-		body.rotation_degrees.y = 180
-	if Input.is_action_pressed("move_down"):
-		base_velocity.z = 1
-		body.rotation_degrees.y = 0
-	if Input.is_action_pressed("move_left"):
-		base_velocity.x = -1
-		body.rotation_degrees.y = 270
-	if Input.is_action_pressed("move_right"):
-		base_velocity.x = 1
-		body.rotation_degrees.y = 90
+	var movement = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	movement = Vector3(movement.x, 0, movement.y)
+	print(movement)
+	movement.x = round(movement.x)
+	movement.z = round(movement.z)
+	print(movement)
+	if movement == Vector3.ZERO:
+		velocity = lerp(velocity, Vector3.ZERO, 0.9)
+	else:
+		var dir = position - movement
+		body.look_at(dir)
+		body.rotation_degrees = Vector3(0, snapped(body.rotation_degrees.y, 45), 0)
+
+	velocity = movement.normalized() * get_move_speed()
 		
-	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"):
-		body.rotation_degrees.y = 45
-	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):
-		body.rotation_degrees.y = 135
-	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
-		body.rotation_degrees.y = 225
-	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"):
-		body.rotation_degrees.y = 315
-		
-	#TODO: Only lerp if no movement buttons are pressed
-		
-	# V probably incorrect
-	# keep the base velocity seperate so it can be multiplied without
-	# fucking up the lerp
-	print("---")
-	print(base_velocity)
-	print(base_velocity.normalized())
-	print(base_velocity.normalized() * get_move_speed())
-	velocity = base_velocity.normalized() * get_move_speed()
 	move_and_slide()
 	
 	nearby = get_nearbys()

@@ -36,18 +36,12 @@ func set_icon(texture: Texture2D, size: float):
 		
 	icon.pixel_size = size
 
-func _ready():
-	$Tween.connect("tween_completed", Callable(self, "tween_complete"))
 
 func set_item(item: Node):
 	self.item = item
 	icon.visible = true
 	
 	set_icon(item.icon, item.icon_size)
-	
-	if item is Anna:
-		$Tween.interpolate_method(self, "set_color", original_color, goopy_color, 10, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-		$Tween.start()
 
 func pop_item() -> Node:
 	var popped = item

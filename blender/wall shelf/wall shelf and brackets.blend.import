@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ddgkkkm8tl0b6"
-valid=false
+path="res://.godot/imported/wall shelf and brackets.blend-3fd48206c509700c8d1a4023fb868f8d.scn"
 
 [deps]
 
 source_file="res://blender/wall shelf/wall shelf and brackets.blend"
+dest_files=["res://.godot/imported/wall shelf and brackets.blend-3fd48206c509700c8d1a4023fb868f8d.scn"]
 
 [params]
 

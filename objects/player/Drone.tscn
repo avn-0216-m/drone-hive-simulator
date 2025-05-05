@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5ai00cfyb6b2" path="res://sprites/face/droneicons.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bgcfknerxx4ob" path="res://sprites/face/numergrid.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
-[ext_resource type="PackedScene" path="res://objects/player/Inventory.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/player/Inventory.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://objects/player/BatteryPower.tscn" id="9"]
 [ext_resource type="AudioStream" uid="uid://ncknx23s8v16" path="res://sfx/sprint2.ogg" id="11"]
 [ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="12"]

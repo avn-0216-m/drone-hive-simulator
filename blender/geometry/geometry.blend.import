@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dj2gec1p1cwj3"
-valid=false
+path="res://.godot/imported/geometry.blend-0880d3a8f6af81ff1ea51da0c8be03d7.scn"
 
 [deps]
 
 source_file="res://blender/geometry/geometry.blend"
+dest_files=["res://.godot/imported/geometry.blend-0880d3a8f6af81ff1ea51da0c8be03d7.scn"]
 
 [params]
 

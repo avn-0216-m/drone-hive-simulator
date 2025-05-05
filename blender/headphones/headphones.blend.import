@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ctr3d655ob5kw"
-valid=false
+path="res://.godot/imported/headphones.blend-f179d47d3b9d7d46432999559059ed40.scn"
 
 [deps]
 
 source_file="res://blender/headphones/headphones.blend"
+dest_files=["res://.godot/imported/headphones.blend-f179d47d3b9d7d46432999559059ed40.scn"]
 
 [params]
 
