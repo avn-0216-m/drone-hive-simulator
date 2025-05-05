@@ -54,8 +54,6 @@ var interact_btn = 64
 
 func _ready():
 	print("drone ready???")
-	$FaceTimer.connect("timeout", Callable(self, "show_id"))
-	set_id("5159")
 	inventory.battery.track(battery)
 	#gravity = 0
 	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
@@ -65,14 +63,6 @@ func set_colour():
 	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
 	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
 	
-func set_id(new_id: String):
-	if int(id) > 9999 or int(id) < 0:
-		return
-	id = new_id
-	id_display.get_node("ID1").frame = int(id.substr(0,1))
-	id_display.get_node("ID2").frame = int(id.substr(1,1))
-	id_display.get_node("ID3").frame = int(id.substr(2,1))
-	id_display.get_node("ID4").frame = int(id.substr(3,1))
 	
 func toggle_face():
 	if icon_display.visible == true:
@@ -191,38 +181,29 @@ func _process(delta):
 	
 	var movement = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	movement = Vector3(movement.x, 0, movement.y)
-	print(movement)
-	movement.x = round(movement.x)
-	movement.z = round(movement.z)
-	print(movement)
 	if movement == Vector3.ZERO:
 		velocity = lerp(velocity, Vector3.ZERO, 0.9)
+		$Body/AnimationPlayer.play("RESET")
 	else:
 		var dir = position - movement
 		body.look_at(dir)
 		body.rotation_degrees = Vector3(0, snapped(body.rotation_degrees.y, 45), 0)
+		if $Body/AnimationPlayer.get_current_animation() != "Walk":
+			$Body/AnimationPlayer.play("Walk")
+			
+	if Input.is_action_pressed("move_sprint") and movement != Vector3.ZERO:
+		$Body/AnimationPlayer.speed_scale = 2
+		$Body/Mesh/Dust.emitting = true
+	else:
+		$Body/AnimationPlayer.speed_scale = 1
+		$Body/Mesh/Dust.emitting = false
 
 	velocity = movement.normalized() * get_move_speed()
+	velocity.y = -5
 		
 	move_and_slide()
 	
 	nearby = get_nearbys()
-
-	# Calculate headbob
-	if sprite.frame % 2 != 0:
-		display_container.position.y = headbob_offset.y
-	else:
-		display_container.position.y = headbob_offset.x
-		
-	#if velocity.z < 0:
-	#	sprite.animation = "backward"
-	#else:
-	#	sprite.animation = "forward"
-		
-	#if sprite.animation == "backward":
-	#	display_container.visible = false
-	#else:
-	#	display_container.visible = true
 
 	
 func interact():

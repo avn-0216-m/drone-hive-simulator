@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cuyrbechlxfw5" path="res://sprites/background/debuff.png" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://41h2rejh2c68" path="res://objects/rooms/bathroom.tscn" id="2_mcffj"]
 [ext_resource type="PackedScene" path="res://objects/tasks/NullCube.tscn" id="3"]
-[ext_resource type="PackedScene" uid="uid://b5ptrera18n7o" path="res://objects/maidenclass/maidenclass.tscn" id="4"]
+[ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="4_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/player/Drone.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://baaduknkc7lck" path="res://objects/UI/DebugUI.tscn" id="9"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
@@ -107,14 +107,15 @@ region_rect = Rect2(0, 0, 2000, 2000)
 [node name="Room" parent="Game" instance=ExtResource("2_mcffj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74943, 0)
 
-[node name="Player" parent="Game" instance=ExtResource("7")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.889033, 3, 3)
-
-[node name="Camera3D" type="Camera3D" parent="Game/Player"]
-transform = Transform3D(2, 0, 0, 0, 1.41421, 1.41421, 0, -1.41421, 1.41421, 0, 5, 5)
+[node name="Camera3D" type="Camera3D" parent="Game"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.889033, 5.5, 5.5)
 cull_mask = 7
 current = true
 far = 1000.0
+script = ExtResource("4_2rd6h")
+
+[node name="Player" parent="Game" instance=ExtResource("7")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.889033, 3, 3)
 
 [node name="Roomba" parent="Game" instance=ExtResource("2")]
 
@@ -127,10 +128,6 @@ bus = &"Music"
 
 [node name="Level" parent="Game" instance=ExtResource("17")]
 script = null
-
-[node name="Mannequin" parent="Game" instance=ExtResource("4")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 7.00252, 1.34668, 5.46595)
-visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Game"]
 libraries = {
@@ -172,11 +169,3 @@ anchor_left = 0.0
 anchor_right = 0.0
 offset_left = 0.0
 offset_right = 337.0
-
-[node name="NewRootTest" type="Node3D" parent="."]
-visible = false
-
-[node name="Drone" parent="NewRootTest" instance=ExtResource("7")]
-
-[node name="Camera3D" type="Camera3D" parent="NewRootTest/Drone"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.45898)

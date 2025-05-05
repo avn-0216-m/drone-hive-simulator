@@ -1,11 +1,6 @@
-[gd_scene load_steps=40 format=4 uid="uid://bsekk4e6xei3j"]
+[gd_scene load_steps=33 format=4 uid="uid://bsekk4e6xei3j"]
 
 [ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://2l1fdogdfekm" path="res://sprites/maiden/maiden3.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://bau7btsk4cehu" path="res://sprites/maiden/maiden1.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://r5s856wghemp" path="res://sprites/maiden/maiden2.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://b5ai00cfyb6b2" path="res://sprites/face/droneicons.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://bgcfknerxx4ob" path="res://sprites/face/numergrid.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/player/Inventory.tscn" id="8"]
 [ext_resource type="PackedScene" path="res://objects/player/BatteryPower.tscn" id="9"]
@@ -354,80 +349,38 @@ _surfaces = [{
 "vertex_data": PackedByteArray("BnUIP3i/ZT4kro0yzDHBvtR0lb4kro2yBnUIP9R0lb4kro2yzDHBvni/ZT4kro0yAAAAAP//fr8AAAAA//9+vwAAAAD//36/AAAAAP//fr8=")
 }]
 
-[sub_resource type="Curve" id="18"]
-_limits = [-100.0, 0.0, 0.0, 1.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, -18.2955), 0.0, 0.0, 0, 0]
+[sub_resource type="Curve" id="Curve_if32a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.67759, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="19"]
-curve = SubResource("18")
+[sub_resource type="CurveTexture" id="CurveTexture_ipv7r"]
+curve = SubResource("Curve_if32a")
 
-[sub_resource type="Curve" id="21"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.09199, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_oqttg"]
+direction = Vector3(0, 0, -1)
+spread = 50.555
+flatness = 0.086
+initial_velocity_max = 2.1
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 45.7
+gravity = Vector3(0, 1, 0)
+scale_min = 0.2
+scale_max = 0.65
+scale_curve = SubResource("CurveTexture_ipv7r")
+turbulence_noise_strength = 12.9
 
-[sub_resource type="CurveTexture" id="22"]
-curve = SubResource("21")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75lo2"]
+albedo_color = Color(0.847059, 0.847059, 0.847059, 1)
 
-[sub_resource type="ParticleProcessMaterial" id="17"]
-direction = Vector3(-20, 0.001, 0)
-flatness = 0.09
-gravity = Vector3(0, -5, 0)
-linear_accel_curve = SubResource("19")
-scale_min = 0.0
-scale_max = 0.0
-scale_curve = SubResource("22")
-
-[sub_resource type="SphereMesh" id="20"]
-radius = 0.25
-height = 0.5
-radial_segments = 8
-rings = 4
+[sub_resource type="SphereMesh" id="SphereMesh_g82tm"]
+material = SubResource("StandardMaterial3D_75lo2")
 
 [sub_resource type="BoxShape3D" id="13"]
 margin = 0.4
 size = Vector3(4.64354, 7.50182, 3.35734)
 
-[sub_resource type="SpriteFrames" id="11"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2")
-}],
-"loop": true,
-"name": &"backward",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2")
-}],
-"loop": true,
-"name": &"forward",
-"speed": 5.0
-}]
-
-[sub_resource type="CapsuleShape3D" id="12"]
-radius = 1.28
-height = 4.98
+[sub_resource type="BoxShape3D" id="BoxShape3D_if32a"]
+size = Vector3(2.66549, 6.3606, 3.51556)
 
 [sub_resource type="StandardMaterial3D" id="14"]
 transparency = 2
@@ -452,10 +405,9 @@ point_count = 2
 script = ExtResource("1")
 
 [node name="Body" type="Node3D" parent="."]
-transform = Transform3D(0.0319986, 0, 1.19957, 0, 1.2, 0, -1.19957, 0, 0.0319986, 0, -3.56327, 0)
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, -3.56327, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
-active = false
 reset_on_save = false
 libraries = {
 &"": SubResource("AnimationLibrary_if32a")
@@ -507,13 +459,13 @@ transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -0.0565831, 0.0473394, 0.
 mesh = SubResource("8")
 
 [node name="Dust" type="GPUParticles3D" parent="Body/Mesh"]
-transform = Transform3D(0.0221758, -0.00141928, -0.833037, 0.0532254, 0.831632, 0, 0.831336, -0.0532064, 0.0222212, -4.65661e-10, -3.53183, -0.194667)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00863791, -3.32902, -0.32382)
 emitting = false
-amount = 14
-lifetime = 0.3
+amount = 16
+lifetime = 0.35
 explosiveness = 1.0
-process_material = SubResource("17")
-draw_pass_1 = SubResource("20")
+process_material = SubResource("ParticleProcessMaterial_oqttg")
+draw_pass_1 = SubResource("SphereMesh_g82tm")
 
 [node name="InteractArea" type="Area3D" parent="Body"]
 transform = Transform3D(0.0222212, 0, -0.833037, 0, 0.833333, 0, 0.833037, 0, 0.0222212, 0.0399849, 2.96939, 1.49897)
@@ -523,69 +475,9 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42757, 0, 1.40259e-07)
 shape = SubResource("13")
 
-[node name="BodyOld" type="AnimatedSprite3D" parent="."]
-transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0.1)
-visible = false
-layers = 4
-alpha_cut = 2
-sprite_frames = SubResource("11")
-animation = &"forward"
-
-[node name="Display" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 2.44957, 0.15)
-visible = false
-
-[node name="Icon" type="Sprite3D" parent="Display"]
-transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 1, 0.181865, 0.191398, -0.0165499)
-visible = false
-layers = 4
-modulate = Color(0, 1, 1, 1)
-pixel_size = 0.0075
-double_sided = false
-texture = ExtResource("5")
-hframes = 7
-
-[node name="ID" type="Node3D" parent="Display"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 1, -0.322687, 0.0794165, 0)
-
-[node name="ID1" type="Sprite3D" parent="Display/ID"]
-layers = 4
-modulate = Color(0, 1, 1, 1)
-double_sided = false
-texture = ExtResource("6")
-hframes = 10
-
-[node name="ID2" type="Sprite3D" parent="Display/ID"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
-layers = 4
-modulate = Color(0, 1, 1, 1)
-double_sided = false
-texture = ExtResource("6")
-hframes = 10
-frame = 2
-
-[node name="ID3" type="Sprite3D" parent="Display/ID"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
-layers = 4
-modulate = Color(0, 1, 1, 1)
-double_sided = false
-texture = ExtResource("6")
-hframes = 10
-frame = 1
-
-[node name="ID4" type="Sprite3D" parent="Display/ID"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
-layers = 4
-modulate = Color(0, 1, 1, 1)
-double_sided = false
-texture = ExtResource("6")
-hframes = 10
-frame = 6
-
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0, 0)
-visible = false
-shape = SubResource("12")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0554005, -0.334839, 0.129242)
+shape = SubResource("BoxShape3D_if32a")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = 2.0
@@ -602,8 +494,6 @@ emission_sphere_radius = 1.0
 gravity = Vector3(0, 4, 0)
 scale_amount_curve = SubResource("16")
 
-[node name="FaceTimer" type="Timer" parent="."]
-
 [node name="ItemDrop" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
 visible = false
@@ -612,7 +502,7 @@ visible = false
 target_position = Vector3(0, 0, 5)
 
 [node name="NorthRaycast" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0, -4)
+target_position = Vector3(0, 0, -5)
 
 [node name="Inventory" parent="." instance=ExtResource("8")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.05297, 0)
@@ -625,5 +515,3 @@ spot_range = 213.394
 
 [node name="BatteryPower" parent="." instance=ExtResource("9")]
 visible = false
-
-[connection signal="frame_changed" from="BodyOld" to="." method="frame_changed"]
