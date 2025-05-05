@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bujhyqrchrsem"
-path="res://.godot/imported/roomba.blend-2b8787bc9873d2bea00c17a636dd1cfe.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/roomba/roomba.blend"
-dest_files=["res://.godot/imported/roomba.blend-2b8787bc9873d2bea00c17a636dd1cfe.scn"]
 
 [params]
 

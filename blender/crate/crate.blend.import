@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://06p6sg2wcd4d"
-path="res://.godot/imported/crate.blend-82570e1b05fc38c9380d42f1c546af67.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/crate/crate.blend"
-dest_files=["res://.godot/imported/crate.blend-82570e1b05fc38c9380d42f1c546af67.scn"]
 
 [params]
 

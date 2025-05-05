@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://df308se5xc8j1"
-path="res://.godot/imported/friendship bracelet.blend-d704fe16ac6101e52c497e6ef5bca825.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/friendship bracelet/friendship bracelet.blend"
-dest_files=["res://.godot/imported/friendship bracelet.blend-d704fe16ac6101e52c497e6ef5bca825.scn"]
 
 [params]
 

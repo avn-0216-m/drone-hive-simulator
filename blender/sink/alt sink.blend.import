@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bxiscfmytbte2"
-path="res://.godot/imported/alt sink.blend-cb2579b815e46a3017089db22d6d7f30.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/sink/alt sink.blend"
-dest_files=["res://.godot/imported/alt sink.blend-cb2579b815e46a3017089db22d6d7f30.scn"]
 
 [params]
 

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bq3s7704vwvgj"
-path="res://.godot/imported/lamp.blend-ff236c9c3145317e3100e1896c4f56a5.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/lamp/lamp.blend"
-dest_files=["res://.godot/imported/lamp.blend-ff236c9c3145317e3100e1896c4f56a5.scn"]
 
 [params]
 
