@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dtfudpkupwkn7"
-path="res://.godot/imported/tp pile.blend-ad16ae297672ba108960ae69e8ecd89d.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/toilet paper pile/tp pile.blend"
-dest_files=["res://.godot/imported/tp pile.blend-ad16ae297672ba108960ae69e8ecd89d.scn"]
 
 [params]
 

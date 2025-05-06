@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ccqlmpb2jkjaf"
-path="res://.godot/imported/bedside table.blend-a3359e796f896ec259a7f609a93eff2e.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/bedside table/bedside table.blend"
-dest_files=["res://.godot/imported/bedside table.blend-a3359e796f896ec259a7f609a93eff2e.scn"]
 
 [params]
 

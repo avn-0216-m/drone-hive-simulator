@@ -13,8 +13,9 @@ script = ExtResource("1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 mesh_library = ExtResource("5")
 data = {
-"cells": PackedInt32Array(1, 0, 1048591, 1, 1, 1441808, 65534, 4, 17, 65535, 4, 19, 131070, 4, 1048594, 1, 65535, 655374, 65534, 65535, 1)
+"cells": PackedInt32Array(1, 0, 1048591, 1, 1, 1441808, 65534, 4, 17, 65535, 4, 19, 131070, 4, 1048594, 1, 65535, 655374, 65534, 65535, 1, 131071, 65535, 1048596)
 }
+metadata/_editor_floor_ = Vector3(0, 2, 0)
 
 [node name="Tasks" type="GridMap" parent="."]
 

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d2j81biwqwhlf"
-path="res://.godot/imported/chair.blend-a1d36d261c0bc9bfc7466bfee93e17ba.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/chair/chair.blend"
-dest_files=["res://.godot/imported/chair.blend-a1d36d261c0bc9bfc7466bfee93e17ba.scn"]
 
 [params]
 

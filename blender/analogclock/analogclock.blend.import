@@ -3,12 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://1w7jiuxpchf1"
-valid=false
+uid="uid://bv4jobtrq8drx"
+path="res://.godot/imported/analogclock.blend-9ba3d2b0be2641750ab33ab88521eab8.scn"
 
 [deps]
 
-source_file="res://blender/computer desk 2/computer desk.blend"
+source_file="res://blender/analogclock/analogclock.blend"
+dest_files=["res://.godot/imported/analogclock.blend-9ba3d2b0be2641750ab33ab88521eab8.scn"]
 
 [params]
 

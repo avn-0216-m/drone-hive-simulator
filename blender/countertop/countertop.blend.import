@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cw01hhcyt7ka8"
-path="res://.godot/imported/countertop.blend-804b222f829c658926a279290524fbf2.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/countertop/countertop.blend"
-dest_files=["res://.godot/imported/countertop.blend-804b222f829c658926a279290524fbf2.scn"]
 
 [params]
 

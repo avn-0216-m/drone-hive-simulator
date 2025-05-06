@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bf7byhllhwc7j"
-path="res://.godot/imported/flag.blend-f49ac539863879eea205665b82c8ea7d.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/flag/flag.blend"
-dest_files=["res://.godot/imported/flag.blend-f49ac539863879eea205665b82c8ea7d.scn"]
 
 [params]
 

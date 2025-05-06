@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://t2xa2xpqnda3"
-path="res://.godot/imported/showerhead.blend-debef8379bff901b345e0e2430da732a.scn"
+valid=false
 
 [deps]
 
 source_file="res://blender/showerhead/showerhead.blend"
-dest_files=["res://.godot/imported/showerhead.blend-debef8379bff901b345e0e2430da732a.scn"]
 
 [params]
 
