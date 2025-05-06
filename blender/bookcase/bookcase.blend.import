@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bjpc7yd7b61cx"
-valid=false
+path="res://.godot/imported/bookcase.blend-1359ff9160333043989ef49daf53a4b3.scn"
 
 [deps]
 
 source_file="res://blender/bookcase/bookcase.blend"
+dest_files=["res://.godot/imported/bookcase.blend-1359ff9160333043989ef49daf53a4b3.scn"]
 
 [params]
 

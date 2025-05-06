@@ -56,12 +56,11 @@ func _ready():
 	print("drone ready???")
 	inventory.battery.track(battery)
 	#gravity = 0
-	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
-	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
+	set_colour()
 	
 func set_colour():
 	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
-	$Body/Mesh/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
+	$Body/Mesh/Body/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
 	
 	
 func toggle_face():
@@ -89,82 +88,6 @@ func get_move_speed():
 	else:
 		return speed
 	
-func get_inputs() -> int:
-	
-	if immobile:
-		return 0
-	
-	var inputs = 0
-	
-	if Input.is_action_pressed("move_left"):
-		inputs += move_left
-		body.rotation_degrees.y = 270
-	if Input.is_action_pressed("move_right"):
-		inputs += move_right
-		body.rotation_degrees.y = 90
-	if Input.is_action_pressed("move_up"):
-		inputs += move_up
-		body.rotation_degrees.y = 180
-	if Input.is_action_pressed("move_down"):
-		body.rotation_degrees.y = 0
-		inputs += move_down
-		
-	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_right"):
-		body.rotation_degrees.y = 45
-	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_right"):
-		body.rotation_degrees.y = 135
-	if Input.is_action_pressed("move_up") and Input.is_action_pressed("move_left"):
-		body.rotation_degrees.y = 225
-	if Input.is_action_pressed("move_down") and Input.is_action_pressed("move_left"):
-		body.rotation_degrees.y = 315
-		
-	if Input.is_action_pressed("move_down") or Input.is_action_pressed("move_right") or Input.is_action_pressed("move_up") or Input.is_action_pressed("move_left"):
-		if not $Body/AnimationPlayer.is_playing():
-			$Body/AnimationPlayer.play("Walk")
-	else:
-		$Body/AnimationPlayer.play("RESET")
-		
-	if Input.is_action_pressed("move_sprint"):
-		$Body/AnimationPlayer.speed_scale = 2
-		$Body/Mesh/Dust.emitting = true
-	else:
-		$Body/AnimationPlayer.speed_scale = 1
-		$Body/Mesh/Dust.emitting = false
-		
-	
-	
-	if Input.is_action_just_pressed("inventory_left"):
-		inventory.change_slot(-1)
-	elif Input.is_action_just_pressed("inventory_right"):
-		inventory.change_slot(1)
-	if Input.is_action_just_pressed("interact"):
-		interact()
-	elif Input.is_action_just_pressed("inventory_cancel"):
-		inventory.change_slot(0)
-	
-	if Input.is_action_just_pressed("beep"):
-		
-		GLOBAL.color = Color(randf(), randf(), randf())
-		set_colour()
-		
-		return 1
-		
-		if has_node("Beepboop"):
-			get_node("Beepboop").free()
-		
-		var beepboop_obj = beepboop_src.instantiate()
-			
-		add_child(beepboop_obj)
-		beepboop_obj.position.z = 0.3
-		show_icon(Icons.SOUND)
-		inventory.inventory_timeout()
-		
-
-
-	
-	
-	return inputs
-	
 func get_nearbys() -> Node:
 	var nearby_bodies = interact_area.get_overlapping_bodies()
 	for body in nearby_bodies:
@@ -183,13 +106,18 @@ func _process(delta):
 	movement = Vector3(movement.x, 0, movement.y)
 	if movement == Vector3.ZERO:
 		velocity = lerp(velocity, Vector3.ZERO, 0.9)
-		$Body/AnimationPlayer.play("RESET")
+		if $Body/AnimationPlayer.get_current_animation() not in ["Sit", "Snooze"]:
+			$Body/AnimationPlayer.play("RESET")
+			$Body/AnimationPlayer.queue("Sit")
+			$Body/AnimationPlayer.queue("Snooze")
 	else:
 		var dir = position - movement
 		body.look_at(dir)
 		body.rotation_degrees = Vector3(0, snapped(body.rotation_degrees.y, 45), 0)
 		if $Body/AnimationPlayer.get_current_animation() != "Walk":
-			$Body/AnimationPlayer.play("Walk")
+			$Body/AnimationPlayer.clear_queue()
+			$Body/AnimationPlayer.play("RESET")
+			$Body/AnimationPlayer.queue("Walk")
 			
 	if Input.is_action_pressed("move_sprint") and movement != Vector3.ZERO:
 		$Body/AnimationPlayer.speed_scale = 2

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcfvko01r6yi5"
-path.s3tc="res://.godot/imported/analogclock_74d90cc05c5fdd48b005ece6dbff2d4f.jpg-4d758eac4c321a1e7ca00ad0ca161d1a.s3tc.ctex"
+uid="uid://dlt5fa7kmbnh4"
+path.s3tc="res://.godot/imported/zzz.png-ea4df6f3cdeb93837362ef1190cd5383.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://blender/analogclock/analogclock_74d90cc05c5fdd48b005ece6dbff2d4f.jpg"
-dest_files=["res://.godot/imported/analogclock_74d90cc05c5fdd48b005ece6dbff2d4f.jpg-4d758eac4c321a1e7ca00ad0ca161d1a.s3tc.ctex"]
+source_file="res://objects/maidenclass/zzz.png"
+dest_files=["res://.godot/imported/zzz.png-ea4df6f3cdeb93837362ef1190cd5383.s3tc.ctex"]
 
 [params]
 

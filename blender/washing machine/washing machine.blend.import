@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c4wkc4ifl0564"
-valid=false
+path="res://.godot/imported/washing machine.blend-ebdb39094c7c6d8b41f5e70a9c30afb5.scn"
 
 [deps]
 
 source_file="res://blender/washing machine/washing machine.blend"
+dest_files=["res://.godot/imported/washing machine.blend-ebdb39094c7c6d8b41f5e70a9c30afb5.scn"]
 
 [params]
 

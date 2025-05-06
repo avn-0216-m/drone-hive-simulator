@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ciqckj3imb2a8"
-valid=false
+path="res://.godot/imported/toilet.blend-f8e8e4094b1d3547a087d12477528678.scn"
 
 [deps]
 
 source_file="res://blender/toilet/toilet.blend"
+dest_files=["res://.godot/imported/toilet.blend-f8e8e4094b1d3547a087d12477528678.scn"]
 
 [params]
 

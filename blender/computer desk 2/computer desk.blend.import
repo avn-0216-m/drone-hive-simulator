@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://1w7jiuxpchf1"
-valid=false
+path="res://.godot/imported/computer desk.blend-7add02eb6044e2defafc3af36a09676d.scn"
 
 [deps]
 
 source_file="res://blender/computer desk 2/computer desk.blend"
+dest_files=["res://.godot/imported/computer desk.blend-7add02eb6044e2defafc3af36a09676d.scn"]
 
 [params]
 
