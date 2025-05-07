@@ -1,17 +1,18 @@
-[gd_resource type="ParticleProcessMaterial" load_steps=3 format=2]
+[gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://f0gh4wy6058q"]
 
-[sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.119891, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id="1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.119891, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="CurveTexture" id=2]
-curve = SubResource( 1 )
+[sub_resource type="CurveTexture" id="2"]
+curve = SubResource("1")
 
 [resource]
 emission_shape = 1
 emission_sphere_radius = 1.0
-direction = Vector3( 0, 0, 0 )
+direction = Vector3(0, 0, 0)
 flatness = 1.0
-gravity = Vector3( 0, 2.312, 0 )
-linear_accel = 0.35
-scale = 0.81
-scale_curve = SubResource( 2 )
+gravity = Vector3(0, 2.312, 0)
+scale_min = 0.0
+scale_max = 0.0
+scale_curve = SubResource("2")
