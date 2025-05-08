@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://02p7fju71mbr"]
+
+[ext_resource type="Script" uid="uid://bimk6mebwgdau" path="res://objects/levelgen/levelgen.gd" id="1_04bfr"]
+[ext_resource type="MeshLibrary" uid="uid://d4hn0x83l40bu" path="res://meshlibraries/debug.tres" id="2_vhkta"]
+
+[node name="Levelgen" type="Node3D"]
+script = ExtResource("1_04bfr")
+
+[node name="Rooms" type="Node3D" parent="."]
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Walkways" type="GridMap" parent="."]
+
+[node name="Placeholders" type="GridMap" parent="."]
+mesh_library = ExtResource("2_vhkta")

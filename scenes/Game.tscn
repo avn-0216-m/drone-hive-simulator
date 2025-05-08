@@ -2,11 +2,11 @@
 
 [ext_resource type="Shader" uid="uid://q3ef5nu4r4sx" path="res://shaders/edge_blur.gdshader" id="1"]
 [ext_resource type="PackedScene" path="res://objects/bonus/Roomba.tscn" id="2"]
-[ext_resource type="Texture2D" uid="uid://dg8fqgy1j073c" path="res://sprites/background/demonstration2.png" id="2_2rd6h"]
+[ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://41h2rejh2c68" path="res://objects/rooms/bathroom.tscn" id="2_mcffj"]
 [ext_resource type="PackedScene" path="res://objects/tasks/NullCube.tscn" id="3"]
 [ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="4_2rd6h"]
-[ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/player/Drone.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/maidenclass/Drone.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://baaduknkc7lck" path="res://objects/UI/DebugUI.tscn" id="9"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
 [ext_resource type="PackedScene" uid="uid://56pvtfgiqexu" path="res://objects/BackgroundOrb.tscn" id="11"]
@@ -96,13 +96,15 @@ environment = SubResource("Environment_y5y3l")
 [node name="CanvasLayer" type="CanvasLayer" parent="Game/WorldEnvironment"]
 layer = -1
 
-[node name="Sprite2D" type="Sprite2D" parent="Game/WorldEnvironment/CanvasLayer"]
-texture_filter = 1
-texture_repeat = 2
-position = Vector2(990, 995)
+[node name="TextureRect" type="TextureRect" parent="Game/WorldEnvironment/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
 texture = ExtResource("2_2rd6h")
-region_enabled = true
-region_rect = Rect2(0, 0, 2000, 2000)
+stretch_mode = 1
 
 [node name="Room" parent="Game" instance=ExtResource("2_mcffj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74943, 0)

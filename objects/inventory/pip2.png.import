@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvsgocu7ncien"
-path.s3tc="res://.godot/imported/cursor.png-8f7f1d226048e0d8db54ed4c75641444.s3tc.ctex"
+uid="uid://cgkgome10eaae"
+path.s3tc="res://.godot/imported/pip2.png-5c55c671162c1401c223d6040da212d3.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/ui/cursor.png"
-dest_files=["res://.godot/imported/cursor.png-8f7f1d226048e0d8db54ed4c75641444.s3tc.ctex"]
+source_file="res://objects/inventory/pip2.png"
+dest_files=["res://.godot/imported/pip2.png-5c55c671162c1401c223d6040da212d3.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deif5n452ew7s"
-path.s3tc="res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"
+uid="uid://blflxglkhgygu"
+path.s3tc="res://.godot/imported/railing.png-893d62da5eeabf3b06d11b01a2a56a40.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://sprites/paws.png"
-dest_files=["res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"]
+source_file="res://blender/walkway/textures/railing.png"
+dest_files=["res://.godot/imported/railing.png-893d62da5eeabf3b06d11b01a2a56a40.s3tc.ctex"]
 
 [params]
 
@@ -22,7 +22,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

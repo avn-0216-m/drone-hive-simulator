@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
-[ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/player/Inventory.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://objects/player/BatteryPower.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/maidenclass/Inventory.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://objects/maidenclass/BatteryPower.tscn" id="9"]
 [ext_resource type="Texture2D" uid="uid://dlt5fa7kmbnh4" path="res://objects/maidenclass/zzz.png" id="9_dsn33"]
 [ext_resource type="AudioStream" uid="uid://ncknx23s8v16" path="res://sfx/sprint2.ogg" id="11"]
 [ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="12"]

@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwjc3w1k87qqr"
-path.s3tc="res://.godot/imported/inv battery.png-77f22a4ed1d099d9a544921d402ba50a.s3tc.ctex"
+uid="uid://wfgh1esibusf"
+path.s3tc="res://.godot/imported/walkway_walkway.png-ad393a689b466492b7e75cf07b07dfb0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "24cb0d542b0e56aa3c1ee500b6d912b8"
+}
 
 [deps]
 
-source_file="res://sprites/ui/inv battery.png"
-dest_files=["res://.godot/imported/inv battery.png-77f22a4ed1d099d9a544921d402ba50a.s3tc.ctex"]
+source_file="res://blender/walkway/walkway_walkway.png"
+dest_files=["res://.godot/imported/walkway_walkway.png-ad393a689b466492b7e75cf07b07dfb0.s3tc.ctex"]
 
 [params]
 
@@ -22,7 +25,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

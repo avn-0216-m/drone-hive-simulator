@@ -1,34 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=4 uid="uid://7li8iikctwdm"]
 
-[ext_resource path="res://blender/geometry/export/Floor.material" type="Material" id=2]
+[ext_resource type="Material" path="res://blender/geometry/export/Floor.material" id="2"]
 
-[sub_resource type="ArrayMesh" id=5]
+[sub_resource type="ArrayMesh" id="5"]
 resource_name = "floor_Cube"
-surfaces/0 = {
-"aabb": AABB( -1, -0.2, -1, 2, 0.40001, 2.00001 ),
-"array_data": PackedByteArray( 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 63, 0, 127, 129, 63, 0, 60, 0, 0, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 0, 127, 129, 63, 0, 0, 0, 60, 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 191, 0, 127, 129, 63, 0, 60, 0, 60, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 127, 129, 63, 0, 0, 0, 0, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 0, 0, 0, 127, 0, 52, 128, 58, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 63, 0, 0, 0, 127, 0, 48, 0, 50, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 63, 0, 0, 0, 127, 0, 48, 128, 58, 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 63, 0, 0, 0, 127, 0, 52, 0, 50, 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 63, 129, 0, 0, 127, 0, 52, 128, 58, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 191, 129, 0, 0, 127, 0, 48, 0, 50, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 63, 129, 0, 0, 127, 0, 48, 128, 58, 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 191, 129, 0, 0, 127, 0, 52, 0, 50, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 63, 0, 129, 127, 63, 0, 60, 0, 0, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 191, 0, 129, 127, 63, 0, 0, 0, 60, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 191, 0, 129, 127, 63, 0, 60, 0, 60, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 63, 0, 129, 127, 63, 0, 0, 0, 0, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 127, 0, 0, 127, 0, 52, 128, 58, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 63, 127, 0, 0, 127, 0, 48, 0, 50, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 191, 127, 0, 0, 127, 0, 48, 128, 58, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 63, 127, 0, 0, 127, 0, 52, 0, 50, 0, 0, 128, 191, 205, 204, 76, 62, 0, 0, 128, 191, 127, 127, 0, 1, 0, 49, 0, 50, 0, 0, 128, 63, 205, 204, 76, 190, 0, 0, 128, 191, 127, 127, 0, 1, 128, 52, 128, 58, 0, 0, 128, 191, 205, 204, 76, 190, 0, 0, 128, 191, 127, 127, 0, 1, 128, 52, 0, 50, 0, 0, 128, 63, 205, 204, 76, 62, 0, 0, 128, 191, 127, 127, 0, 1, 0, 49, 128, 58 ),
-"array_index_data": PackedByteArray( 0, 0, 2, 0, 1, 0, 0, 0, 1, 0, 3, 0, 4, 0, 6, 0, 5, 0, 4, 0, 5, 0, 7, 0, 8, 0, 10, 0, 9, 0, 8, 0, 9, 0, 11, 0, 12, 0, 14, 0, 13, 0, 12, 0, 13, 0, 15, 0, 16, 0, 18, 0, 17, 0, 16, 0, 17, 0, 19, 0, 20, 0, 22, 0, 21, 0, 20, 0, 21, 0, 23, 0 ),
-"blend_shape_data": [  ],
-"format": 2194711,
+_surfaces = [{
+"aabb": AABB(-1, -0.2, -1, 2, 0.40001, 2.00001),
+"attribute_data": PackedByteArray("AACAPwAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAIA+AABQPwAAAD4AAEA+AAAAPgAAUD8AAIA+AABAPgAAgD4AAFA/AAAAPgAAQD4AAAA+AABQPwAAgD4AAEA+AACAPwAAAAAAAAAAAACAPwAAgD8AAIA/AAAAAAAAAAAAAIA+AABQPwAAAD4AAEA+AAAAPgAAUD8AAIA+AABAPgAAID4AAEA+AACQPgAAUD8AAJA+AABAPgAAID4AAFA/"),
+"format": 34359742487,
 "index_count": 36,
-"material": ExtResource( 2 ),
-"primitive": 4,
-"skeleton_aabb": [  ],
-"vertex_count": 24
-}
+"index_data": PackedByteArray("AAACAAEAAAABAAMABAAGAAUABAAFAAcACAAKAAkACAAJAAsADAAOAA0ADAANAA8AEAASABEAEAARABMAFAAWABUAFAAVABcA"),
+"material": ExtResource("2"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("AACAv83MTD4AAIA/AACAP83MTD4AAIC/AACAv83MTD4AAIC/AACAP83MTD4AAIA/AACAP83MTD4AAIA/AACAv83MTL4AAIA/AACAP83MTL4AAIA/AACAv83MTD4AAIA/AACAv83MTD4AAIA/AACAv83MTL4AAIC/AACAv83MTL4AAIA/AACAv83MTD4AAIC/AACAP83MTL4AAIA/AACAv83MTL4AAIC/AACAP83MTL4AAIC/AACAv83MTL4AAIA/AACAP83MTD4AAIC/AACAP83MTL4AAIA/AACAP83MTL4AAIC/AACAP83MTD4AAIA/AACAv83MTD4AAIC/AACAP83MTL4AAIC/AACAv83MTL4AAIC/AACAP83MTD4AAIC/AAD/fwAAfr8AAP9/AAB+vwAA/38AAH6/AAD/fwAAfr8AAAAA/3///wAAAAD/f///AAAAAP9///8AAAAA/3///wGAAAD/f///AYAAAP9///8BgAAA/3///wGAAAD/f///AAABgP//fr8AAAGA//9+vwAAAYD//36/AAABgP//fr//fwAA/3////9/AAD/f////38AAP9/////fwAA/3////9//3//fwGB/3//f/9/AYH/f/9//38Bgf9//3//fwGB")
+}]
 
-[sub_resource type="ConcavePolygonShape3D" id=10]
-data = PackedVector3Array( -1, 0.2, 1, -1, 0.2, -1, 1, 0.2, -1, -1, 0.2, 1, 1, 0.2, -1, 1, 0.2, 1, 1, 0.2, 1, 1, -0.2, 1, -1, -0.2, 1, 1, 0.2, 1, -1, -0.2, 1, -1, 0.2, 1, -1, 0.2, 1, -1, -0.2, 1, -1, -0.2, -1, -1, 0.2, 1, -1, -0.2, -1, -1, 0.2, -1, 1, -0.2, 1, 1, -0.2, -1, -1, -0.2, -1, 1, -0.2, 1, -1, -0.2, -1, -1, -0.2, 1, 1, 0.2, -1, 1, -0.2, -1, 1, -0.2, 1, 1, 0.2, -1, 1, -0.2, 1, 1, 0.2, 1, -1, 0.2, -1, -1, -0.2, -1, 1, -0.2, -1, -1, 0.2, -1, 1, -0.2, -1, 1, 0.2, -1 )
+[sub_resource type="ConcavePolygonShape3D" id="10"]
+data = PackedVector3Array(-1, 0.2, 1, -1, 0.2, -1, 1, 0.2, -1, -1, 0.2, 1, 1, 0.2, -1, 1, 0.2, 1, 1, 0.2, 1, 1, -0.2, 1, -1, -0.2, 1, 1, 0.2, 1, -1, -0.2, 1, -1, 0.2, 1, -1, 0.2, 1, -1, -0.2, 1, -1, -0.2, -1, -1, 0.2, 1, -1, -0.2, -1, -1, 0.2, -1, 1, -0.2, 1, 1, -0.2, -1, -1, -0.2, -1, 1, -0.2, 1, -1, -0.2, -1, -1, -0.2, 1, 1, 0.2, -1, 1, -0.2, -1, 1, -0.2, 1, 1, 0.2, -1, 1, -0.2, 1, 1, 0.2, 1, -1, 0.2, -1, -1, -0.2, -1, 1, -0.2, -1, -1, 0.2, -1, 1, -0.2, -1, 1, 0.2, -1)
 
 [node name="Geometry" type="Node3D"]
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 visible = false
-mesh = SubResource( 5 )
+mesh = SubResource("5")
 skeleton = NodePath("")
-material/0 = null
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-shape = SubResource( 10 )
+shape = SubResource("10")

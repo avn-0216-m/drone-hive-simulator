@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://5lddfyyx2pmr" path="res://scripts/player/Inventory.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://noksbjdahied" path="res://sfx/inventory/inventorymid.ogg" id="2"]
-[ext_resource type="Texture2D" uid="uid://bwjc3w1k87qqr" path="res://sprites/ui/inv battery.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bwjc3w1k87qqr" path="res://objects/inventory/inv battery.png" id="3"]
 [ext_resource type="PackedScene" uid="uid://bpgw6rtwflxpr" path="res://objects/inventory/Slot.tscn" id="4"]
-[ext_resource type="Texture2D" uid="uid://c2phae862wx37" path="res://sprites/ui/inventoryslot.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://bvsgocu7ncien" path="res://sprites/ui/cursor.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://c2phae862wx37" path="res://objects/inventory/inventoryslot.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bvsgocu7ncien" path="res://objects/inventory/cursor.png" id="6"]
 [ext_resource type="Script" uid="uid://dr4il8vh2wvol" path="res://scripts/player/BatterySlot.gd" id="7"]
-[ext_resource type="Texture2D" uid="uid://cgkgome10eaae" path="res://sprites/ui/pip2.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://cgkgome10eaae" path="res://objects/inventory/pip2.png" id="8"]
 
 [sub_resource type="StandardMaterial3D" id="3"]
 transparency = 1
@@ -15,7 +15,7 @@ no_depth_test = true
 shading_mode = 0
 albedo_texture = ExtResource("6")
 
-[sub_resource type="StandardMaterial3D" id="4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ndi7"]
 resource_local_to_scene = true
 transparency = 1
 no_depth_test = true
@@ -23,7 +23,7 @@ shading_mode = 0
 albedo_color = Color(0.843137, 0.00784314, 0.439216, 1)
 albedo_texture = ExtResource("5")
 
-[sub_resource type="StandardMaterial3D" id="5"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4dicw"]
 resource_local_to_scene = true
 transparency = 1
 no_depth_test = true
@@ -31,7 +31,7 @@ shading_mode = 0
 albedo_color = Color(0.45098, 0.309804, 0.588235, 1)
 albedo_texture = ExtResource("5")
 
-[sub_resource type="StandardMaterial3D" id="6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_17dmi"]
 resource_local_to_scene = true
 transparency = 1
 no_depth_test = true
@@ -81,18 +81,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.371107, 0, 0)
 
 [node name="Slot1" parent="Slots" instance=ExtResource("4")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -1.04975, 0.116518, 0)
-material_override = SubResource("4")
+material_override = SubResource("StandardMaterial3D_2ndi7")
 modulate = Color(1, 0.6, 1, 1)
 texture = null
 
 [node name="Slot2" parent="Slots" instance=ExtResource("4")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.030953, 0.0999999, 0)
-material_override = SubResource("5")
+material_override = SubResource("StandardMaterial3D_4dicw")
 texture = null
 
 [node name="Slot3" parent="Slots" instance=ExtResource("4")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.13341, 0.0999999, 0)
-material_override = SubResource("6")
+material_override = SubResource("StandardMaterial3D_17dmi")
 texture = null
 
 [node name="Battery" type="Sprite3D" parent="Slots"]

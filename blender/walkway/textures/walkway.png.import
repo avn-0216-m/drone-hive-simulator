@@ -2,17 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deif5n452ew7s"
-path.s3tc="res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"
+uid="uid://ddqkkiid4v7dv"
+path.s3tc="res://.godot/imported/walkway.png-9b01651c7f4fc851ad948f3c1fb42f11.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://sprites/paws.png"
-dest_files=["res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"]
+source_file="res://blender/walkway/textures/walkway.png"
+dest_files=["res://.godot/imported/walkway.png-9b01651c7f4fc851ad948f3c1fb42f11.s3tc.ctex"]
 
 [params]
 
@@ -22,7 +23,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""

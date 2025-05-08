@@ -2,27 +2,26 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://deif5n452ew7s"
-path.s3tc="res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"
+uid="uid://b7a2pola32gw3"
+path="res://.godot/imported/pip.png-34b4f907330b2b02537cc66465918625.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/paws.png"
-dest_files=["res://.godot/imported/paws.png-06c88f38a5e62650aeeb2acb9cdbe210.s3tc.ctex"]
+source_file="res://objects/inventory/pip.png"
+dest_files=["res://.godot/imported/pip.png-34b4f907330b2b02537cc66465918625.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -32,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

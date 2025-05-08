@@ -79,7 +79,7 @@ material_override = SubResource("8")
 mesh = SubResource("6")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 500, 0.694)
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 514.03, 0.694)
 fov = 68.5
 size = 71.93
 far = 148.3
@@ -93,13 +93,11 @@ omni_range = 19.208
 transform = Transform3D(10, 0, 0, 0, 52, 0, 0, 0, 10, 0, 500, 0)
 
 [node name="Cylinder121" type="MeshInstance3D" parent="Rings"]
-visible = false
 material_override = SubResource("9")
 mesh = SubResource("1")
 skeleton = NodePath("")
 
 [node name="CylinderCubeProj" type="MeshInstance3D" parent="Rings"]
-visible = false
 mesh = SubResource("10")
 skeleton = NodePath("")
 
