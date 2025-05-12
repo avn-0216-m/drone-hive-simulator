@@ -127,7 +127,7 @@ func _process(delta):
 		$Body/Mesh/Dust.emitting = false
 
 	velocity = movement.normalized() * get_move_speed()
-	velocity.y = -5
+	#velocity.y = -5
 		
 	move_and_slide()
 	

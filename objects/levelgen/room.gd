@@ -11,6 +11,17 @@ class_name Room
 var potentials: Array = []
 @onready var foundations = get_node("Foundations")
 
+func get_potentials():
+	return potentials
+
+
+func setup_doors():
+	for potential in potentials:
+		if potential.is_door:
+			$Foundations.set_cell_item(potential.cell, -1, potential.orientation)
+		else:
+			$Foundations.set_cell_item(potential.cell, 4, potential.orientation)
+
 func _ready():
 	# get all potentials
 	for cell in $Foundations.get_used_cells_by_item(7):
