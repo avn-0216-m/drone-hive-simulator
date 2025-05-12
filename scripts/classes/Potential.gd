@@ -2,9 +2,12 @@ extends Node
 
 class_name Potential
 
-var room: Node # the room the potential belongs to.
+var room: Node
 var orientation: int
-var offset: Vector3
-var valid: bool = false # if true, instance into a door, otherwise a wall.
-var cell: Vector3 # Local gridmap cell.
-var connected: Potential
+	#  0 = west-facing door
+	# 10 = east-facing door
+	# 16 = south-facing door
+	# 22 = north-facing door
+var cell: Vector3
+var is_doorway: bool
+var connection: Potential

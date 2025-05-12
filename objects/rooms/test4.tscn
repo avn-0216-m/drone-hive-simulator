@@ -4,7 +4,7 @@
 [ext_resource type="MeshLibrary" uid="uid://cgjj6iyajmg55" path="res://meshlibraries/geometry_floor.tres" id="2"]
 [ext_resource type="MeshLibrary" uid="uid://b76t2vx0yx8gn" path="res://meshlibraries/geometry_walls.tres" id="3"]
 [ext_resource type="Script" uid="uid://dk2utbp6yxh7h" path="res://scripts/Walls.gd" id="4"]
-[ext_resource type="MeshLibrary" uid="uid://dv03r6hvpudmp" path="res://objects/levelgen/rooms/furniture.tres" id="5"]
+[ext_resource type="MeshLibrary" uid="uid://dv03r6hvpudmp" path="res://objects/levelgen/furniture.tres" id="5"]
 
 
 [node name="Room" type="Node3D"]

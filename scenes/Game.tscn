@@ -1,16 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8mi225mogni6"]
+[gd_scene load_steps=15 format=3 uid="uid://b8mi225mogni6"]
 
 [ext_resource type="Shader" uid="uid://q3ef5nu4r4sx" path="res://shaders/edge_blur.gdshader" id="1"]
-[ext_resource type="PackedScene" path="res://objects/bonus/Roomba.tscn" id="2"]
 [ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
-[ext_resource type="PackedScene" uid="uid://41h2rejh2c68" path="res://objects/rooms/bathroom.tscn" id="2_mcffj"]
-[ext_resource type="PackedScene" path="res://objects/tasks/NullCube.tscn" id="3"]
 [ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="4_2rd6h"]
+[ext_resource type="PackedScene" uid="uid://02p7fju71mbr" path="res://objects/levelgen/levelgen.tscn" id="6_g4kob"]
 [ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/maidenclass/Drone.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://baaduknkc7lck" path="res://objects/UI/DebugUI.tscn" id="9"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
 [ext_resource type="PackedScene" uid="uid://56pvtfgiqexu" path="res://objects/BackgroundOrb.tscn" id="11"]
-[ext_resource type="PackedScene" uid="uid://b8khqqc1wbqqo" path="res://objects/Level.tscn" id="17"]
 [ext_resource type="AudioStream" uid="uid://be7dpvb7isxju" path="res://mus/clicker training.ogg" id="19"]
 
 [sub_resource type="Environment" id="Environment_y5y3l"]
@@ -23,39 +20,13 @@ ambient_light_color = Color(1, 1, 1, 1)
 
 [sub_resource type="Animation" id="8"]
 length = 10.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Level:position")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 3, 7, 10),
-"transitions": PackedFloat32Array(2, 0, 0.5, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 15, 0), Vector3(0, -30, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Level")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"new_level"
-}]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(3, 5.6, 7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
@@ -106,9 +77,6 @@ size_flags_vertical = 4
 texture = ExtResource("2_2rd6h")
 stretch_mode = 1
 
-[node name="Room" parent="Game" instance=ExtResource("2_mcffj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.74943, 0)
-
 [node name="Camera3D" type="Camera3D" parent="Game"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.889033, 5.5, 5.5)
 cull_mask = 7
@@ -117,19 +85,13 @@ far = 1000.0
 script = ExtResource("4_2rd6h")
 
 [node name="Player" parent="Game" instance=ExtResource("7")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.889033, 3, 3)
-
-[node name="Roomba" parent="Game" instance=ExtResource("2")]
-
-[node name="NullCube" parent="Game" instance=ExtResource("3")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 3.99772, 3.66655, 3.68617)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4, 3, 4)
 
 [node name="Music" type="AudioStreamPlayer" parent="Game"]
 stream = ExtResource("19")
 bus = &"Music"
 
-[node name="Level" parent="Game" instance=ExtResource("17")]
-script = null
+[node name="Levelgen" parent="Game" instance=ExtResource("6_g4kob")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Game"]
 libraries = {
