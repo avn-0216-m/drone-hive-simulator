@@ -13,4 +13,5 @@ script = ExtResource("1_04bfr")
 [node name="Walkways" type="GridMap" parent="."]
 
 [node name="Placeholders" type="GridMap" parent="."]
+visible = false
 mesh_library = ExtResource("2_vhkta")

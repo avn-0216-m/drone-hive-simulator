@@ -8,7 +8,7 @@ class_name Room
 	"Bathroom", "Lounge"
 	) var room_type: int
 	
-var potentials: Array = []
+@export var potentials: Array = []
 @onready var foundations = get_node("Foundations")
 
 func get_potentials():
@@ -22,6 +22,8 @@ func setup_doors():
 		else:
 			$Foundations.set_cell_item(potential.cell, 4, potential.orientation)
 
+
+
 func _ready():
 	# get all potentials
 	for cell in $Foundations.get_used_cells_by_item(7):
@@ -30,4 +32,5 @@ func _ready():
 		potential.orientation = $Foundations.get_cell_item_orientation(cell)
 		potential.cell = cell
 		potentials.append(potential)
+	print(name + ": " + str(potentials[0].cell))
 		

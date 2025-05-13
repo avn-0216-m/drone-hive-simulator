@@ -13,8 +13,10 @@ var rooms = [
 	"test1.tscn",
 	"test2.tscn",
 	"test3.tscn",
-	"test4.tscn"
+	"test4.tscn",
+	"test5.tscn"
 	]
+
 	
 @onready var placeholders: GridMap = get_node("Placeholders")
 
@@ -57,7 +59,6 @@ func _process(delta):
 		new_level()
 	if Input.is_action_just_released("debug_levelgen"):
 		print("yehaw")
-		print($Rooms.get_child_count())
 		
 func cleanup():
 	for node in $Rooms.get_children():
@@ -68,6 +69,7 @@ func _ready():
 	new_level()
 
 func new_level():
+	var rooms_instanced: int = 0
 	print("OK BAWS HERE I GO")
 	cleanup()
 	var potentials: Array = []
@@ -76,7 +78,7 @@ func new_level():
 	placehold_room(start)
 	potentials.append_array(start.potentials)
 	
-	while $Rooms.get_child_count() < 10 and not potentials.is_empty():
+	while rooms_instanced < 30 and not potentials.is_empty():
 		potentials.shuffle()
 		var start_potential = potentials.pop_back()
 		if start_potential == null:
@@ -100,34 +102,36 @@ func new_level():
 				end_potential = found_potential
 		if end_potential == null:
 			room.queue_free()
-			$Rooms.remove_child(room) 
-			room.visible = false
 			continue
-		var length_vector = get_vector_from_orientation(start_potential)
-		start_potential.length = min_walkway_length
-		for i in range(start_potential.length, max_walkway_length + 5):
-			if is_space_free(room, end_potential):
+			
+		# basic algebra, my one weakness
+		end_potential.room.position = start_potential.room.position - Vector3(end_potential.cell - start_potential.cell) * 2
+		# apply walkway baseline offset
+		end_potential.room.position += get_vector_from_orientation(start_potential) * min_walkway_length
+		for i in range(min_walkway_length, max_walkway_length + 1):
+			if is_space_free(room, start_potential):
+				print("YIPE")
 				start_potential.is_door = true
 				end_potential.is_door = true
+				start_potential.length = i
+				end_potential.length = i 
 				start_potential.connection = end_potential
 				end_potential.connection = start_potential
-				potentials.append_array(room.get_potentials())
-				placehold_room(room)
+				placehold_room(end_potential.room)
+				potentials.append_array(end_potential.room.get_potentials())
+				rooms_instanced += 1
 				break
 			else:
-				start_potential.length += 1
-				if start_potential.length > max_walkway_length:
-					print("I GIVE UP!!!")
-					room.queue_free()
-					$Rooms.remove_child(room) 
-					room.visible = false
-					break
-				else:
-					end_potential.room.position = \
-					start_potential.room.position - \
-					abs((end_potential.cell - start_potential.cell) * 2) + \
-					get_vector_from_orientation(start_potential) * 6 
-						
-	print("OKAY GOOD")
+				end_potential.room.position += get_vector_from_orientation(start_potential) * 2
+		if end_potential.is_door:
+			print("YAY ROOM PLACED")
+		else:
+			print("ROOM NOT PLACED I GIVE UP!!!")
+			room.queue_free()
+	if potentials.is_empty():
+		print("WE OUTTA POTENTIALS")
+	else:
+		print("WE INSTANCED THIS MANY ROOMS:")
+		print(rooms_instanced)
 	for room in $Rooms.get_children():
 		room.setup_doors()
