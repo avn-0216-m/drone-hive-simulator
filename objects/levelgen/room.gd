@@ -32,5 +32,3 @@ func _ready():
 		potential.orientation = $Foundations.get_cell_item_orientation(cell)
 		potential.cell = cell
 		potentials.append(potential)
-	print(name + ": " + str(potentials[0].cell))
-		

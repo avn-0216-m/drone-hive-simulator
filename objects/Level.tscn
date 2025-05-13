@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://bdvphp3bog5il" path="res://scripts/Hallway.gd" id="4"]
 [ext_resource type="MeshLibrary" uid="uid://cgjj6iyajmg55" path="res://meshlibraries/geometry_floor.tres" id="5"]
 [ext_resource type="PackedScene" path="res://objects/rooms/start.tscn" id="6"]
-[ext_resource type="Script" uid="uid://dkkdrex4cldqb" path="res://scripts/data/MeshLib.gd" id="8"]
+[ext_resource type="Script" uid="uid://wacebb5hptga" path="res://scripts/data/MeshLib.gd" id="8"]
 
 [node name="Level" type="Node3D"]
 script = ExtResource("2")

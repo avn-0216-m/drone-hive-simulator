@@ -1,0 +1,89 @@
+[gd_scene load_steps=8 format=4 uid="uid://dengp2lwhr3c1"]
+
+[ext_resource type="Texture2D" uid="uid://chr1odwy06b5" path="res://blender/walkway/walkway_merged_walkway.png" id="1_qy1i2"]
+[ext_resource type="Texture2D" uid="uid://ia144ckr0eby" path="res://blender/walkway/walkway_merged_railing.png" id="2_6yhmd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_885pl"]
+resource_name = "Walkway"
+cull_mode = 2
+albedo_texture = ExtResource("1_qy1i2")
+roughness = 0.5
+texture_filter = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iu6af"]
+resource_name = "Material.001"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("2_6yhmd")
+roughness = 0.5
+texture_filter = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6btxv"]
+_surfaces = [{
+"aabb": AABB(-1, -0.164143, -1, 2, 0.16202, 2),
+"format": 34896613377,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEAAwAFAAIABQAAAAIABgAEAAAABQAGAAAABwABAAQABwADAAEABgAHAAQABQADAAcABQAHAAYA"),
+"name": "Walkway",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("/////wAAAAAAAP////8AAAAA//8AAAAAoTsAAP//AAD///////8AAKE7AAAAAAAAXcQAAAAAAABdxAAA//8AAA==")
+}, {
+"aabb": AABB(-0.985068, 0.01187, -1.03636, 1.97014, 2, 2),
+"format": 34896613377,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUA"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("//8AAP//AAD+////AAAAAP7/AAAAAAAA/v////7/AAAAAAAA/v8AAAAA/v8AAAAAAAD///7/AAAAAAAAAAAAAA==")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8podf"]
+resource_name = "walkway_merged_Cube"
+_surfaces = [{
+"aabb": AABB(-1, -0.164143, -1, 2, 0.16202, 2),
+"attribute_data": PackedByteArray("////f/9/////f/9//////wCALeJeigCAXor+/wCA0J1hgjCgl4v6lpeLMKBhgvqWAIAWoaeOb5KnjhahAIBvkqS9465awi2qWsLjrqS9Lapdis+d/3/9//9//39diizi"),
+"format": 34896613399,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUA"),
+"material": SubResource("StandardMaterial3D_885pl"),
+"name": "Walkway",
+"primitive": 3,
+"uv_scale": Vector4(2, 2, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("/////wAA/78AAP//////vwAA//8AAP+//////////79dxAAA////vwAA//////+//////////7+hOwAA////v6E7AAD//2D2AAD//wAAYPYAAP////9g9qE7AAAAAGD2oTsAAAAA/79dxAAA////v13EAAAAAP+/oTsAAP///79dxAAAAAAgwf///////yDB/////wAAIMFdxAAA//8gwaE7AAAAAP///////wAA//8AAP//AAD//13EAAAAAP//////f////3////9/////f//////////////////////7xAb2+8QG9vvEBvb7xAb2AAD/fwAA/38AAP9/AAD/fykQrF8pEKxfKRCsXykQrF//P/+//z//v/8//7//P/+/")
+}, {
+"aabb": AABB(-0.985068, 0.01187, -1.03636, 1.97014, 2, 2),
+"attribute_data": PackedByteArray("AAD/////AAD/////AAAAAAAA/////wAAAAAAAP////8="),
+"format": 34896613399,
+"index_count": 12,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUA"),
+"material": SubResource("StandardMaterial3D_iu6af"),
+"name": "Material.001",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("//8AAP///7/+////AAD/v/7/AAAAAP+//v////7//78AAAAA/v8AAAAA/v8AAAAAAAD///7/AAAAAAAAAAAAAP9/AAD/fwAA/38AAP9/AAD/P/9//z//f/8//3//P/9/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_6btxv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qy1i2"]
+size = Vector3(2, 0.15, 2)
+
+[node name="Walkway MeshLib" type="Node3D"]
+
+[node name="Walkway" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("ArrayMesh_8podf")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Walkway"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walkway/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00219727, -0.0724792, 0)
+shape = SubResource("BoxShape3D_qy1i2")

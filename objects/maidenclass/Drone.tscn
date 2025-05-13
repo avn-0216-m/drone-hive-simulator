@@ -852,7 +852,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.57899, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_if32a"]
-size = Vector3(2.66549, 6.3606, 3.51556)
+size = Vector3(2.2, 6.361, 2.2)
 
 [node name="Drone" type="CharacterBody3D"]
 script = ExtResource("1")
@@ -978,6 +978,6 @@ spot_range = 213.394
 visible = false
 
 [node name="Collision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0554005, -0.812089, 0.129242)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0554005, -0.812089, -0.0147358)
 shape = SubResource("BoxShape3D_if32a")
 debug_fill = false
