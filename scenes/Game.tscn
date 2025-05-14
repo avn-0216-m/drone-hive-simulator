@@ -1,18 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://b8mi225mogni6"]
+[gd_scene load_steps=12 format=3 uid="uid://b8mi225mogni6"]
 
-[ext_resource type="Shader" uid="uid://q3ef5nu4r4sx" path="res://shaders/edge_blur.gdshader" id="1"]
 [ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
 [ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="4_2rd6h"]
+[ext_resource type="PackedScene" uid="uid://cid07v6l1k0ng" path="res://scripts/Roomba.tscn" id="4_qy1jj"]
+[ext_resource type="AudioStream" uid="uid://b8d671trnb2rc" path="res://mus/numbers game.ogg" id="5_g4kob"]
 [ext_resource type="PackedScene" uid="uid://02p7fju71mbr" path="res://objects/levelgen/levelgen.tscn" id="6_g4kob"]
 [ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/maidenclass/Drone.tscn" id="7"]
-[ext_resource type="PackedScene" uid="uid://baaduknkc7lck" path="res://objects/UI/DebugUI.tscn" id="9"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
-[ext_resource type="PackedScene" uid="uid://56pvtfgiqexu" path="res://objects/BackgroundOrb.tscn" id="11"]
-[ext_resource type="AudioStream" uid="uid://be7dpvb7isxju" path="res://mus/clicker training.ogg" id="19"]
 
 [sub_resource type="Environment" id="Environment_y5y3l"]
 background_mode = 3
 background_color = Color(1, 1, 1, 1)
+background_canvas_max_layer = -1
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 
@@ -47,11 +46,6 @@ _data = {
 &"new_level": SubResource("8")
 }
 
-[sub_resource type="ShaderMaterial" id="9"]
-shader = ExtResource("1")
-shader_parameter/blur_quality = 50.0
-shader_parameter/radius = -0.06
-
 [node name="Root" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -84,11 +78,21 @@ current = true
 far = 1000.0
 script = ExtResource("4_2rd6h")
 
+[node name="Roomba" parent="Game" instance=ExtResource("4_qy1jj")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 5.83945, 1.47942, 8.41028)
+
+[node name="Roomba2" parent="Game" instance=ExtResource("4_qy1jj")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 3.16103, 1.47942, 10.7327)
+
+[node name="Roomba3" parent="Game" instance=ExtResource("4_qy1jj")]
+transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 8.33515, 1.47942, 4.71639)
+
 [node name="Player" parent="Game" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4, 3, 4)
 
 [node name="Music" type="AudioStreamPlayer" parent="Game"]
-stream = ExtResource("19")
+stream = ExtResource("5_g4kob")
+autoplay = true
 bus = &"Music"
 
 [node name="Levelgen" parent="Game" instance=ExtResource("6_g4kob")]
@@ -97,39 +101,3 @@ bus = &"Music"
 libraries = {
 &"": SubResource("AnimationLibrary_qy1jj")
 }
-
-[node name="Composite" type="CanvasLayer" parent="."]
-layer = -1
-visible = false
-
-[node name="BackgroundTexture" type="SubViewportContainer" parent="Composite"]
-material = SubResource("9")
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="SubViewport" type="SubViewport" parent="Composite/BackgroundTexture"]
-handle_input_locally = false
-size = Vector2i(1920, 1080)
-render_target_update_mode = 0
-
-[node name="BackgroundCylinder" parent="Composite/BackgroundTexture/SubViewport" instance=ExtResource("11")]
-visible = false
-
-[node name="GameTexture" type="SubViewportContainer" parent="Composite"]
-offset_right = 1920.0
-offset_bottom = 1080.0
-
-[node name="SubViewport" type="SubViewport" parent="Composite/GameTexture"]
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(1920, 1080)
-render_target_update_mode = 0
-
-[node name="DebugUI" parent="." instance=ExtResource("9")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_left = 0.0
-anchor_right = 0.0
-offset_left = 0.0
-offset_right = 337.0

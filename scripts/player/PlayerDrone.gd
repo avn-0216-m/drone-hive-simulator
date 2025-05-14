@@ -9,7 +9,7 @@ enum Icons {DOWN=0, UP=1, NO=2, QUESTION=3, SOUND=4, BATTERY=5, NOBATTERY=6}
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
 var speed: float = 5.0 # Base speed
-var sprint: float = 7.0 * 2 # Sprinting speed
+var sprint: float = 7.0 * 1 # Sprinting speed
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 var base_velocity: Vector3 = Vector3(0,0,0)
 
@@ -37,20 +37,13 @@ var base_velocity: Vector3 = Vector3(0,0,0)
 
 @onready var beepboop_src = preload("res://objects/Beepboop.tscn")
 
+var focus: Node
+
 var nearby: Node # holds the nearest interactable object that the drone is facing
 
-var id: String = "0000"
-var headbob_offset: Vector2 = Vector2(2.4, 2.3) #y if head is dipped, else x.
+var look_target = Vector3(0,0,0)
 
 var immobile: bool = false
-
-var move_up = 1
-var move_down = 2
-var move_left = 4
-var move_right = 8
-var inventory_left = 16
-var inventory_right = 32
-var interact_btn = 64
 
 func _ready():
 	print("drone ready???")
@@ -87,27 +80,28 @@ func get_move_speed():
 		return sprint
 	else:
 		return speed
-	
-func get_nearbys() -> Node:
-	var nearby_bodies = interact_area.get_overlapping_bodies()
-	for body in nearby_bodies:
-		if body is Interactable and body.type != body.Type.NONE:
-			return body
-	return null
-
-func _process(delta):
-	
-	if position.y < -3:
-		emit_signal("respawn")
+		
+func get_nearby_objects():
+	for body in interact_area.get_overlapping_bodies():
+		if body is not Interactable: continue
+		focus = body
 		return
-
+	focus = null
+		
+func handle_movement():
+	var movement = Vector3(0,0,0)
+	if Input.is_action_pressed("move_up"):
+		movement.z = -1
+	if Input.is_action_pressed("move_down"):
+		movement.z = 1
+	if Input.is_action_pressed("move_left"):
+		movement.x = -1
+	if Input.is_action_pressed("move_right"):
+		movement.x = 1
 	
-	var movement = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	movement = Vector3(movement.x, 0, movement.y)
 	if movement == Vector3.ZERO:
-		velocity = lerp(velocity, Vector3.ZERO, 0.9)
 		if $Body/AnimationPlayer.get_current_animation() not in ["Sit", "Snooze"]:
-			$Body/AnimationPlayer.play("RESET")
+			$Body/AnimationPlayer.play("Pause")
 			$Body/AnimationPlayer.queue("Sit")
 			$Body/AnimationPlayer.queue("Snooze")
 	else:
@@ -126,68 +120,44 @@ func _process(delta):
 		$Body/AnimationPlayer.speed_scale = 1
 		$Body/Mesh/Dust.emitting = false
 
-	velocity = movement.normalized() * get_move_speed()
-	#velocity.y = -5
-		
+	if movement == Vector3.ZERO:
+		velocity = lerp(velocity, Vector3.ZERO, 0.9)
+	else:
+		velocity = movement.normalized() * get_move_speed()
 	move_and_slide()
 	
-	nearby = get_nearbys()
+func handle_actions():
+	if Input.is_action_just_pressed("interact"):
+		interact()
+		
+	if Input.is_action_just_pressed("beep"):
+		print("Beep!")
+	
+	if $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus != null:
+		var before_look = $Body/Mesh/Body/Head.rotation_degrees
+		$Body/Mesh/Body/Head.look_at(focus.global_position, Vector3.UP, true)
+		var after_look = $Body/Mesh/Body/Head.rotation_degrees
+		after_look.y = clampf(after_look.y, -50, 50)
+		after_look.x = clampf(after_look.x, -10, 10)
+		look_target = after_look
+		$Body/Mesh/Body/Head.rotation_degrees = before_look
+		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2) 
+	else:
+		look_target = Vector3(0,0,0)
+	
+	
+
+func _process(delta):
+	
+	if position.y < -3:
+		emit_signal("respawn")
+		return
+
+	handle_movement()
+	get_nearby_objects()
+	handle_actions()
 
 	
 func interact():
-	if nearby == null:
-		if inventory.item_selected:
-			var item = inventory.pop_item()
-			if item.parent.has_method("to_local"):
-				item.position = item.parent.to_local(drop_location.get_global_transform().origin)
-			item.parent.add_child(item)
-			item.emit_signal("dropped")
-			show_icon(Icons.DOWN)
-		else:
-			# select inventory item
-			inventory.select_item()
-	elif nearby is Pickup:
-		if inventory.current_slot_empty():
-			var item = nearby.interact(self)
-			inventory.set_item(item)
-			show_icon(Icons.UP)
-		else:
-			UI.log("You're already holding something.")
-			show_icon(Icons.NO)
-	elif nearby is Interactable and not nearby is Pickup:
-		# interact code here. nest additional code for interacting with objects
-		if (nearby.type in [nearby.Type.BOTH, nearby.Type.ITEMS] and 
-		inventory.item_selected):
-			var inv_item = inventory.get_item()
-			var result = inv_item.use_on(nearby)
-			if result == inv_item.Result.FAIL:
-				UI.log(
-					"You cannot use " + 
-					inv_item.interactable_name + 
-					" on the " + 
-					nearby.interactable_name + 
-					"."
-				)
-				inventory.play_sfx(inventory.Sfx.LOW)
-				show_icon(Icons.NO)
-			elif result == inv_item.Result.CONSUMED:
-				inventory.play_sfx(inventory.Sfx.HIGH)
-				inventory.delete_item()
-			elif result == inv_item.Result.WRONG_VARIANT:
-				inventory.play_sfx(inventory.Sfx.LOW)
-			else:
-				inventory.play_sfx(inventory.Sfx.HIGH)
-		elif (nearby.type == nearby.Type.ITEMS and !inventory.item_selected):
-			UI.log(
-				"You need to use an item on the " + 
-				nearby.interactable_name + 
-				"."
-			)
-			inventory.play_sfx(inventory.Sfx.LOW)
-		elif (nearby.type in [nearby.Type.BOTH, nearby.Type.DIRECT]):
-			nearby.interact(self)
-		elif (nearby.type == nearby.Type.NONE):
-			UI.log("You cannot use the " + nearby.interactable_name + ".")
-			inventory.play_sfx(inventory.Sfx.LOW)
-	else:
-		inventory.play_sfx(inventory.Sfx.LOW)
+	if focus != null and focus is Interactable:
+		focus.interact(null)

@@ -10,13 +10,11 @@ var start_rooms = [
 	]
 	
 var rooms = [
-	"test1.tscn",
-	"test2.tscn",
-	"test3.tscn",
-	"test4.tscn",
-	"test5.tscn",
-	"test6.tscn",
-	"test7.tscn"
+	"Bathroom1.tscn",
+	"Bedroom1.tscn",
+	"Bedroom2.tscn",
+	"Test1.tscn",
+	"Test2.tscn"
 	]
 
 	

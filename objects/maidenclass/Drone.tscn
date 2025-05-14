@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://bsekk4e6xei3j"]
+[gd_scene load_steps=42 format=4 uid="uid://bsekk4e6xei3j"]
 
 [ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
@@ -137,7 +137,7 @@ tracks/9/keys = {
 }
 tracks/10/type = "value"
 tracks/10/imported = false
-tracks/10/enabled = true
+tracks/10/enabled = false
 tracks/10/path = NodePath("Mesh/Body/Head:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
@@ -186,7 +186,7 @@ tracks/13/keys = {
 
 [sub_resource type="Animation" id="Animation_75lo2"]
 resource_name = "Sit"
-length = 5.5
+length = 3.5
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -195,7 +195,7 @@ tracks/0/path = NodePath("Mesh/Body/R Arm:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector3(0, 0, 0)]
@@ -207,7 +207,7 @@ tracks/1/path = NodePath("Mesh/Body/L Arm:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector3(0, 0, 0)]
@@ -219,7 +219,7 @@ tracks/2/path = NodePath("Mesh/R Leg:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector3(0, 0, 0)]
@@ -231,7 +231,7 @@ tracks/3/path = NodePath("Mesh/L Leg:rotation_degrees")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(2),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector3(0, 0, 0)]
@@ -243,7 +243,7 @@ tracks/4/path = NodePath("Mesh:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(2, 2.6),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector3(0, 0.4, 0), Vector3(0, -1, 0)]
@@ -255,7 +255,7 @@ tracks/5/path = NodePath("Mesh/Body:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(2, 2.3, 2.6),
+"times": PackedFloat32Array(0, 0.3, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(0.349066, 0, 0), Vector3(-0.174533, 0, 0)]
@@ -267,7 +267,7 @@ tracks/6/path = NodePath("Mesh/Body/L Arm:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(2, 2.3, 2.8),
+"times": PackedFloat32Array(0, 0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, -0.261799), Vector3(0, 0, 0.261799)]
@@ -279,7 +279,7 @@ tracks/7/path = NodePath("Mesh/Body/R Arm:rotation")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(2, 2.3, 2.8),
+"times": PackedFloat32Array(0, 0.3, 0.8),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.261799), Vector3(0, 0, -0.261799)]
@@ -291,7 +291,7 @@ tracks/8/path = NodePath("Mesh/R Leg:rotation")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PackedFloat32Array(2, 2.6),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(-1.48353, -0.349066, 0)]
@@ -303,7 +303,7 @@ tracks/9/path = NodePath("Mesh/L Leg:rotation")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(2, 2.6),
+"times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(-1.48353, 0.349066, 0)]
@@ -315,7 +315,7 @@ tracks/10/path = NodePath("Mesh/Body/Head:rotation")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(2, 3, 5),
+"times": PackedFloat32Array(0, 1, 3),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [Vector3(0, 0, 0), Vector3(0.174533, 0, 0), Vector3(0.261799, 0, 0)]
@@ -588,8 +588,181 @@ tracks/6/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_n56me"]
+resource_name = "Pause"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Mesh/Body/R Arm:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Mesh/Body/L Arm:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Mesh/R Leg:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh/L Leg:rotation_degrees")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.4, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Mesh/Body:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Mesh/Body/L Arm:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Mesh/Body/R Arm:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Mesh/R Leg:rotation")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Mesh/L Leg:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = false
+tracks/10/path = NodePath("Mesh/Body/Head:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("Mesh/Body:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -0.63, 0)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("Mesh/Snore:emitting")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("Mesh/Body/Head/Screen:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_if32a"]
 _data = {
+&"Pause": SubResource("Animation_n56me"),
 &"RESET": SubResource("10"),
 &"Sit": SubResource("Animation_75lo2"),
 &"Snooze": SubResource("Animation_dsn33"),
@@ -830,7 +1003,7 @@ material = SubResource("StandardMaterial3D_if32a")
 
 [sub_resource type="BoxShape3D" id="13"]
 margin = 0.4
-size = Vector3(4.64354, 7.50182, 3.35734)
+size = Vector3(4.44921, 5.11367, 6.80808)
 
 [sub_resource type="StandardMaterial3D" id="14"]
 transparency = 2
@@ -890,6 +1063,7 @@ skeleton = NodePath("../..")
 
 [node name="Screen" type="MeshInstance3D" parent="Body/Mesh/Body/Head"]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -0.0565831, 0.0473394, 0.696282)
+visible = false
 mesh = SubResource("8")
 
 [node name="R Arm" type="MeshInstance3D" parent="Body/Mesh/Body"]
@@ -933,11 +1107,11 @@ process_material = SubResource("ParticleProcessMaterial_7tqpq")
 draw_pass_1 = SubResource("QuadMesh_ipv7r")
 
 [node name="InteractArea" type="Area3D" parent="Body"]
-transform = Transform3D(0.0222212, 0, -0.833037, 0, 0.833333, 0, 0.833037, 0, 0.0222212, 0.0399849, 2.96939, 1.49897)
-visible = false
+transform = Transform3D(0.0222212, 0, -0.833037, 0, 0.833333, 0, 0.833037, 0, 0.0222212, 0.0399849, 2.96939, 1.19726)
+monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/InteractArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.42757, 0, 1.40259e-07)
+transform = Transform3D(1.00003, 0, -5.02914e-08, 0, 1.00003, 0, 5.02914e-08, 0, 1.00003, 1.63827, -4.372, -0.242351)
 shape = SubResource("13")
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
@@ -981,3 +1155,9 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0554005, -0.812089, -0.0147358)
 shape = SubResource("BoxShape3D_if32a")
 debug_fill = false
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
+
+[connection signal="body_entered" from="Body/InteractArea" to="." method="body_entered_interaction_area"]
+[connection signal="body_exited" from="Body/InteractArea" to="." method="body_exited_interaction_area"]

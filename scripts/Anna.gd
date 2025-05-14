@@ -1,4 +1,4 @@
-extends Pickup
+extends CharacterBody3D
 class_name Anna
 
 var jump: Vector3 = Vector3(0,0,0) # Jump velocity.
@@ -23,17 +23,14 @@ signal spawn_level_obj(inst)
 @onready var battery_src = load("res://objects/Battery.tscn")
 
 func _ready():
-	gravity = 0.5
 	sprite.animation = "bob"
 	$Particles.emitting = false
 	timer.connect("timeout", Callable(self, "new_action"))
-	super._ready()
 	
 func body_nearby(body):
 	if body is Drone:
 		timer.set_paused(true)
 		sprite.animation = "fly"
-		gravity = 0
 		var anim = $AnimationPlayer.get_animation("fly away")
 		var idx = anim.find_track(".:position:y")
 		anim.track_set_key_value(idx, 0, position.y)
@@ -44,11 +41,7 @@ func drop_battery():
 	emit_signal("spawn_level_obj", battery_src.instantiate(), get_global_transform().origin)
 
 func _physics_process(delta):
-	
-	if skip_process:
-		return
-	
-	jump.y = apply_gravity(jump)
+
 	set_velocity(jump)
 	move_and_slide()
 	if is_on_floor():
@@ -117,8 +110,6 @@ func new_action():
 
 func interact(interactor):
 	$Chirp.play(0)
-	if randi() % skittishness == 0 or true:
-		return super.interact(interactor)
 	UI.log("Anna slips right out of your hands.")
 	return null
 	
