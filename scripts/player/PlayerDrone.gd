@@ -9,7 +9,7 @@ enum Icons {DOWN=0, UP=1, NO=2, QUESTION=3, SOUND=4, BATTERY=5, NOBATTERY=6}
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
 var speed: float = 5.0 # Base speed
-var sprint: float = 7.0 # Sprinting speed
+var sprint: float = 7.0 * 2 # Sprinting speed
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 var base_velocity: Vector3 = Vector3(0,0,0)
 
