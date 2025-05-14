@@ -133,6 +133,8 @@ func handle_actions():
 	if Input.is_action_just_pressed("beep"):
 		print("Beep!")
 	
+	print(focus)
+	print(focus)
 	if $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus != null:
 		var before_look = $Body/Mesh/Body/Head.rotation_degrees
 		$Body/Mesh/Body/Head.look_at(focus.global_position, Vector3.UP, true)
@@ -142,8 +144,10 @@ func handle_actions():
 		look_target = after_look
 		$Body/Mesh/Body/Head.rotation_degrees = before_look
 		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2) 
-	else:
+	elif $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus == null:
 		look_target = Vector3(0,0,0)
+		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2)
+		
 	
 	
 
