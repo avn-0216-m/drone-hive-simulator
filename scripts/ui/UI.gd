@@ -1,7 +1,7 @@
 extends Control
 
 @onready var activity_log = get_node("Anchor/ActivityLog")
-@onready var label_src = load("res://objects/ui/TemporaryLabel.tscn")
+@onready var label_src = load("res://objects/UI/TemporaryLabel.tscn")
 
 @onready var task_list = get_node("Anchor/TaskList")
 

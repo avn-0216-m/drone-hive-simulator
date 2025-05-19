@@ -1,5 +1,5 @@
 extends Interactable
 
-func interact(item):
+func interact(item, interactor):
 	UI.log("A mini beeper!")
 	

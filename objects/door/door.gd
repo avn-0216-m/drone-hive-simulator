@@ -2,7 +2,7 @@ extends Interactable
 
 var open: bool = false
 
-func interact(item: Node):
+func interact(item: Node, interactor: Node):
 	if not open:
 		open = true
 		UI.log("You open the door.")

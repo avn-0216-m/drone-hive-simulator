@@ -164,4 +164,4 @@ func _process(delta):
 	
 func interact():
 	if focus != null and focus is Interactable:
-		focus.interact(null)
+		focus.interact(null, self)

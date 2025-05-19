@@ -9,12 +9,12 @@ class_name Room
 	) var room_type: int
 	
 @export var potentials: Array = []
-@onready var foundations = get_node("Foundations")
+@onready var foundations: GridMap = get_node("Foundations")
+@onready var decor: GridMap = get_node("Decor")
 @onready var door_src = load("res://objects/door/scifidoor.tscn")
 
 func get_potentials():
 	return potentials
-
 
 func setup_doors():
 	for potential in potentials:

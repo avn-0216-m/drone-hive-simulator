@@ -9,20 +9,42 @@ var start_rooms = [
 	"start1.tscn"
 	]
 	
-var rooms = [
+var room_pool = [
 	"Bathroom1.tscn",
 	"Bedroom1.tscn",
 	"Bedroom2.tscn",
-	"Test1.tscn",
-	"Test2.tscn"
+	"test1.tscn",
+	"test2.tscn",
+	"FlowerRoom.tscn"
 	]
 
-	
+# Dictionary of every decor item that can be spawned as a real object
+# Key = Corresponding meshlib ID
+# Value = Path to object
+var spawnables = {
+	21: "res://objects/flower/Flower.tscn"
+}
+
+# Grabbing child nodes as variables
+@onready var rooms: Node3D = get_node("Rooms")
+@onready var objects: Node3D = get_node("Objects")
+@onready var walkways: GridMap = get_node("Walkways")
 @onready var placeholders: GridMap = get_node("Placeholders")
 
 func set_walkways():
 	for cell in placeholders.get_used_cells_by_item(1):
 		$Walkways.set_cell_item(cell, 0, placeholders.get_cell_item_orientation(cell))
+
+func spawn_decor(rooms):
+	# Iterates over all instanced rooms, and replaces meshlibrary cells
+	# with real objects where possible.
+	for room in rooms:
+		for key in spawnables.keys():
+			for cell in room.decor.get_used_cells_by_item(key):
+				var obj = load(spawnables[key]).instantiate()
+				obj.position = room.position + Vector3(cell * 2)
+				objects.add_child(obj)
+				room.decor.set_cell_item(cell, -1)
 
 func placehold_room(room: Node):
 	var offset = Vector3i(room.position/2)
@@ -93,10 +115,10 @@ func _process(_delta):
 		new_level()
 		
 func cleanup():
-	for node in $Rooms.get_children():
+	for node in rooms.get_children():
 		node.queue_free()
 	placeholders.clear()
-	$Walkways.clear()
+	walkways.clear()
 
 func _ready():
 	new_level()
@@ -111,7 +133,7 @@ func new_level():
 	var potentials: Array = []
 
 	var start = load(room_root + start_rooms[0]).instantiate()
-	$Rooms.add_child(start)
+	rooms.add_child(start)
 	placehold_room(start)
 	potentials.append_array(start.potentials)
 	instanced_rooms.append(start)
@@ -136,8 +158,8 @@ func new_level():
 			16: target = 22
 			22: target = 16
 
-		var room = load(room_root + rooms.pick_random()).instantiate() #TODO: ID-based RNG.
-		$Rooms.add_child(room)
+		var room = load(room_root + room_pool.pick_random()).instantiate() #TODO: ID-based RNG.
+		rooms.add_child(room)
 		room.position = start_potential.room.position
 		
 		# Don't use a room if it isn't supposed to spawn yet.
@@ -162,7 +184,7 @@ func new_level():
 		# e.g, with a walkway snaking between a small gap formed by two other
 		# rooms.
 		# It's a very minor effect that I don't imagine will come up in standard
-		# gameplay, but whatever.
+		# gameplay, but it's important to me. :)
 		for i in range(min_walkway_length, max_walkway_length + 1):
 			start_potential.length = i
 			end_potential.length = i 
@@ -200,11 +222,13 @@ func new_level():
 			# the walkway being clear.
 			end_potential.room.queue_free()
 
-	# Finally, setup all the instanced rooms. 
+	# Iterate over all instanced rooms, and turn any valid potentials into door objects
+	# or walls, if invalid.
 	for room in instanced_rooms:
 		room.setup_doors()
-	print("Rooms instanced: " + str(len(instanced_rooms)))
 	
 	trim_stray_placeholders(instanced_rooms)
+	spawn_decor(instanced_rooms)
 	set_walkways()
 	
+	print("Rooms instanced: " + str(len(instanced_rooms)))

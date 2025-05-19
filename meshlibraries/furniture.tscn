@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=4 uid="uid://b7hju73q81iwq"]
+[gd_scene load_steps=101 format=4 uid="uid://b7hju73q81iwq"]
 
 [ext_resource type="Material" path="res://blender/bedside table/export/Handle.material" id="1"]
 [ext_resource type="Material" path="res://blender/record player/export/Record.material" id="2"]
@@ -55,6 +55,7 @@
 [ext_resource type="Material" path="res://blender/showerhead/export/Metal.material" id="53"]
 [ext_resource type="Material" path="res://blender/bathmat/export/Material.material" id="54"]
 [ext_resource type="Texture2D" uid="uid://c7kdfxmve7b3c" path="res://blender/analogclock/analogclock_onemesh_74d90cc05c5fdd48b005ece6dbff2d4f.jpg" id="55_gtey4"]
+[ext_resource type="Texture2D" uid="uid://id2aqf4evrk7" path="res://objects/flower/flower.png" id="56_lbfa8"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "bed_Cube"
@@ -988,6 +989,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vufai")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xd8ss"]
+transparency = 1
+albedo_texture = ExtResource("56_lbfa8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_gle0s"]
+material = SubResource("StandardMaterial3D_xd8ss")
+size = Vector2(1, 2)
+center_offset = Vector3(0, 1, 0)
+orientation = 0
+
 [node name="Objects" type="Node3D"]
 
 [node name="Bed" type="MeshInstance3D" parent="."]
@@ -1158,3 +1169,7 @@ mesh = SubResource("41")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.39018, 2.53028, 2.4284)
 mesh = SubResource("ArrayMesh_bdejo")
 skeleton = NodePath("")
+
+[node name="Flower" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.0106)
+mesh = SubResource("QuadMesh_gle0s")
