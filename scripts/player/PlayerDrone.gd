@@ -133,8 +133,6 @@ func handle_actions():
 	if Input.is_action_just_pressed("beep"):
 		print("Beep!")
 	
-	print(focus)
-	print(focus)
 	if $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus != null:
 		var before_look = $Body/Mesh/Body/Head.rotation_degrees
 		$Body/Mesh/Body/Head.look_at(focus.global_position, Vector3.UP, true)

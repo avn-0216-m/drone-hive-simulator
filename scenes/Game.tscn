@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8mi225mogni6"]
+[gd_scene load_steps=13 format=3 uid="uid://b8mi225mogni6"]
 
 [ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
 [ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="4_2rd6h"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b8d671trnb2rc" path="res://mus/numbers game.ogg" id="5_g4kob"]
 [ext_resource type="PackedScene" uid="uid://02p7fju71mbr" path="res://objects/levelgen/levelgen.tscn" id="6_g4kob"]
 [ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/maidenclass/Drone.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://cgu01k8xinl5l" path="res://objects/TaskList/task_list.tscn" id="8_400sg"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
 
 [sub_resource type="Environment" id="Environment_y5y3l"]
@@ -49,8 +50,8 @@ _data = {
 [node name="Root" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+offset_right = 1366.0
+offset_bottom = 768.0
 script = ExtResource("10")
 
 [node name="Game" type="Node" parent="."]
@@ -100,3 +101,6 @@ bus = &"Music"
 libraries = {
 &"": SubResource("AnimationLibrary_qy1jj")
 }
+
+[node name="TaskList" parent="." instance=ExtResource("8_400sg")]
+layout_mode = 1

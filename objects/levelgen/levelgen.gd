@@ -43,6 +43,7 @@ func spawn_decor(rooms):
 			for cell in room.decor.get_used_cells_by_item(key):
 				var obj = load(spawnables[key]).instantiate()
 				obj.position = room.position + Vector3(cell * 2)
+				obj.position += Vector3(1, 3, 1)
 				objects.add_child(obj)
 				room.decor.set_cell_item(cell, -1)
 

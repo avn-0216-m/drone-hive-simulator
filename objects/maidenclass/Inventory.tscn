@@ -83,17 +83,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.371107, 0, 0)
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -1.04975, 0.116518, 0)
 material_override = SubResource("StandardMaterial3D_2ndi7")
 modulate = Color(1, 0.6, 1, 1)
-texture = null
 
 [node name="Slot2" parent="Slots" instance=ExtResource("4")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.030953, 0.0999999, 0)
 material_override = SubResource("StandardMaterial3D_4dicw")
-texture = null
 
 [node name="Slot3" parent="Slots" instance=ExtResource("4")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 1.13341, 0.0999999, 0)
 material_override = SubResource("StandardMaterial3D_17dmi")
-texture = null
 
 [node name="Battery" type="Sprite3D" parent="Slots"]
 transform = Transform3D(-1.31134e-07, 3, 0, -3, -1.31134e-07, 0, 0, 0, 3, 2.21641, 0.1, 0)
