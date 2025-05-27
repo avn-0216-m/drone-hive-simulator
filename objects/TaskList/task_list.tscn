@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://cgu01k8xinl5l"]
+[gd_scene load_steps=9 format=3 uid="uid://cgu01k8xinl5l"]
 
 [ext_resource type="Script" uid="uid://u5lildjxw0oy" path="res://objects/TaskList/task_list.gd" id="1_gs0jb"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kiw3p"]
-width = 352
+[sub_resource type="Gradient" id="Gradient_gs0jb"]
+colors = PackedColorArray(0.947199, 0.947199, 0.947199, 1, 0.878879, 0.880556, 0.803476, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_y0igv"]
+gradient = SubResource("Gradient_gs0jb")
 
 [sub_resource type="Curve" id="Curve_gs0jb"]
 
@@ -134,7 +137,7 @@ offset_right = 176.0
 offset_bottom = 256.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("NoiseTexture2D_kiw3p")
+texture = SubResource("GradientTexture1D_y0igv")
 
 [node name="TextureRect" type="TextureRect" parent="Control/TextureRect"]
 modulate = Color(1, 1, 1, 0.317647)
