@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlf4f41lb67i5"]
+
+[ext_resource type="FontFile" uid="uid://ckvqohkwr32ot" path="res://fonts/vcr osd.ttf" id="1_41bon"]
+[ext_resource type="Script" uid="uid://din0dwinnhehx" path="res://objects/TaskList/task_list_item.gd" id="1_naym3"]
+
+[node name="TaskListItem" type="RichTextLabel"]
+custom_minimum_size = Vector2(200, 20)
+offset_right = 139.0
+offset_bottom = 23.0
+theme_override_fonts/normal_font = ExtResource("1_41bon")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "LOCK THE FUCK IN!!!"
+scroll_active = false
+script = ExtResource("1_naym3")
+
+[node name="MutateTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true

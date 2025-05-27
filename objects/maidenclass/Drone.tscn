@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://bsekk4e6xei3j"]
+[gd_scene load_steps=44 format=4 uid="uid://bsekk4e6xei3j"]
 
 [ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://ncknx23s8v16" path="res://sfx/sprint2.ogg" id="11"]
 [ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="12"]
 [ext_resource type="Material" path="res://objects/maidenclass/Your New Flesh.material" id="13"]
+[ext_resource type="PackedScene" uid="uid://cgu01k8xinl5l" path="res://objects/TaskList/task_list.tscn" id="13_uinai"]
 [ext_resource type="Material" path="res://objects/maidenclass/Screen.material" id="14"]
 [ext_resource type="Material" path="res://objects/maidenclass/DRESSY.material" id="15"]
 [ext_resource type="Material" path="res://objects/maidenclass/Helmet Brace.material" id="16"]
@@ -1005,6 +1006,10 @@ material = SubResource("StandardMaterial3D_if32a")
 margin = 0.4
 size = Vector3(4.44921, 5.11367, 6.80808)
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n56me"]
+height = 10.861
+radius = 50.0
+
 [sub_resource type="StandardMaterial3D" id="14"]
 transparency = 2
 alpha_scissor_threshold = 1.0
@@ -1063,7 +1068,6 @@ skeleton = NodePath("../..")
 
 [node name="Screen" type="MeshInstance3D" parent="Body/Mesh/Body/Head"]
 transform = Transform3D(0.9, 0, 0, 0, 0.9, 0, 0, 0, 1, -0.0565831, 0.0473394, 0.696282)
-visible = false
 mesh = SubResource("8")
 
 [node name="R Arm" type="MeshInstance3D" parent="Body/Mesh/Body"]
@@ -1117,6 +1121,11 @@ shape = SubResource("13")
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = 2.0
 
+[node name="TaskFindArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TaskFindArea"]
+shape = SubResource("CylinderShape3D_n56me")
+
 [node name="BatteryParticles" type="CPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.21892)
 material_override = SubResource("14")
@@ -1158,6 +1167,8 @@ debug_fill = false
 
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 current = true
+
+[node name="TaskList" parent="." instance=ExtResource("13_uinai")]
 
 [connection signal="body_entered" from="Body/InteractArea" to="." method="body_entered_interaction_area"]
 [connection signal="body_exited" from="Body/InteractArea" to="." method="body_exited_interaction_area"]

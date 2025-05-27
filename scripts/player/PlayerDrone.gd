@@ -8,8 +8,12 @@ enum Icons {DOWN=0, UP=1, NO=2, QUESTION=3, SOUND=4, BATTERY=5, NOBATTERY=6}
 
 # Drone movement statistics
 var burden: float = 0.2 # How much carrying an item slows you.
-var speed: float = 5.0 # Base speed
-var sprint: float = 7.0 * 1 # Sprinting speed
+
+var walk_speed: float = 5.0 # Base speed
+var sprint_speed: float = 7.0 * 1 # Sprinting speed
+var read_speed: float = 2.0 # How fast drone moves while reading task list.
+var current_speed: float = walk_speed # Holds which speed value to use for movement calcs
+
 var sprint_drain: float = 0.3 # How much more battery drains while sprinting
 var base_velocity: Vector3 = Vector3(0,0,0)
 
@@ -74,12 +78,6 @@ func show_icon(index: int = 0):
 
 func toggle_display():
 	display_container.visible = !display_container.visible
-	
-func get_move_speed():
-	if Input.is_action_pressed("move_sprint"):
-		return sprint
-	else:
-		return speed
 		
 func get_nearby_objects():
 	for body in interact_area.get_overlapping_bodies():
@@ -112,18 +110,23 @@ func handle_movement():
 			$Body/AnimationPlayer.clear_queue()
 			$Body/AnimationPlayer.play("RESET")
 			$Body/AnimationPlayer.queue("Walk")
-			
-	if Input.is_action_pressed("move_sprint") and movement != Vector3.ZERO:
+	
+	if Input.is_action_pressed("task_list"):
+		$Body/AnimationPlayer.speed_scale = 0.5
+		current_speed = read_speed
+	elif Input.is_action_pressed("move_sprint") and movement != Vector3.ZERO:
 		$Body/AnimationPlayer.speed_scale = 2
 		$Body/Mesh/Dust.emitting = true
+		current_speed = sprint_speed
 	else:
 		$Body/AnimationPlayer.speed_scale = 1
 		$Body/Mesh/Dust.emitting = false
+		current_speed = walk_speed
 
 	if movement == Vector3.ZERO:
 		velocity = lerp(velocity, Vector3.ZERO, 0.9)
 	else:
-		velocity = movement.normalized() * get_move_speed()
+		velocity = movement.normalized() * current_speed
 	move_and_slide()
 	
 func handle_actions():
@@ -132,6 +135,14 @@ func handle_actions():
 		
 	if Input.is_action_just_pressed("beep"):
 		print("Beep!")
+		
+	if Input.is_action_just_pressed("task_list"):
+		var tasks = $TaskFindArea.get_overlapping_bodies()
+		var filtered_tasks = []
+		for task in tasks:
+			if task is Interactable and task.task != null:
+				filtered_tasks.append(task)
+		$TaskList.show_tasks(filtered_tasks)
 	
 	if $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus != null:
 		var before_look = $Body/Mesh/Body/Head.rotation_degrees

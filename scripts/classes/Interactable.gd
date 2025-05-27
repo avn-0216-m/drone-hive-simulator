@@ -1,6 +1,16 @@
 extends CharacterBody3D
 class_name Interactable
-	
+
+var task: Task = Task.new()
+@export var task_name: String = "DEFAULTSTRING!!"
+
+func _ready():
+	if task_name == "null":
+		task = null
+	else:
+		task.task_name = task_name
+		task.task_object = self
+
 func interact(item: Node, interactor: Node):
 	return
 	
