@@ -34,6 +34,9 @@ var base_velocity: Vector3 = Vector3(0,0,0)
 @onready var south_ray = get_node("SouthRaycast")
 @onready var north_ray = get_node("NorthRaycast")
 
+@onready var body_animation = get_node("Body/BodyAnimation")
+@onready var arms_animation = get_node("Body/ArmsAnimation")
+
 @onready var pickup_area = get_node("PickupArea")
 @onready var interact_area = get_node("Body/InteractArea")
 
@@ -98,28 +101,36 @@ func handle_movement():
 		movement.x = 1
 	
 	if movement == Vector3.ZERO:
-		if $Body/AnimationPlayer.get_current_animation() not in ["Sit", "Snooze"]:
-			$Body/AnimationPlayer.play("Pause")
-			$Body/AnimationPlayer.queue("Sit")
-			$Body/AnimationPlayer.queue("Snooze")
+		if body_animation.get_current_animation() not in ["Sit", "Snooze"]:
+			body_animation.play("Pause")
+			body_animation.queue("Sit")
+			body_animation.queue("Snooze")
+		if arms_animation.get_current_animation() != "Read":
+			arms_animation.play("RESET")
 	else:
 		var dir = position - movement
 		body.look_at(dir)
 		body.rotation_degrees = Vector3(0, snapped(body.rotation_degrees.y, 45), 0)
-		if $Body/AnimationPlayer.get_current_animation() != "Walk":
-			$Body/AnimationPlayer.clear_queue()
-			$Body/AnimationPlayer.play("RESET")
-			$Body/AnimationPlayer.queue("Walk")
+		if body_animation.get_current_animation() != "Walk":
+			body_animation.clear_queue()
+			body_animation.play("RESET")
+			body_animation.queue("Walk")
+			if arms_animation.get_current_animation() != "Read":
+				arms_animation.play("Walk")
+		
 	
 	if Input.is_action_pressed("task_list"):
-		$Body/AnimationPlayer.speed_scale = 0.5
+		body_animation.speed_scale = 0.5
+		arms_animation.speed_scale = 0.5
 		current_speed = read_speed
 	elif Input.is_action_pressed("move_sprint") and movement != Vector3.ZERO:
-		$Body/AnimationPlayer.speed_scale = 2
+		body_animation.speed_scale = 2
+		arms_animation.speed_scale = 2
 		$Body/Mesh/Dust.emitting = true
 		current_speed = sprint_speed
 	else:
-		$Body/AnimationPlayer.speed_scale = 1
+		body_animation.speed_scale = 1
+		arms_animation.speed_scale = 1
 		$Body/Mesh/Dust.emitting = false
 		current_speed = walk_speed
 
@@ -143,8 +154,14 @@ func handle_actions():
 			if task is Interactable and task.task != null:
 				filtered_tasks.append(task)
 		$TaskList.show_tasks(filtered_tasks)
+		arms_animation.play("Read")
+	elif Input.is_action_just_released("task_list"):
+		arms_animation.play("RESET")
+		
 	
-	if $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus != null:
+	if body_animation.get_current_animation() in ["Walk", "Pause"] \
+	and arms_animation.get_current_animation() != "Read" \
+	and focus != null:
 		var before_look = $Body/Mesh/Body/Head.rotation_degrees
 		$Body/Mesh/Body/Head.look_at(focus.global_position, Vector3.UP, true)
 		var after_look = $Body/Mesh/Body/Head.rotation_degrees
@@ -152,8 +169,8 @@ func handle_actions():
 		after_look.x = clampf(after_look.x, -10, 10)
 		look_target = after_look
 		$Body/Mesh/Body/Head.rotation_degrees = before_look
-		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2) 
-	elif $Body/AnimationPlayer.get_current_animation() in ["Walk", "Pause"] and focus == null:
+		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2)
+	elif body_animation.get_current_animation() in ["Walk", "Pause"] and focus == null:
 		look_target = Vector3(0,0,0)
 		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2)
 		
