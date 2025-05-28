@@ -13,6 +13,8 @@ theme_override_font_sizes/normal_font_size = 20
 bbcode_enabled = true
 text = "LOCK THE FUCK IN!!!"
 scroll_active = false
+visible_characters = 0
+visible_ratio = 0.0
 script = ExtResource("1_naym3")
 
 [node name="MutateTimer" type="Timer" parent="."]
