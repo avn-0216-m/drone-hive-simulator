@@ -35,7 +35,18 @@ func set_walkways():
 	for cell in placeholders.get_used_cells_by_item(1):
 		$Walkways.set_cell_item(cell, 0, placeholders.get_cell_item_orientation(cell))
 
-func spawn_decor(rooms):
+func track_tasks():
+	var found_tasks = []
+	print(objects.get_children())
+	for object in objects.get_children():
+		print(object.task_name)
+		if object.task != null:
+			object.task_complete.connect(GLOBAL.task_completed)
+			found_tasks.append(object.task)
+	GLOBAL.incomplete_tasks = found_tasks
+	GLOBAL.task_goal = int(len(found_tasks) * 0.6)
+
+func spawn_objects(rooms):
 	# Iterates over all instanced rooms, and replaces meshlibrary cells
 	# with real objects where possible.
 	for room in rooms:
@@ -117,7 +128,11 @@ func _process(_delta):
 		
 func cleanup():
 	for node in rooms.get_children():
-		node.queue_free()
+		node.free()
+	for node in objects.get_children():
+		node.free()
+	GLOBAL.completed_tasks = []
+	GLOBAL.incomplete_tasks = []
 	placeholders.clear()
 	walkways.clear()
 
@@ -229,7 +244,8 @@ func new_level():
 		room.setup_doors()
 	
 	trim_stray_placeholders(instanced_rooms)
-	spawn_decor(instanced_rooms)
+	spawn_objects(instanced_rooms)
 	set_walkways()
+	track_tasks()
 	
 	print("Rooms instanced: " + str(len(instanced_rooms)))

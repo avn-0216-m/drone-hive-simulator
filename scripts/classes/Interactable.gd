@@ -1,8 +1,10 @@
 extends CharacterBody3D
 class_name Interactable
 
+signal task_complete(task)
+
 var task: Task = Task.new()
-@export var task_name: String = "DEFAULTSTRING!!"
+@export var task_name: String = "DEFAULTSTRING"
 
 func _ready():
 	if task_name == "null":
