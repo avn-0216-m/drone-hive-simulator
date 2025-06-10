@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://k6x6dtriruc3"
-valid=false
+path="res://.godot/imported/scifidoor.blend-1015a7862ff12115d17dd16c7e08b803.scn"
 
 [deps]
 
 source_file="res://blender/scifidoor/scifidoor.blend"
+dest_files=["res://.godot/imported/scifidoor.blend-1015a7862ff12115d17dd16c7e08b803.scn"]
 
 [params]
 

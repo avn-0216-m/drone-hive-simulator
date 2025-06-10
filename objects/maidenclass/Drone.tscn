@@ -1228,7 +1228,7 @@ mesh = SubResource("QuadMesh_3e778")
 skeleton = NodePath("../L Arm")
 
 [node name="Bow" type="MeshInstance3D" parent="Body/Mesh/Body"]
-transform = Transform3D(1, 0, 0, 0, 0.942104, 0.33532, 0, -0.33532, 0.942104, 0.0265951, -0.152623, -0.439664)
+transform = Transform3D(1, 0, 0, 0, 0.995327, -0.096558, 0, 0.096558, 0.995327, 0.0265951, -0.152623, -0.506147)
 mesh = SubResource("4")
 skeleton = NodePath("../..")
 

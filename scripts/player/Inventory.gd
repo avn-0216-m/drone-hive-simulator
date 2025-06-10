@@ -43,7 +43,7 @@ func set_slot_color(selected: bool):
 	update_cursor()
 
 func _physics_process(delta):
-	
+	return
 	if is_instance_valid(parent.nearby) and parent.nearby.get_global_transform().origin != Vector3(0,0,0):
 		cursor_target = to_local(parent.nearby.get_global_transform().origin + parent.nearby.cursor_offset)
 	elif item_selected:
