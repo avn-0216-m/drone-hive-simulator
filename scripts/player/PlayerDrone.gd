@@ -44,13 +44,9 @@ var base_velocity: Vector3 = Vector3(0,0,0)
 
 @onready var beepboop_src = preload("res://objects/Beepboop.tscn")
 
-var focus: Node
-
-var nearby: Node # holds the nearest interactable object that the drone is facing
+var focus: Node # holds the nearest interactable object that the drone is facing
 
 var look_target = Vector3(0,0,0)
-
-var immobile: bool = false
 
 func _ready():
 	print("drone ready???")
@@ -189,5 +185,14 @@ func _process(delta):
 
 	
 func interact():
+	
+	# potential cases:
+	# interact with a pickupable item while no item is in the selected slot: pick it up
+	# interact with nothing with a filled inv slot: prime the slot to drop
+	# interact with nothing while an inventory slot is primed: drop the selected item
+	# interact with nothing with an empty inv slot: do absolutely nothing
+	# interact with an interactable: interact
+	# interact with an interactable with a primed slot: use object on interactable
+	
 	if focus != null and focus is Interactable:
 		focus.interact(null, self)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://b7hju73q81iwq"]
+[gd_scene load_steps=102 format=4 uid="uid://b7hju73q81iwq"]
 
 [ext_resource type="Material" path="res://blender/bedside table/export/Handle.material" id="1"]
 [ext_resource type="Material" path="res://blender/record player/export/Record.material" id="2"]
@@ -999,6 +999,8 @@ size = Vector2(1, 2)
 center_offset = Vector3(0, 1, 0)
 orientation = 0
 
+[sub_resource type="BoxMesh" id="BoxMesh_j41v5"]
+
 [node name="Objects" type="Node3D"]
 
 [node name="Bed" type="MeshInstance3D" parent="."]
@@ -1173,3 +1175,8 @@ skeleton = NodePath("")
 [node name="Flower" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.0106)
 mesh = SubResource("QuadMesh_gle0s")
+
+[node name="Thingiebop" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.545115, 13.6977)
+mesh = SubResource("BoxMesh_j41v5")
+skeleton = NodePath("../Flower")

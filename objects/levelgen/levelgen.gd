@@ -15,14 +15,16 @@ var room_pool = [
 	"Bedroom2.tscn",
 	"test1.tscn",
 	"test2.tscn",
-	"FlowerRoom.tscn"
+	"FlowerRoom.tscn",
+	"ThingieBopRoom.tscn"
 	]
 
 # Dictionary of every decor item that can be spawned as a real object
 # Key = Corresponding meshlib ID
 # Value = Path to object
 var spawnables = {
-	21: "res://objects/flower/Flower.tscn"
+	21: "res://objects/flower/Flower.tscn",
+	22: "res://objects/thingy_bop/thingy_bop.tscn"
 }
 
 # Grabbing child nodes as variables
