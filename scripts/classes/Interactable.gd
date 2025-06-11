@@ -18,6 +18,7 @@ func _ready():
 		task.task_object = self
 		
 	# Clamp the max so nothing fucky happens by accident
+	# Even though I'm reasonably sure Godot supports back-to-front range iteration.
 	sprinkler_max = max(sprinkler_min, sprinkler_max)
 		
 	if sprinkler_source != null:

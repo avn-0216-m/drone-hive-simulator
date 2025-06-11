@@ -50,33 +50,13 @@ var look_target = Vector3(0,0,0)
 
 func _ready():
 	print("drone ready???")
-	inventory.battery.track(battery)
 	#gravity = 0
 	set_colour()
 	
 func set_colour():
 	$Body/Mesh/Body.mesh.surface_get_material(2).albedo_color = GLOBAL.color
 	$Body/Mesh/Body/Head/Screen.mesh.surface_get_material(0).albedo_color = GLOBAL.color
-	
-	
-func toggle_face():
-	if icon_display.visible == true:
-		show_id()
-	else:
-		show_icon()
 
-func show_id():
-	icon_display.visible = false
-	id_display.visible = true
-	
-func show_icon(index: int = 0):
-	icon_display.frame = index
-	icon_display.visible = true
-	id_display.visible = false
-	$FaceTimer.start()
-
-func toggle_display():
-	display_container.visible = !display_container.visible
 		
 func get_nearby_objects():
 	for body in interact_area.get_overlapping_bodies():
@@ -195,4 +175,4 @@ func interact():
 	# interact with an interactable with a primed slot: use object on interactable
 	
 	if focus != null and focus is Interactable:
-		focus.interact(null, self)
+		focus.interact(inventory.get_selected_item(), self)

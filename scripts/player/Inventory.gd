@@ -4,14 +4,17 @@ extends Node3D
 @onready var slots = get_node("Slots")
 @onready var cursor = get_node("Cursor")
 @onready var battery = get_node("Slots/Battery")
-var distance_between_slots: float = 1.1
+@onready var sfx = get_node("SFX")
+
+@export var slot_count: int = 3
+@export var slot_spacing: float = 1.1
+@export var slot_dimming: float = 0.1
 
 var cursor_target: Vector3 = Vector3(0,0,0)
-var current_index: int = 0
+var slot_index: int = 0
 var current_slot = null # Slot accessed via inventory index. Updated every time change_selected_slot is called
-var item_selected = false # If an item has been selected from the inventory.
-
-var timeout: float = 3.0 # How many seconds before the inventory autohides
+var item_selected: bool = false # If an item has been selected from the inventory.
+var selected_item: Node
 
 var slot_colours: Array = [
 	Color(0,0,0),
@@ -22,161 +25,60 @@ var slot_colours: Array = [
 	Color(0,0,0)
 ]
 
-var sfx = [
-	preload("res://sfx/inventory/inventorylow.ogg"),
-	preload("res://sfx/inventory/inventorymid.ogg"),
-	preload("res://sfx/inventory/inventoryhigh.ogg")
+enum Sfx {LOW = 0, MID = 1, HIGH = 2}
+var sfx_files = [
+	preload("res://objects/inventory/inventorylow.ogg"),
+	preload("res://objects/inventory/inventorymid.ogg"),
+	preload("res://objects/inventory/inventoryhigh.ogg")
 	]
 
-enum Sfx {LOW = 0, MID = 1, HIGH = 2}
-
+func _process(delta):
+	if Input.is_action_just_pressed("inventory_left"):
+		change_slot(-1)
+	if Input.is_action_just_pressed("inventory_right"):
+		change_slot(1)
+		
+	set_cursor_position()
+	
+func set_cursor_position():
+	if owner.focus != null:
+		cursor.position = owner.to_local(owner.focus.global_position) + Vector3(0,3,0)
+		cursor.visible = true
+	else:
+		cursor.visible = false
+	return
+		
 func play_sfx(choice: int = 0):
-	$SFX.stream = sfx[choice]
-	$SFX.play()
+	sfx.stream = sfx_files[choice]
+	sfx.play()
 	
-func jump():
-	cursor.position.y += 0.5
+func pickup_item(item: Interactable):
+	pass
 	
-func set_slot_color(selected: bool):
-	show_slots()
-	current_slot.select(selected)
-	update_cursor()
+func drop_item(item: Interactable):
+	pass
+	
+func get_item(slot: int):
+	pass
 
-func _physics_process(delta):
-	return
-	if is_instance_valid(parent.nearby) and parent.nearby.get_global_transform().origin != Vector3(0,0,0):
-		cursor_target = to_local(parent.nearby.get_global_transform().origin + parent.nearby.cursor_offset)
-	elif item_selected:
-		cursor_target = to_local(parent.drop_location.get_global_transform().origin)
-	else:
-		cursor_target = to_local(current_slot.get_global_transform().origin + Vector3(0,1,0))
-	
-	if visible:	
-		cursor.position = lerp(cursor.position, cursor_target, 0.3)
-	else:
-		cursor.position = cursor_target
-		
-	cursor.visible = slots.visible or parent.nearby or item_selected
-		
-func _ready():
-	
-	current_slot = slots.get_child(0)
-	
-	$VisibilityTimer.connect("timeout", Callable(self, "inventory_timeout"))
-	$VisibilityTimer.start()
-	
-	for slot in slots.get_children():
-		slot.connect("duplicate_item", Callable(self, "duplicate_item"))
-	
-	# start slot wiggle animation
-	for i in range (0, slots.get_child_count()):
-		slots.get_child(i).get_node("AnimationPlayer").play("wiggle")
-		slots.get_child(i).get_node("AnimationPlayer").advance(1 * i)
+func clear_slot(slot: int):
+	pass
 
-	var total_slots = len(slots.get_children())
-	# Calculate how far back slots should start being placed so the drone is the midpoint.
-	var slot_translation = distance_between_slots * - (total_slots/2)
-	
-	# If even amount of slots, offset by half the distance so the middle
-	# slot is still directly above the parent.
-	if total_slots % 2 == 0:
-		slot_translation += (distance_between_slots/2)
-	for slot in slots.get_children():
-		slot.position = Vector3(slot_translation, 0, 0)
-		slot_translation += distance_between_slots
-	update_cursor()
-	
-func show_slots():
+func change_slot(offset: int):
+	popup()
+	if slot_index + offset < 0 or slot_index + offset > slot_count:
+		play_sfx(Sfx.LOW)
+	else:
+		slot_index += offset
+		current_slot = slots.get_child(slot_index)
+		play_sfx(Sfx.MID)
+
+func get_selected_item():
+	return null
+
+func popup():
 	slots.visible = true
-	$VisibilityTimer.start(timeout)
+	$VisibilityTimeout.start()
 	
-func change_slot(desired_index):
-	
-	if parent.has_node("Beepboop"):
-		parent.get_node("Beepboop").visible = false
-	
-	# reset any item selection
-	set_slot_color(false)
-	item_selected = false
-	
-	play_sfx(Sfx.LOW)
-	
-	show_slots()
-	if (current_index + desired_index) < 0 or (current_index + desired_index) > slots.get_child_count() - 1:
-		return
-	current_index += desired_index
-	current_slot = slots.get_child(current_index)
-	update_cursor()
-
-func update_cursor():
-	cursor.material_override.albedo_color = current_slot.get_color()
-	cursor.material_override.albedo_color.a = 1
-
-func current_slot_empty() -> bool:
-	return current_slot.item == null
-
-func add_slot():
-	print("Unimplemented")
-	return
-	
-func pop_item() -> Node:
-	show_slots()
-	play_sfx(Sfx.HIGH)
-	item_selected = false
-	return current_slot.pop_item()
-	
-func select_item():
-	show_slots()
-	
-	if current_slot is BatterySlot:
-		current_slot.output()
-		return
-	
-	if current_slot_empty():
-		play_sfx(Sfx.LOW)
-	else:
-		play_sfx(Sfx.MID)
-		item_selected = true
-		set_slot_color(true)
-
-func inventory_timeout():
+func timeout():
 	slots.visible = false
-
-func set_item(object: Node) -> bool:
-	
-	if object == null:
-		play_sfx(Sfx.LOW)
-		return false
-	
-	show_slots()
-	if current_slot_empty():
-		current_slot.set_item(object)
-		play_sfx(Sfx.MID)
-		return true
-	else:
-		UI.log("The item vanished into thin air.")
-		play_sfx(Sfx.LOW)
-		return false
-
-
-func get_item() -> Node:
-	return current_slot.item
-	
-func delete_item() -> void:
-	current_slot.pop_item()
-	item_selected = false
-	set_slot_color(false)
-
-func duplicate_item(item: Node):
-	var next_available_slot = null
-	for slot in slots.get_children():
-		if slot is InventorySlot and slot.item == null:
-			next_available_slot = slot
-			break
-	if next_available_slot == null:
-		UI.log("Your inventory is overflowing.")
-	else:
-		UI.log("Your inventory feels heavier.")
-		var dupe = item.duplicate(8)
-		dupe.parent = item.parent
-		next_available_slot.set_item(dupe)

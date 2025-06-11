@@ -1,18 +1,18 @@
 [gd_scene load_steps=50 format=4 uid="uid://bsekk4e6xei3j"]
 
-[ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="7"]
-[ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/maidenclass/Inventory.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://objects/maidenclass/BatteryPower.tscn" id="9"]
-[ext_resource type="Texture2D" uid="uid://dlt5fa7kmbnh4" path="res://objects/maidenclass/zzz.png" id="9_dsn33"]
-[ext_resource type="AudioStream" uid="uid://ncknx23s8v16" path="res://sfx/sprint2.ogg" id="11"]
-[ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="12"]
-[ext_resource type="Material" path="res://objects/maidenclass/Your New Flesh.material" id="13"]
-[ext_resource type="PackedScene" uid="uid://cgu01k8xinl5l" path="res://objects/TaskList/task_list.tscn" id="13_uinai"]
-[ext_resource type="Material" path="res://objects/maidenclass/Screen.material" id="14"]
-[ext_resource type="Material" path="res://objects/maidenclass/DRESSY.material" id="15"]
-[ext_resource type="Material" path="res://objects/maidenclass/Helmet Brace.material" id="16"]
-[ext_resource type="Material" path="res://objects/maidenclass/Maiden Blue.material" id="17"]
+[ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1_g75mf"]
+[ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="2_ddn3m"]
+[ext_resource type="AudioStream" uid="uid://ncknx23s8v16" path="res://sfx/sprint2.ogg" id="3_140ka"]
+[ext_resource type="Material" path="res://objects/maidenclass/DRESSY.material" id="4_n2aca"]
+[ext_resource type="Material" path="res://objects/maidenclass/Your New Flesh.material" id="5_1d07c"]
+[ext_resource type="Material" path="res://objects/maidenclass/Maiden Blue.material" id="6_ge67t"]
+[ext_resource type="Material" path="res://objects/maidenclass/Helmet Brace.material" id="7_1l5op"]
+[ext_resource type="Material" path="res://objects/maidenclass/Screen.material" id="8_ra8mf"]
+[ext_resource type="Texture2D" uid="uid://dlt5fa7kmbnh4" path="res://objects/maidenclass/zzz.png" id="9_arfo5"]
+[ext_resource type="Texture2D" uid="uid://dm8jjq17ux86" path="res://sprites/zap.png" id="10_c6xpm"]
+[ext_resource type="PackedScene" path="res://objects/maidenclass/BatteryPower.tscn" id="11_pr6p7"]
+[ext_resource type="PackedScene" uid="uid://cgu01k8xinl5l" path="res://objects/TaskList/task_list.tscn" id="12_uh6yw"]
+[ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/inventory/Inventory.tscn" id="13_h4d8n"]
 
 [sub_resource type="Animation" id="Animation_n56me"]
 resource_name = "Pause"
@@ -907,7 +907,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 1236,
 "index_data": PackedByteArray("AAACAAEAAAABAAMABAAAAAMABQAHAAYABQAGAAgACQAFAAgACgAMAAsACgALAA0ADgAQAA8ADgAPABEADgARABIADgASABMADgATABQAFQAXABYAFQAWABgAGQAbABoAGQAaABwAHQAfAB4AHQAeACAAHQAgACEAHQAhACIAHQAiACMAJAAmACUAJAAlACcAJAAnACgAJAAoACkAJAApACoAKwAtACwAKwAsAC4AKwAuAC8AKwAvADAAKwAwADEAMgA0ADMAMgAzADUAMgA1ADYAMgA2AC0AMgAtACsANwA5ADgANwA4ADoAOgA4ADsAOgA7ADwAPQA/AD4APQA+AEAAPQBAAEEAPQBBACYAPQAmACQAQgBEAEMAQgBDAEUARQBDAEYARQBGAEcASABKAEkASABJAEsASABLAEwASABMAB8ASAAfAB0ATQBPAE4ATQBOAFAAUABOAFEAUABRAFIAUwBVAFQAUwBUAFYAVwBZAFgAVwBYAFoAWwBdAFwAWwBcAF4AXwBhAGAAXwBgAGIAYwBlAGQAYwBkAGYAZwBpAGgAZwBoAGoAawBtAGwAawBsAG4AawBuAG8AawBvABAAawAQAA4AcAByAHEAcABxAHMAcwBxAHQAcwB0AHUAdgB4AHcAdgB3AHkAegB8AHsAegB7AH0AfgCAAH8AfgB/AIEAggCEAIMAggCDAIUAhgCIAIcAhgCHAIkAigCMAIsAjQCKAIsAjQCLAI4AAwABAI8AAwCPAJAAkQADAJAAAQCTAJIAAQCSAI8AAgCUAJMAAgCTAAEAlQCXAJYAlQCWAJgAlQCYAJkAlQCZAJoAlQCaAJsAnACeAJ0AnACdAJ8AnACfAKAAnACgAKEAnAChAKIAowClAKQApgCjAKQApwCmAKQAqACnAKQAqQCoAKQAqgCsAKsAqgCrAK0ArgCqAK0ArwCuAK0AsACvAK0AsQCzALIAtACxALIAtACyALUAtAC1ALYAtAC2ALcAuAC6ALkAuAC5ALsAuAC7ALwAuAC8AJ4AuACeAJwApAClAL0ApAC9AL4AvwCkAL4AwAC/AL4AwQDAAL4AwgDEAMMAwgDDAMUAxgDCAMUAxwDGAMUAyADHAMUAyQDLAMoAyQDKAMwAzQDPAM4AzQDOANAA0QDTANIA0QDSANQA1QDXANYA1QDWANgA2ADWANkA2ADZANoA1ADSANsA1ADbANwA0ADOAN0A0ADdAN4AzADKAN8AzADfAOAA4QDjAOIA4QDiAOQA5QDnAOYA5QDmAOgA6QDrAOoA6QDqAOwA6wDuAO0A6wDtAOoA7gDhAOQA7gDkAO0A7ADqAO8A7ADvAPAA6gDtAPEA6gDxAO8A7QDkAPIA7QDyAPEA8wD1APQA8wD0APYA9QD4APcA9QD3APQA+ADlAOgA+ADoAPcA9gD0APkA9gD5APoA9AD3APsA9AD7APkA9wDoAPwA9wD8APsA/AD+AP0A/AD9AP8AAAECAQEBAAEBAQMB+gD5AAQB+gAEAQUB+QD7AAYB+QAGAQQB+wD8AP8A+wD/AAYBBwEJAQgBBwEIAQoBCQEMAQsBCQELAQgBDAEOAQ0BDAENAQsBDwERARABDwEQARIBEQEUARMBEQETARABFAEAAQMBFAEDARMBFQEXARYBFQEWARgBFwEaARkBFwEZARYBGgEcARsBGgEbARkBHQEfAR4BHQEeASABIQEjASIBIQEiASQBJQEnASYBJQEmASgBJwEqASkBJwEpASYBKgEdASABKgEgASkBKAEmASsBKAErASwBJgEpAS0BJgEtASsBKQEgASEBKQEhAS0BLAErAS4BLAEuAS8BKwEtATABKwEwAS4BLQEhASQBLQEkATABLwEuATEBLwExATIBLgEwATMBLgEzATEBMAEkATQBMAE0ATMBNAE2ATUBNAE1ATcBOAE6ATkBOAE5ATsBMgExATwBMgE8AT0BMQEzAT4BMQE+ATwBMwE0ATcBMwE3AT4BPQE8AT8BPQE/AUABPAE+AUEBPAFBAT8BPgE3ATgBPgE4AUEBQAE/AUIBQAFCAUMBPwFBAUQBPwFEAUIBQQE4ATsBQQE7AUQBQwFCAUUBQwFFAUYBQgFEAUcBQgFHAUUBRAE7AUgBRAFIAUcBSQFLAUoBSQFKAUwBTQFPAU4BTQFOAVABUQFTAVIBUQFSAVQBUwFWAVUBUwFVAVIBVgFJAUwBVgFMAVUBVAFSAVcBVAFXAVgBUgFVAVkBUgFZAVcBVQFMAU0BVQFNAVkBWAFXAVoBWAFaAVsBVwFZAVwBVwFcAVoBWQFNAVABWQFQAVwBWwFaAV0BWwFdAV4BWgFcAV8BWgFfAV0BXAFQAWABXAFgAV8BYAFiAWEBYAFhAWMBZAFmAWUBZAFlAWcBXgFdAWgBXgFoAWkBXQFfAWoBXQFqAWgBXwFgAWMBXwFjAWoBaQFoAWsBaQFrAWwBaAFqAW0BaAFtAWsBagFjAWQBagFkAW0BbAFrAW4BbAFuAW8BawFtAXABawFwAW4BbQFkAWcBbQFnAXABbwFuAXEBbwFxAXIBbgFwAXMBbgFzAXEBcAFnAXQBcAF0AXMBdQF3AXYBdQF2AXgBeQF7AXoBeQF6AXwBfQF/AX4BfQF+AYABfwGCAYEBfwGBAX4BggF1AXgBggF4AYEBgAF+AYMBgAGDAYQBfgGBAYUBfgGFAYMBgQF4AYYBgQGGAYUBhwGJAYgBhwGIAYoBiQGMAYsBiQGLAYgBjAF5AXwBjAF8AYsBigGIAY0BigGNAY4BiAGLAY8BiAGPAY0BiwF8AZABiwGQAY8BkAGSAZEBkAGRAZMBlAGWAZUBlAGVAZcBjgGNAZgBjgGYAZkBjQGPAZoBjQGaAZgBjwGQAZMBjwGTAZoBmwGdAZwBmwGcAZ4BnQGgAZ8BnQGfAZwBoAGiAaEBoAGhAZ8BowGlAaQBowGkAaYBpQGoAacBpQGnAaQBqAGUAZcBqAGXAacBqQGrAaoBqQGqAawBqwGuAa0BqwGtAaoBrgGwAa8BrgGvAa0BsQGzAbIBtAGxAbIBtQG3AbYBtQG2AbgBuQG7AboBuQG6AbwBvQG/Ab4BwAG9Ab4BwQHDAcIBwQHCAcQBxQHHAcYByAHFAcYByQHLAcoByQHKAcwBzQHPAc4BzQHOAdAB0QHTAdIB1AHRAdIB1QHXAdYB1QHWAdgB2QHbAdoB2QHaAdwB3QHfAd4B3QHeAeAB4QHjAeIB4QHiAeQBWgBYAOUBWgDlAeYBVgBUAOcBVgDnAegB6QHrAeoB6QHqAewB"),
-"material": ExtResource("15"),
+"material": ExtResource("4_n2aca"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 493,
@@ -918,7 +918,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 168,
 "index_data": PackedByteArray("AAACAAEAAAABAAMABAAGAAUABAAFAAcACAAKAAkACAAJAAsADAAOAA0ADAANAA8AEAASABEAEQASABMAFAAWABUAFAAVABcAGAAaABkAGAAZABsAHAAeAB0AHwAcAB0AIAAiACEAIwAgACEAJAAmACUAJAAlACcAKAAqACkAKAApACsALAAuAC0ALAAtAC8AHgAbACMAHgAjADAAMQAzADIANAA2ADUANwA5ADgAOgA8ADsAHQAeADAAHQAwAD0AGwAZACAAGwAgACMAIwAhAD4AMAAjAD4AGAAbAB4AHAAYAB4APwBBAEAAPwBAAEIAQwBFAEQAQwBEAEYARwBJAEgARwBIAEoASwBNAEwASwBMAE4ATwBRAFAATwBQAFIAUwBVAFQAUwBUAFYAVwBZAFgAVwBYAFoAWwBdAFwAWwBcAF4AMAA+AF8APQAwAF8A"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 96,
@@ -929,7 +929,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 48,
 "index_data": PackedByteArray("AAACAAEAAAABAAMABAAGAAUABAAFAAcACAAKAAkACAAJAAsADAAOAA0ADAANAA8AEAASABEAEAARABMAFAAWABUAFAAVABcAGAAaABkAGAAZABsAHAAeAB0AHAAdAB8A"),
-"material": ExtResource("17"),
+"material": ExtResource("6_ge67t"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 32,
@@ -944,7 +944,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 129,
 "index_data": PackedByteArray("AAACAAEAAwAAAAEAAwABAAQABQAHAAYABQAGAAgACQALAAoACQAKAAwADQAPAA4ADQAOABAAEQATABIAFAAWABUAFwAZABgAGgAcABsAHQAfAB4AHQAeACAAIQAjACIAIQAiACQAIQAkACUAJgAoACcAJgAnACkAKgAsACsAKgArAC0AKgAtAC4ALwAxADAALwAwADIAMwA1ADQAMwA0ADYANwA5ADgAOgA7ADcAOgA3ADgAPAA+AD0APwA8AD0AQABCAEEAQABBAEMAQgBAAEQARQBHAEYARQBGAEgASQBLAEoASQBKAEwATQBPAE4ATQBOAFAAUQBTAFIAVABRAFIA"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 85,
@@ -955,7 +955,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 207,
 "index_data": PackedByteArray("AAACAAEAAAABAAMABAAGAAUABwAEAAUACAAKAAkACwANAAwACwAMAA4ADwARABAAEgAUABMAEgATABUAFQATABYAFwAZABgAFwAYABoAGwAdABwAGwAcAB4AHwAhACAAHwAgACIAIwAlACQAJgAjACQAJwApACgAKgAnACsAKwAnACgALAAuAC0ALAAtAC8AMAAyADEAMAAxADMANAA2ADUANwA0ADUAOAA6ADkAOAA5ADsAPAA+AD0APAA9AD8APAA/AEAAQQBDAEIAQQBCAEQARQBHAEYARQBGAEgASQBKAEcASQBHAEUASwBNAEwASwBMAE4ATwBRAFAATwBQAFIAUwBVAFQAVgBTAFQAVwBZAFgAWgBXAFgAWwBdAFwAWwBcAF4AXwBhAGAAYgBkAGMAYgBjAGUAZgBoAGcAZgBnAGkAagBsAGsAagBrAG0AbgBwAG8AcQBzAHIAcQByAHQAdQB3AHYAdQB2AHgAeQB7AHoAfAB5AHoAfQB/AH4AgAB9AH4AgQCDAIIAhACBAIIAhQCHAIYAhQCGAIgA"),
-"material": ExtResource("16"),
+"material": ExtResource("7_1l5op"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 137,
@@ -970,7 +970,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 6,
 "index_data": PackedByteArray("AAACAAEAAAABAAMA"),
-"material": ExtResource("14"),
+"material": ExtResource("8_ra8mf"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 4,
@@ -985,7 +985,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 45,
 "index_data": PackedByteArray("AAACAAEAAwAFAAQABgAIAAcACQALAAoACQAKAAwADQAPAA4AEAANAA4AEQATABIAEQASABQAFQAXABYAFQAWABgAGQAbABoAGQAaABwAHQAfAB4AIAAdAB4A"),
-"material": ExtResource("15"),
+"material": ExtResource("4_n2aca"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 33,
@@ -996,7 +996,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 27,
 "index_data": PackedByteArray("AAACAAEAAAABAAMABAAGAAUABwAEAAUACAAKAAkACAAJAAsADAAOAA0ADwARABAAEgAUABMA"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 21,
@@ -1011,7 +1011,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 45,
 "index_data": PackedByteArray("AAACAAEAAwAFAAQABgAIAAcACQALAAoADAAJAAoADQAPAA4ADQAOABAAEQATABIAFAARABIAFQAXABYAGAAVABYAGQAbABoAHAAZABoAHQAfAB4AHQAeACAA"),
-"material": ExtResource("15"),
+"material": ExtResource("4_n2aca"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 33,
@@ -1022,7 +1022,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 27,
 "index_data": PackedByteArray("AAACAAEAAwAAAAEABAAGAAUABAAFAAcACAAKAAkACwAIAAkADAAOAA0ADwARABAAEgAUABMA"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 21,
@@ -1044,7 +1044,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 108,
 "index_data": PackedByteArray("AAACAAEAAwAAAAEABAAGAAUABwAJAAgABwAIAAoACwANAAwACwAMAA4ADwALAA4AEAASABEAEwAQABEAFAAWABUAFAAVABcAGAAaABkAGAAZABsAHAAeAB0AHwAcAB0AIAAiACEAIwAgACEAJAAmACUAJAAlACcAKAAqACkAKwAtACwALgArACwALwAxADAAMgAvADAAMgAwADMANAA2ADUANAA1ADcAOAA6ADkAOwA4ADkAPAA+AD0APwA8AD0AQABCAEEAQABBAEMARABGAEUARABFAEcA"),
-"material": ExtResource("17"),
+"material": ExtResource("6_ge67t"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 72,
@@ -1059,7 +1059,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 12,
 "index_data": PackedByteArray("AAACAAEAAwAFAAQABgAIAAcACQALAAoA"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 12,
@@ -1074,7 +1074,7 @@ _surfaces = [{
 "format": 34359742487,
 "index_count": 12,
 "index_data": PackedByteArray("AAACAAEAAwAFAAQABgAIAAcACQALAAoA"),
-"material": ExtResource("13"),
+"material": ExtResource("5_1d07c"),
 "primitive": 3,
 "uv_scale": Vector4(0, 0, 0, 0),
 "vertex_count": 12,
@@ -1128,7 +1128,7 @@ scale_curve = SubResource("CurveTexture_jjy6h")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_if32a"]
 transparency = 1
-albedo_texture = ExtResource("9_dsn33")
+albedo_texture = ExtResource("9_arfo5")
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -1152,7 +1152,7 @@ alpha_scissor_threshold = 1.0
 alpha_antialiasing_mode = 0
 shading_mode = 0
 albedo_color = Color(0, 0.905882, 1, 1)
-albedo_texture = ExtResource("7")
+albedo_texture = ExtResource("10_c6xpm")
 billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
@@ -1169,7 +1169,7 @@ point_count = 2
 size = Vector3(2.2, 6.361, 2.2)
 
 [node name="Drone" type="CharacterBody3D"]
-script = ExtResource("1")
+script = ExtResource("1_g75mf")
 
 [node name="Body" type="Node3D" parent="."]
 transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
@@ -1188,11 +1188,11 @@ libraries = {
 [node name="SFX" type="Node" parent="Body"]
 
 [node name="Step" type="AudioStreamPlayer" parent="Body/SFX"]
-stream = ExtResource("12")
+stream = ExtResource("2_ddn3m")
 bus = &"Footsteps"
 
 [node name="Step2" type="AudioStreamPlayer" parent="Body/SFX"]
-stream = ExtResource("11")
+stream = ExtResource("3_140ka")
 bus = &"Footsteps"
 
 [node name="Mesh" type="Node3D" parent="Body"]
@@ -1295,16 +1295,13 @@ target_position = Vector3(0, 0, 5)
 [node name="NorthRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -5)
 
-[node name="Inventory" parent="." instance=ExtResource("8")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 5.05297, 0)
-
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.44816, 0)
 visible = false
 light_energy = 5.526
 spot_range = 213.394
 
-[node name="BatteryPower" parent="." instance=ExtResource("9")]
+[node name="BatteryPower" parent="." instance=ExtResource("11_pr6p7")]
 visible = false
 
 [node name="Collision" type="CollisionShape3D" parent="."]
@@ -1315,7 +1312,9 @@ debug_fill = false
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 current = true
 
-[node name="TaskList" parent="." instance=ExtResource("13_uinai")]
+[node name="TaskList" parent="." instance=ExtResource("12_uh6yw")]
+
+[node name="Inventory" parent="." instance=ExtResource("13_h4d8n")]
 
 [connection signal="body_entered" from="Body/InteractArea" to="." method="body_entered_interaction_area"]
 [connection signal="body_exited" from="Body/InteractArea" to="." method="body_exited_interaction_area"]
