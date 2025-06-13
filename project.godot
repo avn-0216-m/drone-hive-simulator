@@ -28,6 +28,7 @@ driver/output_latency=50
 InstanceManager="*res://objects/InstanceManager.tscn"
 UI="*res://objects/UI/SingletonUI.tscn"
 GLOBAL="*res://scripts/GLOBAL.gd"
+GlobalCam="*res://objects/camera.tscn"
 
 [debug]
 

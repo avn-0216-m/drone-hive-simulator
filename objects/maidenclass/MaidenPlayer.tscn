@@ -1169,7 +1169,9 @@ point_count = 2
 size = Vector3(2.2, 6.361, 2.2)
 
 [node name="Drone" type="CharacterBody3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 collision_layer = 3
+safe_margin = 0.141
 script = ExtResource("1_g75mf")
 
 [node name="Body" type="Node3D" parent="."]

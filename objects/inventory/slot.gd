@@ -9,7 +9,6 @@ var base_color: Color
 
 	
 func reset_rotation():
-	print("donezo!")
 	sprite.rotation_degrees = Vector3.ZERO
 
 func set_base_color(color: Color):

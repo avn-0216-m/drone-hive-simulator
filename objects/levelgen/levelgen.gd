@@ -142,7 +142,7 @@ func add_object(item: Interactable):
 	objects.add_child(item)
 
 func _ready():
-	get_node("Player").inventory.item_dropped.connect(add_object)
+	#get_node("Player").inventory.item_dropped.connect(add_object)
 	new_level()
 
 

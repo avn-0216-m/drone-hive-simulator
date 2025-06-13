@@ -50,6 +50,7 @@ var look_target = Vector3(0,0,0)
 
 func _ready():
 	print("drone ready???")
+	GlobalCam.track(self)
 	#gravity = 0
 	set_colour()
 	
@@ -114,6 +115,10 @@ func handle_movement():
 		velocity = lerp(velocity, Vector3.ZERO, 0.9)
 	else:
 		velocity = movement.normalized() * current_speed
+	if not is_on_floor():
+		velocity.y -= 0.5
+	else:
+		velocity.y = 0
 	move_and_slide()
 	
 func handle_actions():
@@ -149,9 +154,6 @@ func handle_actions():
 	elif body_animation.get_current_animation() in ["Walk", "Pause"] and focus == null:
 		look_target = Vector3(0,0,0)
 		$Body/Mesh/Body/Head.rotation_degrees = lerp($Body/Mesh/Body/Head.rotation_degrees, look_target, 0.2)
-		
-	
-	
 
 func _process(delta):
 	handle_movement() # TODO: Move this to physics_process

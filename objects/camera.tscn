@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://4rjat2qdxbyn"]
+
+[ext_resource type="Script" uid="uid://c16hbq0wtrl42" path="res://scenes/PlayerCamera.gd" id="1_exrbp"]
+
+[node name="Camera3D" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+cull_mask = 7
+current = true
+far = 1000.0
+script = ExtResource("1_exrbp")

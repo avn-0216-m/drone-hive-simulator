@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://ctd54ninp28ev"]
+
+[ext_resource type="Script" uid="uid://b7dqvu734melo" path="res://objects/shipping box/shipping_box.gd" id="1_bgtd6"]
+[ext_resource type="Texture2D" uid="uid://prnyw4y0swy2" path="res://objects/shipping box/boxtexture.png" id="1_ei4nf"]
+[ext_resource type="Texture2D" uid="uid://cxv1v77615vsm" path="res://objects/shipping box/peanut2.png" id="2_7c7d3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bgtd6"]
+size = Vector3(4, 8, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7c7d3"]
+albedo_texture = ExtResource("1_ei4nf")
+uv1_scale = Vector3(3, 2, 3)
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_ocopv"]
+material = SubResource("StandardMaterial3D_7c7d3")
+size = Vector3(4, 8, 4)
+
+[sub_resource type="Curve" id="Curve_bgtd6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.876744, 0), -0.327724, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kt5vk"]
+curve = SubResource("Curve_bgtd6")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jibe8"]
+angle_min = -108.9
+angle_max = 67.7
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 8.99
+initial_velocity_max = 22.64
+angular_velocity_min = -58.46
+angular_velocity_max = 166.16
+scale_min = 0.75
+scale_max = 0.75
+scale_curve = SubResource("CurveTexture_kt5vk")
+color = Color(0.896422, 0.149375, 0.142009, 1)
+hue_variation_min = -2.23517e-08
+hue_variation_max = 0.42
+collision_mode = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7b2ee"]
+transparency = 1
+albedo_texture = ExtResource("2_7c7d3")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_328pa"]
+material = SubResource("StandardMaterial3D_7b2ee")
+size = Vector2(2, 1)
+
+[sub_resource type="CurveTexture" id="CurveTexture_bgtd6"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kt5vk"]
+angle_min = 1.07288e-05
+angle_max = 47.5
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 11.88
+initial_velocity_max = 13.48
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 461.19
+scale_min = 0.4
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_bgtd6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jibe8"]
+albedo_texture = ExtResource("1_ei4nf")
+texture_filter = 0
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7b2ee"]
+material = SubResource("StandardMaterial3D_jibe8")
+size = Vector2(4, 8)
+
+[node name="ShippingBox" type="CharacterBody3D"]
+script = ExtResource("1_bgtd6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+shape = SubResource("BoxShape3D_bgtd6")
+debug_fill = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+mesh = SubResource("BoxMesh_ocopv")
+skeleton = NodePath("../..")
+
+[node name="Peanuts" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 60
+lifetime = 3.0
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_jibe8")
+draw_pass_1 = SubResource("QuadMesh_328pa")
+
+[node name="Box" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 4
+lifetime = 3.0
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_kt5vk")
+draw_pass_1 = SubResource("QuadMesh_7b2ee")
