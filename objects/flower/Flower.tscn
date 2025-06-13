@@ -17,7 +17,7 @@ size = Vector3(1, 2.20319, 1)
 
 [node name="Flower" type="CharacterBody3D"]
 script = ExtResource("1_vwhfl")
-task_name = "Admire nature"
+task_name = "Admire nature !!! WOWIE!!! WOW!! THIS IS A LONG STRING!!"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("QuadMesh_l3wv2")
