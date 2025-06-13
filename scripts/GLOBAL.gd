@@ -14,12 +14,15 @@ func task_completed(task: Task):
 	incomplete_tasks.erase(task)
 	completed_tasks.append(task)
 	task.task_complete = true
-	UI.log("Tasks complete! (" + str(len(completed_tasks)) + "/" + str(len(completed_tasks) + len(incomplete_tasks)) + ")")
+	UI.log("Task complete! (" + str(len(completed_tasks)) + "/" + str(len(completed_tasks) + len(incomplete_tasks)) + ")")
 
 var color_mats = {
 	"Composite/GameTexture/SubViewport/Game/PlayerBody/Mesh/Head/Screen": 0,
 	"Composite/GameTexture/SubViewport/Game/PlayerBody/Mesh/Bow": 2
 }
+
+func add_item(item: Interactable):
+	get_node("/root/Game/LevelGen")
 
 func get_beep() -> bool:
 	beep = !beep

@@ -13,6 +13,7 @@ material = SubResource("StandardMaterial3D_5l28n")
 
 [node name="Thingie" type="CharacterBody3D"]
 script = ExtResource("1_5l28n")
+pickup = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_vr334")

@@ -1265,6 +1265,9 @@ monitorable = false
 transform = Transform3D(1.00003, 0, -5.02914e-08, 0, 1.00003, 0, 5.02914e-08, 0, 1.00003, 1.63827, -4.372, -0.242351)
 shape = SubResource("13")
 
+[node name="ItemDrop" type="Node3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 volume_db = 2.0
 
@@ -1285,14 +1288,12 @@ emission_sphere_radius = 1.0
 gravity = Vector3(0, 4, 0)
 scale_amount_curve = SubResource("16")
 
-[node name="ItemDrop" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2, 0)
-visible = false
-
 [node name="SouthRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 target_position = Vector3(0, 0, 5)
 
 [node name="NorthRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 target_position = Vector3(0, 0, -5)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]

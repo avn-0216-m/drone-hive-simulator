@@ -9,6 +9,9 @@ var task: Task = Task.new()
 @export var sprinkler_min: int = 1
 @export var sprinkler_max: int = 5
 @export var sprinkler_radius: float = 10.0
+@export var pickup: bool = false
+@export var pickup_scale: float = 0.0
+@export var cursor_offset: float = 3
 
 func _ready():
 	if task_name == "null":
@@ -31,18 +34,12 @@ func _ready():
 			
 
 func interact(item: Node, interactor: Node):
-	return
-
-func pickup(_item: Node, interactor: Node):
-	# This is a helper script that all interactables have, but that only pickups should call.
-	# It'll do something like...
-	# interactor.inventory.add_item(self)
-	# Which will then handle the despawning of the item, etc.
-	return
+	if pickup and item == null:
+		interactor.inventory.pick_up_item(self)
 	
 func _physics_process(_delta: float) -> void:	
 	if not is_on_floor():
-		velocity.y += -0.1
+		velocity.y += -1
 		move_and_slide()
 	else:
 		velocity = Vector3(0,0,0)

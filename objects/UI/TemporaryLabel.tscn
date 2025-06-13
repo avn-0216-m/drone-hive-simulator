@@ -46,7 +46,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vnsfy")
-theme_override_font_sizes/font_size = 51
+theme_override_font_sizes/font_size = 30
 text = "aaahh im a ghost"
 script = ExtResource("1")
 

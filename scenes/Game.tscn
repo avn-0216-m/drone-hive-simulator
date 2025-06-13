@@ -53,15 +53,15 @@ offset_right = 1366.0
 offset_bottom = 768.0
 script = ExtResource("10")
 
-[node name="Game" type="Node" parent="."]
+[node name="Levelgen" parent="." instance=ExtResource("6_g4kob")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Game"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Levelgen"]
 environment = SubResource("Environment_y5y3l")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Game/WorldEnvironment"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Levelgen/WorldEnvironment"]
 layer = -1
 
-[node name="TextureRect" type="TextureRect" parent="Game/WorldEnvironment/CanvasLayer"]
+[node name="TextureRect" type="TextureRect" parent="Levelgen/WorldEnvironment/CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -71,32 +71,31 @@ size_flags_vertical = 4
 texture = ExtResource("2_2rd6h")
 stretch_mode = 1
 
-[node name="Camera3D" type="Camera3D" parent="Game"]
+[node name="Camera3D" type="Camera3D" parent="Levelgen"]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0.889033, 5.5, 5.5)
 cull_mask = 7
 current = true
 far = 1000.0
 script = ExtResource("4_2rd6h")
 
-[node name="Roomba" parent="Game" instance=ExtResource("4_qy1jj")]
+[node name="Roomba" parent="Levelgen" instance=ExtResource("4_qy1jj")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 5.83945, 1.47942, 8.41028)
 
-[node name="Roomba2" parent="Game" instance=ExtResource("4_qy1jj")]
+[node name="Roomba2" parent="Levelgen" instance=ExtResource("4_qy1jj")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 3.16103, 1.47942, 10.7327)
 
-[node name="Roomba3" parent="Game" instance=ExtResource("4_qy1jj")]
+[node name="Roomba3" parent="Levelgen" instance=ExtResource("4_qy1jj")]
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 8.33515, 1.47942, 4.71639)
 
-[node name="Player" parent="Game" instance=ExtResource("7")]
+[node name="Player" parent="Levelgen" instance=ExtResource("7")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4, 3, 4)
 
-[node name="Music" type="AudioStreamPlayer" parent="Game"]
+[node name="Music" type="AudioStreamPlayer" parent="Levelgen"]
 stream = ExtResource("5_g4kob")
 bus = &"Music"
 
-[node name="Levelgen" parent="Game" instance=ExtResource("6_g4kob")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Game"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Levelgen"]
+root_node = NodePath("")
 libraries = {
 &"": SubResource("AnimationLibrary_qy1jj")
 }

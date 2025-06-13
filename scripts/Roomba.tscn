@@ -253,6 +253,8 @@ size = Vector3(4.11636, 1.42835, 3.7322)
 transform = Transform3D(0.35, 0, 0, 0, 0.35, 0, 0, 0, 0.35, 0, 0, 0)
 script = ExtResource("1_3kqoj")
 task_name = "Pet the fweaking beeper!"
+pickup = true
+pickup_scale = 0.3
 
 [node name="roomba" type="Node3D" parent="."]
 

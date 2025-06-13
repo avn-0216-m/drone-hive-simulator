@@ -1,4 +1,5 @@
 extends Interactable
+class_name Thingie
 
 func _ready():
 	super()

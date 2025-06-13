@@ -40,7 +40,7 @@ var base_velocity: Vector3 = Vector3(0,0,0)
 @onready var pickup_area = get_node("PickupArea")
 @onready var interact_area = get_node("Body/InteractArea")
 
-@onready var drop_location = get_node("ItemDrop")
+@onready var drop_point = get_node("Body/ItemDrop")
 
 @onready var beepboop_src = preload("res://objects/Beepboop.tscn")
 
@@ -154,25 +154,13 @@ func handle_actions():
 	
 
 func _process(delta):
-	
-	if position.y < -3:
-		emit_signal("respawn")
-		return
-
-	handle_movement()
+	handle_movement() # TODO: Move this to physics_process
 	get_nearby_objects()
 	handle_actions()
 
 	
 func interact():
-	
-	# potential cases:
-	# interact with a pickupable item while no item is in the selected slot: pick it up
-	# interact with nothing with a filled inv slot: prime the slot to drop
-	# interact with nothing while an inventory slot is primed: drop the selected item
-	# interact with nothing with an empty inv slot: do absolutely nothing
-	# interact with an interactable: interact
-	# interact with an interactable with a primed slot: use object on interactable
-	
 	if focus != null and focus is Interactable:
 		focus.interact(inventory.get_selected_item(), self)
+	elif focus == null:
+		inventory.select_item()
