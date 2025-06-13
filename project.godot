@@ -255,9 +255,15 @@ task_list={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Hello world"
+3d_physics/layer_1="Interactables"
+3d_physics/layer_2="Room Foundations"
+
 [physics]
 
-3d/physics_engine="GodotPhysics"
+3d/physics_engine="GodotPhysics3D"
 
 [rendering]
 

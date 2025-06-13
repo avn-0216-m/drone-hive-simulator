@@ -13,6 +13,7 @@ class_name Room
 @onready var decor: GridMap = get_node("Decor")
 @onready var door_src = load("res://objects/door/scifidoor.tscn")
 
+
 func get_potentials():
 	return potentials
 
@@ -35,6 +36,8 @@ func setup_doors():
 
 
 func _ready():
+	foundations.set_collision_layer_value(2, true)
+	
 	# get all potentials
 	for cell in $Foundations.get_used_cells_by_item(7):
 		var potential = Potential.new()

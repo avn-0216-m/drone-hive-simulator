@@ -1169,6 +1169,7 @@ point_count = 2
 size = Vector3(2.2, 6.361, 2.2)
 
 [node name="Drone" type="CharacterBody3D"]
+collision_layer = 3
 script = ExtResource("1_g75mf")
 
 [node name="Body" type="Node3D" parent="."]
@@ -1291,10 +1292,12 @@ scale_amount_curve = SubResource("16")
 [node name="SouthRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 target_position = Vector3(0, 0, 5)
+collision_mask = 2
 
 [node name="NorthRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 target_position = Vector3(0, 0, -5)
+collision_mask = 2
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5.44816, 0)
