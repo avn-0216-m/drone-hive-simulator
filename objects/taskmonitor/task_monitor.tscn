@@ -1,0 +1,111 @@
+[gd_scene load_steps=13 format=4 uid="uid://c84jr8fqwt6bh"]
+
+[ext_resource type="Script" uid="uid://5tnsfsq84ls0" path="res://objects/taskmonitor/task_monitor.gd" id="1_gf1qi"]
+[ext_resource type="Texture2D" uid="uid://cq83i5bppjdvj" path="res://sprites/numbers/null/null numbers1.png" id="2_10atl"]
+[ext_resource type="Shader" uid="uid://jqd5mfrgpume" path="res://objects/taskmonitor/task_monitor.gdshader" id="2_402us"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1upo1"]
+resource_name = "MonitorFrame"
+cull_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_frx1x"]
+resource_name = "Screen"
+cull_mode = 2
+albedo_color = Color(0.172833, 0.172833, 0.172833, 1)
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_8mdj8"]
+_surfaces = [{
+"aabb": AABB(-0.2, 0, -2, 0.4, 2, 4),
+"format": 34896613377,
+"index_count": 78,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAwAEAAIABAAAAAIABQADAAEABAADAAUAAAAGAAEABQABAAYABAAHAAAABAAFAAcACAAAAAcACQAGAAAACQAAAAgACgAFAAYACgAGAAkACwAHAAUACwAFAAoACAAHAAsACQAMAAoACgAMAA0ACgANAAsACQAOAAwACAAOAAkACwANAA8ACAAPAA4ACwAPAAgA"),
+"name": "MonitorFrame",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 16,
+"vertex_data": PackedByteArray("/////wAAAAAAAC3jLeMAAAAALePRHAAAAADRHC3jAAAAANEc0RwAAP//AAD//wAA////////AAD//wAAAAAAAP//mPkzAwAA//+Y+cv8AAD//2YGy/wAAP//ZgYzAwAAY+pmBsv8AABj6mYGMwMAAGPqmPnL/AAAY+qY+TMDAAA=")
+}, {
+"aabb": AABB(0.166236, 0.05, -1.95, 1e-05, 1.9, 3.9),
+"format": 34896613377,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"name": "Screen",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAAAAAAP////8AAAAA//8AAAAAAAAAAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gk7k5"]
+resource_name = "taskmonitor_Cube"
+_surfaces = [{
+"aabb": AABB(-0.2, 0, -2, 0.4, 2, 4),
+"attribute_data": PackedByteArray("/5//f//f/z//3/9//5//P/9f/z//nwAA/5//P/9fAAD/X////5//v/+f////X/+//x//f/9f/z//X/9//x//P2WeMn9lnsxAZZ7MQGWeMn//X/+//5//f/+f/7//X/9/ZZ4yf/9f/3+ZYTJ//1//P/+f/3+ZYcxAZZ7MQP+f/z+ZYTJ/ZZ4yf2WeMn+ZYTJ/mWHMQJlhMn+ZYTJ/mWHMQGWezECZYcxAmWHMQGWezEA="),
+"format": 34896613399,
+"index_count": 78,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAAFAAYABAAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGgAZABsAGAAcABkAGgAbAB0AHgAcABgAHQAbAB8AHgAfABwAHQAfAB4AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkA"),
+"material": SubResource("StandardMaterial3D_1upo1"),
+"name": "MonitorFrame",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 44,
+"vertex_data": PackedByteArray("/////wAAL+EAAC3jLeMW+gAALePRHEHc////////bfj//wAA///fxgAALeMt49/G////////38YAANEcLePfxgAA0Rwt41TVAAAt49EcVNUAAC3jLeNU1QAA0RzRHFTVAADRHNEc1s3//wAA//8NwP//AAAAAAjPAADRHC3jssD//5j5MwP/P2PqmPnL/P8///+Y+cv8/z9j6pj5MwP/PwAA0RzRHAro/////wAACugAAC3j0RwK6P//AAAAAAro//+Y+TMDVNX//wAAAABU1f//ZgYzA1TV//8AAP//VNX/////AABU1f//ZgbL/FTV//+Y+cv8VNX///////9U1f//ZgYzA/5/Y+qY+TMD/n///5j5MwP+f2PqZgYzA/5///9mBsv8/z9j6mYGMwP/P///ZgYzA/8/Y+pmBsv8/z///5j5y/wAAGPqZgbL/AAA//9mBsv8AABj6pj5y/wAAHqCt8M91O4eu4gDwjPVJSC04bThtOG04bThtOG04bThVNVU1VTVVNVU1VTVVNVU1fUzKXhXL6myWzZBdjMyKb0AAP9/AAD/fwAA/38AAP9/vMu8y7zLvMu8y7zLvMu8y6oqqiqqKqoqqiqqKqoqqiqqKqoqqiqqKqoqqiqqKqoq/3////9/////f////3///////3////9/////f////3////9/////f////3////9/")
+}, {
+"aabb": AABB(0.166236, 0.05, -1.95, 1e-05, 1.9, 3.9),
+"attribute_data": PackedByteArray("mWEyf2WezEBlnjJ/mWHMQA=="),
+"format": 34896613399,
+"index_count": 6,
+"index_data": PackedByteArray("AAABAAIAAAADAAEA"),
+"material": SubResource("StandardMaterial3D_frx1x"),
+"name": "Screen",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 4,
+"vertex_data": PackedByteArray("AAAAAAAAVNUAAP////9U1QAA//8AAFTVAAAAAP//VNWqKqoqqiqqKqoqqiqqKqoq")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_8mdj8")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_libna"]
+noise_type = 3
+frequency = 0.1485
+offset = Vector3(106.39, -14.08, -309.86)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gf1qi"]
+width = 1024
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_libna")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_10atl"]
+albedo_texture = SubResource("NoiseTexture2D_gf1qi")
+
+[sub_resource type="QuadMesh" id="QuadMesh_402us"]
+material = SubResource("StandardMaterial3D_10atl")
+size = Vector2(3.9, 1.9)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h4o3w"]
+shader = ExtResource("2_402us")
+shader_parameter/sprite_texture = ExtResource("2_10atl")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_gf1qi")
+
+[node name="TV" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("ArrayMesh_gk7k5")
+skeleton = NodePath("")
+
+[node name="Static" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00556, 0.167411)
+mesh = SubResource("QuadMesh_402us")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 1.35769, 0.248389)
+material_override = SubResource("ShaderMaterial_h4o3w")
+pixel_size = 0.0205
+texture_filter = 0
+texture = ExtResource("2_10atl")
