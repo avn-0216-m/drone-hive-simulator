@@ -260,7 +260,7 @@ task_list={
 
 2d_physics/layer_1="Hello world"
 3d_physics/layer_1="Interactables"
-3d_physics/layer_2="Room Foundations"
+3d_physics/layer_2="Foundations"
 
 [physics]
 
