@@ -3,12 +3,15 @@ extends Node
 var min_walkway_length = 4
 var max_walkway_length = 10
 
-var room_root = "res://objects/levelgen/rooms/"
+# If total potentials are lower than this value,
+# switch to spawning delicious high-nutrient hallways.
+@export var threshold: int = 5 
 
 var start_rooms = [
 	"start1.tscn"
 	]
-	
+
+var room_root = "res://objects/levelgen/rooms/"
 var room_pool = [
 	"Bathroom1.tscn",
 	"Bedroom1.tscn",
@@ -18,6 +21,14 @@ var room_pool = [
 	"FlowerRoom.tscn",
 	"ThingieBopRoom.tscn"
 	]
+	
+var hallway_root = "res://objects/levelgen/hallways/"
+var hallway_pool = [
+	"Hallway1.tscn",
+	"Hallway2.tscn",
+	"Hallway3.tscn",
+	"Hallway4.tscn"
+]
 
 # Dictionary of every decor item that can be spawned as a real object
 # Key = Corresponding meshlib ID
@@ -52,6 +63,7 @@ func spawn_objects(rooms):
 	# Iterates over all instanced rooms, and replaces meshlibrary cells
 	# with real objects where possible.
 	for room in rooms:
+		if not room.has_node("Decor"): continue
 		for key in spawnables.keys():
 			for cell in room.decor.get_used_cells_by_item(key):
 				var obj = load(spawnables[key]).instantiate()
@@ -150,10 +162,13 @@ func _ready():
 func new_level():
 	print("OK BAWS HERE I GO")
 	cleanup()
-	# Used instead of $Rooms.get_child_count() because queue_free(), of course,
-	# does not instantly delete a node. Since this all runs in one frame, the
+	
+	# instanced_rooms is used instead of $Rooms.get_child_count() because 
+	# queue_free(), of course, does not instantly delete a node. 
+	# Since this all runs in one frame, the
 	# $Rooms node is inaccurate until the next frame.
 	var instanced_rooms: Array = []
+	var instanced_hallways: Array = []
 	var potentials: Array = []
 
 	var start = load(room_root + start_rooms[0]).instantiate()
@@ -164,8 +179,15 @@ func new_level():
 	
 	while len(instanced_rooms) < 30 and not potentials.is_empty():
 		potentials.shuffle() #TODO: ID-based RNG.
+		
+		var is_hallway: bool = false
 
-		var start_potential = potentials.pop_back()
+		# Don't pop the potential incase the room gets scrapped and we gotta
+		# rerun the loop. Otherwise, it'd be abandoned despite potentially (haha)
+		# being usable.
+		# Just get it and erase it from the array upon successful placement.
+		# Badabing badaboom.
+		var start_potential = potentials.front()
 		if start_potential == null:
 			print("boy we OUTTA potentials now!!!")
 			continue
@@ -182,7 +204,15 @@ func new_level():
 			16: target = 22
 			22: target = 16
 
-		var room = load(room_root + room_pool.pick_random()).instantiate() #TODO: ID-based RNG.
+		# If potential < threshold, spawn a hallway instead of a normal room.
+		# (Lots of potentials, does not count against room total.)
+		var room = null
+		if len(potentials) < threshold:
+			room = load(hallway_root + hallway_pool.pick_random()).instantiate()
+			is_hallway = true
+		else:
+			room = load(room_root + room_pool.pick_random()).instantiate() #TODO: ID-based RNG.
+		if room == null: continue
 		rooms.add_child(room)
 		room.position = start_potential.room.position
 		
@@ -239,21 +269,31 @@ func new_level():
 				end_potential.connection = start_potential
 				placehold_room(end_potential.room)
 				potentials.append_array(end_potential.room.get_potentials())
-				instanced_rooms.append(end_potential.room)
+				if is_hallway:
+					instanced_hallways.append(end_potential.room)
+				else:
+					instanced_rooms.append(end_potential.room)
+				
 				break
 		if not end_potential.is_door:
 			# Delete the room if it still has not found a good spot, despite
 			# the walkway being clear.
 			end_potential.room.queue_free()
+			potentials.erase(start_potential)
 
 	# Iterate over all instanced rooms, and turn any valid potentials into door objects
 	# or walls, if invalid.
-	for room in instanced_rooms:
+	
+	var instanced_combined = instanced_rooms + instanced_hallways
+	
+	for room in instanced_combined:
 		room.setup_doors()
 	
-	trim_stray_placeholders(instanced_rooms)
-	spawn_objects(instanced_rooms)
+	trim_stray_placeholders(instanced_combined)
+	spawn_objects(instanced_combined)
 	set_walkways()
 	track_tasks()
 	
+	print("Total instanced: " + str(len(instanced_combined)))
 	print("Rooms instanced: " + str(len(instanced_rooms)))
+	print("Hallways instanced: " + str(len(instanced_hallways)))

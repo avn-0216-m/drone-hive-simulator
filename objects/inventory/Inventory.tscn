@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://5lddfyyx2pmr" path="res://scripts/player/Inventory.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://bvsgocu7ncien" path="res://objects/inventory/cursor.png" id="2"]
-[ext_resource type="PackedScene" uid="uid://cafxh243nfjmt" path="res://objects/inventory/slot.tscn" id="3_j37dv"]
+[ext_resource type="PackedScene" uid="uid://cafxh243nfjmt" path="res://objects/inventory/Slot.tscn" id="3_j37dv"]
 
 [node name="Inventory" type="Node3D"]
 script = ExtResource("1")
