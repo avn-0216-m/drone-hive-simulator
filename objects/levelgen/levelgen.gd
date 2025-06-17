@@ -69,13 +69,16 @@ func spawn_objects(rooms):
 	# give the parent object a flat array of global positions of the placeholders
 	# in the current room and 3 (or so) random adjacent rooms?
 	# creates a "trail" of task objects leading to the source if it works right.
-	# TODO: placehold_room returns array of global_pos points, assigned to room variable
-	# for safekeeping, that the sprinkler function picks randomly from
+	# TODO: placehold_room returns array of global_pos points, assigned to parent room obj
+	# for distribution, that the sprinkler function picks randomly from
 	# TODO: tweak placeholder code so that furniture like beds or tables are marked as
 	# applicable drop-points.
-	# TODO: give rooms a "connected_to" variable, high-level version 
+	# TODO: give rooms a "connected_to"/"connections" variable, high-level version 
 	# of potential.connection (or just use that since rooms can already access it).
 	# (recursive function?)
+	# TODO: add VERY MINOR jitter to sprinkler obj placement for slight variance
+	# not too much or they risk voiding. maybe don't do it if it's near a wall?
+	# but I have no idea how I'd do that.
 	
 	for room in rooms:
 		if not room.has_node("Decor"): continue
