@@ -24,7 +24,6 @@ func pop_task():
 	if len(tasks) == 0 and $Control/TextureRect/VBoxContainer.get_child_count() == 0:
 		var list_item = list_item_src.instantiate()
 		print("nothing here fallback")
-		print(tasks)
 		list_item.text = "Nothing here..."
 		$Control/TextureRect/VBoxContainer.add_child(list_item)
 		$PopTimer.stop()

@@ -54,9 +54,7 @@ func set_walkways():
 
 func track_tasks():
 	var found_tasks = []
-	print(objects.get_children())
 	for object in objects.get_children():
-		print(object.task_name)
 		if object.task != null:
 			object.task_complete.connect(GLOBAL.task_completed)
 			found_tasks.append(object.task)
@@ -66,6 +64,19 @@ func track_tasks():
 func spawn_objects(rooms):
 	# Iterates over all instanced rooms, and replaces meshlibrary cells
 	# with real objects where possible.
+	
+	# TODO: Instead of using rays to not spawn sprinkler objects in the void,
+	# give the parent object a flat array of global positions of the placeholders
+	# in the current room and 3 (or so) random adjacent rooms?
+	# creates a "trail" of task objects leading to the source if it works right.
+	# TODO: placehold_room returns array of global_pos points, assigned to room variable
+	# for safekeeping, that the sprinkler function picks randomly from
+	# TODO: tweak placeholder code so that furniture like beds or tables are marked as
+	# applicable drop-points.
+	# TODO: give rooms a "connected_to" variable, high-level version 
+	# of potential.connection (or just use that since rooms can already access it).
+	# (recursive function?)
+	
 	for room in rooms:
 		if not room.has_node("Decor"): continue
 		for key in spawnables.keys():

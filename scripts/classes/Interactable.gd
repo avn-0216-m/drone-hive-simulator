@@ -13,6 +13,21 @@ var task: Task = Task.new()
 @export var pickup_scale: float = 0.0
 @export var cursor_offset: float = 3
 
+var test_width: int = 1
+var test_length: int = 5
+
+var sprinkler_tests: Array = [
+	Vector3(-1,-10,1),
+	Vector3(0,-10,1),
+	Vector3(1,-10,1),
+	Vector3(-1,-10,0),
+	Vector3(0,-10,0),
+	Vector3(1,-10,0),
+	Vector3(-1,-10,-1),
+	Vector3(0,-10,-1),
+	Vector3(1,-10,-1),
+]
+
 func _ready():
 	if task_name == "null":
 		task = null
@@ -28,10 +43,12 @@ func _ready():
 		for i in randi_range(sprinkler_min, sprinkler_max):
 			var sprinkler_obj = sprinkler_source.instantiate()
 			sprinkler_obj.position = position
-			sprinkler_obj.position.x += randf_range(sprinkler_radius * -1, sprinkler_radius)
-			sprinkler_obj.position.z += randf_range(sprinkler_radius * -1, sprinkler_radius)
+			sprinkler_obj.position.x += randf_range(-sprinkler_radius, sprinkler_radius)
+			sprinkler_obj.position.z += randf_range(-sprinkler_radius, sprinkler_radius)
 			get_parent().add_child(sprinkler_obj)
-			
+
+func values_match(values, expected_value):
+	return values.all(func(value): return value == expected_value)
 
 func interact(item: Node, interactor: Node):
 	if pickup and item == null:

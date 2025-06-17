@@ -9,3 +9,9 @@ func _ready():
 		randf_range(0.0, 1.0),
 		1.0
 	)
+
+
+func _process(delta):
+	if position.y < -3:
+		UI.log("You done fucked up.")
+		queue_free()
