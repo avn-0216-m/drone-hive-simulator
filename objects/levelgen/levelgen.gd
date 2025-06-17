@@ -24,10 +24,14 @@ var room_pool = [
 	
 var hallway_root = "res://objects/levelgen/hallways/"
 var hallway_pool = [
-	"Hallway1.tscn",
-	"Hallway2.tscn",
-	"Hallway3.tscn",
-	"Hallway4.tscn"
+	"HallwayEhl.tscn",
+	"HallwayHogWild.tscn",
+	"HallwayHoooooooori.tscn",
+	"HallwayHori.tscn",
+	"HallwaySnowflake.tscn",
+	"HallwayTee.tscn",
+	"HallwayVerti.tscn",
+	"HallwayYew.tscn"
 ]
 
 # Dictionary of every decor item that can be spawned as a real object
