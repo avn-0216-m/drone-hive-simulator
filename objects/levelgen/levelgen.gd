@@ -75,10 +75,13 @@ func spawn_objects(rooms):
 	# applicable drop-points.
 	# TODO: give rooms a "connected_to"/"connections" variable, high-level version 
 	# of potential.connection (or just use that since rooms can already access it).
-	# (recursive function?)
+	# (recursive function for drop_point gathering?)
 	# TODO: add VERY MINOR jitter to sprinkler obj placement for slight variance
 	# not too much or they risk voiding. maybe don't do it if it's near a wall?
 	# but I have no idea how I'd do that.
+	# TODO: WAIT. i dont have to do any of that placeholder stuff. rooms already
+	# have access to their own gridmaps and can just parse it to global pos. DUH.
+	# still need the connections to other rooms tho. anyways.
 	
 	for room in rooms:
 		if not room.has_node("Decor"): continue
