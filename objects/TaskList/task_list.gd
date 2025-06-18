@@ -1,8 +1,9 @@
 extends Control
 
 var tasks: Array = []
+var drone_pos: Vector3
 
-@onready var list_item_src = preload("res://objects/TaskList/TaskListItem.tscn")
+@onready var list_item_src = preload("res://objects/TaskList/task_list_item_with_arrow.tscn")
 
 func _process(delta):
 	if Input.is_action_just_pressed("task_list"):
@@ -14,7 +15,7 @@ func _process(delta):
 		$AnimationPlayer.play_backwards("Up")
 		tasks = []
 
-func show_tasks(found_tasks: Array):
+func show_tasks(found_tasks: Array, drone_pos: Vector3):
 	print("showin tasks")
 	tasks = found_tasks
 	$PopTimer.start(1)
@@ -33,7 +34,7 @@ func pop_task():
 	var task_obj = tasks.pop_back()
 	if task_obj == null: return
 	var list_item = list_item_src.instantiate()
-	list_item.text = task_obj.task_name
+	$Control/TextureRect/VBoxContainer.add_child(list_item)
+	list_item.set_text(task_obj.task_name)		
 	if task_obj.task.task_complete:
 		list_item.text = "[s]" + list_item.text + "[/s]"
-	$Control/TextureRect/VBoxContainer.add_child(list_item)

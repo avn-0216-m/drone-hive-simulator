@@ -14,4 +14,5 @@ func _ready():
 func _process(delta):
 	if position.y < -3:
 		UI.log("You done fucked up.")
+		print(position)
 		queue_free()

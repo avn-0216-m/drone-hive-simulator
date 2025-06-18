@@ -134,7 +134,7 @@ func handle_actions():
 		for task in tasks:
 			if task is Interactable and task.task != null:
 				filtered_tasks.append(task)
-		$TaskList.show_tasks(filtered_tasks)
+		$TaskList.show_tasks(filtered_tasks, global_position)
 		arms_animation.play("Read")
 	elif Input.is_action_just_released("task_list"):
 		arms_animation.play("RESET")

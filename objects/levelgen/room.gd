@@ -14,6 +14,12 @@ class_name Room
 @onready var door_src = load("res://objects/door/scifidoor.tscn")
 
 func get_floor_cells_global_pos(depth: int = 0, exclude: Array = []) -> Array:
+	# Parse every floor cell's coord as a global position for sprinkled objects
+	# to be spawned at.
+	# If specified, recursively obtain the tile positions of connected rooms recursively, too.
+	
+	# TODO: Don't add cells with furniture above them UNLESS it makes sense for
+	# objects to be spawned there, like tables.
 	var floor_cells_global: Array = []
 	for cell in foundations.get_used_cells_by_item(2):
 		floor_cells_global.append(to_global(cell * 2) + Vector3(1, 1, 1))

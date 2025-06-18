@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv4h5uibmxyoy"]
+
+[ext_resource type="Script" uid="uid://dl04yyipjarco" path="res://objects/TaskList/task_list_item_with_arrow.gd" id="1_56lb7"]
+[ext_resource type="Texture2D" uid="uid://bvsgocu7ncien" path="res://objects/inventory/cursor.png" id="2_56lb7"]
+[ext_resource type="FontFile" uid="uid://ckvqohkwr32ot" path="res://fonts/vcr osd.ttf" id="2_au8wq"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+script = ExtResource("1_56lb7")
+
+[node name="TaskListItem" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_au8wq")
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "LOCK THE FUCK IN!!!"
+fit_content = true
+scroll_active = false
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="MutateTimer" type="Timer" parent="TaskListItem"]
+wait_time = 1.5
+autostart = true
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -18.0
+offset_right = 48.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -6.28319
+pivot_offset = Vector2(48, 18)
+size_flags_horizontal = 3
+texture = ExtResource("2_56lb7")
+stretch_mode = 5
