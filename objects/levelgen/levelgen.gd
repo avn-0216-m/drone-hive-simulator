@@ -83,7 +83,7 @@ func spawn_objects(rooms):
 	# have access to their own gridmaps and can just parse it to global pos. DUH.
 	# still need the connections to other rooms tho. anyways.
 	
-	for room in rooms:
+	for room: Room in rooms:
 		if not room.has_node("Decor"): continue
 		for key in spawnables.keys():
 			for cell in room.decor.get_used_cells_by_item(key):
@@ -91,6 +91,9 @@ func spawn_objects(rooms):
 				obj.position = room.position + Vector3(cell * 2)
 				obj.position += Vector3(1, 3, 1)
 				objects.add_child(obj)
+				if obj.sprinkler_source != null:
+					# Gather drop points for sprinkled items here.
+					obj.sprinkle_objects(room.get_floor_cells_global_pos(1))
 				room.decor.set_cell_item(cell, -1)
 
 func placehold_room(room: Node):

@@ -13,6 +13,15 @@ class_name Room
 @onready var decor: GridMap = get_node("Decor")
 @onready var door_src = load("res://objects/door/scifidoor.tscn")
 
+func get_floor_cells_global_pos(depth: int = 0, exclude: Array = []) -> Array:
+	var floor_cells_global: Array = []
+	for cell in foundations.get_used_cells_by_item(2):
+		floor_cells_global.append(to_global(cell * 2) + Vector3(1, 1, 1))
+		if depth > 0:
+			for pot in potentials:
+				if pot.connection != null and pot.connection.room not in exclude:
+					floor_cells_global += pot.connection.room.get_floor_cells_global_pos(depth - 1, exclude + [self])
+	return floor_cells_global
 
 func get_potentials():
 	return potentials

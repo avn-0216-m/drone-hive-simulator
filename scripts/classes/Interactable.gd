@@ -16,18 +16,6 @@ var task: Task = Task.new()
 var test_width: int = 1
 var test_length: int = 5
 
-var sprinkler_tests: Array = [
-	Vector3(-1,-10,1),
-	Vector3(0,-10,1),
-	Vector3(1,-10,1),
-	Vector3(-1,-10,0),
-	Vector3(0,-10,0),
-	Vector3(1,-10,0),
-	Vector3(-1,-10,-1),
-	Vector3(0,-10,-1),
-	Vector3(1,-10,-1),
-]
-
 func _ready():
 	if task_name == "null":
 		task = null
@@ -38,17 +26,15 @@ func _ready():
 	# Clamp the max so nothing fucky happens by accident
 	# Even though I'm reasonably sure Godot supports back-to-front range iteration.
 	sprinkler_max = max(sprinkler_min, sprinkler_max)
-		
-	if sprinkler_source != null:
-		for i in randi_range(sprinkler_min, sprinkler_max):
-			var sprinkler_obj = sprinkler_source.instantiate()
-			sprinkler_obj.position = position
-			sprinkler_obj.position.x += randf_range(-sprinkler_radius, sprinkler_radius)
-			sprinkler_obj.position.z += randf_range(-sprinkler_radius, sprinkler_radius)
-			get_parent().add_child(sprinkler_obj)
 
-func values_match(values, expected_value):
-	return values.all(func(value): return value == expected_value)
+func sprinkle_objects(drop_points: Array):
+	if len(drop_points) == 0 or sprinkler_source == null: return
+	for i in randi_range(sprinkler_min, sprinkler_max):
+		var sprinkler_obj = sprinkler_source.instantiate()
+		var drop_point = drop_points.pick_random()
+		sprinkler_obj.position = drop_point + Vector3(0,10,0)
+		drop_points.erase(drop_point)
+		get_parent().add_child(sprinkler_obj)
 
 func interact(item: Node, interactor: Node):
 	if pickup and item == null:

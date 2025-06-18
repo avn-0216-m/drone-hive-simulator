@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cbc8d6tqwago3"
-path="res://.godot/imported/taskmonitor.blend-7a64f1b31d6ae738cdb6d43d80efca21.scn"
+valid=false
 
 [deps]
 
 source_file="res://objects/taskmonitor/taskmonitor.blend"
-dest_files=["res://.godot/imported/taskmonitor.blend-7a64f1b31d6ae738cdb6d43d80efca21.scn"]
 
 [params]
 
