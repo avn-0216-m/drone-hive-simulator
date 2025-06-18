@@ -28,7 +28,10 @@ func _ready():
 	sprinkler_max = max(sprinkler_min, sprinkler_max)
 
 func sprinkle_objects(drop_points: Array):
+	# TODO: link the parent interactable to its original room so that the
+	# drop points placeholder can be removed to avoid re-use.
 	if len(drop_points) == 0 or sprinkler_source == null: return
+	print(len(drop_points))
 	for i in randi_range(sprinkler_min, sprinkler_max):
 		var sprinkler_obj = sprinkler_source.instantiate()
 		var drop_point = drop_points.pick_random()

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bimk6mebwgdau" path="res://objects/levelgen/levelgen.gd" id="1_04bfr"]
 [ext_resource type="MeshLibrary" uid="uid://xd1t3ppi421h" path="res://objects/levelgen/walkway_meshlib.tres" id="2_tgg1v"]
-[ext_resource type="MeshLibrary" uid="uid://d4hn0x83l40bu" path="res://meshlibraries/debug.tres" id="2_vhkta"]
+[ext_resource type="MeshLibrary" uid="uid://d4hn0x83l40bu" path="res://objects/levelgen/debug.tres" id="2_vhkta"]
 
 [node name="Levelgen" type="Node3D"]
 script = ExtResource("1_04bfr")

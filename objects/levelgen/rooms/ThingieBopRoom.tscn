@@ -17,6 +17,6 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="Decor" type="GridMap" parent="."]
 mesh_library = ExtResource("3_md7tv")
 data = {
-"cells": PackedInt32Array(131076, 2, 1048598)
+"cells": PackedInt32Array(65540, 2, 22)
 }
-metadata/_editor_floor_ = Vector3(0, 0, 0)
+metadata/_editor_floor_ = Vector3(0, 1, 0)

@@ -63,7 +63,7 @@ func track_tasks():
 
 func spawn_objects(rooms):
 	# Iterates over all instanced rooms, and replaces meshlibrary cells
-	
+	# with real Interactables where applicable.
 	for room: Room in rooms:
 		if not room.has_node("Decor"): continue
 		for key in spawnables.keys():

@@ -1,10 +1,10 @@
 [gd_resource type="MeshLibrary" load_steps=19 format=3 uid="uid://d4hn0x83l40bu"]
 
-[ext_resource type="Texture2D" uid="uid://jcnx8jo5cvji" path="res://sprites/placeholder.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://deif5n452ew7s" path="res://sprites/paws.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://jcnx8jo5cvji" path="res://sprites/placeholder.png" id="1_gq5wo"]
+[ext_resource type="Texture2D" uid="uid://deif5n452ew7s" path="res://sprites/paws.png" id="2_0hgga"]
 
 [sub_resource type="StandardMaterial3D" id="2"]
-albedo_texture = ExtResource("1")
+albedo_texture = ExtResource("1_gq5wo")
 billboard_mode = 1
 
 [sub_resource type="QuadMesh" id="8"]
@@ -23,7 +23,7 @@ data = {
 image = SubResource("Image_ni1gh")
 
 [sub_resource type="StandardMaterial3D" id="4"]
-albedo_texture = ExtResource("2")
+albedo_texture = ExtResource("2_0hgga")
 
 [sub_resource type="PlaneMesh" id="11"]
 material = SubResource("4")

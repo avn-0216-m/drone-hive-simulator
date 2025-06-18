@@ -15,4 +15,5 @@ func _process(delta):
 	if position.y < -3:
 		UI.log("You done fucked up.")
 		print(position)
-		queue_free()
+		position.y = 10
+		process_mode = Node.PROCESS_MODE_DISABLED

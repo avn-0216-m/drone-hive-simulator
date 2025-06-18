@@ -13,8 +13,8 @@ rings = 2
 script = ExtResource("1_qeet3")
 task_name = "Put the thingies in the bopper"
 sprinkler_source = ExtResource("2_n6exg")
-sprinkler_min = 3
-sprinkler_max = 6
+sprinkler_min = 15
+sprinkler_max = 15
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_iulqg")

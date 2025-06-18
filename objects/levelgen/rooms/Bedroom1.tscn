@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://chtr0dnnhv2sw"]
+[gd_scene load_steps=5 format=3 uid="uid://chtr0dnnhv2sw"]
 
 [ext_resource type="Script" uid="uid://bjwkrqkymtjxx" path="res://objects/levelgen/room.gd" id="1_42o1p"]
 [ext_resource type="MeshLibrary" uid="uid://bkg1pj5r0stad" path="res://objects/levelgen/foundations.tres" id="2_71t1p"]
 [ext_resource type="MeshLibrary" uid="uid://dv03r6hvpudmp" path="res://objects/levelgen/furniture.tres" id="3_wvfnv"]
+[ext_resource type="MeshLibrary" uid="uid://d4hn0x83l40bu" path="res://objects/levelgen/debug.tres" id="4_m77wm"]
 
 [node name="Bedroom" type="Node3D"]
 script = ExtResource("1_42o1p")
@@ -19,3 +20,9 @@ data = {
 "cells": PackedInt32Array(7, 65535, 1441794, 2, 1, 1441792, 3, 1, 1441793, 65539, 1, 1441802, 65541, 1, 1441805, 65543, 65535, 1441795)
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="DropPoints" type="GridMap" parent="."]
+mesh_library = ExtResource("4_m77wm")
+data = {
+"cells": PackedInt32Array(2, 1, 2, 2, 2, 2, 7, 65535, 2, 8, 65535, 2, 3, 1, 2)
+}
