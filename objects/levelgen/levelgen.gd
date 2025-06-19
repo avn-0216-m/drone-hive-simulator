@@ -7,6 +7,11 @@ var max_walkway_length = 10
 # switch to spawning delicious high-nutrient hallways.
 @export var threshold: int = 5 
 
+# How many additional rooms should be considered when sprinkling task objects
+# Higher = more of a breadcrumb trail to the associated object
+@export var sprinkle_depth: int = 3
+
+
 var start_rooms = [
 	"start1.tscn"
 	]
@@ -48,6 +53,10 @@ var spawnables = {
 @onready var walkways: GridMap = get_node("Walkways")
 @onready var placeholders: GridMap = get_node("Placeholders")
 
+func set_drop_points(instanced_combined: Array):
+	for room in instanced_combined:
+		room.update_drop_points()
+
 func set_walkways():
 	for cell in placeholders.get_used_cells_by_item(1):
 		$Walkways.set_cell_item(cell, 0, placeholders.get_cell_item_orientation(cell))
@@ -74,7 +83,8 @@ func spawn_objects(rooms):
 				objects.add_child(obj)
 				if obj.sprinkler_source != null:
 					# Gather drop points for sprinkled items here.
-					obj.sprinkle_objects(room.get_floor_cells_global_pos(1))
+					print("sprinklin")
+					obj.sprinkle_objects(room.get_drop_points(sprinkle_depth))
 				room.decor.set_cell_item(cell, -1)
 
 func placehold_room(room: Node):
@@ -295,6 +305,7 @@ func new_level():
 		room.setup_doors()
 	
 	trim_stray_placeholders(instanced_combined)
+	set_drop_points(instanced_combined)
 	spawn_objects(instanced_combined)
 	set_walkways()
 	track_tasks()
