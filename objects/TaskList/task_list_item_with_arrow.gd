@@ -8,6 +8,7 @@ func _ready():
 	label.visible_ratio = 0.0
 	arrow.visible = false
 	arrow.modulate.a = 0.0
+	arrow.rotation_degrees = 0 # if you want the arrow to SPEEEEN then change this to a higher value
 	label.clear()
 
 func set_text(text: String, complete: bool):
