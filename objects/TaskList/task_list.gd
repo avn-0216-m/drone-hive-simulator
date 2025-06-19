@@ -18,7 +18,12 @@ func _process(delta):
 func show_tasks(found_tasks: Array, drone_pos: Vector3):
 	print("showin tasks")
 	tasks = found_tasks
+	self.drone_pos = drone_pos
+	self.drone_pos.y = 0
 	$PopTimer.start(1)
+	# Okay, so. Doing 3D node > 2D node > 3D node breaks inherited transformation
+	# So position the "lookie" node manually when sending over the list of tasks.
+	$Lookie.position = drone_pos
 
 func pop_task():
 	# First check to see if there are any nearby tasks, if not, print a fallback.
@@ -26,6 +31,7 @@ func pop_task():
 		var list_item = list_item_src.instantiate()
 		print("nothing here fallback")
 		$Control/TextureRect/VBoxContainer.add_child(list_item)
+		list_item.arrow.visible = false
 		list_item.set_text("Nothing here...")
 		$PopTimer.stop()
 		return
@@ -35,6 +41,10 @@ func pop_task():
 	if task_obj == null: return
 	var list_item = list_item_src.instantiate()
 	$Control/TextureRect/VBoxContainer.add_child(list_item)
-	list_item.set_text(task_obj.task_name)		
-	if task_obj.task.task_complete:
-		list_item.text = "[s]" + list_item.text + "[/s]"
+	list_item.set_text(task_obj.task_name, task_obj.task.task_complete)
+	var task_obj_norm: Vector3 = task_obj.global_position
+	task_obj_norm.y = 0
+	$Lookie.look_at(task_obj.global_position, Vector3.UP, true)
+	# 3d objects rotate counter-clockwise while 2d objects rotate clockwise
+	# so * -1 to flip and convert the rotation
+	list_item.arrow_rot = snapped($Lookie.rotation_degrees.y * -1, 45)

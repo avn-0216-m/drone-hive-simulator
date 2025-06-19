@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8mi225mogni6"]
+[gd_scene load_steps=12 format=3 uid="uid://b8mi225mogni6"]
 
 [ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://cid07v6l1k0ng" path="res://scripts/Roomba.tscn" id="4_qy1jj"]
-[ext_resource type="PackedScene" uid="uid://c84jr8fqwt6bh" path="res://objects/taskmonitor/task_monitor.tscn" id="5_400sg"]
 [ext_resource type="AudioStream" uid="uid://b8d671trnb2rc" path="res://mus/numbers game.ogg" id="5_g4kob"]
 [ext_resource type="PackedScene" uid="uid://ctd54ninp28ev" path="res://objects/shipping box/shipping_box.tscn" id="6_400sg"]
 [ext_resource type="PackedScene" uid="uid://02p7fju71mbr" path="res://objects/levelgen/levelgen.tscn" id="6_g4kob"]
@@ -55,9 +54,6 @@ offset_bottom = 768.0
 script = ExtResource("10")
 
 [node name="Levelgen" parent="." instance=ExtResource("6_g4kob")]
-
-[node name="Node3D" parent="Levelgen" instance=ExtResource("5_400sg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Levelgen"]
 environment = SubResource("Environment_y5y3l")

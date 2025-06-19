@@ -13,7 +13,6 @@ func task_completed(task: Task):
 		return
 	incomplete_tasks.erase(task)
 	completed_tasks.append(task)
-	task.task_complete = true
 	UI.log("Task complete! (" + str(len(completed_tasks)) + "/" + str(len(completed_tasks) + len(incomplete_tasks)) + ")")
 
 var color_mats = {

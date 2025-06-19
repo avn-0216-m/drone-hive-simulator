@@ -13,9 +13,6 @@ var task: Task = Task.new()
 @export var pickup_scale: float = 0.0
 @export var cursor_offset: float = 3
 
-var test_width: int = 1
-var test_length: int = 5
-
 func _ready():
 	if task_name == "null":
 		task = null
@@ -41,6 +38,12 @@ func interact(item: Node, interactor: Node):
 	if pickup and item == null:
 		interactor.inventory.pick_up_item(self)
 		interactor.focus = null
+	
+func complete_task():
+	if task.task_complete:
+		return
+	task_complete.emit(task)
+	task.task_complete = true
 	
 func _physics_process(_delta: float) -> void:	
 	if not is_on_floor():

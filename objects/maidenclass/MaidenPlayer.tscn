@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://bsekk4e6xei3j"]
+[gd_scene load_steps=52 format=4 uid="uid://bsekk4e6xei3j"]
 
 [ext_resource type="Script" uid="uid://d1pjw35fko4o4" path="res://scripts/player/PlayerDrone.gd" id="1_g75mf"]
 [ext_resource type="AudioStream" uid="uid://dtodmwvb6r65" path="res://sfx/sprint1.ogg" id="2_ddn3m"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" path="res://objects/maidenclass/BatteryPower.tscn" id="11_pr6p7"]
 [ext_resource type="PackedScene" uid="uid://cgu01k8xinl5l" path="res://objects/TaskList/task_list.tscn" id="12_uh6yw"]
 [ext_resource type="PackedScene" uid="uid://cdol4s1fnd1p1" path="res://objects/inventory/Inventory.tscn" id="13_h4d8n"]
+[ext_resource type="Texture2D" uid="uid://jgm35w74alaq" path="res://objects/TaskList/scribblyarrow.png" id="14_ddn3m"]
 
 [sub_resource type="Animation" id="Animation_n56me"]
 resource_name = "Pause"
@@ -1143,8 +1144,8 @@ margin = 0.4
 size = Vector3(4.44921, 5.11367, 6.80808)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n56me"]
-height = 10.861
-radius = 20.0
+height = 10.0
+radius = 75.0
 
 [sub_resource type="StandardMaterial3D" id="14"]
 transparency = 2
@@ -1167,6 +1168,9 @@ point_count = 2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_if32a"]
 size = Vector3(2.2, 6.361, 2.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ddn3m"]
+size = Vector3(2, 2, 2)
 
 [node name="Drone" type="CharacterBody3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -1321,6 +1325,27 @@ current = true
 [node name="TaskList" parent="." instance=ExtResource("12_uh6yw")]
 
 [node name="Inventory" parent="." instance=ExtResource("13_h4d8n")]
+
+[node name="DebugFinder" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("BoxMesh_ddn3m")
+
+[node name="DebugPointer" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -3.23584
+pivot_offset = Vector2(20, 20)
+texture = ExtResource("14_ddn3m")
 
 [connection signal="body_entered" from="Body/InteractArea" to="." method="body_entered_interaction_area"]
 [connection signal="body_exited" from="Body/InteractArea" to="." method="body_exited_interaction_area"]

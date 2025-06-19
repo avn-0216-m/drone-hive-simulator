@@ -63,6 +63,8 @@ func get_nearby_objects():
 	for body in interact_area.get_overlapping_bodies():
 		if body is not Interactable: continue
 		focus = body
+		$DebugFinder.look_at(focus.global_position, Vector3.UP, true)
+		$DebugPointer.rotation_degrees = $DebugFinder.rotation_degrees.y * -1
 		return
 	focus = null
 		
