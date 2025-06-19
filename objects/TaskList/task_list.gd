@@ -41,7 +41,8 @@ func pop_task():
 	if task_obj == null: return
 	var list_item = list_item_src.instantiate()
 	$Control/TextureRect/VBoxContainer.add_child(list_item)
-	list_item.set_text(task_obj.task_name, task_obj.task.task_complete)
+	list_item.complete = task_obj.task.task_complete
+	list_item.set_text(task_obj.task_name)
 	var task_obj_norm: Vector3 = task_obj.global_position
 	task_obj_norm.y = 0
 	$Lookie.look_at(task_obj.global_position, Vector3.UP, true)

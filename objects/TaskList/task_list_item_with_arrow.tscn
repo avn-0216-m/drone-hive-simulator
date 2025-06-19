@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl04yyipjarco" path="res://objects/TaskList/task_list_item_with_arrow.gd" id="1_56lb7"]
 [ext_resource type="FontFile" uid="uid://ckvqohkwr32ot" path="res://fonts/vcr osd.ttf" id="2_au8wq"]
-[ext_resource type="Texture2D" uid="uid://jgm35w74alaq" path="res://objects/TaskList/scribblyarrow.png" id="3_56lb7"]
+[ext_resource type="Texture2D" uid="uid://catauwiu7hti4" path="res://objects/TaskList/scribblyarrowwhite.png" id="3_56lb7"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 script = ExtResource("1_56lb7")
@@ -27,6 +27,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
+modulate = Color(0.133333, 0.12549, 0.203922, 1)
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
