@@ -45,13 +45,6 @@ _data = {
 
 [node name="Node3D" type="CharacterBody3D"]
 script = ExtResource("1_jefcd")
-task_name = null
-sprinkler_min = null
-sprinkler_max = null
-sprinkler_radius = null
-pickup = null
-pickup_scale = null
-cursor_offset = null
 metadata/_custom_type_script = "uid://bttjj4kqxp475"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

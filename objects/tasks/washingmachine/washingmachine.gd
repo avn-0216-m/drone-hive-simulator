@@ -16,3 +16,6 @@ func interact(item, interactor):
 			open = true
 	elif item is Roomba:
 		UI.log("Do not the roomba.")
+	elif item is Lena:
+		UI.log("MMM YUMMY STINKY GIRL MY FAVOURITE")
+		interactor.inventory.consume_item()

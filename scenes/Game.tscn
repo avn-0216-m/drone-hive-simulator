@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8mi225mogni6"]
+[gd_scene load_steps=14 format=3 uid="uid://b8mi225mogni6"]
 
 [ext_resource type="Texture2D" uid="uid://81faswtxtr3q" path="res://sprites/background/awawawa.png" id="2_2rd6h"]
 [ext_resource type="PackedScene" uid="uid://cid07v6l1k0ng" path="res://scripts/Roomba.tscn" id="4_qy1jj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://02p7fju71mbr" path="res://objects/levelgen/levelgen.tscn" id="6_g4kob"]
 [ext_resource type="PackedScene" uid="uid://bsekk4e6xei3j" path="res://objects/maidenclass/MaidenPlayer.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://cvyq3prh8b7fj" path="res://objects/tasks/washingmachine/washingmachine.tscn" id="7_400sg"]
+[ext_resource type="PackedScene" uid="uid://dia0cs5y4lwt0" path="res://objects/lena/lena.tscn" id="8_g4kob"]
 [ext_resource type="Script" uid="uid://ce1dgduejna5g" path="res://scripts/Root.gd" id="10"]
 
 [sub_resource type="Environment" id="Environment_y5y3l"]
@@ -84,13 +85,9 @@ contents = ExtResource("7")
 
 [node name="Node3D" parent="Levelgen" instance=ExtResource("7_400sg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6115, 8.93062, 3.54027)
-task_name = null
-sprinkler_min = null
-sprinkler_max = null
-sprinkler_radius = null
-pickup = null
-pickup_scale = null
-cursor_offset = null
+
+[node name="Interactable" parent="Levelgen" instance=ExtResource("8_g4kob")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9925, 8.89716, 6.55026)
 
 [node name="Music" type="AudioStreamPlayer" parent="Levelgen"]
 stream = ExtResource("5_g4kob")
