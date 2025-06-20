@@ -1,118 +1,129 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://divdqup0b1mw7"]
 
-[ext_resource path="res://scripts/Hypnoscreen.gd" type="Script" id=1]
-[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background1.png" type="Texture2D" id=3]
-[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background2.png" type="Texture2D" id=4]
-[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background3.png" type="Texture2D" id=5]
-[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background4.png" type="Texture2D" id=6]
-[ext_resource path="res://sprites/hypnoscreen/hypnoscreen background5.png" type="Texture2D" id=7]
-[ext_resource path="res://sprites/hypnoscreen/spiral.png" type="Texture2D" id=8]
-[ext_resource path="res://blender/export/post.obj" type="ArrayMesh" id=9]
-[ext_resource path="res://textures/geometry/post.png" type="Texture2D" id=10]
-[ext_resource path="res://textures/geometry/wall tile.png" type="Texture2D" id=11]
-[ext_resource path="res://materials/static.tres" type="Material" id=12]
+[ext_resource type="Script" uid="uid://bxxujypmm0lfv" path="res://scripts/Hypnoscreen.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxga2c4aqbs3s" path="res://sprites/hypnoscreen/hypnoscreen background1.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://b8k4aq2gur428" path="res://sprites/hypnoscreen/hypnoscreen background2.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bcjph4j6mbi76" path="res://sprites/hypnoscreen/hypnoscreen background3.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://qwsmgfi6c4na" path="res://sprites/hypnoscreen/hypnoscreen background4.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bmptloyng0dsl" path="res://sprites/hypnoscreen/hypnoscreen background5.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bikvi1jixp3u7" path="res://sprites/hypnoscreen/spiral.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://bi4asm68wd6ow" path="res://textures/geometry/wall tile.png" id="11"]
+[ext_resource type="Material" path="res://materials/static.tres" id="12"]
 
-[sub_resource type="StandardMaterial3D" id=1]
-albedo_texture = ExtResource( 11 )
-uv1_scale = Vector3( 3, 0.8, 1 )
-uv1_offset = Vector3( 0, -0.02, 0 )
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_texture = ExtResource("11")
+uv1_scale = Vector3(3, 0.8, 1)
+uv1_offset = Vector3(0, -0.02, 0)
 
-[sub_resource type="BoxMesh" id=2]
-material = SubResource( 1 )
-size = Vector3( 6, 3, 0.4 )
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
+size = Vector3(6, 3, 0.4)
 
-[sub_resource type="SpriteFrames" id=3]
-animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+[sub_resource type="SpriteFrames" id="3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 7.0
-} ]
+}]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 length = 3.0
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:rotation_degrees")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 3 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector3( -3.4151e-06, 0, 0 ), Vector3( 0, 0, 360 ) ]
+"values": [Vector3(-3.4151e-06, 0, 0), Vector3(0, 0, 360)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:pixel_size")
 tracks/1/interp = 2
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 1.5, 3 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 1.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ 0.03, 0.05, 0.03 ]
+"values": [0.03, 0.05, 0.03]
 }
 
-[sub_resource type="StandardMaterial3D" id=5]
-albedo_texture = ExtResource( 10 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1w1o"]
+_data = {
+&"spiral": SubResource("4")
+}
 
-[sub_resource type="BoxShape3D" id=6]
-extents = Vector3( 3.46472, 1.998, 1 )
+[sub_resource type="BoxShape3D" id="6"]
+size = Vector3(6.92944, 3.996, 2)
 
-[sub_resource type="BoxShape3D" id=7]
-extents = Vector3( 3.99365, 2.63571, 3.13357 )
+[sub_resource type="BoxShape3D" id="7"]
+size = Vector3(7.9873, 5.27142, 6.26714)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Hypnoscreen" type="CharacterBody3D" parent="."]
-transform = Transform3D( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 3, 0, 3 )
-script = ExtResource( 1 )
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 3, 0, 3)
+script = ExtResource("1")
 interactable_name = "Hypnoscreen"
 
 [node name="Screen" type="MeshInstance3D" parent="Hypnoscreen"]
-transform = Transform3D( 1, 0, 0, 0, 0.960099, -0.279661, 0, 0.279661, 0.960099, 0, 4.45007, 0 )
-mesh = SubResource( 2 )
-material/0 = null
+transform = Transform3D(1, 0, 0, 0, 0.960099, -0.279661, 0, 0.279661, 0.960099, 0, 4.45007, 0)
+mesh = SubResource("2")
 
 [node name="SpiralBackground" type="AnimatedSprite3D" parent="Hypnoscreen/Screen"]
-transform = Transform3D( 1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.017096, -0.121845, 0.222097 )
-material_override = ExtResource( 12 )
+transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0.017096, -0.121845, 0.222097)
+material_override = ExtResource("12")
 pixel_size = 0.075
-frames = SubResource( 3 )
-playing = true
+sprite_frames = SubResource("3")
 
 [node name="Spiral" type="Sprite3D" parent="Hypnoscreen/Screen/SpiralBackground"]
-transform = Transform3D( 1, 0, 0, 0, 0.999999, 5.96047e-08, 0, -5.96047e-08, 0.999999, 0, -0.0324454, 0.0539329 )
+transform = Transform3D(1, 0, 0, 0, 0.999999, 5.96047e-08, 0, -5.96047e-08, 0.999999, 0, -0.0324454, 0.0539329)
 visible = false
-modulate = Color( 0.952941, 0.611765, 1, 1 )
+modulate = Color(0.952941, 0.611765, 1, 1)
 pixel_size = 0.03
-texture = ExtResource( 8 )
+texture = ExtResource("8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Hypnoscreen/Screen/SpiralBackground/Spiral"]
-anims/spiral = SubResource( 4 )
+libraries = {
+&"": SubResource("AnimationLibrary_v1w1o")
+}
 
 [node name="Leg2" type="MeshInstance3D" parent="Hypnoscreen"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0, 0.6 )
-mesh = ExtResource( 9 )
-material/0 = SubResource( 5 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6, 0, 0.6)
 
 [node name="Leg3" type="MeshInstance3D" parent="Hypnoscreen"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0.6 )
-mesh = ExtResource( 9 )
-material/0 = SubResource( 5 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 0.6)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hypnoscreen"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116335, 2.27171, 0 )
-shape = SubResource( 6 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.116335, 2.27171, 0)
+shape = SubResource("6")
 
 [node name="Timer" type="Timer" parent="Hypnoscreen"]
 
 [node name="Nearby" type="Area3D" parent="Hypnoscreen"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hypnoscreen/Nearby"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15226, 2.77402 )
-shape = SubResource( 7 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.15226, 2.77402)
+shape = SubResource("7")

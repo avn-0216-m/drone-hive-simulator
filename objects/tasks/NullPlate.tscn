@@ -1,127 +1,143 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://ddaue62rtgy3n"]
 
-[ext_resource path="res://scripts/NullPlate.gd" type="Script" id=1]
-[ext_resource path="res://sprites/numbers/null/null numbers5.png" type="Texture2D" id=2]
-[ext_resource path="res://sprites/numbers/null/null numbers6.png" type="Texture2D" id=3]
-[ext_resource path="res://sprites/numbers/null/null numbers3.png" type="Texture2D" id=4]
-[ext_resource path="res://sprites/numbers/null/null numbers4.png" type="Texture2D" id=5]
-[ext_resource path="res://sprites/numbers/null/null numbers1.png" type="Texture2D" id=6]
-[ext_resource path="res://sprites/numbers/null/null numbers2.png" type="Texture2D" id=7]
-[ext_resource path="res://resources/curves/color.tres" type="Curve" id=8]
-[ext_resource path="res://textures/cubeplate/nullcubeplate.png" type="Texture2D" id=25]
+[ext_resource type="Script" uid="uid://c8lcvjjmx33u1" path="res://scripts/NullPlate.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://bjoc8iw5euw14" path="res://sprites/numbers/null/null numbers5.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://ranlgsuj58x8" path="res://sprites/numbers/null/null numbers6.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://72x5x75nrwjc" path="res://sprites/numbers/null/null numbers3.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://tjcccprci1d7" path="res://sprites/numbers/null/null numbers4.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://cq83i5bppjdvj" path="res://sprites/numbers/null/null numbers1.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://buoel5mh168qo" path="res://sprites/numbers/null/null numbers2.png" id="7"]
+[ext_resource type="Curve" path="res://resources/curves/color.tres" id="8"]
+[ext_resource type="Texture2D" uid="uid://diaaw6mhjgwfa" path="res://textures/cubeplate/nullcubeplate.png" id="25"]
 
-[sub_resource type="StandardMaterial3D" id=1]
-albedo_color = Color( 0.133333, 0.12549, 0.203922, 1 )
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_color = Color(0.133333, 0.12549, 0.203922, 1)
 
-[sub_resource type="BoxMesh" id=2]
-material = SubResource( 1 )
-size = Vector3( 1.8, 0.503, 1.8 )
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
+size = Vector3(1.8, 0.503, 1.8)
 
-[sub_resource type="BoxShape3D" id=3]
-extents = Vector3( 1, 0.0780637, 1 )
+[sub_resource type="BoxShape3D" id="3"]
+size = Vector3(2, 0.156127, 2)
 
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ) ],
+[sub_resource type="SpriteFrames" id="4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="BoxMesh" id=5]
+[sub_resource type="BoxMesh" id="5"]
 
-[sub_resource type="StandardMaterial3D" id=6]
-params_specular_mode = 4
-albedo_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
-
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id="7"]
 length = 2.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Pressure:position:y")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.3, 1.5 ),
-"transitions": PackedFloat32Array( 1, 0.594603, 1 ),
+"times": PackedFloat32Array(0, 0.3, 1.5),
+"transitions": PackedFloat32Array(1, 0.594603, 1),
 "update": 0,
-"values": [ 0.284, 0.284, -0.005 ]
+"values": [0.284, 0.284, -0.005]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("OmniLight3D:light_energy")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 1.5 ),
-"transitions": PackedFloat32Array( 1, 0.392292 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 0.392292),
 "update": 0,
-"values": [ 0.0, 1.0 ]
+"values": [0.0, 1.0]
 }
 tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PackedFloat32Array( 0.5 ),
-"transitions": PackedFloat32Array( 1 ),
-"values": [ {
-"args": [  ],
-"method": "complete_task"
-} ]
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"complete_task"
+}]
 }
 
-[sub_resource type="BoxShape3D" id=8]
-extents = Vector3( 1, 0.108303, 1 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7idlh"]
+_data = {
+&"activate": SubResource("7")
+}
+
+[sub_resource type="BoxShape3D" id="8"]
+size = Vector3(2, 0.216606, 2)
 
 [node name="NullPlate" type="CharacterBody3D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 variant_max = 5
 interactable_name = "button"
-color_curve = ExtResource( 8 )
+color_curve = ExtResource("8")
 
 [node name="Pressure" type="CharacterBody3D" parent="."]
-transform = Transform3D( 0.9, 0, 0, 0, 1, 0, 0, 0, 0.9, 0, 0.284, 0 )
+transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 0.9, 0, 0.284, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pressure"]
-mesh = SubResource( 2 )
-material/0 = null
+mesh = SubResource("2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pressure"]
-transform = Transform3D( 0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.184967, 0 )
-shape = SubResource( 3 )
+transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0.184967, 0)
+shape = SubResource("3")
 
 [node name="Texture2D" type="Sprite3D" parent="Pressure"]
-transform = Transform3D( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.251997, 7.64391e-09 )
+transform = Transform3D(1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 0.251997, 7.64391e-09)
 pixel_size = 0.1125
 shaded = true
 double_sided = false
-texture = ExtResource( 25 )
-__meta__ = {
-"_editor_description_": ""
-}
+texture = ExtResource("25")
 
 [node name="Number" type="AnimatedSprite3D" parent="Pressure/Texture2D"]
-transform = Transform3D( 1, 0, 0, 0, 1, -1.1921e-07, 0, 1.1921e-07, 1, 0, 1.8038e-08, 0.0157608 )
+transform = Transform3D(1, 0, 0, 0, 1, -1.1921e-07, 0, 1.1921e-07, 1, 0, 1.8038e-08, 0.0157608)
 pixel_size = 0.1125
-frames = SubResource( 4 )
+sprite_frames = SubResource("4")
 
 [node name="Base" type="MeshInstance3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.15, 0 )
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -0.15, 0)
+mesh = SubResource("5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/activate = SubResource( 7 )
+libraries = {
+&"": SubResource("AnimationLibrary_7idlh")
+}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1271, 0 )
-shape = SubResource( 8 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1271, 0)
+shape = SubResource("8")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.591636, 0 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.591636, 0)
 light_energy = 0.0

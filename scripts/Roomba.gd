@@ -1,1 +1,2 @@
 extends Interactable
+class_name Roomba

@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://by7r67s2753mh"]
+
+[ext_resource type="Texture2D" uid="uid://id2aqf4evrk7" path="res://objects/tasks/flower/flower.png" id="1_5u1wc"]
+[ext_resource type="Script" uid="uid://b1bk6eybfpp42" path="res://objects/tasks/flower/Flower.gd" id="1_vwhfl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vwhfl"]
+transparency = 1
+albedo_texture = ExtResource("1_5u1wc")
+texture_filter = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_l3wv2"]
+material = SubResource("StandardMaterial3D_vwhfl")
+size = Vector2(1, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vwhfl"]
+size = Vector3(1, 2.20319, 1)
+
+[node name="Flower" type="CharacterBody3D"]
+script = ExtResource("1_vwhfl")
+task_name = "Admire nature"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_l3wv2")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.104034, 0)
+shape = SubResource("BoxShape3D_vwhfl")

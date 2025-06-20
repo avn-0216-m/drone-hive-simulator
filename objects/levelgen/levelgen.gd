@@ -43,8 +43,8 @@ var hallway_pool = [
 # Key = Corresponding meshlib ID
 # Value = Path to object
 var spawnables = {
-	21: "res://objects/flower/Flower.tscn",
-	22: "res://objects/thingy_bop/thingy_bop.tscn"
+	21: "res://objects/tasks/flower/Flower.tscn",
+	22: "res://objects/tasks/thingy_bop/thingy_bop.tscn"
 }
 
 # Grabbing child nodes as variables

@@ -55,7 +55,7 @@
 [ext_resource type="Material" path="res://blender/showerhead/export/Metal.material" id="53"]
 [ext_resource type="Material" path="res://blender/bathmat/export/Material.material" id="54"]
 [ext_resource type="Texture2D" uid="uid://c7kdfxmve7b3c" path="res://blender/analogclock/analogclock_onemesh_74d90cc05c5fdd48b005ece6dbff2d4f.jpg" id="55_gtey4"]
-[ext_resource type="Texture2D" uid="uid://id2aqf4evrk7" path="res://objects/flower/flower.png" id="56_lbfa8"]
+[ext_resource type="Texture2D" uid="uid://id2aqf4evrk7" path="res://objects/tasks/flower/flower.png" id="56_lbfa8"]
 
 [sub_resource type="ArrayMesh" id="1"]
 resource_name = "bed_Cube"

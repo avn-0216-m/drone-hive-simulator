@@ -1,105 +1,97 @@
-[gd_resource type="VisualShader" load_steps=10 format=2]
+[gd_resource type="VisualShader" load_steps=10 format=3 uid="uid://dvphr5xfm2i3c"]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=1]
+[sub_resource type="VisualShaderNodeVectorOp" id="1"]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=2]
-default_input_values = [ 0, Vector3( 3, 3, 3 ), 1, Vector3( 0, 0, 0 ) ]
+[sub_resource type="VisualShaderNodeVectorOp" id="2"]
+default_input_values = [0, Vector3(3, 3, 3), 1, Vector3(0, 0, 0)]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=3]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.3, 0.3, 0.3 ) ]
+[sub_resource type="VisualShaderNodeVectorOp" id="3"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.3, 0.3, 0.3)]
 operator = 1
 
-[sub_resource type="VisualShaderNodeVectorOp" id=4]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 0.1, 0.1, 1 ) ]
+[sub_resource type="VisualShaderNodeVectorOp" id="4"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(0.1, 0.1, 1)]
 operator = 2
 
-[sub_resource type="FastNoiseLite" id=5]
-octaves = 1
-period = 0.1
-persistence = 0.398
+[sub_resource type="FastNoiseLite" id="5"]
 
-[sub_resource type="NoiseTexture" id=6]
-flags = 3
+[sub_resource type="NoiseTexture2D" id="6"]
 width = 1000
 height = 1000
 seamless = true
-noise = SubResource( 5 )
+noise = SubResource("5")
 
-[sub_resource type="VisualShaderNodeTexture" id=7]
+[sub_resource type="VisualShaderNodeTexture" id="7"]
 output_port_for_preview = 0
-texture = SubResource( 6 )
+texture = SubResource("6")
 
-[sub_resource type="VisualShaderNodeInput" id=8]
+[sub_resource type="VisualShaderNodeInput" id="8"]
 input_name = "time"
 
-[sub_resource type="VisualShaderNodeInput" id=9]
+[sub_resource type="VisualShaderNodeInput" id="9"]
 input_name = "uv"
 
 [resource]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D tex_frg_3;
 
 
 
-void vertex() {
-// Output:0
-
-}
-
 void fragment() {
 // Input:8
-	vec3 n_out8p0 = vec3(UV, 0.0);
+	vec2 n_out8p0 = UV;
+
 
 // VectorOp:14
 	vec3 n_in14p1 = vec3(0.10000, 0.10000, 1.00000);
-	vec3 n_out14p0 = n_out8p0 * n_in14p1;
+	vec3 n_out14p0 = vec3(n_out8p0, 0.0) * n_in14p1;
+
 
 // Input:7
 	float n_out7p0 = TIME;
+
 
 // VectorOp:12
 	vec3 n_in12p0 = vec3(3.00000, 3.00000, 3.00000);
 	vec3 n_out12p0 = n_in12p0 * vec3(n_out7p0);
 
+
 // VectorOp:10
 	vec3 n_out10p0 = n_out14p0 + n_out12p0;
 
-// Texture:3
-	vec4 tex_frg_3_read = texture(tex_frg_3, n_out10p0.xy);
-	vec3 n_out3p0 = tex_frg_3_read.rgb;
-	float n_out3p1 = tex_frg_3_read.a;
+
+// Texture2D:3
+	vec4 n_out3p0 = texture(tex_frg_3, vec2(n_out10p0.xy));
+
 
 // VectorOp:13
 	vec3 n_in13p1 = vec3(0.30000, 0.30000, 0.30000);
-	vec3 n_out13p0 = n_out3p0 - n_in13p1;
+	vec3 n_out13p0 = vec3(n_out3p0.xyz) - n_in13p1;
+
 
 // Output:0
 	ALBEDO = n_out13p0;
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -105, 23 )
-nodes/fragment/0/position = Vector2( 820, 80 )
-nodes/fragment/3/node = SubResource( 7 )
-nodes/fragment/3/position = Vector2( 460, 80 )
-nodes/fragment/7/node = SubResource( 8 )
-nodes/fragment/7/position = Vector2( -40, 220 )
-nodes/fragment/8/node = SubResource( 9 )
-nodes/fragment/8/position = Vector2( -20, 80 )
-nodes/fragment/10/node = SubResource( 1 )
-nodes/fragment/10/position = Vector2( 300, 80 )
-nodes/fragment/12/node = SubResource( 2 )
-nodes/fragment/12/position = Vector2( 140, 220 )
-nodes/fragment/13/node = SubResource( 3 )
-nodes/fragment/13/position = Vector2( 640, 80 )
-nodes/fragment/14/node = SubResource( 4 )
-nodes/fragment/14/position = Vector2( 140, 80 )
-nodes/fragment/connections = PackedInt32Array( 7, 0, 12, 1, 12, 0, 10, 1, 8, 0, 14, 0, 14, 0, 10, 0, 10, 0, 3, 0, 3, 0, 13, 0, 13, 0, 0, 0 )
+graph_offset = Vector2(-105, 23)
+nodes/fragment/0/position = Vector2(820, 80)
+nodes/fragment/3/node = SubResource("7")
+nodes/fragment/3/position = Vector2(460, 80)
+nodes/fragment/7/node = SubResource("8")
+nodes/fragment/7/position = Vector2(-40, 220)
+nodes/fragment/8/node = SubResource("9")
+nodes/fragment/8/position = Vector2(-20, 80)
+nodes/fragment/10/node = SubResource("1")
+nodes/fragment/10/position = Vector2(300, 80)
+nodes/fragment/12/node = SubResource("2")
+nodes/fragment/12/position = Vector2(140, 220)
+nodes/fragment/13/node = SubResource("3")
+nodes/fragment/13/position = Vector2(640, 80)
+nodes/fragment/14/node = SubResource("4")
+nodes/fragment/14/position = Vector2(140, 80)
+nodes/fragment/connections = PackedInt32Array(7, 0, 12, 1, 12, 0, 10, 1, 8, 0, 14, 0, 14, 0, 10, 0, 10, 0, 3, 0, 3, 0, 13, 0, 13, 0, 0, 0)

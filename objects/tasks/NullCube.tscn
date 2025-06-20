@@ -1,54 +1,45 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://fuwhx4dpn8gg"]
 
-[ext_resource path="res://textures/cubeplate/nullcubeplate.png" type="Texture2D" id=1]
-[ext_resource path="res://resources/curves/color.tres" type="Curve" id=2]
-[ext_resource path="res://scripts/NullCube.gd" type="Script" id=5]
+[ext_resource type="Texture2D" uid="uid://diaaw6mhjgwfa" path="res://textures/cubeplate/nullcubeplate.png" id="1"]
+[ext_resource type="Curve" path="res://resources/curves/color.tres" id="2"]
+[ext_resource type="Script" uid="uid://cs2guivmqrdqu" path="res://scripts/NullCube.gd" id="5"]
 
-[sub_resource type="StandardMaterial3D" id=1]
-albedo_texture = ExtResource( 1 )
-uv1_scale = Vector3( 3, 2, 1 )
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_texture = ExtResource("1")
+uv1_scale = Vector3(3, 2, 1)
 
-[sub_resource type="BoxMesh" id=2]
-material = SubResource( 1 )
+[sub_resource type="BoxMesh" id="2"]
+material = SubResource("1")
 
-[sub_resource type="BoxMesh" id=3]
+[sub_resource type="BoxMesh" id="3"]
 
-[sub_resource type="StandardMaterial3D" id=4]
-resource_local_to_scene = true
-flags_transparent = true
-flags_unshaded = true
-albedo_color = Color( 0.992157, 0, 1, 1 )
-uv1_scale = Vector3( 3, 2, 1 )
-
-[sub_resource type="BoxShape3D" id=5]
+[sub_resource type="BoxShape3D" id="5"]
 
 [node name="NullCube" type="CharacterBody3D"]
-transform = Transform3D( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0 )
-script = ExtResource( 5 )
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+script = ExtResource("5")
 variant_max = 5
 interactable_name = "NullCube"
-color_curve = ExtResource( 2 )
+color_curve = ExtResource("2")
 
 [node name="Cube" type="MeshInstance3D" parent="."]
-mesh = SubResource( 2 )
-material/0 = null
+mesh = SubResource("2")
 
 [node name="Numbers" type="MeshInstance3D" parent="."]
-transform = Transform3D( 1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0 )
+transform = Transform3D(1.05, 0, 0, 0, 1.05, 0, 0, 0, 1.05, 0, 0, 0)
 visible = false
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
+mesh = SubResource("3")
 
 [node name="Lock" type="MeshInstance3D" parent="."]
-transform = Transform3D( 1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0 )
+transform = Transform3D(1.03, 0, 0, 0, 1.03, 0, 0, 0, 1.03, 0, 0, 0)
 visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource( 5 )
+shape = SubResource("5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 visible = false
-light_color = Color( 1, 0.894118, 0.0196078, 1 )
+light_color = Color(1, 0.894118, 0.0196078, 1)
 light_energy = 2.0
