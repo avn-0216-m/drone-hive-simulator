@@ -128,7 +128,10 @@ func handle_actions():
 		interact()
 		
 	if Input.is_action_just_pressed("beep"):
-		print("Beep!")
+		if GLOBAL.get_beep():
+			UI.log("Your [beep] number iiiiis: " + str(randi()))
+		else:
+			UI.log("Boop! " + str(randi()))
 		
 	if Input.is_action_just_pressed("task_list"):
 		var tasks = $TaskFindArea.get_overlapping_bodies()

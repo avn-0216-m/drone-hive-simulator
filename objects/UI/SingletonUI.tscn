@@ -1,35 +1,65 @@
-[gd_scene load_steps=6 format=3 uid="uid://0dfv5ibuesnr"]
+[gd_scene load_steps=5 format=3 uid="uid://0dfv5ibuesnr"]
 
 [ext_resource type="Theme" uid="uid://dh1ismov8sbk8" path="res://themes/theme.tres" id="1"]
 [ext_resource type="Script" uid="uid://dg8c1plixl14x" path="res://scripts/ui/UI.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://bcj61ilofdxi7" path="res://sprites/ui/cross.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://bk322mbbkt63p" path="res://sprites/ui/treasure.png" id="4"]
-[ext_resource type="Texture2D" uid="uid://tar3yevfutq0" path="res://sprites/ui/tick.png" id="5"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[sub_resource type="Gradient" id="Gradient_8gcgp"]
+colors = PackedColorArray(0, 0, 0, 0.784314, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8bdfp"]
+gradient = SubResource("Gradient_8gcgp")
+fill_from = Vector2(0.111111, 0.777778)
+
+[node name="LogBox" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -200.0
+offset_right = 650.0
+grow_vertical = 0
+script = ExtResource("2")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+clip_contents = true
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource("1")
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
-script = ExtResource("2")
-tick = ExtResource("3")
-cross = ExtResource("5")
-treasure = ExtResource("4")
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="Anchor" type="Control" parent="."]
+[node name="Shading" type="TextureRect" parent="MarginContainer"]
+self_modulate = Color(1, 1, 1, 0.701961)
+clip_contents = true
 layout_mode = 2
-theme = ExtResource("1")
+texture = SubResource("GradientTexture2D_8bdfp")
 
-[node name="ActivityLog" type="VBoxContainer" parent="Anchor"]
-layout_mode = 0
-anchor_top = 1.0
+[node name="Margin" type="MarginContainer" parent="MarginContainer/Shading"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1.0
-offset_right = 800.0
 grow_vertical = 0
-mouse_filter = 2
+theme = ExtResource("1")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="LabelContainer" type="BoxContainer" parent="MarginContainer/Shading/Margin"]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 8
 alignment = 2
+vertical = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
