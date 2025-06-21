@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8rvfsfgeei63"]
+
+[ext_resource type="Script" uid="uid://bpkh3n1kcnwit" path="res://clothes.gd" id="1_n6ykn"]
+[ext_resource type="Texture2D" uid="uid://baaoas4gsa3xi" path="res://objects/tasks/washingmachine/hoodie.png" id="2_o8xpb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_voq43"]
+size = Vector3(1.95, 0.205, 1.95)
+
+[node name="Interactable" type="CharacterBody3D"]
+script = ExtResource("1_n6ykn")
+pickup = true
+metadata/_custom_type_script = "uid://bttjj4kqxp475"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+pixel_size = 0.06
+texture_filter = 0
+texture = ExtResource("2_o8xpb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00361633, 0.00524902, 0.00524902)
+shape = SubResource("BoxShape3D_voq43")

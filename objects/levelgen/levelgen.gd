@@ -24,7 +24,8 @@ var room_pool = [
 	"test1.tscn",
 	"test2.tscn",
 	"FlowerRoom.tscn",
-	"ThingieBopRoom.tscn"
+	"ThingieBopRoom.tscn",
+	"WashingMachineRoom.tscn"
 	]
 	
 var hallway_root = "res://objects/levelgen/hallways/"
@@ -43,8 +44,10 @@ var hallway_pool = [
 # Key = Corresponding meshlib ID
 # Value = Path to object
 var spawnables = {
-	21: "res://objects/tasks/flower/Flower.tscn",
-	22: "res://objects/tasks/thingy_bop/thingy_bop.tscn"
+	21: "res://objects/tasks/washingmachine/washingmachine.tscn",
+	22: "res://objects/tasks/flower/Flower.tscn",
+	23: "res://objects/tasks/thingy_bop/thingy_bop.tscn"
+	
 }
 
 # Grabbing child nodes as variables

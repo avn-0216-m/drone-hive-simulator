@@ -8,7 +8,6 @@ var task: Task = Task.new()
 @export var sprinkler_source: PackedScene
 @export var sprinkler_min: int = 1
 @export var sprinkler_max: int = 5
-@export var sprinkler_radius: float = 10.0
 @export var pickup: bool = false
 @export var pickup_scale: float = 0.0
 @export var cursor_offset: float = 3

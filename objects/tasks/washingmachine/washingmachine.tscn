@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvyq3prh8b7fj"]
+[gd_scene load_steps=8 format=3 uid="uid://cvyq3prh8b7fj"]
 
 [ext_resource type="Script" uid="uid://b34cd6dk0cpdo" path="res://objects/tasks/washingmachine/washingmachine.gd" id="1_jefcd"]
+[ext_resource type="PackedScene" uid="uid://c8rvfsfgeei63" path="res://objects/tasks/washingmachine/clothes.tscn" id="2_bf2m4"]
 [ext_resource type="PackedScene" uid="uid://dy7laskik6w41" path="res://objects/tasks/washingmachine/washing machine mk2.blend" id="2_lylgk"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e00rm"]
@@ -45,6 +46,9 @@ _data = {
 
 [node name="Node3D" type="CharacterBody3D"]
 script = ExtResource("1_jefcd")
+task_name = "Do some laundry"
+sprinkler_source = ExtResource("2_bf2m4")
+sprinkler_min = 3
 metadata/_custom_type_script = "uid://bttjj4kqxp475"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

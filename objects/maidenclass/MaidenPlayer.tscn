@@ -1141,7 +1141,7 @@ material = SubResource("StandardMaterial3D_if32a")
 
 [sub_resource type="BoxShape3D" id="13"]
 margin = 0.4
-size = Vector3(4.44921, 5.11367, 6.80808)
+size = Vector3(4.44921, 5.86836, 6.80808)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n56me"]
 height = 10.0
@@ -1269,7 +1269,7 @@ transform = Transform3D(0.0222212, 0, -0.833037, 0, 0.833333, 0, 0.833037, 0, 0.
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Body/InteractArea"]
-transform = Transform3D(1.00003, 0, -5.02914e-08, 0, 1.00003, 0, 5.02914e-08, 0, 1.00003, 1.63827, -4.372, -0.242351)
+transform = Transform3D(1.00003, 0, -5.58794e-08, 0, 1.00003, 0, 5.58794e-08, 0, 1.00003, 1.63827, -4.74936, -0.242351)
 shape = SubResource("13")
 
 [node name="ItemDrop" type="Node3D" parent="Body"]
